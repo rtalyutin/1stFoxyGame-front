@@ -19,6 +19,7 @@
 | Lifecycle and network | Running and countdown network loss paused the run; reconnection required explicit resume. A delayed health response could not override a blur-cancelled start. Pending touch cancellation and stale release did not cast or start cooldown. Pointer cancellation was safe. Natural defeat froze simulation; retry used a different run ID. |
 | Visibility and graphics | Synthetic `document.hidden`/`visibilitychange` and blur events verified their handlers. Actual `WEBGL_lose_context.loseContext()` paused and froze the run; `restoreContext()` restored rendering readiness while the run remained paused. No page errors occurred in the passing browser scenarios. |
 | DPR 3 | Render target was 643×1392. Three aim/projection round trips had maximum error 0.272 CSS pixels. The hero was inside the portrait viewport. |
+| Production bundle smoke | A fresh `npm run build` was served as static `dist` files with a local API proxy. The 3D scene rendered, the run reached `RUNNING`, distance advanced and one mouse click produced `Крюк летит`. Bundled default/color shader chunks loaded successfully. Zero page errors, console errors or failed requests. Screenshot inspected. |
 | Actual HTTP | Five requests verified health/healthz 200 with fresh timestamps and `no-store`, unavailable profile/registration 404, and malformed JSON 400 with the bounded error envelope. |
 | Negative test sensitivity | In an isolated copy, lowering hook-hit priority below contact caused three of 21 combat tests to fail, exit code 1. The original implementation was not mutated. |
 
@@ -28,7 +29,11 @@ The verifier reproduced a blocking browser defect: storing native `fetch` as an 
 
 Two initial browser failures were test-fixture errors, not accepted product defects: the movement measurement included sequential key-transition ticks, and the CDP touch-end fixture released the movement finger instead of the aiming finger. Event traces identified both; corrected checks passed. A DPR observer also needed the actual versioned Vite module URL; its final probe passed.
 
-This verification does not establish performance or ergonomics on physical Android hardware, packaged Android/desktop apps, production-host TLS/rollback, or final art quality. Graphics use temporary models. Detailed behavior checks ran against Vite-served source; CI/build/container results are recorded separately by the release workflow and are not inferred here.
+This verification does not establish performance or ergonomics on physical Android hardware, packaged Android/desktop apps, production-host TLS/rollback, or final art quality. Graphics use temporary models. Detailed behavior checks ran against Vite-served source; a separate production-bundle smoke also passed. CI/container results are recorded separately by the release workflow and are not inferred here.
+
+## Production bundle identity
+
+The smoke used a fresh Vite production build of the same unchanged runtime source, Chromium 141.0.7390.37 at 1280×800, DPR 1. Its 80-file `dist` manifest SHA-256 is `2806a49a148b90c6649b1728bc3bccc258de5b54d9c75c8872022cd698bffdfe`, calculated with the same sorted path/hash/LF format as the runtime manifest, including source maps. Main entry: `assets/index-UVZGJ_Ma.js`. This confirms local bundle/shader behavior; it does not claim a hosted production deployment.
 
 ## Runtime manifest
 
