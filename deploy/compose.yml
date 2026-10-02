@@ -1,0 +1,35 @@
+name: foxy-r1
+services:
+  backend:
+    image: ${BACK_IMAGE:?Set BACK_IMAGE to the verified backend image ID}
+    pull_policy: never
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3001
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+  frontend:
+    image: ${FRONT_IMAGE:?Set FRONT_IMAGE to the verified frontend image ID}
+    pull_policy: never
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    # A separate TLS reverse proxy terminates HTTPS on the selected domain.
+    # Loopback only by default: this is not a public TLS endpoint.
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${HTTP_PORT:-8080}:8080"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true

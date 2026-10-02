@@ -1,0 +1,8 @@
+**
+!dist/
+!dist/**
+!package.json
+!package-lock.json
+!deploy/
+!deploy/nginx.conf
+!Dockerfile

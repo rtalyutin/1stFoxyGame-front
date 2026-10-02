@@ -1,0 +1,105 @@
+name: R1 CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: r1-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: R1 verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+      SOURCE_SHA: ${{ github.sha }}
+    steps:
+      - name: Checkout exact revision
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Set up pinned Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Verify R1 behavior
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: Stamp the frontend revision
+        run: node --input-type=module -e 'import {writeFileSync} from "node:fs"; writeFileSync("dist/version.json", JSON.stringify({revision:process.env.SOURCE_SHA}) + "\n")'
+      - name: Read paired backend revision
+        id: backend-ref
+        run: |
+          backend_sha=$(tr -d '\n' < deploy/backend-ref.txt)
+          [[ "$backend_sha" =~ ^[0-9a-f]{40}$ ]]
+          printf 'sha=%s\n' "$backend_sha" >> "$GITHUB_OUTPUT"
+      - name: Checkout paired backend
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: rtalyutin/1stFoxyGame-back
+          ref: ${{ steps.backend-ref.outputs.sha }}
+          path: .ci-backend
+          persist-credentials: false
+      - name: Build paired backend
+        working-directory: .ci-backend
+        env:
+          BACKEND_SHA: ${{ steps.backend-ref.outputs.sha }}
+        run: |
+          npm ci
+          npm run build
+          docker build --build-arg SOURCE_SHA="$BACKEND_SHA" --tag "foxy-back:$BACKEND_SHA" .
+      - name: Package tested build
+        run: |
+          docker build --build-arg SOURCE_SHA="$SOURCE_SHA" --tag "foxy-front:$SOURCE_SHA" .
+      - name: Smoke test the real frontend and backend pair
+        env:
+          BACKEND_SHA: ${{ steps.backend-ref.outputs.sha }}
+        run: |
+          trap 'docker logs foxy-smoke; docker logs foxy-back-smoke; docker rm -f foxy-smoke foxy-back-smoke; docker network rm foxy-smoke-net' EXIT
+          docker network create foxy-smoke-net
+          docker run --detach --name foxy-back-smoke --network foxy-smoke-net --network-alias backend --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true "foxy-back:$BACKEND_SHA"
+          docker run --detach --name foxy-smoke --network foxy-smoke-net --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true --publish 127.0.0.1:18080:8080 "foxy-front:$SOURCE_SHA"
+          curl --fail --silent --show-error --retry 10 --retry-delay 1 --retry-all-errors --retry-max-time 30 --max-time 3 --connect-timeout 3 http://127.0.0.1:18080/healthz
+          curl --fail --silent --show-error --retry 10 --retry-delay 1 --retry-all-errors --retry-max-time 30 --max-time 3 --connect-timeout 3 http://127.0.0.1:18080/api/v1/health | node -e 'let s=""; process.stdin.on("data",c=>s+=c).on("end",()=>{const h=JSON.parse(s); if(h.status!=="ok"||h.apiVersion!=="1"||!Number.isFinite(Date.parse(h.serverTime)))process.exit(1)})'
+          curl --fail --silent --show-error http://127.0.0.1:18080/version.json | node -e 'let s=""; process.stdin.on("data",c=>s+=c).on("end",()=>{if(JSON.parse(s).revision!==process.env.SOURCE_SHA)process.exit(1)})'
+          test "$(docker inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' foxy-back-smoke)" = "$BACKEND_SHA"
+      - name: Archive immutable build
+        env:
+          BACKEND_SHA: ${{ steps.backend-ref.outputs.sha }}
+        run: |
+          mkdir artifact
+          docker save "foxy-front:$SOURCE_SHA" | gzip -n > artifact/image.tar.gz
+          docker image inspect --format '{{.Id}}' "foxy-front:$SOURCE_SHA" > artifact/image-id.txt
+          printf '%s\n' "$SOURCE_SHA" > artifact/source-sha.txt
+          tar -czf artifact/dist.tar.gz dist
+          docker save "foxy-back:$BACKEND_SHA" | gzip -n > artifact/backend-image.tar.gz
+          docker image inspect --format '{{.Id}}' "foxy-back:$BACKEND_SHA" > artifact/backend-image-id.txt
+          printf '%s\n' "$BACKEND_SHA" > artifact/backend-source-sha.txt
+          (cd artifact && sha256sum image.tar.gz dist.tar.gz image-id.txt source-sha.txt backend-image.tar.gz backend-image-id.txt backend-source-sha.txt > SHA256SUMS)
+      - name: Upload review artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: foxy-front-${{ github.sha }}-${{ github.run_attempt }}
+          path: artifact/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
