@@ -1,0 +1,17 @@
+{
+  "name": "1stfoxygame-front",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24 <25" },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": { "@babylonjs/core": "9.29.0" },
+  "devDependencies": { "typescript": "7.0.2", "vite": "8.3.2", "vitest": "5.0.3" }
+}
