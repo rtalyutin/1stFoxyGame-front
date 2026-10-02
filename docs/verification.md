@@ -1,5 +1,7 @@
 # R1 behavior verification
 
+The initial blockout report below is historical. The current GLB integration verification is recorded in the final section.
+
 **Verdict: PASS for the local R1 behavior scope below.** Verified on 2026-10-02 by a verifier separate from the implementation author. This is not a deployment approval or a claim of native Android acceptance.
 
 ## Object and environment
@@ -49,5 +51,63 @@ fd1b8d14a8752f9cfaf984d3cf827ca1dccc20569ff0ee9c481b65ab1d96e348  src/game/simul
 26c2c09c4faeee89f7921b4edc1cea6f487fefa616e1dab3731ff0c656b4ee73  src/presentation/world.ts
 f045c38401b59c0b8f02569fb5a1f0149a5cad53c2c60edf8f8f6149ef2a3d57  src/style.css
 8f2537f9a6e27bbd339b8f2f33f3cbeaa3272a73985fbc059163a192d004d98c  tsconfig.json
+70f3b9d5e1e4af04aab54fc8ebcf6e6b089d78ee1f2b513860618fb38b111308  vite.config.ts
+```
+
+## GLB integration follow-up — current R1
+
+**PASS for local model integration behavior**, independently verified on 2026-10-02 UTC. Final local source snapshot: `ab6c03c014433bbc655b77cd02624ad73394ef59`, clean before/after. Runtime content is identified by the manifest below; later documentation/publication does not alter it. QA used Chromium 141 / Playwright 1.56.1, WebGL2 SwiftShader, Node 24.19.0 and Babylon 9.29.0, at 1280×800 and 390×844. Real local backend health API was used.
+
+| Scope | Observed result |
+| --- | --- |
+| Source assets | All ten GLB files are byte-identical to the uploaded Models v1 ZIP exports. Runtime import and original hashes are checked; source ZIP SHA256: `4f8903f79ae07610cf114938fd530757cc21f78539bfcc4e214c903fd56b08f5`. |
+| Automatic checks | 32/32 tests across five files, strict typecheck and production build passed. |
+| Browser checks | Ten scenarios on the corrected runtime plus four fresh final scenarios passed. Separate projection checks confirmed A/D and aim direction. |
+| Event/animation adapter | Actual main loop recorded 62 steps and 62 observes, including 15 steps between renders. Run, strafes, cast, hold, both returns, hit/capture and terminal death were observed. |
+| Real capture | Imported creep captured on tick 39/time 0.65; safe body returned through the hero and was removed on tick 66/time 1.10 with the run still active and kills=1. Real left/right pointer casts also captured their corresponding targets. |
+| Attachments and pause | Chain follows the current animated hand; capture socket matches target hook socket within 1e-5. Actual pause freezes rig/socket/link positions, including side captures. |
+| Disposal | Six UI restarts and 25 fixture replacements produced no node/rig/group growth after warmup: 710 meshes, 698 transform nodes, one skeleton, nine groups, 34 materials, zero enemies, nine sections and 220 links. |
+| Model failure/retry | Injected tree HTTP503 with nine successful imports cleaned all model containers/rigs/groups/pools. Start stayed gated; retry imported ten models and reached RUNNING. |
+| Context/death | Actual WebGL context loss/restore preserved the paused run and required explicit resume. Visual death completed without advancing terminal simulation/world state. |
+| Production client | Unmodified built dist loaded ten GLB files and real API; portrait start/movement/pause and desktop resume/manual cast passed without page errors. Final screen copy was visible. |
+
+The initial native right-handed scene reversed screen X for A/D. Independent QA reproduced D moving from CSS x640 to482.036, while simulation X increased. The presentation coordinate adapter was corrected; D then moved from x640 to774.269 and A moved back left. GLB files and gameplay rules were preserved. The earlier failure was retained as evidence, not counted as a pass.
+
+Deterministic browser fixtures used the real simulation/GLB with temporary test-only module access injected through response routing; no test hook was added to the product. A separate slower-return fixture (15 m/s) exposed the late creep `death_capture` clip; the product return speed remains 45 m/s. One initial production check was a QA server setup failure (directory read instead of index.html); after correcting only the test server, the same production scenario passed.
+
+Physical Android FPS, hardware GPU performance and physical two-finger ergonomics were not verified. Portrait emulation does not establish them. This local gate does not claim a Timeweb deployment, native wrapper, auth, shop or economy. The old blockout evidence does not establish final art performance.
+
+Independent full report SHA256: `70910870caba3b62e9b707ecf8d9dbcb233177d3e2eadac0aac779eeafaf7f65`. The final local dist manifest digest was `b69a2b46fa298ec0cd9fefb70f61638405a3a6389a48730c988b6ee13c5f4ed0`; CI stamps its own source revision and archives its build separately.
+
+### Current runtime/config/models identity
+
+26 files, sorted relative paths, each line `SHA256  path` + LF; manifest SHA256 `a3b044f0951cb5a3ff8e006fb40ecafbf9e2f13a20225a6187ff861be4d1e08d`. Tests/docs/CI/deploy and generated dist are excluded. All 26 files independently matched and source/dist fingerprints remained unchanged at final verification.
+
+```text
+043626b8fa864a383c30d7efe3b7e05cc61cec0c1d788bb84642281541e56184  index.html
+c949d7e6d6cd869c0cbab3227997604776e7d61e4e5670e2b766d5c0eb935858  package-lock.json
+adf7eed4edb25820d14b87b07cd7cafc8ef444dd488cd2042d93adc28b46a7df  package.json
+ead844de1665b1929215f9e9fc2c49cc417c5f26f921f36b8017f2d889adafd1  public/models/r1/bush.glb
+25e8488e5ca5f487554691d42001be8cc6db4cf9a169c3e2d59a5ae29211a338  public/models/r1/chain.glb
+a15659bc341564e74d40b987b28c5f4c112494cc9efddb1855db5335c5782794  public/models/r1/creep_basic.glb
+dd91579e541fa51c47b6fb731394946e90a1574de93277912a79ef9a137b7f6b  public/models/r1/grass.glb
+77e3c87baecfbeada86dc988c7565c7fb45bc77c900e4dd0354f8f09c13757a3  public/models/r1/hook.glb
+16e30c9599d7293cbd55b5507ece9f22ab258aaad0b48fc28fa4e635e6bf975e  public/models/r1/manifest.json
+e2702a5e1fa47c1e99519809914d997e5b50edfa89b108a6ccf2e9ba37744dd7  public/models/r1/pudge.glb
+d40476e49edc4c25ea89d56a45b82d140a2fb346054408845f8cc99a669c52c9  public/models/r1/road.glb
+41a5564bbfe862dab67e6b4eb750889c80bd8550609c375a417150d423c1b525  public/models/r1/rock.glb
+5758353e0fa8f9929146ca0b397f0d65d10d81632f3fa88795e5bd8d17dd11d7  public/models/r1/shoulder.glb
+e5180b21fec7eb774a96538d923e8c1988c0344cd96662826298cd49323113ac  public/models/r1/tree.glb
+ba2be96968acdd69ca163683f8faf3fc2a71364388c3b580e3cf9ad72c1fdd2d  src/game/config.ts
+fd1b8d14a8752f9cfaf984d3cf827ca1dccc20569ff0ee9c481b65ab1d96e348  src/game/simulation.ts
+0b011f875f78791ac71ce3d5fe1c517f217d02aac5f09379ef3906340abe53ac  src/main.ts
+7823d9b9a46e3d57e91453c4889a0794891543be0aed0977ad56a5b9f6bc012e  src/platform/connection.ts
+3c123cf07f6f0b39da0d86c2654cc109e98d595dcb0bc3c6015225401b0db406  src/platform/input.ts
+b0b0c54f170ed7384a196099e6993002f48669665996e043249507b0ef30e834  src/presentation/coordinates.ts
+dec74576f2a5020c1b322df2500da19f6d7f08d680d585e42bff8bac140ba42a  src/presentation/models.ts
+99a6831a959f3b0a66f2ff6d5316755d98d5429e44cfd826bc4ccf83ed7ec182  src/presentation/timeline.ts
+18ec0ddd61e20cd1226acb517666522e27f3857820a6f40760777ec47399ad40  src/presentation/world.ts
+d5f67ed2d8bab5f64501dd6a5b6514caf871f0cfddcdfcd81aa22682bb99a05f  src/style.css
+da09a91c2e226c689bb32243c8c52e80967accda1596a7d498ee918417474446  tsconfig.json
 70f3b9d5e1e4af04aab54fc8ebcf6e6b089d78ee1f2b513860618fb38b111308  vite.config.ts
 ```

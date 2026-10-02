@@ -27,7 +27,15 @@ let contextAvailable = true;
 let actionPending = false;
 let feedbackUntil = 0;
 let lifecycleEpoch = 0;
+let assets: 'loading' | 'ready' | 'error' = 'loading';
 const motion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+async function loadAssets(): Promise<void> {
+  assets = 'loading'; updateScreen();
+  try { await world.loadAssets(); assets = 'ready'; }
+  catch (error) { assets = 'error'; console.error('Model loading failed', error); }
+  updateScreen();
+}
 
 function feedback(text: string): void {
   get('feedback').textContent = text;
@@ -79,7 +87,7 @@ function updateScreen(): void {
   get('results').hidden = phase !== 'GAME_OVER';
   secondary.hidden = phase !== 'PAUSED' && phase !== 'GAME_OVER';
   get('control-hint').hidden = phase === 'GAME_OVER';
-  primary.disabled = actionPending || !contextAvailable || connection?.state !== 'online';
+  primary.disabled = assets === 'loading' || actionPending || !contextAvailable || connection?.state !== 'online';
   if (phase === 'BOOT' || phase === 'GALLERY') {
     get('eyebrow').textContent = 'ПЕРВЫЙ ИГРОВОЙ СРЕЗ';
     get('screen-title').innerHTML = 'ПУДЖ<span>Путь без права на промах</span>';
@@ -100,6 +108,12 @@ function updateScreen(): void {
     primary.textContent = connection.state === 'online' ? 'Ещё раз  →' : 'Ожидаем соединение…';
   }
   if (actionPending) primary.textContent = 'Проверяем соединение…';
+  if (assets !== 'ready') {
+    get('screen-description').textContent = assets === 'loading'
+      ? 'Загружаем героя, крипов и окружение…'
+      : 'Не удалось загрузить игровые модели. Проверь соединение и повтори загрузку.';
+    primary.textContent = assets === 'loading' ? 'Загрузка моделей…' : 'Повторить загрузку';
+  }
 }
 
 function formatTime(seconds: number): string {
@@ -107,6 +121,8 @@ function formatTime(seconds: number): string {
 }
 
 async function begin(): Promise<void> {
+  if (assets === 'error') { void loadAssets(); return; }
+  if (assets !== 'ready') return;
   if (actionPending || !contextAvailable || !['GALLERY', 'PAUSED', 'GAME_OVER'].includes(phase)) return;
   const intendedPhase = phase;
   const intendedEpoch = lifecycleEpoch;
@@ -148,6 +164,7 @@ try {
   });
   canvas.addEventListener('webglcontextrestored', () => { contextAvailable = true; updateScreen(); });
   connection.start();
+  void loadAssets();
   world.engine.runRenderLoop(() => {
     const now = performance.now();
     const delta = Math.max(0, (now - previousFrame) / 1000);
@@ -163,6 +180,7 @@ try {
       accumulator += delta;
       while (accumulator + 1e-10 >= FIXED_STEP && phase === 'RUNNING') {
         sim.step([{ type: 'move', axis: input.axis }, ...commands]);
+        world.observe(sim.state);
         commands = [];
         accumulator -= FIXED_STEP;
         if (sim.state.phase === 'gameOver') transition('GAME_OVER');
@@ -177,7 +195,7 @@ try {
     get('cooldown-fill').style.transform = `scaleX(${Math.max(0, Math.min(1, 1 - remaining / (sim?.config.hookCooldown ?? DEFAULT_CONFIG.hookCooldown)))})`;
     get('ability').dataset.ready = String(Boolean(sim?.canCast));
     if (now > feedbackUntil) get('feedback').textContent = '';
-    if (contextAvailable) world.render(sim, input.aimPoint, phase === 'RUNNING');
+    if (contextAvailable) world.render(sim, input.aimPoint, delta);
   });
 } catch (error) {
   get('eyebrow').textContent = 'НЕ УДАЛОСЬ ОТКРЫТЬ ИГРУ';

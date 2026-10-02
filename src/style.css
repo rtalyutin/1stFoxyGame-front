@@ -5,3 +5,6 @@
 @media(max-height:690px) and (max-width:600px){.overlay{padding-top:80px;padding-bottom:15px}h1{font-size:44px;margin-bottom:15px}h1 span{font-size:14px}.eyebrow{margin-bottom:12px}#screen-description{margin-bottom:16px}.instructions{gap:9px;margin-bottom:19px}.slice-note{margin:12px 0 0}.control-hint{margin-top:12px}.ability{bottom:120px}}
 @media(pointer:coarse) and (orientation:landscape) and (max-height:600px){.landscape-hint{display:block;position:absolute;bottom:8px;right:12px;font-size:10px;padding:8px 12px;background:#15231ee8;color:#e8cea2;z-index:8}.overlay{padding-top:80px;overflow:auto;align-items:flex-start}.panel{max-width:480px}.instructions{display:none}h1{font-size:38px}.ability{bottom:20px}.touch-move{height:60%;padding-bottom:20px}.touch-hint{bottom:55px}.hud{top:90px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+/* Daylight models need solid contrast behind battlefield labels. */
+.hud{padding:8px 12px;background:#11211bdb;border:1px solid var(--edge)}
+@media(pointer:coarse){.touch-move>span{color:#263c2d}.touch-hint{padding:6px 8px;background:#f2eadcd9;border-radius:4px;color:#263c2d}.touch-hint strong{color:#664716}.joystick{background:#16241b66}}
