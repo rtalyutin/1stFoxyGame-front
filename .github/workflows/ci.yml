@@ -106,11 +106,10 @@ jobs:
           DATABASE_URL: postgresql://foxy_ci:ci_ephemeral_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/foxy_ci
           SMOKE_ORIGIN: http://127.0.0.1:18080
         run: |
-          trap 'docker logs foxy-smoke; docker logs foxy-back-smoke; docker rm -f foxy-smoke foxy-back-smoke; docker network disconnect -f foxy-smoke-net "$PG_TEST_CONTAINER"; docker network rm foxy-smoke-net' EXIT
-          docker network create foxy-smoke-net
-          docker network connect --alias postgres foxy-smoke-net "$PG_TEST_CONTAINER"
-          docker run --detach --name foxy-back-smoke --network foxy-smoke-net --network-alias backend --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true --env DATABASE_URL=postgresql://foxy_ci:ci_ephemeral_only@postgres:5432/foxy_ci "foxy-back:$BACKEND_SHA"
-          docker run --detach --name foxy-smoke --network foxy-smoke-net --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true --publish 127.0.0.1:18080:8080 "foxy-front:$SOURCE_SHA"
+          trap 'docker logs foxy-smoke; docker logs foxy-back-smoke; docker rm -f foxy-smoke foxy-back-smoke' EXIT
+          smoke_network=$(docker inspect --format '{{json .NetworkSettings.Networks}}' "$PG_TEST_CONTAINER" | node -e 'let s=""; process.stdin.on("data",c=>s+=c).on("end",()=>{const names=Object.keys(JSON.parse(s)); if(names.length!==1)process.exit(1); console.log(names[0])})')
+          docker run --detach --name foxy-back-smoke --network "$smoke_network" --network-alias backend --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true --env DATABASE_URL=postgresql://foxy_ci:ci_ephemeral_only@postgres:5432/foxy_ci "foxy-back:$BACKEND_SHA"
+          docker run --detach --name foxy-smoke --network "$smoke_network" --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true --publish 127.0.0.1:18080:8080 "foxy-front:$SOURCE_SHA"
           curl --fail --silent --show-error --retry 10 --retry-delay 1 --retry-all-errors --retry-max-time 30 --max-time 3 --connect-timeout 3 http://127.0.0.1:18080/healthz
           curl --fail --silent --show-error --retry 10 --retry-delay 1 --retry-all-errors --retry-max-time 30 --max-time 3 --connect-timeout 3 http://127.0.0.1:18080/api/v1/health | node -e 'let s=""; process.stdin.on("data",c=>s+=c).on("end",()=>{const h=JSON.parse(s); if(h.status!=="ok"||h.apiVersion!=="1"||!Number.isFinite(Date.parse(h.serverTime)))process.exit(1)})'
           docker exec foxy-back-smoke node -e "fetch('http://127.0.0.1:3001/readyz').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
