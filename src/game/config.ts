@@ -89,3 +89,7 @@ export const DEFAULT_CONFIG: Readonly<SimulationConfig> = Object.freeze({
   spawnSafetySeconds: 2,
   spawnRetrySeconds: 0.25,
 });
+
+/** R3 entry window, kept separate so the accepted R2 catalog stays compatible. */
+export interface ShopZoneConfig { lateralRadius: number; longitudinalRadius: number; }
+export const DEFAULT_SHOP_ZONE: Readonly<ShopZoneConfig> = Object.freeze({ lateralRadius: 1, longitudinalRadius: 2 });

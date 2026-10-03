@@ -1,6 +1,6 @@
 {
   "name": "1stfoxygame-front",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "validate:content": "vitest run src/platform/catalog.test.ts",
+    "validate:r34-pair": "node scripts/validate-r34-pair.mjs",
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {

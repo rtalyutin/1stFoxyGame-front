@@ -1,92 +1,75 @@
 {
-  "feature_id": "FoxyGame-R2",
-  "contract_revision": 1,
-  "confirmation": "03.10.2026: реализуй задачи 2го релиза; ранее разрешена публикация в обе репы",
-  "contract": "docs/ACTIVE_CONTRACT.md",
-  "stage": "ready-for-review",
+  "feature_id": "FoxyGame-R3-R4",
+  "contract_revision": 2,
+  "confirmation": "2026-10-03: Реализуй релиз 3 и 4. Без графики",
+  "contract": "docs/r3-r4.md",
+  "stage": "paired_ci",
   "inputs": {
-    "front_main": "d9a9654ed743da5442a7265986c7cc287f586377",
-    "back_main": "e1cb5fcac481b9a74c99f9d681c2e354d78548ee",
-    "plan": "Runner-Forge-Release-Plan.xls 02.10.2026"
+    "front_main": "5afb5541840cffda3a9516d7ed033e94cb647dd5",
+    "back_main": "fb06e888ff38d540033e361f8c6fb7ca2f57d5fc",
+    "plan": "Runner-Forge-Release-Plan.xls 02.10.2026",
+    "gdd": "Runner-Forge-GDD-TZ-v1.0.md"
   },
   "results": [
     {
       "gate": "front-author",
       "status": "VERIFIED",
-      "evidence": "typecheck/build; 55 tests including paired catalog"
+      "evidence": "108 PASS; paired R2 catalog4 PASS; equipment/combat parity PASS; typecheck/build"
     },
     {
       "gate": "back-author",
       "status": "VERIFIED",
-      "evidence": "typecheck; 15 API/content/run tests; typed seed parity"
+      "evidence": "36 PASS; typecheck/build; generated content/reward migration parity"
     },
     {
-      "gate": "independent-qa",
+      "gate": "independent-combat",
       "status": "VERIFIED",
-      "scope": "local combat, real API/UI, threat rendering and internal protocol",
-      "evidence": "docs/verification.md; independent QA report SHA256 ea24458e507070382c27d79c87f074ef0b5ed9f3e082b013c43122bc821160e9; final source manifest matched"
+      "evidence": "10 cases; final simulation ede4bc328de742e554973c322681c2eaea00ea81522cdf9125b55ca4a12cee70"
     },
     {
-      "gate": "backend-publication",
+      "gate": "independent-ui-api",
       "status": "VERIFIED",
-      "evidence": "https://github.com/rtalyutin/1stFoxyGame-back/pull/2; final head 96df2a700c48ede89e3d65cd313b6dac8a2e4e6b; remote blob/mode readback"
+      "evidence": "17 Chromium scenarios at 320/390/1440; 9 API scenarios; immutable runtime manifests in docs/verification.md",
+      "scope": "MemoryRepository explicitly injected for local API/browser; real PostgreSQL gate separate"
     },
     {
-      "gate": "postgres18-backend-ci",
+      "gate": "real-postgresql18-backend-package",
       "status": "VERIFIED",
-      "evidence": "https://github.com/rtalyutin/1stFoxyGame-back/actions/runs/37124551329; 15 API/unit tests and 13 DB subtests passed, zero skips; dump/restore and packaged migration CLI URL/secret-file modes passed",
-      "scope": "Backend PR merge revision 832d0cb4171686fd4ec73ad712e448d3d747b3e3 includes head 96df2a700c48ede89e3d65cd313b6dac8a2e4e6b; immutable frontend pair remains a separate gate"
-    },
-    {
-      "gate": "frontend-publication",
-      "status": "VERIFIED",
-      "evidence": "https://github.com/rtalyutin/1stFoxyGame-front/pull/3; all 57 blobs/modes matched remote tree; main/R1 unchanged"
-    },
-    {
-      "gate": "immutable-paired-artifact",
-      "status": "VERIFIED",
-      "evidence": "https://github.com/rtalyutin/1stFoxyGame-front/actions/runs/37124868016; artifact 11275140138 digest sha256:7222427f31d2ca27ead6d74f770233a3c4dac7fd824a73acc2b1bbc61444daa7",
-      "scope": "Front initial unit: 54 PASS / 1 catalog SKIP; required pinned-backend catalog: 4 PASS / 0 SKIP executes that case. Backend: 15 unit and 13 DB subtests PASS. Real PostgreSQL18.6 dump/restore, exact runtime catalog/version/label, both packaged migration CLI credential modes and immutable images/deploy archive verified. Tested merge tree equals frontend head tree."
+      "evidence": "CI37143189853: 37 SQL PASS, 0 skip; container readiness/login/CSRF/revoke and packaged migration env/file PASS",
+      "source": "25d2036a58aa49754558b738d641c28799ac2525",
+      "tested_merge": "92c660019c51cd759f0fa2ce2ca1c4cde81ee9f5",
+      "tree": "bd8e3a476e8a1251042bddccae06b92f898d7912"
     }
   ],
-  "pending": [],
-  "operation_status": "SUCCEEDED",
-  "production": "R1 user-reported; browser TLS IP mismatch prevents readback",
-  "next": "Observe automatic CI on the documentation-only completion commit; latest run/artifact/head are recorded in PR#3. Merge and production rollout require a separate release decision.",
+  "pending": [
+    "paired frontend/backend CI and immutable artifact; final verdict recorded in PR and workflow"
+  ],
+  "operation_status": "NOT_STARTED",
+  "production": "User reports R2 deployed; current version not verified",
+  "next": "Publish pinned frontend PR, verify packaged pair, mark both PRs ready",
   "artifact_revision": {
-    "front_runtime_sha256": "93c9daf84a81b16815e8bc3be89dd02784d3f668880a6096a4e7f1ecf3ccc17e",
-    "runtime_files": [
-      "index.html",
-      "package-lock.json",
-      "package.json",
-      "src/game/config.ts",
-      "src/game/simulation-r2.test.ts",
-      "src/game/simulation.test.ts",
-      "src/game/simulation.ts",
-      "src/main.ts",
-      "src/platform/catalog.test.ts",
-      "src/platform/catalog.ts",
-      "src/platform/connection.test.ts",
-      "src/platform/connection.ts",
-      "src/platform/input.ts",
-      "src/presentation/coordinates.test.ts",
-      "src/presentation/coordinates.ts",
-      "src/presentation/models.test.ts",
-      "src/presentation/models.ts",
-      "src/presentation/threats.ts",
-      "src/presentation/timeline.test.ts",
-      "src/presentation/timeline.ts",
-      "src/presentation/world.ts",
-      "src/style.css",
-      "vite.config.ts"
-    ],
-    "back_head": "96df2a700c48ede89e3d65cd313b6dac8a2e4e6b",
-    "tested_front_head": "449a2577c02401dd35e7f47fca4077c96966792f",
-    "tested_front_source": "b80e7a6f951570a8a59a92bdd19e9675981a7593",
-    "tested_front_tree": "a39366fde5b97d90c41f822d1c9023aec64d5ddf"
+    "backend": "25d2036a58aa49754558b738d641c28799ac2525"
   },
-  "operation_id": "frontend draft PR#3 and backend draft PR#2; initial paired CI run 37124868016 verified",
-  "gate_verdict": "PASS",
+  "operation_id": null,
+  "gate_verdict": "PENDING",
   "action_decision": "CONTINUE",
-  "hypothesis_assessment": "NOT_ASSESSED: player balance, physical Android and production operation"
+  "hypothesis_assessment": "NOT_ASSESSED: player balance, physical Android and production operation",
+  "scope": {
+    "R3_tasks": 31,
+    "R4_tasks": 15,
+    "exclude": "New graphics, models, textures, VFX and visible equipment",
+    "baseline": {
+      "front_source": "5afb5541840cffda3a9516d7ed033e94cb647dd5",
+      "front_tree": "7365c90e497ff885d14a295dcbb3f94031103b72",
+      "back_source": "fb06e888ff38d540033e361f8c6fb7ca2f57d5fc",
+      "back_tree": "20a7c9f71a61df28cc11992e2bf3ff8901a80367"
+    }
+  },
+  "open": [],
+  "assumptions": [
+    "Issued logins, no public registration; provisioning command with protected input file",
+    "30-day revocable session and manual password rotation",
+    "Single active client; offline pause; explicit takeover",
+    "Configurable P13-P16 initial values; no final balance claim"
+  ]
 }

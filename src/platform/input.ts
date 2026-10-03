@@ -6,6 +6,8 @@ export interface InputCallbacks {
   ready(): boolean;
   unavailable(): void;
   pause(): void;
+  enterShop?(): void;
+  consume?(slot: number): void;
 }
 
 export class GameInput {
@@ -64,8 +66,11 @@ export class GameInput {
   }
 
   private keyDown = (event: KeyboardEvent): void => {
+    if (event.target instanceof HTMLElement && event.target.closest('input,select,textarea,button')) return;
     if (event.code === 'Escape' && !event.repeat) { this.callbacks.pause(); return; }
     if (!this.enabled || event.repeat) return;
+    if (event.code === 'KeyE') { event.preventDefault(); this.callbacks.enterShop?.(); return; }
+    if (event.code === 'Digit1' || event.code === 'Digit2') { event.preventDefault(); this.callbacks.consume?.(event.code === 'Digit1' ? 0 : 1); return; }
     if (['KeyA', 'KeyD', 'ArrowLeft', 'ArrowRight'].includes(event.code)) {
       event.preventDefault();
       this.keys.add(event.code);

@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#101919" />
     <meta name="description" content="Бесконечный путь. Пудж, ручной хук, стрелки и боссы с тремя метками." />
-    <title>Бесконечный путь · R2</title>
+    <title>Бесконечный путь · R3/R4</title>
   </head>
   <body>
     <main id="app">
       <canvas id="world" aria-label="Игровое поле. Движение A и D или стрелками, прицел мышью, хук левой кнопкой." tabindex="0"></canvas>
       <header class="topbar">
-        <div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><span>БЕСКОНЕЧНЫЙ<br><strong>ПУТЬ</strong></span><span class="build-tag">R2</span></div>
+        <div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><span>БЕСКОНЕЧНЫЙ<br><strong>ПУТЬ</strong></span><span class="build-tag">R3/R4</span></div>
         <div class="connection" id="connection" role="status"><i></i><span>Подключение…</span></div>
-        <button id="pause" class="icon-button" aria-label="Пауза" hidden>Ⅱ</button>
+        <button id="logout" class="secondary account-button" hidden>Выйти</button><button id="pause" class="icon-button" aria-label="Пауза" hidden>Ⅱ</button>
       </header>
       <section class="hud" id="hud" aria-label="Статистика забега" hidden>
         <div class="stat"><span>ПРОЙДЕНО</span><strong id="distance">0<small> м</small></strong></div>
@@ -25,18 +25,36 @@
       <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
       <div id="touch-move" class="touch-move" aria-label="Сенсорная зона движения"><div class="joystick"><span id="joystick-thumb"></span></div><span>ДВИЖЕНИЕ</span></div>
       <div id="touch-hint" class="touch-hint">ЦЕЛЬСЯ<br><strong>ОТПУСТИ → ХУК</strong></div>
+      <button id="enter-shop" class="secondary shop-entry" hidden>Войти в магазин · E</button>
+      <div id="quick-consumables" class="quick-consumables" hidden><button id="quick-0" class="secondary"></button><button id="quick-1" class="secondary"></button></div>
       <div id="overlay" class="overlay">
         <section id="menu" class="panel" aria-labelledby="screen-title">
           <p class="eyebrow" id="eyebrow">СТРЕЛОК И БОСС</p>
           <h1 id="screen-title">ПУДЖ<span>Путь без права на промах</span></h1>
           <p id="screen-description">Не пропускай врагов и уклоняйся от пуль. Стрелку нужен один хук, боссу — три.</p>
           <div id="instructions" class="instructions"><div><b>01</b><span>Двигайся влево и вправо</span></div><div><b>02</b><span>Наведи крюк и атакуй вручную</span></div><div><b>03</b><span>Попадание пули, касание или пропуск — конец</span></div></div>
+          <p id="account-status" class="account-status" role="status" hidden></p>
+          <p id="error-message" class="error-message" role="alert" hidden></p>
+          <form id="login-form" class="login-form" hidden>
+            <label>Логин<input id="login" name="login" autocomplete="username" required maxlength="120"></label>
+            <label>Пароль<input id="password" name="password" type="password" autocomplete="current-password" required maxlength="256"></label>
+            <button id="login-submit" class="primary" type="submit">Войти</button>
+            <p class="control-hint">Доступ выдаётся оператором. Публичной регистрации нет.</p>
+          </form>
+          <section id="profile-panel" class="profile-panel" hidden>
+            <h2>Постоянный запас</h2><p id="wallet"></p><p id="profile-stats" class="control-hint"></p>
+            <details id="equipment-panel"><summary>Экипировка и быстрые слоты</summary><div id="loadout"></div><div id="inventory"></div><p class="control-hint">Предметы меняют правила следующего каста. Внешность моделей сохранена.</p></details>
+            <details id="craft-panel"><summary>Рецепты магазина</summary><div id="recipes"></div></details>
+          </section>
+          <button id="recover-operation" class="secondary" hidden>Проверить результат операции</button>
+          <button id="reload-profile" class="secondary" hidden>Загрузить профиль заново</button>
+          <button id="takeover" class="secondary" hidden>Забрать управление на этом устройстве</button>
           <dl id="results" class="results" hidden></dl>
           <button id="primary" class="primary" disabled>Подключение к серверу…</button>
           <button id="secondary" class="secondary" hidden>К началу</button>
-          <p id="control-hint" class="control-hint desktop-only">A / D — движение · мышь — прицел · ЛКМ — хук · Esc — пауза</p>
+          <p id="control-hint" class="control-hint desktop-only">A / D — движение · мышь — прицел · ЛКМ — хук · Esc — пауза · E — магазин · 1 / 2 — расходник</p>
           <p class="control-hint touch-only">Левая рука — движение. Правая — прицел.<br>Отпусти правый палец, чтобы бросить хук.</p>
-          <p class="slice-note" id="slice-note">Второй релиз · нужен интернет</p>
+          <p class="slice-note" id="slice-note">R3/R4 · профиль хранится на сервере · нужен интернет</p>
         </section>
       </div>
       <div id="countdown" class="countdown" role="status" aria-live="assertive" hidden></div>
