@@ -1,0 +1,36 @@
+{
+  "source": "Runner-Forge-R2-Models-v1.zip",
+  "release": "R2",
+  "contract": "docs/models/r2/contract.md",
+  "unit": "meter",
+  "up": "+Y",
+  "forward": "+Z",
+  "sha256": {
+    "enemy_shooter.glb": "b2fe83f5a8ac48e958d1d320d276aebd6cc1f89e940a6a5fb0e463747f9ed904",
+    "enemy_boss.glb": "708f4e51cff219e5ca076078a5825003d84e81b81c3259ca22e775eeabe2745c",
+    "enemy_projectile.glb": "f0d5625f7e47b46ddcfc975c7fa6d4d73e8f4cfdb66967ebed3038e1ce0d198f",
+    "aim_strip.glb": "0600255b8acf31ffc074f810b0c84eb676151feb5a4bf2d91767e85cd05f78d6",
+    "warning_ring.glb": "6c0dbb5b5b3ebf551ecc07d74a68ef1d1f2d523aa683f587af748547251252fc",
+    "hit_marker.glb": "9a10d78c9645923184793996766684703b67abcd97c577dce3619273a21d801c"
+  },
+  "clips": {
+    "enemy_shooter": [
+      "death_capture",
+      "hit",
+      "idle",
+      "run",
+      "shoot",
+      "shoot_prepare"
+    ],
+    "enemy_boss": [
+      "break_free",
+      "death",
+      "death_capture",
+      "hit_recover",
+      "idle",
+      "run",
+      "shoot",
+      "shoot_prepare"
+    ]
+  }
+}

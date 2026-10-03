@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "release": "R2",
+  "extends": "Runner-Forge-R1-Graphics-v1/events.json",
+  "defaults": {
+    "alpha": "straight",
+    "color_space": "sRGB",
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ]
+  },
+  "direction_contract": {
+    "sprite_forward": "local -Y (towards top of image)",
+    "world_directions": "Runtime supplies any accepted count of directions; rotate/project one direction asset per actual direction. This pack does not decide a three-shot volley."
+  },
+  "events": {
+    "enemy_shooter_aim_start": {
+      "sprite": "vfx/charge_shooter.png",
+      "flipbook": "atlases/flipbook_shooter_charge.json",
+      "phase_progress": "0..1",
+      "timing_source": "accepted gameplay configuration",
+      "world_direction_assets": [
+        "vfx/direction_arrow.png",
+        "vfx/danger_corridor.png"
+      ]
+    },
+    "enemy_boss_aim_start": {
+      "sprite": "vfx/charge_boss.png",
+      "flipbook": "atlases/flipbook_boss_charge.json",
+      "phase_progress": "0..1",
+      "timing_source": "accepted gameplay configuration",
+      "world_direction_assets": [
+        "vfx/direction_arrow.png",
+        "vfx/danger_corridor.png"
+      ]
+    },
+    "enemy_projectile_spawn": {
+      "sprite": "vfx/enemy_projectile.png",
+      "trail": "vfx/projectile_trail.png",
+      "muzzle": "vfx/muzzle_flash.png",
+      "direction": "runtime trajectory; no homing encoded"
+    },
+    "hero_projectile_hit": {
+      "sprite": "vfx/projectile_hit_neutral.png",
+      "outcome": "Not decided by this pack; resolveHeroProjectileHit remains gameplay policy."
+    },
+    "boss_nonlethal_hit": {
+      "sprite": "vfx/boss_nonlethal_impact.png",
+      "marker_update": "runtime hitsRemaining"
+    },
+    "boss_hook_slip": {
+      "sprite": "vfx/hook_slip_sparks.png",
+      "flipbook": "atlases/flipbook_hook_slip.json"
+    },
+    "boss_final_hit": {
+      "sprite": "vfx/boss_final_impact.png",
+      "marker_update": 0,
+      "model_animation": "outside this graphic pack"
+    },
+    "shooter_defeated": {
+      "sprite": "vfx/shooter_defeat.png",
+      "model_animation": "outside this graphic pack"
+    },
+    "boss_hits_remaining_changed": {
+      "full": "ui/icons/boss_marker_full.png",
+      "empty": "ui/icons/boss_marker_empty.png",
+      "known_state_rows": {
+        "3": "ui/states/boss_hits_3.png",
+        "2": "ui/states/boss_hits_2.png",
+        "1": "ui/states/boss_hits_1.png",
+        "0": "ui/states/boss_hits_0.png"
+      },
+      "dynamic_count": "Repeat marker_full hitsRemaining times and marker_empty for removed marks; no hard upper bound encoded."
+    }
+  }
+}

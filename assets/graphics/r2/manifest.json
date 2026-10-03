@@ -1,0 +1,1520 @@
+{
+  "schema_version": 1,
+  "pack": "Runner-Forge-R2-Graphics-v1",
+  "release": "R2",
+  "extends": "Runner-Forge-R1-Graphics-v1",
+  "art_direction": "Inherited R1 flat polygonal low-poly graphics; no new colors",
+  "source_requirements": [
+    "Runner-Forge-Release-Plan.xls: R2, D06–D09/F08–F12",
+    "Runner-Forge-GDD-TZ-v1.0.md §§4,7,9,20,24",
+    "Accepted R1 art direction; models built separately by user in Blender"
+  ],
+  "assets": [
+    {
+      "id": "shooter_counter",
+      "category": "ui/icons",
+      "label_ru": "Стрелок: счётчик",
+      "svg": "ui/icons/shooter_counter.svg",
+      "png": "ui/icons/shooter_counter.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_counter",
+      "category": "ui/icons",
+      "label_ru": "Босс: счётчик",
+      "svg": "ui/icons/boss_counter.svg",
+      "png": "ui/icons/boss_counter.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_marker_full",
+      "category": "ui/icons",
+      "label_ru": "Метка босса: полная",
+      "svg": "ui/icons/boss_marker_full.svg",
+      "png": "ui/icons/boss_marker_full.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_marker_empty",
+      "category": "ui/icons",
+      "label_ru": "Метка босса: снятая",
+      "svg": "ui/icons/boss_marker_empty.svg",
+      "png": "ui/icons/boss_marker_empty.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "projectile_warning",
+      "category": "ui/icons",
+      "label_ru": "Опасность выстрела",
+      "svg": "ui/icons/projectile_warning.svg",
+      "png": "ui/icons/projectile_warning.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "hook_slip",
+      "category": "ui/icons",
+      "label_ru": "Срыв хука",
+      "svg": "ui/icons/hook_slip.svg",
+      "png": "ui/icons/hook_slip.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_hits_3",
+      "category": "ui/states",
+      "label_ru": "Осталось попаданий: 3",
+      "svg": "ui/states/boss_hits_3.svg",
+      "png": "ui/states/boss_hits_3.png",
+      "width": 768,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        768,
+        256
+      ]
+    },
+    {
+      "id": "boss_hits_2",
+      "category": "ui/states",
+      "label_ru": "Осталось попаданий: 2",
+      "svg": "ui/states/boss_hits_2.svg",
+      "png": "ui/states/boss_hits_2.png",
+      "width": 768,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        768,
+        256
+      ]
+    },
+    {
+      "id": "boss_hits_1",
+      "category": "ui/states",
+      "label_ru": "Осталось попаданий: 1",
+      "svg": "ui/states/boss_hits_1.svg",
+      "png": "ui/states/boss_hits_1.png",
+      "width": 768,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        768,
+        256
+      ]
+    },
+    {
+      "id": "boss_hits_0",
+      "category": "ui/states",
+      "label_ru": "Осталось попаданий: 0",
+      "svg": "ui/states/boss_hits_0.svg",
+      "png": "ui/states/boss_hits_0.png",
+      "width": 768,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        768,
+        256
+      ]
+    },
+    {
+      "id": "shooter_eyes",
+      "category": "textures/decals",
+      "label_ru": "Глаза стрелка",
+      "svg": "textures/decals/shooter_eyes.svg",
+      "png": "textures/decals/shooter_eyes.png",
+      "width": 512,
+      "height": 512,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "shooter_mouth",
+      "category": "textures/decals",
+      "label_ru": "Рот стрелка",
+      "svg": "textures/decals/shooter_mouth.svg",
+      "png": "textures/decals/shooter_mouth.png",
+      "width": 512,
+      "height": 512,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_eyes",
+      "category": "textures/decals",
+      "label_ru": "Глаза босса",
+      "svg": "textures/decals/boss_eyes.svg",
+      "png": "textures/decals/boss_eyes.png",
+      "width": 512,
+      "height": 512,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_mouth",
+      "category": "textures/decals",
+      "label_ru": "Рот босса",
+      "svg": "textures/decals/boss_mouth.svg",
+      "png": "textures/decals/boss_mouth.png",
+      "width": 512,
+      "height": 512,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "shooter_aiming_insignia",
+      "category": "textures/decals",
+      "label_ru": "Знак стрелка",
+      "svg": "textures/decals/shooter_aiming_insignia.svg",
+      "png": "textures/decals/shooter_aiming_insignia.png",
+      "width": 512,
+      "height": 512,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_identity_insignia",
+      "category": "textures/decals",
+      "label_ru": "Знак босса с тремя заклёпками",
+      "svg": "textures/decals/boss_identity_insignia.svg",
+      "png": "textures/decals/boss_identity_insignia.png",
+      "width": 512,
+      "height": 512,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "enemy_projectile",
+      "category": "vfx",
+      "label_ru": "Вражеский снаряд",
+      "svg": "vfx/enemy_projectile.svg",
+      "png": "vfx/enemy_projectile.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "projectile_trail",
+      "category": "vfx",
+      "label_ru": "След снаряда: вверх",
+      "svg": "vfx/projectile_trail.svg",
+      "png": "vfx/projectile_trail.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "charge_shooter",
+      "category": "vfx",
+      "label_ru": "Подготовка выстрела стрелка",
+      "svg": "vfx/charge_shooter.svg",
+      "png": "vfx/charge_shooter.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "charge_boss",
+      "category": "vfx",
+      "label_ru": "Подготовка выстрела босса",
+      "svg": "vfx/charge_boss.svg",
+      "png": "vfx/charge_boss.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "muzzle_flash",
+      "category": "vfx",
+      "label_ru": "Вспышка выстрела",
+      "svg": "vfx/muzzle_flash.svg",
+      "png": "vfx/muzzle_flash.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "direction_arrow",
+      "category": "vfx",
+      "label_ru": "Направление: локально вверх",
+      "svg": "vfx/direction_arrow.svg",
+      "png": "vfx/direction_arrow.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "danger_corridor",
+      "category": "vfx",
+      "label_ru": "Коридор угрозы: штриховой контур",
+      "svg": "vfx/danger_corridor.svg",
+      "png": "vfx/danger_corridor.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "projectile_hit_neutral",
+      "category": "vfx",
+      "label_ru": "Попадание снаряда: нейтральный отклик",
+      "svg": "vfx/projectile_hit_neutral.svg",
+      "png": "vfx/projectile_hit_neutral.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_nonlethal_impact",
+      "category": "vfx",
+      "label_ru": "Босс: нелетальное попадание",
+      "svg": "vfx/boss_nonlethal_impact.svg",
+      "png": "vfx/boss_nonlethal_impact.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "hook_slip_sparks",
+      "category": "vfx",
+      "label_ru": "Срыв хука: стальные зигзаги",
+      "svg": "vfx/hook_slip_sparks.svg",
+      "png": "vfx/hook_slip_sparks.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_final_impact",
+      "category": "vfx",
+      "label_ru": "Босс: финальное попадание, точный fallback",
+      "svg": "vfx/boss_final_impact.svg",
+      "png": "vfx/boss_final_impact.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "shooter_defeat",
+      "category": "vfx",
+      "label_ru": "Стрелок: распад силуэта",
+      "svg": "vfx/shooter_defeat.svg",
+      "png": "vfx/shooter_defeat.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "shooter_charge_00",
+      "category": "flipbooks/shooter_charge",
+      "label_ru": "Подготовка стрелка: кадр 1/4",
+      "svg": "flipbooks/shooter_charge/shooter_charge_00.svg",
+      "png": "flipbooks/shooter_charge/shooter_charge_00.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "shooter_charge_01",
+      "category": "flipbooks/shooter_charge",
+      "label_ru": "Подготовка стрелка: кадр 2/4",
+      "svg": "flipbooks/shooter_charge/shooter_charge_01.svg",
+      "png": "flipbooks/shooter_charge/shooter_charge_01.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "shooter_charge_02",
+      "category": "flipbooks/shooter_charge",
+      "label_ru": "Подготовка стрелка: кадр 3/4",
+      "svg": "flipbooks/shooter_charge/shooter_charge_02.svg",
+      "png": "flipbooks/shooter_charge/shooter_charge_02.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "shooter_charge_03",
+      "category": "flipbooks/shooter_charge",
+      "label_ru": "Подготовка стрелка: кадр 4/4",
+      "svg": "flipbooks/shooter_charge/shooter_charge_03.svg",
+      "png": "flipbooks/shooter_charge/shooter_charge_03.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_charge_00",
+      "category": "flipbooks/boss_charge",
+      "label_ru": "Подготовка босса: кадр 1/4",
+      "svg": "flipbooks/boss_charge/boss_charge_00.svg",
+      "png": "flipbooks/boss_charge/boss_charge_00.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_charge_01",
+      "category": "flipbooks/boss_charge",
+      "label_ru": "Подготовка босса: кадр 2/4",
+      "svg": "flipbooks/boss_charge/boss_charge_01.svg",
+      "png": "flipbooks/boss_charge/boss_charge_01.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_charge_02",
+      "category": "flipbooks/boss_charge",
+      "label_ru": "Подготовка босса: кадр 3/4",
+      "svg": "flipbooks/boss_charge/boss_charge_02.svg",
+      "png": "flipbooks/boss_charge/boss_charge_02.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "boss_charge_03",
+      "category": "flipbooks/boss_charge",
+      "label_ru": "Подготовка босса: кадр 4/4",
+      "svg": "flipbooks/boss_charge/boss_charge_03.svg",
+      "png": "flipbooks/boss_charge/boss_charge_03.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "hook_slip_00",
+      "category": "flipbooks/hook_slip",
+      "label_ru": "Срыв хука: кадр 1/4",
+      "svg": "flipbooks/hook_slip/hook_slip_00.svg",
+      "png": "flipbooks/hook_slip/hook_slip_00.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "hook_slip_01",
+      "category": "flipbooks/hook_slip",
+      "label_ru": "Срыв хука: кадр 2/4",
+      "svg": "flipbooks/hook_slip/hook_slip_01.svg",
+      "png": "flipbooks/hook_slip/hook_slip_01.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "hook_slip_02",
+      "category": "flipbooks/hook_slip",
+      "label_ru": "Срыв хука: кадр 3/4",
+      "svg": "flipbooks/hook_slip/hook_slip_02.svg",
+      "png": "flipbooks/hook_slip/hook_slip_02.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "hook_slip_03",
+      "category": "flipbooks/hook_slip",
+      "label_ru": "Срыв хука: кадр 4/4",
+      "svg": "flipbooks/hook_slip/hook_slip_03.svg",
+      "png": "flipbooks/hook_slip/hook_slip_03.png",
+      "width": 256,
+      "height": 256,
+      "alpha": "straight",
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12,
+      "native_viewbox": [
+        256,
+        256
+      ]
+    }
+  ],
+  "palette": "palette.json",
+  "atlases": [
+    "atlases/ui_icons.json",
+    "atlases/boss_states.json",
+    "atlases/model_decals.json",
+    "atlases/vfx.json",
+    "atlases/flipbook_shooter_charge.json",
+    "atlases/flipbook_boss_charge.json",
+    "atlases/flipbook_hook_slip.json"
+  ],
+  "events": "events.json",
+  "excluded": [
+    "3D models",
+    "Model rigs and animation clips",
+    "Audio",
+    "Health/death projectile policy",
+    "Fixed three-direction volley",
+    "Shop and loot R3",
+    "Equipment R4",
+    "Clicker R5",
+    "Additional heroes R6"
+  ],
+  "checks_status": "Independent file and visual verification passed; Blender/game runtime not tested.",
+  "files": [
+    {
+      "path": "ASSETS.csv",
+      "bytes": 6093,
+      "sha256": "e7fb3a62f2ca6e8198a287ae1e8fb3c3edbb413162e6a2394ee5aa2837cf2b81"
+    },
+    {
+      "path": "INDEPENDENT-VERIFICATION.json",
+      "bytes": 703,
+      "sha256": "3cb70697622c558b1e72d86433240745c70533929cf7580eadef01437e869758"
+    },
+    {
+      "path": "PREVIEW.png",
+      "bytes": 308826,
+      "sha256": "d185a9ca5cd7a2a8f1c202ae2bf9f28268b54e8bdb752603d12f7ae85d277102"
+    },
+    {
+      "path": "PREVIEW.svg",
+      "bytes": 38713,
+      "sha256": "d4f18c1aeb440f3162db0e80197083a02e32a6fa47d62014cf1c4313d98c031e"
+    },
+    {
+      "path": "README-Blender.md",
+      "bytes": 2450,
+      "sha256": "f96bddae993483490e20e7341b9c691130f5b16da03d6f9116b86fb9a5921c11"
+    },
+    {
+      "path": "README-R2.md",
+      "bytes": 5322,
+      "sha256": "1d72342dcda6ec95926772674b9abd2e13ba0e78ae267e0bbbce8b3a805d814d"
+    },
+    {
+      "path": "VERIFICATION.md",
+      "bytes": 1709,
+      "sha256": "a4df57f4475ad0d38c8ba458286e74480fe460ad36f470367be9fb28e7500db5"
+    },
+    {
+      "path": "atlases/boss_states.json",
+      "bytes": 2230,
+      "sha256": "c49a55b949894372652f3fc12e9f539b5055d153875a0cd6368123fe8a21ea94"
+    },
+    {
+      "path": "atlases/boss_states.png",
+      "bytes": 52324,
+      "sha256": "e640f4c68eb4e7f8aba9df0da0eb43cb571ab54c3b093eaa4938e546f0b39ecc"
+    },
+    {
+      "path": "atlases/boss_states.svg",
+      "bytes": 4357,
+      "sha256": "1f4ac85f258571db889a77b56ca9eef7f30195a8f3218e847515603c41935060"
+    },
+    {
+      "path": "atlases/flipbook_boss_charge.json",
+      "bytes": 2521,
+      "sha256": "361f3ff1429c0dcc153301e7fae518ba19f53cd3ce069b5f6045aa48ebc239c7"
+    },
+    {
+      "path": "atlases/flipbook_boss_charge.png",
+      "bytes": 33259,
+      "sha256": "b757febdb7a6f0c5a7d3744e2a530881bd3d5a78b1f7fa0a19d2d13424711854"
+    },
+    {
+      "path": "atlases/flipbook_boss_charge.svg",
+      "bytes": 3741,
+      "sha256": "85da926fad2ca588caeb1b98a7565173d4cb2629728b05d99116b5c0584e9b28"
+    },
+    {
+      "path": "atlases/flipbook_hook_slip.json",
+      "bytes": 2447,
+      "sha256": "abf727f9cca3d107011ca7ed41fda96e10a56f9c5c1c866f926cb405583a005e"
+    },
+    {
+      "path": "atlases/flipbook_hook_slip.png",
+      "bytes": 15013,
+      "sha256": "c71d8372ae43b9a9faa9bc5238994e2c149ed8a4b7cd62021fd5f840c564fa6c"
+    },
+    {
+      "path": "atlases/flipbook_hook_slip.svg",
+      "bytes": 3453,
+      "sha256": "38062f220592d3b9c637b5b48f5e679291b68bf517e123f912ebad2bebcbe4fc"
+    },
+    {
+      "path": "atlases/flipbook_shooter_charge.json",
+      "bytes": 2564,
+      "sha256": "7b7776a72adb9b9df8782a90ceb31a506e5d0f6b8f2e72a1dd89789e17d075a5"
+    },
+    {
+      "path": "atlases/flipbook_shooter_charge.png",
+      "bytes": 34461,
+      "sha256": "293a430b2404f2b53ede1be274e64db77b087454320b45ffdfa9463c565952c9"
+    },
+    {
+      "path": "atlases/flipbook_shooter_charge.svg",
+      "bytes": 2604,
+      "sha256": "c6f998a80f66590c865b07135dc34883f7589b3313baefda40bfd17a4c65e2d3"
+    },
+    {
+      "path": "atlases/model_decals.json",
+      "bytes": 3436,
+      "sha256": "8f352691974e8d4a31c446166b7d441bd8c0bfee2cc21fcafa9d515e185e8c51"
+    },
+    {
+      "path": "atlases/model_decals.png",
+      "bytes": 48060,
+      "sha256": "ddb6c109ffb24361de114faeeef3492014fb7c7ef7854bb159dc4637e4f78e2b"
+    },
+    {
+      "path": "atlases/model_decals.svg",
+      "bytes": 2477,
+      "sha256": "fd5f7ec72eda0435fe7bf23a4d5e19fc609cdf9d37b52b1bae8a51032a80f6e8"
+    },
+    {
+      "path": "atlases/ui_icons.json",
+      "bytes": 3441,
+      "sha256": "c7438d2c110933520d18340932d8ab49b132951859f01ec78338a1cfbaca0fc9"
+    },
+    {
+      "path": "atlases/ui_icons.png",
+      "bytes": 41348,
+      "sha256": "51a45976bb7244b18dbfe7e6d809430c3abb4ef64feca461d49c3e1f98cad229"
+    },
+    {
+      "path": "atlases/ui_icons.svg",
+      "bytes": 3578,
+      "sha256": "78a3877f4e846ca6faf963bee89b80a389c954a926af6be012f4bd86824589f5"
+    },
+    {
+      "path": "atlases/vfx.json",
+      "bytes": 6923,
+      "sha256": "01080c9c8e4abe7c3c83a919fb508f25a24704e2a5dece3b84a5f4a163d417b5"
+    },
+    {
+      "path": "atlases/vfx.png",
+      "bytes": 83914,
+      "sha256": "8fe7c189759e61ab3e88e8d91245fa9299bc405c4e57a11170424e0ca8c90173"
+    },
+    {
+      "path": "atlases/vfx.svg",
+      "bytes": 6905,
+      "sha256": "befc6fec362df975d271e35d32dd3415568fe120998eaefb115e9462e9625552"
+    },
+    {
+      "path": "events.json",
+      "bytes": 2606,
+      "sha256": "357444630e11d1a8b346db88cbd43624d9fc91570545104e4b398d223b68b7ed"
+    },
+    {
+      "path": "flipbooks/boss_charge/boss_charge_00.png",
+      "bytes": 14176,
+      "sha256": "ca9255e2922883ac606eaac5bea38a144f4336bd309e8d93495f02cdcf3ac875"
+    },
+    {
+      "path": "flipbooks/boss_charge/boss_charge_00.svg",
+      "bytes": 955,
+      "sha256": "4250d95ca247c41d88f9ec1c985803b569d3c84fb8adfc1695f0c87e25d515dd"
+    },
+    {
+      "path": "flipbooks/boss_charge/boss_charge_01.png",
+      "bytes": 13098,
+      "sha256": "aba600dceee7790bba22502462c5eeae0d6f215d732b92e6ecba4c629b3af851"
+    },
+    {
+      "path": "flipbooks/boss_charge/boss_charge_01.svg",
+      "bytes": 955,
+      "sha256": "9985ed4a1131bf538759ba19d0f8f889406d4d461fc36eded62cfed0cc63a571"
+    },
+    {
+      "path": "flipbooks/boss_charge/boss_charge_02.png",
+      "bytes": 12121,
+      "sha256": "47af68db1b8ccb440c397015ef49935a41c1e13ae553d5fbd2c5975dc2597274"
+    },
+    {
+      "path": "flipbooks/boss_charge/boss_charge_02.svg",
+      "bytes": 951,
+      "sha256": "2d203c44d6a19b4d67193ae4b79210d90f26d9abd35230d9f1a9eb8346090214"
+    },
+    {
+      "path": "flipbooks/boss_charge/boss_charge_03.png",
+      "bytes": 10912,
+      "sha256": "92253cf0172f38fe8eefb68d0b518fda99bf41a9a06666075ac17791fcde8b27"
+    },
+    {
+      "path": "flipbooks/boss_charge/boss_charge_03.svg",
+      "bytes": 955,
+      "sha256": "c733e1f1c47a0bd310ca887505e6f8a7fda11df7b67289f61bbfd4ab19b17b1c"
+    },
+    {
+      "path": "flipbooks/hook_slip/hook_slip_00.png",
+      "bytes": 4704,
+      "sha256": "08d8b328f1dd2322ba27d541f6214bc549cd08f82d4af4550d2a2808d4922f7c"
+    },
+    {
+      "path": "flipbooks/hook_slip/hook_slip_00.svg",
+      "bytes": 932,
+      "sha256": "4c84bdb87a7076d4ae07e2ec9f64d28b188f4886e588871a5b67b1842f66196c"
+    },
+    {
+      "path": "flipbooks/hook_slip/hook_slip_01.png",
+      "bytes": 4847,
+      "sha256": "f6d272f1db52cc592445940812185bff1577dc988147ecb30298d25351014250"
+    },
+    {
+      "path": "flipbooks/hook_slip/hook_slip_01.svg",
+      "bytes": 992,
+      "sha256": "0bd73b46a5e3677c636f62551c55a3e7840d224984e697d914a629ab393530d1"
+    },
+    {
+      "path": "flipbooks/hook_slip/hook_slip_02.png",
+      "bytes": 4081,
+      "sha256": "48fc43e6bc8cba2a787155ae4aa867fe711bcd42671c06400191307be028d836"
+    },
+    {
+      "path": "flipbooks/hook_slip/hook_slip_02.svg",
+      "bytes": 772,
+      "sha256": "5a57614a85d4099d7d74614a5125fd11ece38573fdc71aaf5158df41fe10b652"
+    },
+    {
+      "path": "flipbooks/hook_slip/hook_slip_03.png",
+      "bytes": 3997,
+      "sha256": "3a953d8fec936b89aa1761488ac53977f854c67ceb10bc054f67bd3ecf6189fd"
+    },
+    {
+      "path": "flipbooks/hook_slip/hook_slip_03.svg",
+      "bytes": 832,
+      "sha256": "94229f38eaa192e08c1364247af9bbc6ca58c7b9b4e06704d304824b7521d8a4"
+    },
+    {
+      "path": "flipbooks/shooter_charge/shooter_charge_00.png",
+      "bytes": 10747,
+      "sha256": "26fe7cf588117fc0533581d2605d0b87bb8aae603b8a589081e7019c683cdd92"
+    },
+    {
+      "path": "flipbooks/shooter_charge/shooter_charge_00.svg",
+      "bytes": 670,
+      "sha256": "5caeaf1c0853b7d1452ee3f9f425d295f571eaa68df8a268f8c04481bd8bbea7"
+    },
+    {
+      "path": "flipbooks/shooter_charge/shooter_charge_01.png",
+      "bytes": 9915,
+      "sha256": "2c9b09f21d731caab24b97088c0f4b0bfb0a8a9793fea46a4582d516a265c2a5"
+    },
+    {
+      "path": "flipbooks/shooter_charge/shooter_charge_01.svg",
+      "bytes": 670,
+      "sha256": "a0c503e7a6c963041dcd8c28ad2810a9da0d00002c7e421cfa4cd2848e059c0f"
+    },
+    {
+      "path": "flipbooks/shooter_charge/shooter_charge_02.png",
+      "bytes": 8817,
+      "sha256": "7c8cac69b4bfdac70a198a97d251671b403c3515e803a3bcfabd65e97238b307"
+    },
+    {
+      "path": "flipbooks/shooter_charge/shooter_charge_02.svg",
+      "bytes": 670,
+      "sha256": "765ea2d5274743ef8ca972a7931357c2170a9fb23f67ae9147927c13c8aadd92"
+    },
+    {
+      "path": "flipbooks/shooter_charge/shooter_charge_03.png",
+      "bytes": 7983,
+      "sha256": "bde3422143c3aaba89dd7dfac8be1950b45464f17d2c0627e8661210ea971453"
+    },
+    {
+      "path": "flipbooks/shooter_charge/shooter_charge_03.svg",
+      "bytes": 669,
+      "sha256": "861d69422c980a3a37d088afd58c56132486422ea57b66c28efce72e65ff92b8"
+    },
+    {
+      "path": "palette.gpl",
+      "bytes": 783,
+      "sha256": "e9f4caf7af12c9346c7e9f3ee6c2acbdb58050ef211bcf458c42b1723283836d"
+    },
+    {
+      "path": "palette.json",
+      "bytes": 25157,
+      "sha256": "449746037c851111c8b7ce1cade84ff1785b4db589e6768c551d017d8c5d3467"
+    },
+    {
+      "path": "textures/decals/boss_eyes.png",
+      "bytes": 8482,
+      "sha256": "b045af4aad90ce0b03cd17e6609ba19f27b151ca36b228fed9974963a6de97e2"
+    },
+    {
+      "path": "textures/decals/boss_eyes.svg",
+      "bytes": 667,
+      "sha256": "91c207875329d95df94072362a2941c2f1ab75dd0292aa31a0020ac6c413728a"
+    },
+    {
+      "path": "textures/decals/boss_identity_insignia.png",
+      "bytes": 16692,
+      "sha256": "6aba77ee38173445199c75db4c879a1f23658deb3150f97b0544983af46bced5"
+    },
+    {
+      "path": "textures/decals/boss_identity_insignia.svg",
+      "bytes": 762,
+      "sha256": "ba7d8ad7991067aac03c8d8b266dcacd63f4059946c2c6dde671021ae4938881"
+    },
+    {
+      "path": "textures/decals/boss_mouth.png",
+      "bytes": 2427,
+      "sha256": "01cf1055dddd2c86824c4609c8b6e871ed589d72881ad24a027a2ec9f9eca60e"
+    },
+    {
+      "path": "textures/decals/boss_mouth.svg",
+      "bytes": 260,
+      "sha256": "a7565bc35d97f368c981736e4d3e9062f0af719e0c18be1ec030c571edfde243"
+    },
+    {
+      "path": "textures/decals/shooter_aiming_insignia.png",
+      "bytes": 8013,
+      "sha256": "c180fb6a745cb8f302d51fbce186042b0b5fa297ced3a45eb3c7b6ad94b4d3bb"
+    },
+    {
+      "path": "textures/decals/shooter_aiming_insignia.svg",
+      "bytes": 264,
+      "sha256": "43c83f23e9275627289d9fae1fd78edfae299fdae0ad1f1752814aa28a8d8637"
+    },
+    {
+      "path": "textures/decals/shooter_eyes.png",
+      "bytes": 10322,
+      "sha256": "5a88b91407fd8d8c9d687a1740367244aa1571c4a078d1d4736a44b4d580554c"
+    },
+    {
+      "path": "textures/decals/shooter_eyes.svg",
+      "bytes": 508,
+      "sha256": "6d8b0a5d94488e02980578a6e63397346e12db3e2c11c3645cfeedd429573c7b"
+    },
+    {
+      "path": "textures/decals/shooter_mouth.png",
+      "bytes": 2979,
+      "sha256": "b54a4a80a5848ea2acc103a4acdc60d914ac4bb5c3f51faaeaa1a0ccb54cf8ae"
+    },
+    {
+      "path": "textures/decals/shooter_mouth.svg",
+      "bytes": 167,
+      "sha256": "ef48e0fa6474af46f35b38d160ca2557daf87997241d10effccfbc36ba11dbfd"
+    },
+    {
+      "path": "textures/palette_basecolor.png",
+      "bytes": 1385,
+      "sha256": "9c30c3806bd820290729348d3a25864b0693d5100f4adefffb21b609e490fc31"
+    },
+    {
+      "path": "textures/solid/cloth.png",
+      "bytes": 86,
+      "sha256": "430c99205e35b67a4d174924c878adf62236c45dd2e3a94b9d215db7a8e56366"
+    },
+    {
+      "path": "textures/solid/cloth_light.png",
+      "bytes": 86,
+      "sha256": "843b9f0edbc34e5642c7f85be6f601e1926155c32d15a4d9dfa30fe71717b144"
+    },
+    {
+      "path": "textures/solid/cloud.png",
+      "bytes": 86,
+      "sha256": "47b3b1b38cddcfdfa91a2eab9fc4784d0e75c385c0e891157d919e98f5f1616b"
+    },
+    {
+      "path": "textures/solid/creep_cloth.png",
+      "bytes": 86,
+      "sha256": "5666822d9b5aefd741490ecef71eaa63f1d570968c8f143f745819ae38334160"
+    },
+    {
+      "path": "textures/solid/creep_mask.png",
+      "bytes": 86,
+      "sha256": "57cec9f66e094596a637e0762a737b360d22ef0e41cc6593c714d0c6d74ab84b"
+    },
+    {
+      "path": "textures/solid/creep_red.png",
+      "bytes": 86,
+      "sha256": "ec3dd35c0790089f0a02c74a519d5cfeac8241ba5e3c803bf42a13b45f81af97"
+    },
+    {
+      "path": "textures/solid/creep_red_dark.png",
+      "bytes": 86,
+      "sha256": "0f17b61761c61fe9c632f88d8df2ed5c9448c9908a618a4172362bff933f3b7c"
+    },
+    {
+      "path": "textures/solid/dirt.png",
+      "bytes": 86,
+      "sha256": "3b4a97b56bea4e3f8d8dc0d2794542b2c92983cbbf67488f784de2322b0b7a24"
+    },
+    {
+      "path": "textures/solid/dirt_dark.png",
+      "bytes": 86,
+      "sha256": "2a8bf4885015dbe8d004c1a7552ba9103cf1fe691413cb0e3276c3bc3f8c3789"
+    },
+    {
+      "path": "textures/solid/foliage.png",
+      "bytes": 86,
+      "sha256": "0ca93900fe828a04c69b7b62e502ef29b4d5ab5d9a437aa2d63c0a4b4c5e2dc0"
+    },
+    {
+      "path": "textures/solid/foliage_dark.png",
+      "bytes": 86,
+      "sha256": "34608294e6c62761e1f9af7418e2766836a0f63b547edcd067f9a3d7d106ffb9"
+    },
+    {
+      "path": "textures/solid/gold.png",
+      "bytes": 86,
+      "sha256": "0d99c4c3e1bd26d5506853bfa7f4b4c024bb9f26d73132aa10748e3abf63eacb"
+    },
+    {
+      "path": "textures/solid/gold_dark.png",
+      "bytes": 86,
+      "sha256": "663d15d32cfe2115f539b1d7ddccc68a70e759991b1314621479fbbaa2f65917"
+    },
+    {
+      "path": "textures/solid/gold_light.png",
+      "bytes": 86,
+      "sha256": "0643ce56df7f758e69ece7a116ca998aa0d3d26826015207b26218dc912d00f5"
+    },
+    {
+      "path": "textures/solid/grass.png",
+      "bytes": 86,
+      "sha256": "559cf734668262aa1065825999ef169c2a981b498b40f9d1c80d8c27dda9be06"
+    },
+    {
+      "path": "textures/solid/hair.png",
+      "bytes": 86,
+      "sha256": "ab61c4c74860aaa32401ea53aa0c46456db02a282bee57054198b7a2e5bee6b8"
+    },
+    {
+      "path": "textures/solid/hair_light.png",
+      "bytes": 86,
+      "sha256": "3ba6c11dc1f5a49d09fbc48c3b93cada2d36ce072faff1edcb81bb25f53c1f47"
+    },
+    {
+      "path": "textures/solid/hud_dark.png",
+      "bytes": 86,
+      "sha256": "47c54553017c7b2603c47cbcf566c69fb3cbc118cd7dda0df99d64a026b81ae7"
+    },
+    {
+      "path": "textures/solid/leather.png",
+      "bytes": 86,
+      "sha256": "ee8fd06c5c5bd7306ce0e0d5558704fd6c6dc8559c541511fce09333f1cf2678"
+    },
+    {
+      "path": "textures/solid/leather_dark.png",
+      "bytes": 86,
+      "sha256": "bf0ad7af6037f3a8150bc63df15ed5215baa37390194acb57340480b60c006c3"
+    },
+    {
+      "path": "textures/solid/neutral_white.png",
+      "bytes": 86,
+      "sha256": "2e5533044a5d4b955455045b3d31f8f14b4fa3e3b3ac013ad794bc303dd1e0c8"
+    },
+    {
+      "path": "textures/solid/rock.png",
+      "bytes": 86,
+      "sha256": "264c88db1af68a8c551edd64b67852f43b07d01225c14116189f1178055e7971"
+    },
+    {
+      "path": "textures/solid/rock_dark.png",
+      "bytes": 86,
+      "sha256": "0e21ae5c1f99e02709602d230e0c12d638736c4bd5721409100610525170a109"
+    },
+    {
+      "path": "textures/solid/skin.png",
+      "bytes": 86,
+      "sha256": "e1d50d76b334a39ca307fc995e7a16781c450239472851fa42219e3c54db8738"
+    },
+    {
+      "path": "textures/solid/skin_light.png",
+      "bytes": 86,
+      "sha256": "3933c1bdf921edd4f87f002dc3ac9e8831a60773a7adf2d39249739b595b4fd1"
+    },
+    {
+      "path": "textures/solid/skin_shadow.png",
+      "bytes": 86,
+      "sha256": "e2eceeef46208a0c528468bb35044921b1877e64836760bae6d1d87cb7ac1b4f"
+    },
+    {
+      "path": "textures/solid/sky.png",
+      "bytes": 86,
+      "sha256": "9bf787019bfd02195daa5c8f5a2e58356b55f1b0e31ebee4c6e03af49df3e160"
+    },
+    {
+      "path": "textures/solid/steel.png",
+      "bytes": 86,
+      "sha256": "540c272c696053b69a0a8fefd161b847f98dac59fdf4d19d1801c50ef99d2fcf"
+    },
+    {
+      "path": "textures/solid/steel_dark.png",
+      "bytes": 86,
+      "sha256": "dcba24d56e6063e215da55bf23436560d9e87311e1d3eb1c4f98d41ad8520743"
+    },
+    {
+      "path": "textures/solid/stitches.png",
+      "bytes": 86,
+      "sha256": "3776764bd630ada165ea40a4d7bfa591664c8d860210a0f85ac5345674d29a81"
+    },
+    {
+      "path": "textures/solid/wood.png",
+      "bytes": 86,
+      "sha256": "89063f82c8d6aadcdf5087134777d4536771a47783b8d5cd00c35933bc1690cc"
+    },
+    {
+      "path": "textures/solid/wood_dark.png",
+      "bytes": 86,
+      "sha256": "dd445f041a1c2b3f020e0371bdf8b1434bbb2c71c9e8dc66f1f8820ddbc6fd26"
+    },
+    {
+      "path": "ui/icons/boss_counter.png",
+      "bytes": 7661,
+      "sha256": "108415140d5c81fa286d8bcb0184add397362e3eefe23e7ca0ad58424f40b6e7"
+    },
+    {
+      "path": "ui/icons/boss_counter.svg",
+      "bytes": 1125,
+      "sha256": "d91b109ff0bc7a17771eaa3742b42868500c630782d1a78853196b5285aa3042"
+    },
+    {
+      "path": "ui/icons/boss_marker_empty.png",
+      "bytes": 7723,
+      "sha256": "22ab940c6bcdc83fb9169b53712b5cc72cbe400172275645370cda68b49c3f50"
+    },
+    {
+      "path": "ui/icons/boss_marker_empty.svg",
+      "bytes": 358,
+      "sha256": "28f2fade59632194396643a68db93d0fa540c6fcfc1e8e1131319a7794191354"
+    },
+    {
+      "path": "ui/icons/boss_marker_full.png",
+      "bytes": 7894,
+      "sha256": "fdee10b12119e796b816d3b37284df71850f5840a02eea3b313c8a4eba7cac63"
+    },
+    {
+      "path": "ui/icons/boss_marker_full.svg",
+      "bytes": 434,
+      "sha256": "aa20e4bdc8714258ac0e4fb695c48eeed315fa0d8ff46f17675e8b058c631158"
+    },
+    {
+      "path": "ui/icons/hook_slip.png",
+      "bytes": 5467,
+      "sha256": "6e9eef0b04f86f349f64962f88037936e236297904bf23d2af4de457733458d1"
+    },
+    {
+      "path": "ui/icons/hook_slip.svg",
+      "bytes": 615,
+      "sha256": "19ef0ac1c0163cc6429c4a53ec816458369126f80f720023fadf58e19b0e18b3"
+    },
+    {
+      "path": "ui/icons/projectile_warning.png",
+      "bytes": 5831,
+      "sha256": "fbbc476d3133adb14def1e1a1d03a71c5e482d8beb0323020b1632a9e5826267"
+    },
+    {
+      "path": "ui/icons/projectile_warning.svg",
+      "bytes": 306,
+      "sha256": "5978408336895bca846bbe55b1e3649bf69f6ef88b2c6f749bc19d80477ced67"
+    },
+    {
+      "path": "ui/icons/shooter_counter.png",
+      "bytes": 8450,
+      "sha256": "9163ede604ea13a0cf45d38acbba376d7359aa9eeebb96403bab95308108f850"
+    },
+    {
+      "path": "ui/icons/shooter_counter.svg",
+      "bytes": 897,
+      "sha256": "55aad50be361b7e32a71f926ee30aeeb4cdda2cdaa25721fa3b04634e4ecfad0"
+    },
+    {
+      "path": "ui/states/boss_hits_0.png",
+      "bytes": 10101,
+      "sha256": "9260fe3a5e91f80fd863b4f4ad52874f49bb51134bc8bc66ae7e51f21ef17b31"
+    },
+    {
+      "path": "ui/states/boss_hits_0.svg",
+      "bytes": 994,
+      "sha256": "6d6af3aefd11ef5d845d059f931dab532ee0687419d67c38b8fc134572cbf5ac"
+    },
+    {
+      "path": "ui/states/boss_hits_1.png",
+      "bytes": 16203,
+      "sha256": "4af9b65393073f68ff4778790c5ed2f7efa4bc1e2a6624ac2b62d127e9c1ed58"
+    },
+    {
+      "path": "ui/states/boss_hits_1.svg",
+      "bytes": 1070,
+      "sha256": "841da2a3586de7e37c13e65b4efee6f8cb01d4c667d7b63b6d81e9c3ea46c397"
+    },
+    {
+      "path": "ui/states/boss_hits_2.png",
+      "bytes": 16121,
+      "sha256": "3addc8f20d6d8f78b897884faefa2096e5a5bf03b22635aeb1635284bbf430ee"
+    },
+    {
+      "path": "ui/states/boss_hits_2.svg",
+      "bytes": 1146,
+      "sha256": "02d70dfd4fb9e6880278f18d7f6cf4aea01d8072e03f886e722b1a43a42b2109"
+    },
+    {
+      "path": "ui/states/boss_hits_3.png",
+      "bytes": 10217,
+      "sha256": "e5234e624551a6855d2a8477c6f772cd1a735c1a57967060f0363a11a574724c"
+    },
+    {
+      "path": "ui/states/boss_hits_3.svg",
+      "bytes": 1222,
+      "sha256": "e00345a37d2542fc3af2d275cd3188d456665b32c55392ba20da7c9584fff773"
+    },
+    {
+      "path": "vfx/boss_final_impact.png",
+      "bytes": 8529,
+      "sha256": "c3d553f8f6d14f56cbd7702ba5bd3a271bf02323542421eebb80b9131b4516ef"
+    },
+    {
+      "path": "vfx/boss_final_impact.svg",
+      "bytes": 756,
+      "sha256": "4edfff104b72302817a8dae95d241b851ee75d7a4f5806fc8a7c8cc9478d28d1"
+    },
+    {
+      "path": "vfx/boss_nonlethal_impact.png",
+      "bytes": 8251,
+      "sha256": "bccdd2c204329d48179d2a64687cb24ffd5d2153ddf9003bd07eb20c6c28c79c"
+    },
+    {
+      "path": "vfx/boss_nonlethal_impact.svg",
+      "bytes": 495,
+      "sha256": "36f8560b329fed53da5a0abe8415b039778a9f7f21d526553d8167e2deaad413"
+    },
+    {
+      "path": "vfx/charge_boss.png",
+      "bytes": 10912,
+      "sha256": "92253cf0172f38fe8eefb68d0b518fda99bf41a9a06666075ac17791fcde8b27"
+    },
+    {
+      "path": "vfx/charge_boss.svg",
+      "bytes": 955,
+      "sha256": "c733e1f1c47a0bd310ca887505e6f8a7fda11df7b67289f61bbfd4ab19b17b1c"
+    },
+    {
+      "path": "vfx/charge_shooter.png",
+      "bytes": 7983,
+      "sha256": "bde3422143c3aaba89dd7dfac8be1950b45464f17d2c0627e8661210ea971453"
+    },
+    {
+      "path": "vfx/charge_shooter.svg",
+      "bytes": 669,
+      "sha256": "861d69422c980a3a37d088afd58c56132486422ea57b66c28efce72e65ff92b8"
+    },
+    {
+      "path": "vfx/danger_corridor.png",
+      "bytes": 6872,
+      "sha256": "df0b04ed22b84cffb3b2ce210197fbb062dd8a352e76e905d68061c1ce0b1e35"
+    },
+    {
+      "path": "vfx/danger_corridor.svg",
+      "bytes": 475,
+      "sha256": "1bb5b6bce1b3359e9080cc693ef73d97bef750d1ce5d0d2756d55bf3f0dd576e"
+    },
+    {
+      "path": "vfx/direction_arrow.png",
+      "bytes": 2506,
+      "sha256": "d07f26ad9203499e2f43e727e25ce2b9601e285acee1ce607c5bd04642081fda"
+    },
+    {
+      "path": "vfx/direction_arrow.svg",
+      "bytes": 289,
+      "sha256": "d986f202d49b322ac08d537b25b3c9437b6509fb82e08fc6c092f50fd75bbe3d"
+    },
+    {
+      "path": "vfx/enemy_projectile.png",
+      "bytes": 3640,
+      "sha256": "9ce918e6cafb8af89e98da769fc1ac52c38c02eca30a63968a747a589adfa825"
+    },
+    {
+      "path": "vfx/enemy_projectile.svg",
+      "bytes": 355,
+      "sha256": "0fc313ca238cd491126885f39421d1b7f465b2dfbeadc71963dd95d38f6994ff"
+    },
+    {
+      "path": "vfx/hook_slip_sparks.png",
+      "bytes": 4847,
+      "sha256": "f6d272f1db52cc592445940812185bff1577dc988147ecb30298d25351014250"
+    },
+    {
+      "path": "vfx/hook_slip_sparks.svg",
+      "bytes": 992,
+      "sha256": "0bd73b46a5e3677c636f62551c55a3e7840d224984e697d914a629ab393530d1"
+    },
+    {
+      "path": "vfx/muzzle_flash.png",
+      "bytes": 8152,
+      "sha256": "8d899ec690782780f0c5e67e11b5de5a4ee57e4a8505f71cc55f64fd070cbd17"
+    },
+    {
+      "path": "vfx/muzzle_flash.svg",
+      "bytes": 621,
+      "sha256": "37c52a2c214ae29bb5c15fe94b4328671c6cc3ac4923cbd0d43ed7d5cabba8ca"
+    },
+    {
+      "path": "vfx/projectile_hit_neutral.png",
+      "bytes": 7911,
+      "sha256": "0598e64e29c0bc0b0e5167ffd7f7c4757e95d6e66be66bcfe3c8d025b06b6a88"
+    },
+    {
+      "path": "vfx/projectile_hit_neutral.svg",
+      "bytes": 879,
+      "sha256": "54437df160b470af7eda103376fe48ac7b8a83d95a74b6ccda860d1adaeea2b1"
+    },
+    {
+      "path": "vfx/projectile_trail.png",
+      "bytes": 4143,
+      "sha256": "1c069f1fa92b5646a4b19eda43f8e7a22dbc096e0334e5871b66322518093eb0"
+    },
+    {
+      "path": "vfx/projectile_trail.svg",
+      "bytes": 236,
+      "sha256": "87b672e74f3dbfbc97b1463ecda5b500993516973bf4ff8017b2f12077dfcbec"
+    },
+    {
+      "path": "vfx/shooter_defeat.png",
+      "bytes": 7096,
+      "sha256": "9fe6fc0eeb35a6d42e53115c956efb9ac8bbfbd61b45d5e8bd84d6bfc6cd5c8d"
+    },
+    {
+      "path": "vfx/shooter_defeat.svg",
+      "bytes": 582,
+      "sha256": "8d13a2fe5cec56a3ab5280185c5d58ac9ed925141b4c2f489fbf88b2e226d8ae"
+    }
+  ],
+  "verification": "VERIFICATION.md"
+}

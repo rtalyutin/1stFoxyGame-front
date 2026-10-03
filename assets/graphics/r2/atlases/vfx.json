@@ -1,0 +1,343 @@
+{
+  "image": "vfx.png",
+  "size": {
+    "w": 1024,
+    "h": 768
+  },
+  "frame_size": {
+    "w": 256,
+    "h": 256
+  },
+  "grid": {
+    "columns": 4,
+    "rows": 3
+  },
+  "origin": "top-left; x right, y down",
+  "alpha": "straight",
+  "frames": [
+    {
+      "id": "enemy_projectile",
+      "label_ru": "Вражеский снаряд",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.0,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.6666666666666667,
+        0.25,
+        1.0
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    },
+    {
+      "id": "projectile_trail",
+      "label_ru": "След снаряда: вверх",
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.0,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.6666666666666667,
+        0.5,
+        1.0
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    },
+    {
+      "id": "charge_shooter",
+      "label_ru": "Подготовка выстрела стрелка",
+      "frame": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.0,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.6666666666666667,
+        0.75,
+        1.0
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    },
+    {
+      "id": "charge_boss",
+      "label_ru": "Подготовка выстрела босса",
+      "frame": {
+        "x": 768,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.0,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.6666666666666667,
+        1.0,
+        1.0
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    },
+    {
+      "id": "muzzle_flash",
+      "label_ru": "Вспышка выстрела",
+      "frame": {
+        "x": 0,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.3333333333333333,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.33333333333333337,
+        0.25,
+        0.6666666666666667
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    },
+    {
+      "id": "direction_arrow",
+      "label_ru": "Направление: локально вверх",
+      "frame": {
+        "x": 256,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.3333333333333333,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.33333333333333337,
+        0.5,
+        0.6666666666666667
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    },
+    {
+      "id": "danger_corridor",
+      "label_ru": "Коридор угрозы: штриховой контур",
+      "frame": {
+        "x": 512,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.3333333333333333,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.33333333333333337,
+        0.75,
+        0.6666666666666667
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    },
+    {
+      "id": "projectile_hit_neutral",
+      "label_ru": "Попадание снаряда: нейтральный отклик",
+      "frame": {
+        "x": 768,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.3333333333333333,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.33333333333333337,
+        1.0,
+        0.6666666666666667
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    },
+    {
+      "id": "boss_nonlethal_impact",
+      "label_ru": "Босс: нелетальное попадание",
+      "frame": {
+        "x": 0,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.6666666666666666,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.0,
+        0.25,
+        0.33333333333333337
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    },
+    {
+      "id": "hook_slip_sparks",
+      "label_ru": "Срыв хука: стальные зигзаги",
+      "frame": {
+        "x": 256,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.6666666666666666,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.0,
+        0.5,
+        0.33333333333333337
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    },
+    {
+      "id": "boss_final_impact",
+      "label_ru": "Босс: финальное попадание, точный fallback",
+      "frame": {
+        "x": 512,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.6666666666666666,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.0,
+        0.75,
+        0.33333333333333337
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    },
+    {
+      "id": "shooter_defeat",
+      "label_ru": "Стрелок: распад силуэта",
+      "frame": {
+        "x": 768,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.6666666666666666,
+        0.25,
+        0.3333333333333333
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.0,
+        1.0,
+        0.33333333333333337
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 12.0
+    }
+  ]
+}

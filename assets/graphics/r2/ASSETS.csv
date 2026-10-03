@@ -1,0 +1,41 @@
+id,category,label_ru,svg,png,width,height,alpha
+shooter_counter,ui/icons,Стрелок: счётчик,ui/icons/shooter_counter.svg,ui/icons/shooter_counter.png,256,256,straight
+boss_counter,ui/icons,Босс: счётчик,ui/icons/boss_counter.svg,ui/icons/boss_counter.png,256,256,straight
+boss_marker_full,ui/icons,Метка босса: полная,ui/icons/boss_marker_full.svg,ui/icons/boss_marker_full.png,256,256,straight
+boss_marker_empty,ui/icons,Метка босса: снятая,ui/icons/boss_marker_empty.svg,ui/icons/boss_marker_empty.png,256,256,straight
+projectile_warning,ui/icons,Опасность выстрела,ui/icons/projectile_warning.svg,ui/icons/projectile_warning.png,256,256,straight
+hook_slip,ui/icons,Срыв хука,ui/icons/hook_slip.svg,ui/icons/hook_slip.png,256,256,straight
+boss_hits_3,ui/states,Осталось попаданий: 3,ui/states/boss_hits_3.svg,ui/states/boss_hits_3.png,768,256,straight
+boss_hits_2,ui/states,Осталось попаданий: 2,ui/states/boss_hits_2.svg,ui/states/boss_hits_2.png,768,256,straight
+boss_hits_1,ui/states,Осталось попаданий: 1,ui/states/boss_hits_1.svg,ui/states/boss_hits_1.png,768,256,straight
+boss_hits_0,ui/states,Осталось попаданий: 0,ui/states/boss_hits_0.svg,ui/states/boss_hits_0.png,768,256,straight
+shooter_eyes,textures/decals,Глаза стрелка,textures/decals/shooter_eyes.svg,textures/decals/shooter_eyes.png,512,512,straight
+shooter_mouth,textures/decals,Рот стрелка,textures/decals/shooter_mouth.svg,textures/decals/shooter_mouth.png,512,512,straight
+boss_eyes,textures/decals,Глаза босса,textures/decals/boss_eyes.svg,textures/decals/boss_eyes.png,512,512,straight
+boss_mouth,textures/decals,Рот босса,textures/decals/boss_mouth.svg,textures/decals/boss_mouth.png,512,512,straight
+shooter_aiming_insignia,textures/decals,Знак стрелка,textures/decals/shooter_aiming_insignia.svg,textures/decals/shooter_aiming_insignia.png,512,512,straight
+boss_identity_insignia,textures/decals,Знак босса с тремя заклёпками,textures/decals/boss_identity_insignia.svg,textures/decals/boss_identity_insignia.png,512,512,straight
+enemy_projectile,vfx,Вражеский снаряд,vfx/enemy_projectile.svg,vfx/enemy_projectile.png,256,256,straight
+projectile_trail,vfx,След снаряда: вверх,vfx/projectile_trail.svg,vfx/projectile_trail.png,256,256,straight
+charge_shooter,vfx,Подготовка выстрела стрелка,vfx/charge_shooter.svg,vfx/charge_shooter.png,256,256,straight
+charge_boss,vfx,Подготовка выстрела босса,vfx/charge_boss.svg,vfx/charge_boss.png,256,256,straight
+muzzle_flash,vfx,Вспышка выстрела,vfx/muzzle_flash.svg,vfx/muzzle_flash.png,256,256,straight
+direction_arrow,vfx,Направление: локально вверх,vfx/direction_arrow.svg,vfx/direction_arrow.png,256,256,straight
+danger_corridor,vfx,Коридор угрозы: штриховой контур,vfx/danger_corridor.svg,vfx/danger_corridor.png,256,256,straight
+projectile_hit_neutral,vfx,Попадание снаряда: нейтральный отклик,vfx/projectile_hit_neutral.svg,vfx/projectile_hit_neutral.png,256,256,straight
+boss_nonlethal_impact,vfx,Босс: нелетальное попадание,vfx/boss_nonlethal_impact.svg,vfx/boss_nonlethal_impact.png,256,256,straight
+hook_slip_sparks,vfx,Срыв хука: стальные зигзаги,vfx/hook_slip_sparks.svg,vfx/hook_slip_sparks.png,256,256,straight
+boss_final_impact,vfx,"Босс: финальное попадание, точный fallback",vfx/boss_final_impact.svg,vfx/boss_final_impact.png,256,256,straight
+shooter_defeat,vfx,Стрелок: распад силуэта,vfx/shooter_defeat.svg,vfx/shooter_defeat.png,256,256,straight
+shooter_charge_00,flipbooks/shooter_charge,Подготовка стрелка: кадр 1/4,flipbooks/shooter_charge/shooter_charge_00.svg,flipbooks/shooter_charge/shooter_charge_00.png,256,256,straight
+shooter_charge_01,flipbooks/shooter_charge,Подготовка стрелка: кадр 2/4,flipbooks/shooter_charge/shooter_charge_01.svg,flipbooks/shooter_charge/shooter_charge_01.png,256,256,straight
+shooter_charge_02,flipbooks/shooter_charge,Подготовка стрелка: кадр 3/4,flipbooks/shooter_charge/shooter_charge_02.svg,flipbooks/shooter_charge/shooter_charge_02.png,256,256,straight
+shooter_charge_03,flipbooks/shooter_charge,Подготовка стрелка: кадр 4/4,flipbooks/shooter_charge/shooter_charge_03.svg,flipbooks/shooter_charge/shooter_charge_03.png,256,256,straight
+boss_charge_00,flipbooks/boss_charge,Подготовка босса: кадр 1/4,flipbooks/boss_charge/boss_charge_00.svg,flipbooks/boss_charge/boss_charge_00.png,256,256,straight
+boss_charge_01,flipbooks/boss_charge,Подготовка босса: кадр 2/4,flipbooks/boss_charge/boss_charge_01.svg,flipbooks/boss_charge/boss_charge_01.png,256,256,straight
+boss_charge_02,flipbooks/boss_charge,Подготовка босса: кадр 3/4,flipbooks/boss_charge/boss_charge_02.svg,flipbooks/boss_charge/boss_charge_02.png,256,256,straight
+boss_charge_03,flipbooks/boss_charge,Подготовка босса: кадр 4/4,flipbooks/boss_charge/boss_charge_03.svg,flipbooks/boss_charge/boss_charge_03.png,256,256,straight
+hook_slip_00,flipbooks/hook_slip,Срыв хука: кадр 1/4,flipbooks/hook_slip/hook_slip_00.svg,flipbooks/hook_slip/hook_slip_00.png,256,256,straight
+hook_slip_01,flipbooks/hook_slip,Срыв хука: кадр 2/4,flipbooks/hook_slip/hook_slip_01.svg,flipbooks/hook_slip/hook_slip_01.png,256,256,straight
+hook_slip_02,flipbooks/hook_slip,Срыв хука: кадр 3/4,flipbooks/hook_slip/hook_slip_02.svg,flipbooks/hook_slip/hook_slip_02.png,256,256,straight
+hook_slip_03,flipbooks/hook_slip,Срыв хука: кадр 4/4,flipbooks/hook_slip/hook_slip_03.svg,flipbooks/hook_slip/hook_slip_03.png,256,256,straight

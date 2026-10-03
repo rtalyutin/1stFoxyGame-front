@@ -1,0 +1,6 @@
+# Preserve published asset hashes on Windows and Unix checkouts.
+assets/graphics/r2/** -text
+assets/graphics/r2/ASSETS.csv whitespace=cr-at-eol
+assets/models/r2/*.blend -text
+public/models/r2/*.glb -text
+docs/models/r2/preview.png -text

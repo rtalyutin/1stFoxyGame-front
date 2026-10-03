@@ -1,0 +1,269 @@
+{
+  "blender": "5.2.1 LTS",
+  "scope": "6 R2 assets, 14 clips; local authoring and exports verified",
+  "boundary": "Game integration, combat rules, projectile lifetime in the client and physical phone FPS are not tested by this delivery",
+  "glb_verdict": "PASS_GLB_STRUCTURE_AND_EVERY_FRAME_BLENDER_REIMPORT",
+  "native_verdict": "PASS_NATIVE_BLENDER",
+  "assets": {
+    "enemy_shooter": {
+      "sha256": "b2fe83f5a8ac48e958d1d320d276aebd6cc1f89e940a6a5fb0e463747f9ed904",
+      "root_identity": "PASS",
+      "reimport": "PASS",
+      "world_bounds_glTF_xyz": [
+        [
+          -0.5225525498390198,
+          0.0,
+          -0.30799999833106995
+        ],
+        [
+          0.5225524306297302,
+          1.6720000505447388,
+          1.221000075340271
+        ]
+      ],
+      "triangles": 1193,
+      "weight_sum_max_error": 2.9802322387695312e-08,
+      "clips": {
+        "death_capture": {
+          "frames_sampled": 31,
+          "vertex_motion_m": 0.014322002995968128,
+          "min_ground_z_m": 0.0019998550415039062,
+          "max_route_root_motion_m": 1.0610844647374051e-08,
+          "muzzle_motion_m": 0.0
+        },
+        "hit": {
+          "frames_sampled": 22,
+          "vertex_motion_m": 2.1811494470717694,
+          "min_ground_z_m": 0.0019997358322143555,
+          "max_route_root_motion_m": 1.0610844647374051e-08,
+          "muzzle_motion_m": 1.3401050813239985
+        },
+        "idle": {
+          "frames_sampled": 61,
+          "vertex_motion_m": 0.01970887951183637,
+          "min_ground_z_m": 0.0019999146461486816,
+          "max_route_root_motion_m": 6.845719824344343e-11,
+          "muzzle_motion_m": 0.020204153879107734
+        },
+        "run": {
+          "frames_sampled": 31,
+          "vertex_motion_m": 0.266344973993363,
+          "min_ground_z_m": 0.001999910920858383,
+          "max_route_root_motion_m": 6.341556724187569e-10,
+          "muzzle_motion_m": 0.07184191958556913
+        },
+        "shoot": {
+          "frames_sampled": 13,
+          "vertex_motion_m": 0.25478496402672623,
+          "min_ground_z_m": 0.0019999146461486816,
+          "max_route_root_motion_m": 6.845719824344343e-11,
+          "muzzle_motion_m": 0.26135578675775384
+        },
+        "shoot_prepare": {
+          "frames_sampled": 31,
+          "vertex_motion_m": 0.06461054551121195,
+          "min_ground_z_m": 0.0019999146461486816,
+          "max_route_root_motion_m": 6.845719824344343e-11,
+          "muzzle_motion_m": 0.027908537673665322
+        }
+      },
+      "muzzle_follows_hand": "PASS"
+    },
+    "enemy_boss": {
+      "sha256": "708f4e51cff219e5ca076078a5825003d84e81b81c3259ca22e775eeabe2745c",
+      "root_identity": "PASS",
+      "reimport": "PASS",
+      "world_bounds_glTF_xyz": [
+        [
+          -0.89000004529953,
+          0.0,
+          -0.36490005254745483
+        ],
+        [
+          0.89000004529953,
+          2.832427740097046,
+          2.207200050354004
+        ]
+      ],
+      "triangles": 1400,
+      "weight_sum_max_error": 2.9802322387695312e-08,
+      "clips": {
+        "break_free": {
+          "frames_sampled": 25,
+          "vertex_motion_m": 1.0573765876409507,
+          "min_ground_z_m": 0.0019996899645775557,
+          "max_route_root_motion_m": 6.845717742676172e-11,
+          "muzzle_motion_m": 1.0566955982228934
+        },
+        "death": {
+          "frames_sampled": 25,
+          "vertex_motion_m": 3.8124662929358344,
+          "min_ground_z_m": 0.0019989013671875,
+          "max_route_root_motion_m": 1.3250589070423757e-08,
+          "muzzle_motion_m": 2.248947162138107
+        },
+        "death_capture": {
+          "frames_sampled": 31,
+          "vertex_motion_m": 0.020764539562102807,
+          "min_ground_z_m": 0.0019989013671875,
+          "max_route_root_motion_m": 1.3616359595403082e-08,
+          "muzzle_motion_m": 0.010686129364128296
+        },
+        "hit_recover": {
+          "frames_sampled": 22,
+          "vertex_motion_m": 0.9529158536685213,
+          "min_ground_z_m": 0.0019996899645775557,
+          "max_route_root_motion_m": 6.845717742676172e-11,
+          "muzzle_motion_m": 0.959565150920419
+        },
+        "idle": {
+          "frames_sampled": 61,
+          "vertex_motion_m": 0.03566481386959177,
+          "min_ground_z_m": 0.0019996899645775557,
+          "max_route_root_motion_m": 6.845717742676172e-11,
+          "muzzle_motion_m": 0.036020910870071476
+        },
+        "run": {
+          "frames_sampled": 31,
+          "vertex_motion_m": 0.4315789985689551,
+          "min_ground_z_m": 0.0019996389746665955,
+          "max_route_root_motion_m": 9.838557746277843e-10,
+          "muzzle_motion_m": 0.12296007295547608
+        },
+        "shoot": {
+          "frames_sampled": 13,
+          "vertex_motion_m": 0.46104220514985816,
+          "min_ground_z_m": 0.0019996899645775557,
+          "max_route_root_motion_m": 6.845717742676172e-11,
+          "muzzle_motion_m": 0.4665548538127938
+        },
+        "shoot_prepare": {
+          "frames_sampled": 31,
+          "vertex_motion_m": 0.1284769000007998,
+          "min_ground_z_m": 0.0019996899645775557,
+          "max_route_root_motion_m": 6.845717742676172e-11,
+          "muzzle_motion_m": 0.048761079475568174
+        }
+      },
+      "muzzle_follows_hand": "PASS"
+    },
+    "enemy_projectile": {
+      "sha256": "f0d5625f7e47b46ddcfc975c7fa6d4d73e8f4cfdb66967ebed3038e1ce0d198f",
+      "root_identity": "PASS",
+      "reimport": "PASS",
+      "world_bounds_glTF_xyz": [
+        [
+          -0.09999997913837433,
+          -0.10000000149011612,
+          -0.25999999046325684
+        ],
+        [
+          0.10000002384185791,
+          0.10000000149011612,
+          0.3400000035762787
+        ]
+      ],
+      "triangles": 44,
+      "weight_sum_max_error": 0,
+      "clips": {}
+    },
+    "aim_strip": {
+      "sha256": "0600255b8acf31ffc074f810b0c84eb676151feb5a4bf2d91767e85cd05f78d6",
+      "root_identity": "PASS",
+      "reimport": "PASS",
+      "world_bounds_glTF_xyz": [
+        [
+          -0.1800001859664917,
+          0.0020000000949949026,
+          -1.5298985411860144e-09
+        ],
+        [
+          0.17999999225139618,
+          0.014000000432133675,
+          2.5399999618530273
+        ]
+      ],
+      "triangles": 28,
+      "weight_sum_max_error": 0,
+      "clips": {}
+    },
+    "warning_ring": {
+      "sha256": "6c0dbb5b5b3ebf551ecc07d74a68ef1d1f2d523aa683f587af748547251252fc",
+      "root_identity": "PASS",
+      "reimport": "PASS",
+      "world_bounds_glTF_xyz": [
+        [
+          -1.0,
+          0.014999999664723873,
+          -1.0
+        ],
+        [
+          1.0,
+          0.014999999664723873,
+          1.2699999809265137
+        ]
+      ],
+      "triangles": 27,
+      "weight_sum_max_error": 0,
+      "clips": {}
+    },
+    "hit_marker": {
+      "sha256": "9a10d78c9645923184793996766684703b67abcd97c577dce3619273a21d801c",
+      "root_identity": "PASS",
+      "reimport": "PASS",
+      "world_bounds_glTF_xyz": [
+        [
+          -0.10999999940395355,
+          -0.14000000059604645,
+          -0.02199999988079071
+        ],
+        [
+          0.10999999940395355,
+          0.14000000059604645,
+          0.054999999701976776
+        ]
+      ],
+      "triangles": 8,
+      "weight_sum_max_error": 0,
+      "clips": {}
+    }
+  },
+  "blender_sources": {
+    "assets/models/r2/aim_strip.blend": {
+      "sha256": "b398eb4561b500f330fce829387621dae0b6c91128ea256f845ad107f4feeabe",
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0
+    },
+    "assets/models/r2/enemy_boss.blend": {
+      "sha256": "41482d0cc9b6bad64e492a897e489d83815b119d8dce7be3954511d97a0d86ae",
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18
+    },
+    "assets/models/r2/enemy_projectile.blend": {
+      "sha256": "65d8c0b596a9632f3a3e4ee1cb5c7f438a601353db988279ee19c86a84c013a0",
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0
+    },
+    "assets/models/r2/enemy_shooter.blend": {
+      "sha256": "1ce9f72cb908b148b9a6758d3cc139ca3ce82d5c0eaac67ff74b1dec097a6351",
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18
+    },
+    "assets/models/r2/hit_marker.blend": {
+      "sha256": "64e91d0c4b007644fb12faa3d750acb4ba24231c0101f1b3f6a06d4aa4de211e",
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0
+    },
+    "assets/models/r2/warning_ring.blend": {
+      "sha256": "4bbbf2b60f99ba1652bb732cad3ce9d164fc2f704aa69bfda5ab8510efe600b3",
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0
+    }
+  }
+}

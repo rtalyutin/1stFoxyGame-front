@@ -1,0 +1,181 @@
+{
+  "image": "model_decals.png",
+  "size": {
+    "w": 1536,
+    "h": 1024
+  },
+  "frame_size": {
+    "w": 512,
+    "h": 512
+  },
+  "grid": {
+    "columns": 3,
+    "rows": 2
+  },
+  "origin": "top-left; x right, y down",
+  "alpha": "straight",
+  "frames": [
+    {
+      "id": "shooter_eyes",
+      "label_ru": "Глаза стрелка",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 512,
+        "h": 512
+      },
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.0,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.5,
+        0.3333333333333333,
+        1.0
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24.0
+    },
+    {
+      "id": "shooter_mouth",
+      "label_ru": "Рот стрелка",
+      "frame": {
+        "x": 512,
+        "y": 0,
+        "w": 512,
+        "h": 512
+      },
+      "normalized_rect_png_top_left": [
+        0.3333333333333333,
+        0.0,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.3333333333333333,
+        0.5,
+        0.6666666666666666,
+        1.0
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24.0
+    },
+    {
+      "id": "boss_eyes",
+      "label_ru": "Глаза босса",
+      "frame": {
+        "x": 1024,
+        "y": 0,
+        "w": 512,
+        "h": 512
+      },
+      "normalized_rect_png_top_left": [
+        0.6666666666666666,
+        0.0,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.6666666666666666,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24.0
+    },
+    {
+      "id": "boss_mouth",
+      "label_ru": "Рот босса",
+      "frame": {
+        "x": 0,
+        "y": 512,
+        "w": 512,
+        "h": 512
+      },
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.5,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.0,
+        0.3333333333333333,
+        0.5
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24.0
+    },
+    {
+      "id": "shooter_aiming_insignia",
+      "label_ru": "Знак стрелка",
+      "frame": {
+        "x": 512,
+        "y": 512,
+        "w": 512,
+        "h": 512
+      },
+      "normalized_rect_png_top_left": [
+        0.3333333333333333,
+        0.5,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.3333333333333333,
+        0.0,
+        0.6666666666666666,
+        0.5
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24.0
+    },
+    {
+      "id": "boss_identity_insignia",
+      "label_ru": "Знак босса с тремя заклёпками",
+      "frame": {
+        "x": 1024,
+        "y": 512,
+        "w": 512,
+        "h": 512
+      },
+      "normalized_rect_png_top_left": [
+        0.6666666666666666,
+        0.5,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.6666666666666666,
+        0.0,
+        1.0,
+        0.5
+      ],
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "minimum_padding_px": 24.0
+    }
+  ]
+}

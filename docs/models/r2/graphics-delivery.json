@@ -1,0 +1,11 @@
+{
+  "source": "Runner-Forge-R2-Graphics-v1.zip",
+  "source_sha256": "bd60a30b57b0e83f6eadf75572bb8af5751b4dd4af8af140a7dec4eb106c4f60",
+  "repository_path": "assets/graphics/r2",
+  "files": 145,
+  "manifest_hashes_verified": 144,
+  "png_decoded": 81,
+  "svg_parsed": 48,
+  "status": "PASS_COPY_HASHES_AND_FILE_DECODE",
+  "boundary": "Source graphics delivery only; no texture application to existing models, runtime rendering or gameplay acceptance performed"
+}
