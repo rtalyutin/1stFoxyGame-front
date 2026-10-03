@@ -3,7 +3,7 @@
   "contract_revision": 2,
   "confirmation": "2026-10-03: Реализуй релиз 3 и 4. Без графики",
   "contract": "docs/r3-r4.md",
-  "stage": "paired_ci",
+  "stage": "implemented_ready_for_review",
   "inputs": {
     "front_main": "5afb5541840cffda3a9516d7ed033e94cb647dd5",
     "back_main": "fb06e888ff38d540033e361f8c6fb7ca2f57d5fc",
@@ -39,20 +39,46 @@
       "source": "25d2036a58aa49754558b738d641c28799ac2525",
       "tested_merge": "92c660019c51cd759f0fa2ce2ca1c4cde81ee9f5",
       "tree": "bd8e3a476e8a1251042bddccae06b92f898d7912"
+    },
+    {
+      "gate": "packaged-pair",
+      "status": "VERIFIED",
+      "evidence": "CI37143857188 SUCCESS: frontend unit/typecheck/build; pinned backend 37 SQL PASS; nginx health/version, catalog/simulation parity, same-origin login/cookie/CSRF/revoke, packaged migrations and immutable paired artifact",
+      "front_head": "e52e914e9cae81cc0242a4b2f02309b9c50c790d",
+      "front_tested_merge": "890e199b4d259e1101962731dc452c7239f096c4",
+      "front_tree": "2112d4c16f4c325d1f4e870c2e3ae18643b14946",
+      "backend": "25d2036a58aa49754558b738d641c28799ac2525",
+      "artifact_id": 11281935795,
+      "artifact_sha256": "3868d1fa53cd7d4a89bf27a4745cfba0c4fb7c136ee62dc30ddbc0df59a7058b"
+    },
+    {
+      "gate": "exact-A31-web-lifecycle",
+      "status": "VERIFIED",
+      "evidence": "Server-confirmed boss telegraph: blur handler freezes snapshot for650ms; explicit countdown3-2-1 resumes the same time/positions/RNG/projectiles/attack remaining",
+      "scope": "Synthetic blur event in headless Chromium; native minimize/physical Android untested; runtime fingerprints unchanged"
+    },
+    {
+      "gate": "exact-A41-interrupted-kill-write",
+      "status": "VERIFIED",
+      "evidence": "CI37144289613 SUCCESS: actual SQL trigger observes coherent reward/snapshot/enemy writes then aborts; new pool recovery and same operation retry/replay reward once; all38 SQL tests PASS0skip",
+      "source": "f59c0446972e84c847026def307701e94f54beb2",
+      "tested_merge": "2dbe39d6b9eba98a3af431482a0f36cfaa1744e8",
+      "tree": "c8b3d65c8a3bf33089e35302340ce2cf79231991"
     }
   ],
-  "pending": [
-    "paired frontend/backend CI and immutable artifact; final verdict recorded in PR and workflow"
-  ],
+  "pending": [],
   "operation_status": "NOT_STARTED",
-  "production": "User reports R2 deployed; current version not verified",
-  "next": "Publish pinned frontend PR, verify packaged pair, mark both PRs ready",
+  "production": "User reports R2 deployed; R3/R4 production rollout not performed",
+  "next": "Review the paired PRs. Exact final head, successful CI and immutable paired artifact are recorded in the PR descriptions; production rollout uses deploy/R3-R4.md.",
   "artifact_revision": {
-    "backend": "25d2036a58aa49754558b738d641c28799ac2525"
+    "backend_pin": "f59c0446972e84c847026def307701e94f54beb2",
+    "last_verified_paired_ci": 37143857188,
+    "last_verified_paired_artifact": 11281935795,
+    "canonical_final_pair": "Successful CI on current frontend PR #4 head; release.json binds both source SHA and image IDs"
   },
   "operation_id": null,
-  "gate_verdict": "PENDING",
-  "action_decision": "CONTINUE",
+  "gate_verdict": "VERIFIED_FOR_IMPLEMENTED_FUNCTIONAL_SCOPE",
+  "action_decision": "READY_FOR_REVIEW_AFTER_CURRENT_HEAD_CI",
   "hypothesis_assessment": "NOT_ASSESSED: player balance, physical Android and production operation",
   "scope": {
     "R3_tasks": 31,
