@@ -8,3 +8,10 @@
 /* Daylight models need solid contrast behind battlefield labels. */
 .hud{padding:8px 12px;background:#11211bdb;border:1px solid var(--edge)}
 @media(pointer:coarse){.touch-move>span{color:#263c2d}.touch-hint{padding:6px 8px;background:#f2eadcd9;border-radius:4px;color:#263c2d}.touch-hint strong{color:#664716}.joystick{background:#16241b66}}
+.boss-status{position:absolute;right:32px;top:110px;padding:10px 14px;background:#11211be8;border:1px solid var(--amber);pointer-events:none;max-width:210px;text-align:right}
+.boss-status>span{display:block;font-size:9px;letter-spacing:1.8px;color:var(--amber)}
+.boss-status strong{display:block;font-size:25px;font-variant-numeric:tabular-nums}
+.boss-status small{display:block;font-size:10px;color:#e2e4d6}
+.shot-warning{position:absolute;left:50%;bottom:112px;transform:translateX(-50%);padding:7px 12px;margin:0;background:#4b2a0ee8;border:1px solid #efbe4e;color:#fff2c2;font-size:10px;letter-spacing:.7px;pointer-events:none;white-space:nowrap}
+@media(pointer:coarse){.shot-warning{bottom:216px}}
+@media(max-width:600px){.hud{gap:16px;left:18px;padding:6px 9px}.stat strong{font-size:23px}.stat>span{font-size:7px;letter-spacing:1px}.boss-status{right:18px;top:91px;max-width:137px;padding:7px 9px}.boss-status strong{font-size:21px}.boss-status small{font-size:8px;max-width:110px}.boss-status>span{font-size:8px;letter-spacing:1px}.shot-warning{max-width:calc(100% - 32px);font-size:9px}}

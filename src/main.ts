@@ -6,6 +6,7 @@ import { WorldView } from './presentation/world';
 import { ConnectionMonitor } from './platform/connection';
 import type { ConnectionState } from './platform/connection';
 import { GameInput } from './platform/input';
+import { loadCatalog } from './platform/catalog';
 
 export type AppPhase = 'BOOT' | 'GALLERY' | 'COUNTDOWN' | 'RUNNING' | 'PAUSED' | 'GAME_OVER' | 'SHOP' | 'WORKSHOP';
 const get = <T extends HTMLElement = HTMLElement>(id: string): T => document.getElementById(id) as T;
@@ -28,6 +29,7 @@ let actionPending = false;
 let feedbackUntil = 0;
 let lifecycleEpoch = 0;
 let assets: 'loading' | 'ready' | 'error' = 'loading';
+let startError = '';
 const motion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 async function loadAssets(): Promise<void> {
@@ -78,7 +80,7 @@ function updateConnection(state: ConnectionState): void {
 
 function updateScreen(): void {
   const inBattle = ['RUNNING', 'COUNTDOWN', 'PAUSED', 'GAME_OVER'].includes(phase);
-  get('hud').hidden = !inBattle;
+  get('hud').hidden = !inBattle || phase === 'GAME_OVER';
   get('ability').hidden = !inBattle || phase === 'GAME_OVER';
   pauseButton.hidden = phase !== 'RUNNING';
   get('overlay').hidden = phase === 'RUNNING' || phase === 'COUNTDOWN';
@@ -89,9 +91,9 @@ function updateScreen(): void {
   get('control-hint').hidden = phase === 'GAME_OVER';
   primary.disabled = assets === 'loading' || actionPending || !contextAvailable || connection?.state !== 'online';
   if (phase === 'BOOT' || phase === 'GALLERY') {
-    get('eyebrow').textContent = 'ПЕРВЫЙ ИГРОВОЙ СРЕЗ';
+    get('eyebrow').textContent = 'СТРЕЛОК И БОСС';
     get('screen-title').innerHTML = 'ПУДЖ<span>Путь без права на промах</span>';
-    get('screen-description').textContent = 'Крипы идут навстречу. Не дай ни одному коснуться тебя или пройти за спину.';
+    get('screen-description').textContent = 'Не пропускай врагов и уклоняйся от пуль. Стрелку нужен один хук, боссу — три. Предупреждение на дороге показывает направление выстрела.';
     primary.textContent = connection?.state === 'online' ? 'Начать путь  →' : 'Ожидаем соединение…';
   } else if (phase === 'PAUSED') {
     get('eyebrow').textContent = 'ЗАБЕГ СОХРАНЁН В ЭТОЙ ВКЛАДКЕ';
@@ -101,13 +103,18 @@ function updateScreen(): void {
   } else if (phase === 'GAME_OVER' && sim) {
     get('eyebrow').textContent = 'КОНЕЦ ПУТИ';
     get('screen-title').innerHTML = 'ЕЩЁ ОДИН?<span>Новый забег. Новый шанс.</span>';
-    get('screen-description').textContent = sim.state.deathReason === 'contact'
-      ? 'Живой крип добрался до Пуджа.' : 'Крип прошёл за спину. На этом путь окончен.';
+    get('screen-description').textContent = sim.state.deathReason === 'projectile'
+      ? 'Вражеский снаряд попал в Пуджа. Одного попадания достаточно.'
+      : sim.state.deathReason === 'contact' ? 'Живой крип добрался до Пуджа.' : 'Крип прошёл за спину. На этом путь окончен.';
     const { kills, distance, time } = sim.state;
     get('results').innerHTML = `<div><dt>Расстояние</dt><dd>${Math.floor(distance)} м</dd></div><div><dt>Время</dt><dd>${formatTime(time)}</dd></div><div><dt>Обычные крипы</dt><dd>${kills.normal}</dd></div><div><dt>Сильные / боссы</dt><dd>${kills.strong} / ${kills.boss}</dd></div>`;
     primary.textContent = connection.state === 'online' ? 'Ещё раз  →' : 'Ожидаем соединение…';
   }
   if (actionPending) primary.textContent = 'Проверяем соединение…';
+  if (startError && (phase === 'GALLERY' || phase === 'GAME_OVER')) {
+    get('screen-description').textContent = startError;
+    primary.textContent = 'Попробовать снова  →';
+  }
   if (assets !== 'ready') {
     get('screen-description').textContent = assets === 'loading'
       ? 'Загружаем героя, крипов и окружение…'
@@ -126,9 +133,17 @@ async function begin(): Promise<void> {
   if (actionPending || !contextAvailable || !['GALLERY', 'PAUSED', 'GAME_OVER'].includes(phase)) return;
   const intendedPhase = phase;
   const intendedEpoch = lifecycleEpoch;
+  startError = '';
   actionPending = true;
   updateScreen();
   const online = await connection.check();
+  if (online && intendedPhase !== 'PAUSED') {
+    try { await loadCatalog(); }
+    catch (error) {
+      startError = error instanceof Error ? error.message : 'Не удалось загрузить правила. Попробуй снова.';
+      actionPending = false; updateScreen(); return;
+    }
+  }
   actionPending = false;
   if (!online || document.hidden || !document.hasFocus() || !contextAvailable
       || intendedPhase !== phase || intendedEpoch !== lifecycleEpoch) { updateScreen(); return; }
@@ -189,7 +204,12 @@ try {
     const state = sim?.state;
     input.refreshAim({ x: state?.hero.x ?? 0, z: (state?.hero.z ?? 0) + 20 });
     get('distance').innerHTML = `${Math.floor(state?.distance ?? 0)}<small> м</small>`;
-    get('kills').textContent = String(state?.kills.normal ?? 0);
+    get('kills').textContent = String(state ? state.kills.normal + state.kills.strong + state.kills.boss : 0);
+    const boss = state?.enemies.find(enemy => enemy.kind === 'boss' && enemy.status === 'alive');
+    get('boss-status').hidden = !boss || phase !== 'RUNNING';
+    if (boss) get('boss-hits').textContent = `${boss.hitsRemaining} / ${boss.requiredHits}`;
+    const preparing = phase === 'RUNNING' && state?.enemies.some(enemy => enemy.status === 'alive' && enemy.shooting?.phase === 'telegraph');
+    get('shot-warning').hidden = !preparing;
     const remaining = state?.cooldownRemaining ?? 0;
     get('hook-status').textContent = state?.hook ? state.hook.phase === 'outbound' ? 'Крюк летит' : 'Возвращается' : remaining > 0 ? `${remaining.toFixed(1)} с` : 'Готов';
     get('cooldown-fill').style.transform = `scaleX(${Math.max(0, Math.min(1, 1 - remaining / (sim?.config.hookCooldown ?? DEFAULT_CONFIG.hookCooldown)))})`;
