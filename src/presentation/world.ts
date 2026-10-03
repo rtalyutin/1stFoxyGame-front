@@ -17,6 +17,7 @@ import type { Point, RunSimulation, RunState } from '../game/simulation';
 import { ModelLibrary, type ModelActor } from './models';
 import { PresentationTimeline } from './timeline';
 import { toScenePoint, toCombatAim } from './coordinates';
+import { ThreatView } from './threats';
 
 /** Models present the pure simulation; no collider depends on a mesh or a clip. */
 export class WorldView {
@@ -37,6 +38,7 @@ export class WorldView {
   private gallerySeconds = 0;
   private resizeObserver: ResizeObserver;
   private loadPromise: Promise<void> | null = null;
+  private threats: ThreatView;
 
   constructor(private canvas: HTMLCanvasElement) {
     this.engine = new Engine(canvas, true, { stencil: true, preserveDrawingBuffer: false }, true);
@@ -44,6 +46,7 @@ export class WorldView {
     this.scene = new Scene(this.engine);
     // GLB axes stay native: Y up, +Z forward, no importer half-turn root.
     this.scene.useRightHandedSystem = true;
+    this.threats = new ThreatView(this.scene);
     this.scene.clearColor = Color4.FromHexString('#8ac3dfff');
     this.scene.fogMode = Scene.FOGMODE_LINEAR;
     this.scene.fogColor = Color3.FromHexString('#8ac3df');
@@ -126,9 +129,10 @@ export class WorldView {
   private configureCamera(): void {
     const portrait = this.engine.getRenderHeight() > this.engine.getRenderWidth();
     this.camera.position.set(0, portrait ? 15 : 11, portrait ? -23 : -15);
-    this.camera.fovMode = portrait ? Camera.FOVMODE_VERTICAL_FIXED : Camera.FOVMODE_HORIZONTAL_FIXED;
-    this.camera.fov = portrait ? 0.9 : 0.83;
-    this.camera.setTarget(new Vector3(0, 0, portrait ? 13 : 6));
+    // Keep the entire forward warning/mark area in frame on wide displays too.
+    this.camera.fovMode = Camera.FOVMODE_VERTICAL_FIXED;
+    this.camera.fov = portrait ? 0.9 : 0.85;
+    this.camera.setTarget(new Vector3(0, 0, portrait ? 13 : 10));
   }
 
   aim(clientX: number, clientY: number): Point {
@@ -182,7 +186,11 @@ export class WorldView {
       for (const enemy of state?.enemies ?? []) {
         visible.add(enemy.id);
         let actor = this.enemies.get(enemy.id);
-        if (!actor) { actor = this.library!.create('creep_basic', enemy.id); this.enemies.set(enemy.id, actor); }
+        if (!actor) {
+          actor = this.library!.create('creep_basic', enemy.id);
+          if (enemy.kind === 'boss') actor.root.scaling.setAll(1.65);
+          this.enemies.set(enemy.id, actor);
+        }
         actor.root.position.copyFrom(toScenePoint(enemy, distance));
         actor.root.rotation.y = Math.PI;
         const pose = this.timeline.creep(enemy.id, state!.time, enemy.status === 'captured');
@@ -192,6 +200,7 @@ export class WorldView {
         }
       }
       for (const [id, actor] of this.enemies) if (!visible.has(id)) { actor.dispose(); this.enemies.delete(id); }
+      this.threats.render(state, distance, this.enemies);
     }
     const showAim = Boolean(this.hero && state?.phase === 'running' && !state.hook);
     this.aimLine.setEnabled(showAim);
@@ -225,6 +234,7 @@ export class WorldView {
   }
 
   private clearAssets(): void {
+    this.threats.clear();
     for (const actor of [this.hero, this.hook, ...this.links, ...this.staticActors, ...this.enemies.values()]) actor?.dispose();
     for (const section of this.scenery) section.dispose();
     this.library?.dispose(); this.library = null; this.hero = null; this.hook = null;
@@ -232,6 +242,6 @@ export class WorldView {
   }
 
   dispose(): void {
-    this.resizeObserver.disconnect(); this.clearAssets(); this.scene.dispose(); this.engine.dispose();
+    this.resizeObserver.disconnect(); this.clearAssets(); this.threats.dispose(); this.scene.dispose(); this.engine.dispose();
   }
 }

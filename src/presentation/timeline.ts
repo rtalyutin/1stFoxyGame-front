@@ -49,7 +49,11 @@ export class PresentationTimeline {
   }
 
   creep(id: string, time: number, captured: boolean): { clip: string; seconds: number; loop: boolean } {
-    if (!captured) return { clip: 'run', seconds: time, loop: true };
+    if (!captured) {
+      const hitAt = this.hits.get(id);
+      if (hitAt !== undefined && time - hitAt < 0.6) return { clip: 'hit', seconds: time - hitAt, loop: false };
+      return { clip: 'run', seconds: time, loop: true };
+    }
     const elapsed = time - (this.hits.get(id) ?? time);
     return elapsed < 0.6 ? { clip: 'hit', seconds: elapsed, loop: false }
       : { clip: 'death_capture', seconds: elapsed - 0.6, loop: true };

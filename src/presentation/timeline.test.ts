@@ -3,6 +3,23 @@ import { RunSimulation } from '../game/simulation';
 import { PresentationTimeline } from './timeline';
 
 describe('presentation time and event adapter', () => {
+  it('shows a nonlethal boss impact, freezes it on pause, and returns to running', () => {
+    const sim = new RunSimulation('boss-pose', 7, {
+      config: { spawning: false, heroSpeed: 0, bossEnemySpeed: 0, bossInterval: 1000 },
+      initialEnemies: [{ id: 'boss', kind: 'boss', x: 0, z: 10 }],
+    });
+    const timeline = new PresentationTimeline(); timeline.observe(sim.state);
+    sim.step([{ type: 'cast', aim: { x: 0, z: 10 } }]); timeline.observe(sim.state);
+    while (sim.state.enemies[0].hitsRemaining === 3) { sim.step(); timeline.observe(sim.state); }
+    expect(sim.state.enemies[0].status).toBe('alive');
+    const pose = timeline.creep('boss', sim.state.time, false);
+    expect(pose.clip).toBe('hit');
+    sim.pause(); sim.step(); timeline.observe(sim.state);
+    expect(timeline.creep('boss', sim.state.time, false)).toEqual(pose);
+    sim.resume();
+    for (let i = 0; i < 50; i++) { sim.step(); timeline.observe(sim.state); }
+    expect(timeline.creep('boss', sim.state.time, false).clip).toBe('run');
+  });
   it('retains a hit across several ticks in one frame and freezes during pause', () => {
     const sim = new RunSimulation('capture', 4, { initialEnemies: [{ id: 'target', x: 0, z: 25 }] });
     const timeline = new PresentationTimeline(); timeline.observe(sim.state);

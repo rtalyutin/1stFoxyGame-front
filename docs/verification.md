@@ -1,4 +1,21 @@
-# R1 behavior verification
+# Behavior verification
+
+## R2 local acceptance — 2026-10-03
+
+Source: isolated R2 worktree based on remote R1 frontend `d9a9654ed743da5442a7265986c7cc287f586377`, backend `e1cb5fcac481b9a74c99f9d681c2e354d78548ee`. The 23-file source/config/test manifest SHA256 is `93c9daf84a81b16815e8bc3be89dd02784d3f668880a6096a4e7f1ecf3ccc17e`; checked paths and published backend revision are recorded in TASK_STATE.json. Historical R1 evidence below remains scoped to its own revision.
+
+- Author checks: frontend typecheck/build, 55/55 tests with the real paired backend catalog; backend typecheck, 15/15 API/catalog/protocol tests and generated typed seed parity.
+- Independent combat: 15 scenarios covering swept projectile hits/misses, source death, equal-time source kill plus bullet impact, three boss casts, one-hit normal/strong enemies, pause, deterministic replay, combined target deadlines, projectile reservation and reachable corridors. A 400-second synthetic stream test clears enemies artificially to inspect the generator; it is not a gameplay completion or balance result.
+- Independent main UI: real local Fastify + Vite proxy on 1440×900, 390×844 and 320×740; desktop click, touch aim-release and cancellation, pause/explicit continuation, incompatible rule version rejection, no page errors or horizontal overflow.
+- Independent WorldView: 1440×900, 390×844, 320×740 and 2560×1080; all three boss marks fit the viewport at the 36m spawn distance, actual casts change marks 3→2→1→0, only the final hit kills, pause freezes and clearing the scene removes threat objects.
+- Independent actual main states: synthetic starting scenarios injected only into test responses, with production main-loop/DOM code; boss HUD 3→2→1→hidden, shot-warning bounds, projectile defeat text and revised gallery instruction verified at 1440×900 and 320×740. No test access is shipped.
+- Independent internal RunLedger: owner isolation, three distinct boss hits, atomic rejection, surviving projectile terminal after source death, exact canonical retry and rejection of conflicting/reward/version/order/cooldown data.
+
+QA found the battle HUD overlapping the defeat heading at 320×740 (QA-R2-01). The HUD is now hidden in GAME_OVER; a narrow repeat with an explicit visibility assertion and screenshot review passed. The independent verifier reran all 55 author tests with the real backend catalog; all listed source files matched the final manifest. Independent report SHA256: `ea24458e507070382c27d79c87f074ef0b5ed9f3e082b013c43122bc821160e9`.
+
+These observations accept the local code/contract/UI scope. Backend PostgreSQL18.6 CI passed on [run37124551329](https://github.com/rtalyutin/1stFoxyGame-back/actions/runs/37124551329): 15 API/unit tests, 13 DB subtests (14 TAP tests including their parent), zero skips; real migration/constraint/version/concurrency/dump/restore checks and packaged migration CLI via URL and secret-file both passed. The first run exposed a test fixture expecting SQLSTATE23503 for DELETE RESTRICT; PostgreSQL correctly returned23001. Only the three fixture expectations and retained-row assertions were corrected; schema was unchanged. This backend workflow tested the PR merge revision832d0cb4171686fd4ec73ad712e448d3d747b3e3 containing head96df2a700c48ede89e3d65cd313b6dac8a2e4e6b. The exact pinned backend/frontend Docker pair still requires its separate frontend CI gate. Local Docker/PostgreSQL could not be run in this environment. Native Android, production deployment and player balance acceptance remain unverified. User-provided R1 HTTPS IP returned a certificate-name mismatch through the cloud browser, so production readback is not claimed.
+
+## Historical R1 verification
 
 The initial blockout report below is historical. The current GLB integration verification is recorded in the final section.
 

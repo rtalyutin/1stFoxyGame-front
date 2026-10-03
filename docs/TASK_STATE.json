@@ -1,0 +1,78 @@
+{
+  "feature_id": "FoxyGame-R2",
+  "contract_revision": 1,
+  "confirmation": "03.10.2026: реализуй задачи 2го релиза; ранее разрешена публикация в обе репы",
+  "contract": "docs/ACTIVE_CONTRACT.md",
+  "stage": "ci-and-publication",
+  "inputs": {
+    "front_main": "d9a9654ed743da5442a7265986c7cc287f586377",
+    "back_main": "e1cb5fcac481b9a74c99f9d681c2e354d78548ee",
+    "plan": "Runner-Forge-Release-Plan.xls 02.10.2026"
+  },
+  "results": [
+    {
+      "gate": "front-author",
+      "status": "VERIFIED",
+      "evidence": "typecheck/build; 55 tests including paired catalog"
+    },
+    {
+      "gate": "back-author",
+      "status": "VERIFIED",
+      "evidence": "typecheck; 15 API/content/run tests; typed seed parity"
+    },
+    {
+      "gate": "independent-qa",
+      "status": "VERIFIED",
+      "scope": "local combat, real API/UI, threat rendering and internal protocol",
+      "evidence": "docs/verification.md; independent QA report SHA256 ea24458e507070382c27d79c87f074ef0b5ed9f3e082b013c43122bc821160e9; final source manifest matched"
+    },
+    {
+      "gate": "backend-publication",
+      "status": "VERIFIED",
+      "evidence": "https://github.com/rtalyutin/1stFoxyGame-back/pull/2; final head96df2a700c48ede89e3d65cd313b6dac8a2e4e6b; remote blob/mode readback"
+    },
+    {
+      "gate": "postgres18-backend-ci",
+      "status": "VERIFIED",
+      "evidence": "https://github.com/rtalyutin/1stFoxyGame-back/actions/runs/37124551329; 15 API/unit tests and 13 DB subtests passed, zero skips; dump/restore and packaged migration CLI URL/secret-file modes passed",
+      "scope": "Backend PR merge revision832d0cb4171686fd4ec73ad712e448d3d747b3e3 includes head96df2a700c48ede89e3d65cd313b6dac8a2e4e6b; immutable frontend pair remains a separate gate"
+    }
+  ],
+  "pending": [
+    "immutable-paired-artifact",
+    "frontend-pr-publication"
+  ],
+  "operation_status": "IN_PROGRESS",
+  "production": "R1 user-reported; browser TLS IP mismatch prevents readback",
+  "next": "Publish frozen frontend paired to backend96df2a700c48ede89e3d65cd313b6dac8a2e4e6b; complete paired CI and artifact readback",
+  "artifact_revision": {
+    "front_runtime_sha256": "93c9daf84a81b16815e8bc3be89dd02784d3f668880a6096a4e7f1ecf3ccc17e",
+    "runtime_files": [
+      "index.html",
+      "package-lock.json",
+      "package.json",
+      "src/game/config.ts",
+      "src/game/simulation-r2.test.ts",
+      "src/game/simulation.test.ts",
+      "src/game/simulation.ts",
+      "src/main.ts",
+      "src/platform/catalog.test.ts",
+      "src/platform/catalog.ts",
+      "src/platform/connection.test.ts",
+      "src/platform/connection.ts",
+      "src/platform/input.ts",
+      "src/presentation/coordinates.test.ts",
+      "src/presentation/coordinates.ts",
+      "src/presentation/models.test.ts",
+      "src/presentation/models.ts",
+      "src/presentation/threats.ts",
+      "src/presentation/timeline.test.ts",
+      "src/presentation/timeline.ts",
+      "src/presentation/world.ts",
+      "src/style.css",
+      "vite.config.ts"
+    ],
+    "back_head": "96df2a700c48ede89e3d65cd313b6dac8a2e4e6b"
+  },
+  "operation_id": "backend draft PR#2 published; frontend draft PR publication pending"
+}

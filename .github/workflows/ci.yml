@@ -1,4 +1,4 @@
-name: R1 CI
+name: R2 CI
 
 on:
   pull_request:
@@ -15,17 +15,31 @@ defaults:
     shell: bash
 
 concurrency:
-  group: r1-ci-${{ github.workflow }}-${{ github.ref }}
+  group: r2-ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   verify:
-    name: R1 verify
+    name: R2 verify
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
       CI: 'true'
       SOURCE_SHA: ${{ github.sha }}
+    services:
+      postgres:
+        image: postgres:18.6-bookworm@sha256:3725f4e2499eef5134592b3b4ab79a543ed7f8e533b05b5b637af926630f6650
+        env:
+          POSTGRES_USER: foxy_ci
+          POSTGRES_PASSWORD: ci_ephemeral_only
+          POSTGRES_DB: foxy_ci
+        ports:
+          - 5432/tcp
+        options: >-
+          --health-cmd "pg_isready -U foxy_ci -d foxy_ci"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 12
     steps:
       - name: Checkout exact revision
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
@@ -40,7 +54,9 @@ jobs:
         run: npm ci
       - name: Typecheck
         run: npm run typecheck
-      - name: Verify R1 behavior
+      - name: Validate the R2 content contract
+        run: npm run validate:content
+      - name: Verify R1 and deterministic R2 scenarios
         run: npm test
       - name: Build
         run: npm run build
@@ -63,10 +79,20 @@ jobs:
         working-directory: .ci-backend
         env:
           BACKEND_SHA: ${{ steps.backend-ref.outputs.sha }}
+          DATABASE_URL: postgresql://foxy_ci:ci_ephemeral_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/foxy_ci
+          PG_TEST_CONTAINER: ${{ job.services.postgres.id }}
         run: |
           npm ci
+          npm run typecheck
+          npm run validate:content
+          npm test
+          npm run test:db
           npm run build
           docker build --build-arg SOURCE_SHA="$BACKEND_SHA" --tag "foxy-back:$BACKEND_SHA" .
+      - name: Verify frontend and paired backend catalog compatibility
+        env:
+          BACKEND_CATALOG_PATH: ${{ github.workspace }}/.ci-backend/content/catalog.json
+        run: npm run validate:content
       - name: Package tested build
         run: |
           docker build --build-arg SOURCE_SHA="$SOURCE_SHA" --tag "foxy-front:$SOURCE_SHA" .
@@ -82,6 +108,20 @@ jobs:
           curl --fail --silent --show-error --retry 10 --retry-delay 1 --retry-all-errors --retry-max-time 30 --max-time 3 --connect-timeout 3 http://127.0.0.1:18080/api/v1/health | node -e 'let s=""; process.stdin.on("data",c=>s+=c).on("end",()=>{const h=JSON.parse(s); if(h.status!=="ok"||h.apiVersion!=="1"||!Number.isFinite(Date.parse(h.serverTime)))process.exit(1)})'
           curl --fail --silent --show-error http://127.0.0.1:18080/version.json | node -e 'let s=""; process.stdin.on("data",c=>s+=c).on("end",()=>{if(JSON.parse(s).revision!==process.env.SOURCE_SHA)process.exit(1)})'
           test "$(docker inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' foxy-back-smoke)" = "$BACKEND_SHA"
+          curl --fail --silent --show-error --max-time 3 http://127.0.0.1:18080/api/v1/catalog > /tmp/foxy-runtime-catalog.json
+          node --input-type=module -e 'import {readFileSync} from "node:fs"; import {deepStrictEqual} from "node:assert"; deepStrictEqual(JSON.parse(readFileSync("/tmp/foxy-runtime-catalog.json", "utf8")), JSON.parse(readFileSync(".ci-backend/content/catalog.json", "utf8")))'
+      - name: Verify the packaged PostgreSQL migration runner
+        env:
+          BACKEND_SHA: ${{ steps.backend-ref.outputs.sha }}
+          DATABASE_URL: postgresql://foxy_ci:ci_ephemeral_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/foxy_ci
+        run: |
+          test "$(docker run --rm --entrypoint id "foxy-back:$BACKEND_SHA" -u)" = 1000
+          docker run --rm --network host --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true --env DATABASE_URL "foxy-back:$BACKEND_SHA" node dist/db/migrate-cli.js
+          db_secret=$(mktemp)
+          trap 'rm -f "$db_secret"' EXIT
+          printf '%s\n' "$DATABASE_URL" > "$db_secret"
+          chmod 0644 "$db_secret" # Ephemeral CI fixture, never a server credential.
+          docker run --rm --network host --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true --volume "$db_secret:/run/secrets/database_url:ro" --env DATABASE_URL_FILE=/run/secrets/database_url "foxy-back:$BACKEND_SHA" node dist/db/migrate-cli.js
       - name: Archive immutable build
         env:
           BACKEND_SHA: ${{ steps.backend-ref.outputs.sha }}
@@ -91,10 +131,11 @@ jobs:
           docker image inspect --format '{{.Id}}' "foxy-front:$SOURCE_SHA" > artifact/image-id.txt
           printf '%s\n' "$SOURCE_SHA" > artifact/source-sha.txt
           tar -czf artifact/dist.tar.gz dist
+          tar -czf artifact/deploy.tar.gz deploy
           docker save "foxy-back:$BACKEND_SHA" | gzip -n > artifact/backend-image.tar.gz
           docker image inspect --format '{{.Id}}' "foxy-back:$BACKEND_SHA" > artifact/backend-image-id.txt
           printf '%s\n' "$BACKEND_SHA" > artifact/backend-source-sha.txt
-          (cd artifact && sha256sum image.tar.gz dist.tar.gz image-id.txt source-sha.txt backend-image.tar.gz backend-image-id.txt backend-source-sha.txt > SHA256SUMS)
+          (cd artifact && sha256sum image.tar.gz dist.tar.gz deploy.tar.gz image-id.txt source-sha.txt backend-image.tar.gz backend-image-id.txt backend-source-sha.txt > SHA256SUMS)
       - name: Upload review artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:

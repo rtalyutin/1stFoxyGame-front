@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#101919" />
-    <meta name="description" content="Бесконечный путь. Первый игровой срез: Пудж, ручной хук и непрерывное выживание." />
-    <title>Бесконечный путь · R1</title>
+    <meta name="description" content="Бесконечный путь. Пудж, ручной хук, стрелки и боссы с тремя метками." />
+    <title>Бесконечный путь · R2</title>
   </head>
   <body>
     <main id="app">
       <canvas id="world" aria-label="Игровое поле. Движение A и D или стрелками, прицел мышью, хук левой кнопкой." tabindex="0"></canvas>
       <header class="topbar">
-        <div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><span>БЕСКОНЕЧНЫЙ<br><strong>ПУТЬ</strong></span><span class="build-tag">R1</span></div>
+        <div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><span>БЕСКОНЕЧНЫЙ<br><strong>ПУТЬ</strong></span><span class="build-tag">R2</span></div>
         <div class="connection" id="connection" role="status"><i></i><span>Подключение…</span></div>
         <button id="pause" class="icon-button" aria-label="Пауза" hidden>Ⅱ</button>
       </header>
@@ -19,22 +19,24 @@
         <div class="stat"><span>ПРОЙДЕНО</span><strong id="distance">0<small> м</small></strong></div>
         <div class="stat kills"><span>УНИЧТОЖЕНО</span><strong id="kills">0</strong></div>
       </section>
+      <aside id="boss-status" class="boss-status" aria-label="Оставшиеся попадания по боссу" hidden><span>НАДЗИРАТЕЛЬ</span><strong id="boss-hits"></strong><small>Каждая метка — отдельный хук</small></aside>
+      <p id="shot-warning" class="shot-warning" role="status" aria-live="polite" hidden>ПРИГОТОВЬСЯ УКЛОНИТЬСЯ</p>
       <section class="ability" id="ability" aria-label="Состояние хука" hidden><span class="hook-symbol" aria-hidden="true">↪</span><div><span>МЯСНОЙ КРЮК</span><strong id="hook-status">Готов</strong><div class="cooldown"><i id="cooldown-fill"></i></div></div><span class="key desktop-only">ЛКМ</span></section>
       <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
       <div id="touch-move" class="touch-move" aria-label="Сенсорная зона движения"><div class="joystick"><span id="joystick-thumb"></span></div><span>ДВИЖЕНИЕ</span></div>
       <div id="touch-hint" class="touch-hint">ЦЕЛЬСЯ<br><strong>ОТПУСТИ → ХУК</strong></div>
       <div id="overlay" class="overlay">
         <section id="menu" class="panel" aria-labelledby="screen-title">
-          <p class="eyebrow" id="eyebrow">ПЕРВЫЙ ИГРОВОЙ СРЕЗ</p>
+          <p class="eyebrow" id="eyebrow">СТРЕЛОК И БОСС</p>
           <h1 id="screen-title">ПУДЖ<span>Путь без права на промах</span></h1>
-          <p id="screen-description">Крипы идут навстречу. Не дай ни одному коснуться тебя или пройти за спину.</p>
-          <div id="instructions" class="instructions"><div><b>01</b><span>Двигайся влево и вправо</span></div><div><b>02</b><span>Наведи крюк и атакуй вручную</span></div><div><b>03</b><span>Каждый пропущенный враг — конец</span></div></div>
+          <p id="screen-description">Не пропускай врагов и уклоняйся от пуль. Стрелку нужен один хук, боссу — три.</p>
+          <div id="instructions" class="instructions"><div><b>01</b><span>Двигайся влево и вправо</span></div><div><b>02</b><span>Наведи крюк и атакуй вручную</span></div><div><b>03</b><span>Попадание пули, касание или пропуск — конец</span></div></div>
           <dl id="results" class="results" hidden></dl>
           <button id="primary" class="primary" disabled>Подключение к серверу…</button>
           <button id="secondary" class="secondary" hidden>К началу</button>
           <p id="control-hint" class="control-hint desktop-only">A / D — движение · мышь — прицел · ЛКМ — хук · Esc — пауза</p>
           <p class="control-hint touch-only">Левая рука — движение. Правая — прицел.<br>Отпусти правый палец, чтобы бросить хук.</p>
-          <p class="slice-note" id="slice-note">Первый релиз · нужен интернет</p>
+          <p class="slice-note" id="slice-note">Второй релиз · нужен интернет</p>
         </section>
       </div>
       <div id="countdown" class="countdown" role="status" aria-live="assertive" hidden></div>
