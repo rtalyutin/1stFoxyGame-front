@@ -1,0 +1,16 @@
+{
+  "source": "Runner-Forge-R1-Models-v1.zip",
+  "contract": "MODEL-CONTRACT-R2.md (R1 model contract revision 2)",
+  "sha256": {
+    "bush.glb": "ead844de1665b1929215f9e9fc2c49cc417c5f26f921f36b8017f2d889adafd1",
+    "chain.glb": "25e8488e5ca5f487554691d42001be8cc6db4cf9a169c3e2d59a5ae29211a338",
+    "creep_basic.glb": "a15659bc341564e74d40b987b28c5f4c112494cc9efddb1855db5335c5782794",
+    "grass.glb": "dd91579e541fa51c47b6fb731394946e90a1574de93277912a79ef9a137b7f6b",
+    "hook.glb": "77e3c87baecfbeada86dc988c7565c7fb45bc77c900e4dd0354f8f09c13757a3",
+    "pudge.glb": "e2702a5e1fa47c1e99519809914d997e5b50edfa89b108a6ccf2e9ba37744dd7",
+    "road.glb": "d40476e49edc4c25ea89d56a45b82d140a2fb346054408845f8cc99a669c52c9",
+    "rock.glb": "41a5564bbfe862dab67e6b4eb750889c80bd8550609c375a417150d423c1b525",
+    "shoulder.glb": "5758353e0fa8f9929146ca0b397f0d65d10d81632f3fa88795e5bd8d17dd11d7",
+    "tree.glb": "e5180b21fec7eb774a96538d923e8c1988c0344cd96662826298cd49323113ac"
+  }
+}
