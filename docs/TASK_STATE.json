@@ -3,7 +3,7 @@
   "contract_revision": 1,
   "confirmation": "03.10.2026: реализуй задачи 2го релиза; ранее разрешена публикация в обе репы",
   "contract": "docs/ACTIVE_CONTRACT.md",
-  "stage": "ci-and-publication",
+  "stage": "ready-for-review",
   "inputs": {
     "front_main": "d9a9654ed743da5442a7265986c7cc287f586377",
     "back_main": "e1cb5fcac481b9a74c99f9d681c2e354d78548ee",
@@ -29,22 +29,30 @@
     {
       "gate": "backend-publication",
       "status": "VERIFIED",
-      "evidence": "https://github.com/rtalyutin/1stFoxyGame-back/pull/2; final head96df2a700c48ede89e3d65cd313b6dac8a2e4e6b; remote blob/mode readback"
+      "evidence": "https://github.com/rtalyutin/1stFoxyGame-back/pull/2; final head 96df2a700c48ede89e3d65cd313b6dac8a2e4e6b; remote blob/mode readback"
     },
     {
       "gate": "postgres18-backend-ci",
       "status": "VERIFIED",
       "evidence": "https://github.com/rtalyutin/1stFoxyGame-back/actions/runs/37124551329; 15 API/unit tests and 13 DB subtests passed, zero skips; dump/restore and packaged migration CLI URL/secret-file modes passed",
-      "scope": "Backend PR merge revision832d0cb4171686fd4ec73ad712e448d3d747b3e3 includes head96df2a700c48ede89e3d65cd313b6dac8a2e4e6b; immutable frontend pair remains a separate gate"
+      "scope": "Backend PR merge revision 832d0cb4171686fd4ec73ad712e448d3d747b3e3 includes head 96df2a700c48ede89e3d65cd313b6dac8a2e4e6b; immutable frontend pair remains a separate gate"
+    },
+    {
+      "gate": "frontend-publication",
+      "status": "VERIFIED",
+      "evidence": "https://github.com/rtalyutin/1stFoxyGame-front/pull/3; all 57 blobs/modes matched remote tree; main/R1 unchanged"
+    },
+    {
+      "gate": "immutable-paired-artifact",
+      "status": "VERIFIED",
+      "evidence": "https://github.com/rtalyutin/1stFoxyGame-front/actions/runs/37124868016; artifact 11275140138 digest sha256:7222427f31d2ca27ead6d74f770233a3c4dac7fd824a73acc2b1bbc61444daa7",
+      "scope": "Front initial unit: 54 PASS / 1 catalog SKIP; required pinned-backend catalog: 4 PASS / 0 SKIP executes that case. Backend: 15 unit and 13 DB subtests PASS. Real PostgreSQL18.6 dump/restore, exact runtime catalog/version/label, both packaged migration CLI credential modes and immutable images/deploy archive verified. Tested merge tree equals frontend head tree."
     }
   ],
-  "pending": [
-    "immutable-paired-artifact",
-    "frontend-pr-publication"
-  ],
-  "operation_status": "IN_PROGRESS",
+  "pending": [],
+  "operation_status": "SUCCEEDED",
   "production": "R1 user-reported; browser TLS IP mismatch prevents readback",
-  "next": "Publish frozen frontend paired to backend96df2a700c48ede89e3d65cd313b6dac8a2e4e6b; complete paired CI and artifact readback",
+  "next": "Observe automatic CI on the documentation-only completion commit; latest run/artifact/head are recorded in PR#3. Merge and production rollout require a separate release decision.",
   "artifact_revision": {
     "front_runtime_sha256": "93c9daf84a81b16815e8bc3be89dd02784d3f668880a6096a4e7f1ecf3ccc17e",
     "runtime_files": [
@@ -72,7 +80,13 @@
       "src/style.css",
       "vite.config.ts"
     ],
-    "back_head": "96df2a700c48ede89e3d65cd313b6dac8a2e4e6b"
+    "back_head": "96df2a700c48ede89e3d65cd313b6dac8a2e4e6b",
+    "tested_front_head": "449a2577c02401dd35e7f47fca4077c96966792f",
+    "tested_front_source": "b80e7a6f951570a8a59a92bdd19e9675981a7593",
+    "tested_front_tree": "a39366fde5b97d90c41f822d1c9023aec64d5ddf"
   },
-  "operation_id": "backend draft PR#2 published; frontend draft PR publication pending"
+  "operation_id": "frontend draft PR#3 and backend draft PR#2; initial paired CI run 37124868016 verified",
+  "gate_verdict": "PASS",
+  "action_decision": "CONTINUE",
+  "hypothesis_assessment": "NOT_ASSESSED: player balance, physical Android and production operation"
 }
