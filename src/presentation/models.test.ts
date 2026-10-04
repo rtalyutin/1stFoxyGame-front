@@ -2,18 +2,18 @@ import { readFileSync } from 'node:fs';
 import { describe, it, expect } from 'vitest';
 import { NullEngine } from '@babylonjs/core/Engines/nullEngine';
 import { Scene } from '@babylonjs/core/scene';
-import { MODEL_NAMES, importModel, ModelLibrary, validateModel } from './models';
+import { MODEL_NAMES, importModel, ModelLibrary, validateModel, modelPath } from './models';
 import type { ModelName } from './models';
 import type { AssetContainer } from '@babylonjs/core/assetContainer';
 
-describe('provided R1 GLB in Babylon', () => {
+describe('provided character and environment GLB in Babylon', () => {
   it('imports all contracts and keeps independent rigs, sockets and bounded disposal', async () => {
     const engine = new NullEngine();
     const scene = new Scene(engine);
     scene.useRightHandedSystem = true;
     const containers = new Map<ModelName, AssetContainer>();
     for (const name of MODEL_NAMES) {
-      const bytes = readFileSync(new URL(`../../public/models/r1/${name}.glb`, import.meta.url));
+      const bytes = readFileSync(new URL(`../../public/${modelPath(name)}`, import.meta.url));
       containers.set(name, await importModel(name, bytes, scene));
     }
     expect(containers.get('pudge')!.animationGroups).toHaveLength(9);

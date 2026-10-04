@@ -7,8 +7,12 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import '@babylonjs/core/Meshes/instancedMesh';
 import '@babylonjs/loaders/glTF/2.0/glTFLoader';
 
-export const MODEL_NAMES = ['pudge', 'creep_basic', 'hook', 'chain', 'road', 'shoulder', 'tree', 'bush', 'rock', 'grass'] as const;
+export const MODEL_NAMES = ['pudge', 'creep_basic', 'hook', 'chain', 'road', 'shoulder_0', 'shoulder_1', 'shoulder_2', 'tree', 'bush', 'rock', 'grass'] as const;
 export type ModelName = typeof MODEL_NAMES[number];
+export function modelPath(name: ModelName): string {
+  const environment = name === 'road' || name === 'rock' || name === 'grass' || name.startsWith('shoulder_');
+  return `models/${environment ? 'environment/road-v1' : 'r1'}/${name}.glb`;
+}
 const CONTRACT: Partial<Record<ModelName, { root: string; sockets: string[]; clips: string[] }>> = {
   pudge: { root: 'hero_root', sockets: ['socket_hook_hand', 'socket_weapon', 'socket_head', 'socket_body', 'socket_feet'], clips: ['idle', 'run', 'strafe_left', 'strafe_right', 'hook_cast', 'hook_hold', 'hook_return_empty', 'hook_return_capture', 'death'] },
   creep_basic: { root: 'enemy_root', sockets: ['socket_creep_capture'], clips: ['run', 'hit', 'death_capture'] },
@@ -81,7 +85,7 @@ export class ModelLibrary {
 
   static async load(scene: Scene): Promise<ModelLibrary> {
     const results = await Promise.allSettled(MODEL_NAMES.map(async name => {
-      const response = await fetch(`${import.meta.env.BASE_URL}models/r1/${name}.glb`, { signal: AbortSignal.timeout(15000) });
+      const response = await fetch(`${import.meta.env.BASE_URL}${modelPath(name)}`, { signal: AbortSignal.timeout(15000) });
       if (!response.ok) throw new Error(`${name}: HTTP ${response.status}`);
       return [name, await importModel(name, new Uint8Array(await response.arrayBuffer()), scene)] as const;
     }));

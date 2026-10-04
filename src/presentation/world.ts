@@ -18,6 +18,8 @@ import { ModelLibrary, type ModelActor } from './models';
 import { PresentationTimeline } from './timeline';
 import { toScenePoint, toCombatAim } from './coordinates';
 import { ThreatView } from './threats';
+import { Ray } from '@babylonjs/core/Culling/ray';
+import { createDistantTerrainMaterial } from './terrain-material';
 
 /** Models present the pure simulation; no collider depends on a mesh or a clip. */
 export class WorldView {
@@ -61,9 +63,7 @@ export class WorldView {
     ambient.groundColor = Color3.FromHexString('#667a52');
     const sun = new DirectionalLight('sun', new Vector3(-0.5, -1, 0.5), this.scene);
     sun.intensity = 1.2;
-    const groundMaterial = new StandardMaterial('distant-grass', this.scene);
-    groundMaterial.diffuseColor = Color3.FromHexString('#73a65a');
-    groundMaterial.specularColor = Color3.Black();
+    const groundMaterial = createDistantTerrainMaterial(this.scene);
     const ground = MeshBuilder.CreateGround('distant-ground', { width: 220, height: 220 }, this.scene);
     ground.position.set(0, -0.095, 35);
     ground.material = groundMaterial;
@@ -106,17 +106,29 @@ export class WorldView {
       for (let index = 0; index < 9; index++) {
         const section = new TransformNode(`section-${index}`, this.scene);
         this.scenery.push(section);
-        for (const name of ['shoulder', 'road'] as const) {
+        const shoulderName = (['shoulder_0', 'shoulder_1', 'shoulder_2'] as const)[index % 3];
+        let terrain: ModelActor | null = null;
+        for (const name of [shoulderName, 'road'] as const) {
           const actor = library.create(name, `${name}-${index}`);
           actor.root.parent = section;
           this.staticActors.push(actor);
+          if (name === shoulderName) terrain = actor;
         }
         for (const sign of [-1, 1]) {
           for (const [offset, name] of (['tree', 'bush', 'rock', 'grass'] as const).entries()) {
+            if (name === 'grass' && index % 3 !== 0) continue;
             const actor = library.create(name, `${name}-${index}-${sign}`);
             actor.root.parent = section;
-            actor.root.position.set(sign * (7 + (index + offset) % 5 * 1.8), 0, 1 + offset * 2.6);
+            const x = name === 'grass' ? 5.9 : name === 'rock' ? 8.2 + index % 3 * 1.7 : 7 + (index + offset) % 5 * 1.8;
+            actor.root.position.set(sign * x, 0, 1 + offset * 2.6);
             actor.root.rotation.y = index * 1.3 + offset;
+            // Place props on the actual new surface once, before the chunk moves.
+            const ray = new Ray(new Vector3(actor.root.position.x, 20, actor.root.position.z), new Vector3(0, -1, 0), 40);
+            for (const mesh of terrain!.root.getChildMeshes()) {
+              mesh.computeWorldMatrix(true);
+              const hit = ray.intersectsMesh(mesh);
+              if (hit.hit && hit.pickedPoint) { actor.root.position.y = hit.pickedPoint.y - (name === 'rock' ? 0.04 : 0); break; }
+            }
             this.staticActors.push(actor);
           }
         }

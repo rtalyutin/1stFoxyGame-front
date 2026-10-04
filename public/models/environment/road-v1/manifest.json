@@ -1,0 +1,182 @@
+{
+  "version": "road-v1",
+  "base_commit": "78c2f3da79650fdc34e8adea110cb4fc75b1ee37",
+  "source_maps_root": "assets/models/environment/road-v1/",
+  "runtime_images": "Embedded in each GLB; material maps paths refer to source PNG files",
+  "unit": "meter",
+  "up": "+Y",
+  "forward": "+Z",
+  "road_width": 10,
+  "module_length": 12,
+  "pool_sections": 9,
+  "assets": [
+    {
+      "name": "road",
+      "root": "road_root",
+      "file": "road.glb",
+      "triangles": 2,
+      "bytes": 531736,
+      "sha256": "33e4458f269bc0231146a03c59db265d01eae09c8310f33a03bef4f8431785e4",
+      "images": 3,
+      "source_bounds_runtime": {
+        "min": [
+          -5.0,
+          0.0,
+          -0.0
+        ],
+        "max": [
+          5.0,
+          0.0,
+          12.0
+        ]
+      }
+    },
+    {
+      "name": "shoulder_0",
+      "root": "shoulder_0_root",
+      "file": "shoulder_0.glb",
+      "triangles": 60,
+      "bytes": 548524,
+      "sha256": "019c3f694f6337520a467d22e87bd4e02dde3231dd7d5045676abc12e8c0ccb9",
+      "images": 3,
+      "source_bounds_runtime": {
+        "min": [
+          -30.0,
+          -0.05000000074505806,
+          -0.0
+        ],
+        "max": [
+          30.0,
+          1.518254041671753,
+          12.0
+        ]
+      }
+    },
+    {
+      "name": "shoulder_1",
+      "root": "shoulder_1_root",
+      "file": "shoulder_1.glb",
+      "triangles": 60,
+      "bytes": 548524,
+      "sha256": "3c03f48c79860771840cc61c9b80c072f67e90d6449ff59e695c82444db94eac",
+      "images": 3,
+      "source_bounds_runtime": {
+        "min": [
+          -30.0,
+          -0.05000000074505806,
+          -0.0
+        ],
+        "max": [
+          30.0,
+          1.518254041671753,
+          12.0
+        ]
+      }
+    },
+    {
+      "name": "shoulder_2",
+      "root": "shoulder_2_root",
+      "file": "shoulder_2.glb",
+      "triangles": 60,
+      "bytes": 548528,
+      "sha256": "38ed83896450548fe9fedc90e1ae9676876457cce2652f46efee74b2a3ace4a1",
+      "images": 3,
+      "source_bounds_runtime": {
+        "min": [
+          -30.0,
+          -0.05000000074505806,
+          -0.0
+        ],
+        "max": [
+          30.0,
+          1.4299453496932983,
+          12.0
+        ]
+      }
+    },
+    {
+      "name": "rock",
+      "root": "rock_root",
+      "file": "rock.glb",
+      "triangles": 16,
+      "bytes": 544128,
+      "sha256": "982be18c6b2ec7479d5ced29ed7a0ef31a1e499812a094cd6f2c883d28690c8b",
+      "images": 3,
+      "source_bounds_runtime": {
+        "min": [
+          -1.479716181755066,
+          0.0,
+          -1.0178265571594238
+        ],
+        "max": [
+          1.626214861869812,
+          1.149999976158142,
+          1.138071060180664
+        ]
+      }
+    },
+    {
+      "name": "grass",
+      "root": "grass_root",
+      "file": "grass.glb",
+      "triangles": 5,
+      "bytes": 368444,
+      "sha256": "61f54325fdd6f51a385c55753fe19fd9af0ed1696942a6d2173fa717b933cdde",
+      "images": 3,
+      "source_bounds_runtime": {
+        "min": [
+          -0.12399186939001083,
+          0.0,
+          -0.10461621731519699
+        ],
+        "max": [
+          0.14499999582767487,
+          0.26499998569488525,
+          0.10461621731519699
+        ]
+      }
+    }
+  ],
+  "materials": [
+    {
+      "name": "RF_Own_tract",
+      "kind": "tract",
+      "shader": "PBR metallic-roughness",
+      "maps": {
+        "basecolor": "textures/RF_tract_BaseColor.png",
+        "normal": "textures/RF_tract_Normal.png",
+        "orm": "textures/RF_tract_ORM.png"
+      },
+      "opaque": true,
+      "displacement": false
+    },
+    {
+      "name": "RF_Own_stone",
+      "kind": "stone",
+      "shader": "PBR metallic-roughness",
+      "maps": {
+        "basecolor": "textures/RF_stone_BaseColor.png",
+        "normal": "textures/RF_stone_Normal.png",
+        "orm": "textures/RF_stone_ORM.png"
+      },
+      "opaque": true,
+      "displacement": false
+    },
+    {
+      "name": "RF_Own_moss",
+      "kind": "moss",
+      "shader": "PBR metallic-roughness",
+      "maps": {
+        "basecolor": "textures/RF_moss_BaseColor.png",
+        "normal": "textures/RF_moss_Normal.png",
+        "orm": "textures/RF_moss_ORM.png"
+      },
+      "opaque": true,
+      "displacement": false
+    }
+  ],
+  "scene_triangles_replaced_layer": 876,
+  "baseline_layer_triangles": 990,
+  "shader": "Own generated BaseColor/normal/ORM, embedded opaque glTF PBR; no displacement",
+  "provenance": "Own generated environment and maps; R1 hero review only."
+}
