@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#102d45" />
+  <meta name="description" content="FoxyGames — живые игровые миры. Выбирай автомат и отправляйся в игру." />
+  <title>FoxyGames — выбирай игру</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <header class="header"><a class="brand" href="/hub/" aria-label="FoxyGames — каталог игр">
+    <svg viewBox="0 0 52 52" aria-hidden="true"><path fill="#f6812f" d="M5 4 20 13h12L47 4l-3 28-18 15L8 32Z"/><path fill="#fff0da" d="m8 27 13 6 5 12 5-12 13-6-5 12-13 9-13-9Z"/><path fill="#152332" d="m22 38 4-2 4 2-4 4Z"/><circle cx="17" cy="25" r="2"/><circle cx="35" cy="25" r="2"/></svg>
+    <span>FoxyGames</span></a></header>
+  <main>
+    <div class="intro"><h1>Выбирай игру</h1></div>
+    <section class="arcade" aria-label="Игры FoxyGames">
+      <div class="canvas-zone"><canvas id="scene" aria-hidden="true"></canvas></div>
+      <div id="rail" class="rail" tabindex="0" role="region" aria-label="Горизонтальный каталог игр">
+        <div id="track" class="track"><!-- HUB_CATALOG --></div>
+      </div>
+      <p id="empty" class="empty" hidden>Игры пока не добавлены.</p>
+      <div class="navigation" id="navigation" hidden>
+        <button id="previous" class="arrow" aria-label="Предыдущая игра" type="button">←</button>
+        <p id="position" aria-live="polite" aria-atomic="true"></p>
+        <button id="next" class="arrow" aria-label="Следующая игра" type="button">→</button>
+      </div>
+    </section>
+    <div class="entry-panel" id="entry-panel" hidden><p id="entry-message" role="status"></p><div><button id="cancel" type="button">Отмена</button><button id="retry" type="button" hidden>Попробовать ещё</button><a id="direct" hidden>Открыть игру</a></div></div>
+    <p class="render-note" id="render-note" role="status" hidden></p>
+    <noscript><p class="render-note">Анимация недоступна без JavaScript. Доступные игры можно открыть ссылкой «Играть».</p></noscript>
+  </main>
+  <footer><span>FoxyGames <span aria-hidden="true">·</span> 2026</span></footer>
+  <!-- HUB_DATA -->
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+[
+  {"id":"runner-forge","title":"Runner Forge","description":"Беги. Уклоняйся. Доберись дальше.","status":"playable","launchPath":"/","scene":"scenes/runner-forge.json","poster":{"desktop":"posters/runner-forge.webp","mobile":"posters/runner-forge.webp","width":640,"height":720}},
+  {"id":"last-throne","title":"Last Throne","description":"Защити трон от волн врагов.","status":"soon","launchPath":null,"scene":"scenes/last-throne.json","poster":{"desktop":"posters/last-throne.webp","mobile":"posters/last-throne.webp","width":640,"height":720}},
+  {"id":"syezzhaem","title":"Съезжаем!","description":"Разбирай дом. Строй путь. Спаси кота.","status":"soon","launchPath":null,"scene":"scenes/syezzhaem.json","poster":{"desktop":"posters/syezzhaem.webp","mobile":"posters/syezzhaem.webp","width":640,"height":720}}
+]

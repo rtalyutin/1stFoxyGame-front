@@ -54,12 +54,16 @@ jobs:
         run: npm ci
       - name: Typecheck
         run: npm run typecheck
+      - name: Typecheck the standalone 3D hub
+        run: npm run hub:typecheck
       - name: Validate the combat content contract
         run: npm run validate:content
       - name: Verify combat, items and profile scenarios
         run: npm test
       - name: Build
         run: npm run build
+      - name: Build the standalone static hub
+        run: npm run hub:build
       - name: Stamp the frontend revision
         run: node --input-type=module -e 'import {writeFileSync} from "node:fs"; writeFileSync("dist/version.json", JSON.stringify({revision:process.env.SOURCE_SHA}) + "\n")'
       - name: Read paired backend revision
@@ -139,13 +143,14 @@ jobs:
           docker image inspect --format '{{.Id}}' "foxy-front:$SOURCE_SHA" > artifact/image-id.txt
           printf '%s\n' "$SOURCE_SHA" > artifact/source-sha.txt
           tar -czf artifact/dist.tar.gz dist
+          tar -czf artifact/hub.tar.gz -C hub/dist .
           tar -czf artifact/deploy.tar.gz deploy
           docker save "foxy-back:$BACKEND_SHA" | gzip -n > artifact/backend-image.tar.gz
           docker image inspect --format '{{.Id}}' "foxy-back:$BACKEND_SHA" > artifact/backend-image-id.txt
           printf '%s\n' "$BACKEND_SHA" > artifact/backend-source-sha.txt
           node --input-type=module -e 'import {readFileSync,writeFileSync} from "node:fs"; const read=p=>readFileSync(`artifact/${p}`,"utf8").trim(); const release={release:"R3/R4 without new graphics",frontend:{source:read("source-sha.txt"),image:read("image-id.txt")},backend:{source:read("backend-source-sha.txt"),image:read("backend-image-id.txt")}}; writeFileSync("artifact/release.json",JSON.stringify(release,null,2)+"\n")'
           cat artifact/release.json
-          (cd artifact && sha256sum image.tar.gz dist.tar.gz deploy.tar.gz image-id.txt source-sha.txt backend-image.tar.gz backend-image-id.txt backend-source-sha.txt release.json > SHA256SUMS)
+          (cd artifact && sha256sum image.tar.gz dist.tar.gz hub.tar.gz deploy.tar.gz image-id.txt source-sha.txt backend-image.tar.gz backend-image-id.txt backend-source-sha.txt release.json > SHA256SUMS)
       - name: Upload review artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
