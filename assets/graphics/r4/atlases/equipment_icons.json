@@ -1,0 +1,431 @@
+{
+  "image": "equipment_icons.png",
+  "size": {
+    "w": 1024,
+    "h": 1024
+  },
+  "origin": "top-left; x right, y down",
+  "alpha": "straight",
+  "grid": {
+    "columns": 4,
+    "rows": 4
+  },
+  "frames": [
+    {
+      "id": "fast_spool_1",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.75,
+        0.25,
+        1.0
+      ],
+      "source_png": "icons/equipment/fast_spool_1.png"
+    },
+    {
+      "id": "fast_spool_2",
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.75,
+        0.5,
+        1.0
+      ],
+      "source_png": "icons/equipment/fast_spool_2.png"
+    },
+    {
+      "id": "fast_spool_3",
+      "frame": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.75,
+        0.75,
+        1.0
+      ],
+      "source_png": "icons/equipment/fast_spool_3.png"
+    },
+    {
+      "id": "long_link_1",
+      "frame": {
+        "x": 768,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.75,
+        1.0,
+        1.0
+      ],
+      "source_png": "icons/equipment/long_link_1.png"
+    },
+    {
+      "id": "piercing_tooth",
+      "frame": {
+        "x": 0,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.5,
+        0.25,
+        0.75
+      ],
+      "source_png": "icons/equipment/piercing_tooth.png"
+    },
+    {
+      "id": "return_sickle",
+      "frame": {
+        "x": 256,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.5,
+        0.5,
+        0.75
+      ],
+      "source_png": "icons/equipment/return_sickle.png"
+    },
+    {
+      "id": "conductor_cuffs_1",
+      "frame": {
+        "x": 512,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.5,
+        0.75,
+        0.75
+      ],
+      "source_png": "icons/equipment/conductor_cuffs_1.png"
+    },
+    {
+      "id": "conductor_cuffs_2",
+      "frame": {
+        "x": 768,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.5,
+        1.0,
+        0.75
+      ],
+      "source_png": "icons/equipment/conductor_cuffs_2.png"
+    },
+    {
+      "id": "conductor_cuffs_3",
+      "frame": {
+        "x": 0,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.25,
+        0.25,
+        0.5
+      ],
+      "source_png": "icons/equipment/conductor_cuffs_3.png"
+    },
+    {
+      "id": "sidestep_boots_1",
+      "frame": {
+        "x": 256,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.25,
+        0.5,
+        0.5
+      ],
+      "source_png": "icons/equipment/sidestep_boots_1.png"
+    },
+    {
+      "id": "sidestep_boots_2",
+      "frame": {
+        "x": 512,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.25,
+        0.75,
+        0.5
+      ],
+      "source_png": "icons/equipment/sidestep_boots_2.png"
+    },
+    {
+      "id": "sidestep_boots_3",
+      "frame": {
+        "x": 768,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.25,
+        1.0,
+        0.5
+      ],
+      "source_png": "icons/equipment/sidestep_boots_3.png"
+    },
+    {
+      "id": "trophy_counter_1",
+      "frame": {
+        "x": 0,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "source_png": "icons/equipment/trophy_counter_1.png"
+    },
+    {
+      "id": "trophy_counter_2",
+      "frame": {
+        "x": 256,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.0,
+        0.5,
+        0.25
+      ],
+      "source_png": "icons/equipment/trophy_counter_2.png"
+    },
+    {
+      "id": "trophy_counter_3",
+      "frame": {
+        "x": 512,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.0,
+        0.75,
+        0.25
+      ],
+      "source_png": "icons/equipment/trophy_counter_3.png"
+    },
+    {
+      "id": "debtors_watch",
+      "frame": {
+        "x": 768,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.0,
+        1.0,
+        0.25
+      ],
+      "source_png": "icons/equipment/debtors_watch.png"
+    }
+  ]
+}

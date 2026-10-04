@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "release": "R3",
+  "extends": [
+    "Runner-Forge-R1-Graphics-v1",
+    "Runner-Forge-R2-Graphics-v1"
+  ],
+  "policy": {
+    "purpose": "Graphic runtime mapping only; does not select gameplay decisions",
+    "authoritative_state": "confirmed server response, not particle position",
+    "text_prices_counts": "runtime, never baked in sprites",
+    "resource_catalog": {
+      "gold": {
+        "status": "approved_generic"
+      },
+      "steel": {
+        "status": "proposed",
+        "decision_ref": "P14",
+        "name_ru": "Закалённое звено"
+      },
+      "ember": {
+        "status": "proposed",
+        "decision_ref": "P14",
+        "name_ru": "Искра силы"
+      },
+      "core": {
+        "status": "proposed",
+        "decision_ref": "P14",
+        "name_ru": "Ядро трофея"
+      }
+    }
+  },
+  "events": {
+    "shop_available": {
+      "icon": "ui/icons/shop_enter.png",
+      "sprite": "vfx/shop_zone_ready.png",
+      "placement": "runtime selected shop position; no fixed side or key"
+    },
+    "shop_entered": {
+      "status_icon": "ui/icons/world_frozen.png",
+      "world_effects": "Freeze the existing scene according to accepted policy; do not loop VFX while simulation is frozen"
+    },
+    "shop_continue_requested": {
+      "icon": "ui/icons/shop_exit.png",
+      "countdown": "Provided by runtime if accepted; pack specifies no numbers or duration"
+    },
+    "reward_confirmed": {
+      "sprites": {
+        "gold": "vfx/gold_pickup.png",
+        "steel": "vfx/steel_pickup.png",
+        "ember": "vfx/ember_pickup.png",
+        "core": "vfx/core_pickup.png"
+      },
+      "flipbook": "atlases/flipbook_pickup_confirmed.json",
+      "phase_progress": "0..1",
+      "motion_to_hero": "runtime",
+      "balance_change": "already confirmed independently; animation never awards resource"
+    },
+    "craft_requested": {
+      "icon": "ui/icons/operation_pending.png",
+      "widget": "ui/widgets/button_pending.png"
+    },
+    "craft_confirmed": {
+      "icon": "ui/icons/operation_success.png",
+      "sprite": "vfx/craft_confirmed.png",
+      "flipbook": "atlases/flipbook_craft_confirmed.json",
+      "phase_progress": "0..1",
+      "item_preview": "runtime approved item; no first recipe selected by pack"
+    },
+    "craft_resource_missing": {
+      "icon": "ui/icons/resource_missing.png",
+      "resource": "runtime names/counts each missing resource"
+    },
+    "operation_failed": {
+      "icon": "ui/icons/operation_error.png",
+      "details": "runtime distinguishes insufficient resource, stale profile, invalid state, service/write error"
+    },
+    "profile_load_started": {
+      "icon": "ui/icons/profile_load.png"
+    },
+    "profile_save_started": {
+      "icon": "ui/icons/profile_save.png",
+      "pending": "ui/icons/operation_pending.png"
+    },
+    "profile_save_confirmed": {
+      "sprite": "vfx/profile_save_confirmed.png",
+      "flipbook": "atlases/flipbook_save_confirmed.json",
+      "phase_progress": "0..1",
+      "trigger": "after confirmed successful persistence only"
+    },
+    "session_expired": {
+      "icon": "ui/icons/session_expired.png",
+      "login_fields": "chosen authentication contract; no registration supplied"
+    },
+    "network_unavailable": {
+      "icon": "ui/icons/offline.png",
+      "battle_policy": "undecided here"
+    },
+    "service_unavailable": {
+      "icon": "ui/icons/service_error.png"
+    },
+    "sync_retry": {
+      "icon": "ui/icons/sync_retry.png"
+    },
+    "profile_recovery": {
+      "icon": "ui/icons/profile_recovery.png"
+    },
+    "run_summary": {
+      "run_rewards_icon": "ui/icons/run_loot.png",
+      "persistent_wallet_icon": "ui/icons/wallet.png",
+      "totals": "runtime confirmed values, separate states"
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "image": "effects.png",
+  "size": {
+    "w": 768,
+    "h": 512
+  },
+  "origin": "top-left; x right, y down",
+  "alpha": "straight",
+  "grid": {
+    "columns": 3,
+    "rows": 2
+  },
+  "frames": [
+    {
+      "id": "piercing_contact",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.0,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.5,
+        0.3333333333333333,
+        1.0
+      ],
+      "source_png": "vfx/piercing_contact.png"
+    },
+    {
+      "id": "return_hook_arc",
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.3333333333333333,
+        0.0,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.3333333333333333,
+        0.5,
+        0.6666666666666666,
+        1.0
+      ],
+      "source_png": "vfx/return_hook_arc.png"
+    },
+    {
+      "id": "equipment_upgrade",
+      "frame": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.6666666666666666,
+        0.0,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.6666666666666666,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "source_png": "vfx/equipment_upgrade.png"
+    },
+    {
+      "id": "slowing_dust",
+      "frame": {
+        "x": 0,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.5,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.0,
+        0.3333333333333333,
+        0.5
+      ],
+      "source_png": "vfx/slowing_dust.png"
+    },
+    {
+      "id": "collectors_halo",
+      "frame": {
+        "x": 256,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.3333333333333333,
+        0.5,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.3333333333333333,
+        0.0,
+        0.6666666666666666,
+        0.5
+      ],
+      "source_png": "vfx/collectors_halo.png"
+    },
+    {
+      "id": "consumable_end",
+      "frame": {
+        "x": 512,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.6666666666666666,
+        0.5,
+        0.3333333333333333,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.6666666666666666,
+        0.0,
+        1.0,
+        0.5
+      ],
+      "source_png": "vfx/consumable_end.png"
+    }
+  ]
+}

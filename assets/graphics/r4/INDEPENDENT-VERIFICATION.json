@@ -1,0 +1,568 @@
+{
+  "pack": "Runner-Forge-R4-Graphics-v1",
+  "independent_verifier": "verify_assets",
+  "failures": [],
+  "warnings": [],
+  "checks": {
+    "hash_files": 193,
+    "png_full_decode": 106,
+    "svg_parse": 73,
+    "asset_categories": {
+      "icons/equipment": 16,
+      "icons/consumables": 2,
+      "ui": 16,
+      "textures/decals": 16,
+      "vfx": 6,
+      "flipbook/upgrade": 4,
+      "flipbook/consumable": 4
+    },
+    "atlas_frame_cells": 64,
+    "animations": {
+      "atlases/upgrade_flash.json": {
+        "frames": [
+          "upgrade_flash_1",
+          "upgrade_flash_2",
+          "upgrade_flash_3",
+          "upgrade_flash_4"
+        ],
+        "loop": false,
+        "timing": "Runtime maps actual phase progress to frames; no gameplay duration baked in."
+      },
+      "atlases/consumable_activation.json": {
+        "frames": [
+          "consumable_activation_1",
+          "consumable_activation_2",
+          "consumable_activation_3",
+          "consumable_activation_4"
+        ],
+        "loop": false,
+        "timing": "Runtime maps actual phase progress to frames; no gameplay duration baked in."
+      }
+    },
+    "event_references": 36,
+    "identifier_references": 18,
+    "event_graphics_id_references": 27,
+    "exact_equipment_catalogue": {
+      "equipment_ids": [
+        "conductor_cuffs_1",
+        "conductor_cuffs_2",
+        "conductor_cuffs_3",
+        "debtors_watch",
+        "fast_spool_1",
+        "fast_spool_2",
+        "fast_spool_3",
+        "long_link_1",
+        "piercing_tooth",
+        "return_sickle",
+        "sidestep_boots_1",
+        "sidestep_boots_2",
+        "sidestep_boots_3",
+        "trophy_counter_1",
+        "trophy_counter_2",
+        "trophy_counter_3"
+      ],
+      "count": 16,
+      "consumables": 2,
+      "catalogue_entries": 18,
+      "all_graphic_icon_decal_level_status_matches": true
+    }
+  },
+  "asset_padding": {
+    "fast_spool_1": [
+      40,
+      60,
+      58,
+      60
+    ],
+    "fast_spool_2": [
+      40,
+      60,
+      58,
+      60
+    ],
+    "fast_spool_3": [
+      38,
+      60,
+      58,
+      60
+    ],
+    "long_link_1": [
+      79,
+      26,
+      82,
+      49
+    ],
+    "piercing_tooth": [
+      59,
+      30,
+      81,
+      58
+    ],
+    "return_sickle": [
+      37,
+      24,
+      40,
+      57
+    ],
+    "conductor_cuffs_1": [
+      48,
+      70,
+      48,
+      64
+    ],
+    "conductor_cuffs_2": [
+      48,
+      70,
+      48,
+      64
+    ],
+    "conductor_cuffs_3": [
+      48,
+      70,
+      48,
+      64
+    ],
+    "sidestep_boots_1": [
+      36,
+      39,
+      48,
+      56
+    ],
+    "sidestep_boots_2": [
+      36,
+      39,
+      48,
+      56
+    ],
+    "sidestep_boots_3": [
+      36,
+      39,
+      48,
+      56
+    ],
+    "trophy_counter_1": [
+      64,
+      60,
+      64,
+      83
+    ],
+    "trophy_counter_2": [
+      64,
+      60,
+      64,
+      65
+    ],
+    "trophy_counter_3": [
+      55,
+      60,
+      55,
+      56
+    ],
+    "debtors_watch": [
+      53,
+      31,
+      47,
+      42
+    ],
+    "slowing_powder": [
+      63,
+      36,
+      66,
+      38
+    ],
+    "collectors_vial": [
+      73,
+      29,
+      74,
+      40
+    ],
+    "state_owned": [
+      66,
+      30,
+      66,
+      50
+    ],
+    "state_equipped": [
+      61,
+      77,
+      61,
+      67
+    ],
+    "state_selected": [
+      39,
+      39,
+      39,
+      39
+    ],
+    "state_incompatible": [
+      43,
+      43,
+      43,
+      43
+    ],
+    "state_upgrade_pending": [
+      53,
+      37,
+      52,
+      36
+    ],
+    "state_resources_missing": [
+      60,
+      95,
+      50,
+      42
+    ],
+    "state_operation_error": [
+      38,
+      39,
+      38,
+      53
+    ],
+    "consumable_ready": [
+      38,
+      37,
+      38,
+      37
+    ],
+    "consumable_active": [
+      40,
+      40,
+      40,
+      40
+    ],
+    "consumable_ended": [
+      43,
+      34,
+      43,
+      43
+    ],
+    "consumable_disabled": [
+      43,
+      43,
+      43,
+      43
+    ],
+    "quantity_plate": [
+      41,
+      73,
+      41,
+      71
+    ],
+    "slot_equipment": [
+      26,
+      26,
+      26,
+      26
+    ],
+    "slot_consumable": [
+      32,
+      18,
+      32,
+      18
+    ],
+    "compare_arrow": [
+      40,
+      62,
+      40,
+      60
+    ],
+    "upgrade_chevrons": [
+      68,
+      47,
+      68,
+      65
+    ],
+    "fast_spool_1_overlay": [
+      98,
+      98,
+      98,
+      98
+    ],
+    "fast_spool_2_overlay": [
+      98,
+      98,
+      98,
+      98
+    ],
+    "fast_spool_3_overlay": [
+      98,
+      98,
+      98,
+      98
+    ],
+    "long_link_1_overlay": [
+      122,
+      170,
+      122,
+      156
+    ],
+    "piercing_tooth_overlay": [
+      114,
+      112,
+      114,
+      126
+    ],
+    "return_sickle_overlay": [
+      72,
+      70,
+      98,
+      83
+    ],
+    "conductor_cuffs_1_overlay": [
+      98,
+      198,
+      98,
+      244
+    ],
+    "conductor_cuffs_2_overlay": [
+      98,
+      170,
+      98,
+      214
+    ],
+    "conductor_cuffs_3_overlay": [
+      98,
+      142,
+      98,
+      184
+    ],
+    "sidestep_boots_1_overlay": [
+      120,
+      212,
+      120,
+      104
+    ],
+    "sidestep_boots_2_overlay": [
+      120,
+      180,
+      120,
+      104
+    ],
+    "sidestep_boots_3_overlay": [
+      120,
+      148,
+      120,
+      104
+    ],
+    "trophy_counter_1_overlay": [
+      100,
+      138,
+      100,
+      180
+    ],
+    "trophy_counter_2_overlay": [
+      100,
+      138,
+      100,
+      146
+    ],
+    "trophy_counter_3_overlay": [
+      100,
+      138,
+      100,
+      136
+    ],
+    "debtors_watch_overlay": [
+      106,
+      106,
+      106,
+      106
+    ],
+    "piercing_contact": [
+      43,
+      79,
+      46,
+      74
+    ],
+    "return_hook_arc": [
+      40,
+      48,
+      36,
+      55
+    ],
+    "equipment_upgrade": [
+      64,
+      55,
+      64,
+      45
+    ],
+    "slowing_dust": [
+      45,
+      56,
+      39,
+      54
+    ],
+    "collectors_halo": [
+      37,
+      37,
+      37,
+      37
+    ],
+    "consumable_end": [
+      23,
+      23,
+      23,
+      23
+    ],
+    "upgrade_flash_1": [
+      96,
+      92,
+      96,
+      92
+    ],
+    "upgrade_flash_2": [
+      78,
+      71,
+      78,
+      71
+    ],
+    "upgrade_flash_3": [
+      60,
+      50,
+      60,
+      50
+    ],
+    "upgrade_flash_4": [
+      49,
+      37,
+      49,
+      37
+    ],
+    "consumable_activation_1": [
+      83,
+      83,
+      83,
+      83
+    ],
+    "consumable_activation_2": [
+      73,
+      73,
+      73,
+      73
+    ],
+    "consumable_activation_3": [
+      51,
+      51,
+      51,
+      51
+    ],
+    "consumable_activation_4": [
+      31,
+      31,
+      31,
+      31
+    ]
+  },
+  "semantic_review": [
+    {
+      "path": "events.json.catalogue_status",
+      "value": "P15/P16 proposed"
+    },
+    {
+      "path": "catalogue.json.status",
+      "value": "PROPOSAL; not approved gameplay catalogue"
+    },
+    {
+      "path": "catalogue.json.items[0].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[1].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[2].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[3].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[4].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[5].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[6].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[7].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[8].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[9].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[10].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[11].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[12].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[13].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[14].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[15].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[16].status",
+      "value": "proposed_P16"
+    },
+    {
+      "path": "catalogue.json.items[17].status",
+      "value": "proposed_P16"
+    }
+  ],
+  "external_references": [],
+  "limitations": [
+    "Blender import not performed",
+    "Runtime integration not performed"
+  ],
+  "release": "R4",
+  "result": "PASS",
+  "visual_review": {
+    "inspected": [
+      "PREVIEW.png complete64elements",
+      "OVERVIEW.png all18itemicons",
+      "All16equipment+2consumables+6VFX at actual64px",
+      "textures/decals/trophy_counter_3_overlay.png at512px",
+      "textures/decals/conductor_cuffs_3_overlay.png at512px"
+    ],
+    "finding": "Clean flat shapes and old32palette are compatible with R1/R2. All equipment and consumable silhouettes remain readable at64px; grade changes use visible rings/bands/buckles/pendants. UI and VFX are neutral state cues, clean without generated-image halos. Actual preview labels fit. No visual shipping blocker.",
+    "cosmetic_notes": []
+  },
+  "scope_review": {
+    "finding": "Exactly16equipment variants: coil3, long_link1only, piercing_tooth1, return_sickle1, cuffs3, boots3, trophy_counter3, debtors_watch1; exactly2consumables. Catalogue levels and icon/decal references match assets; all entries explicitly proposed_P16 and not_runtime_item_id. P15slots stay modular.",
+    "event_mapping": "All27graphics-ID occurrences resolve to manifestassets, all36localfile refs exist; genericacknowledgedupgrade/activation phases have no baked gameplayduration. No numericprices/recipes/power/health or projectileconsequence decision introduced.",
+    "external_dependencies": "R3resourceicons explicitly documented in INTEGRATION/events; no unresolvedlocalor implicit external file reference.",
+    "excluded_scope": "No production/clicker/clockactivation R5graphics; no Lina/Windranger/R6items; no models/rigs/modelanimations/audio."
+  },
+  "limits": [
+    "No Blender or engine import performed",
+    "No model UV/rig placement or runtime item operation tested",
+    "No targetdevice performance tested",
+    "Aesthetic acceptance by user not yet received"
+  ]
+}

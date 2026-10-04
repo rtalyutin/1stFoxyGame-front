@@ -1,0 +1,2261 @@
+{
+  "schema_version": 1,
+  "pack": "Runner-Forge-R4-Graphics-v1",
+  "release": "R4",
+  "extends": "Runner-Forge-R1/R2-Graphics-v1",
+  "source_requirements": [
+    "Runner-Forge-Release-Plan.xls",
+    "Runner-Forge-GDD-TZ-v1.0.md v1",
+    "Accepted R1-R2 visual language"
+  ],
+  "art_direction": "Flat geometry; original 32-color R1 palette; editable SVG; no new colors",
+  "assets": [
+    {
+      "id": "fast_spool_1",
+      "category": "icons/equipment",
+      "label_ru": "Быстрая катушка I",
+      "svg": "icons/equipment/fast_spool_1.svg",
+      "png": "icons/equipment/fast_spool_1.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Быстрая катушка I",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "weapon",
+      "level": 1,
+      "hero_compatibility": "Pudge"
+    },
+    {
+      "id": "fast_spool_2",
+      "category": "icons/equipment",
+      "label_ru": "Быстрая катушка II",
+      "svg": "icons/equipment/fast_spool_2.svg",
+      "png": "icons/equipment/fast_spool_2.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Быстрая катушка II",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "weapon",
+      "level": 2,
+      "hero_compatibility": "Pudge"
+    },
+    {
+      "id": "fast_spool_3",
+      "category": "icons/equipment",
+      "label_ru": "Быстрая катушка III",
+      "svg": "icons/equipment/fast_spool_3.svg",
+      "png": "icons/equipment/fast_spool_3.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Быстрая катушка III",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "weapon",
+      "level": 3,
+      "hero_compatibility": "Pudge"
+    },
+    {
+      "id": "long_link_1",
+      "category": "icons/equipment",
+      "label_ru": "Длинное звено I",
+      "svg": "icons/equipment/long_link_1.svg",
+      "png": "icons/equipment/long_link_1.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Длинное звено I",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "weapon",
+      "level": 1,
+      "hero_compatibility": "Pudge"
+    },
+    {
+      "id": "piercing_tooth",
+      "category": "icons/equipment",
+      "label_ru": "Сквозной зуб",
+      "svg": "icons/equipment/piercing_tooth.svg",
+      "png": "icons/equipment/piercing_tooth.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Сквозной зуб",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "weapon",
+      "level": null,
+      "hero_compatibility": "Pudge"
+    },
+    {
+      "id": "return_sickle",
+      "category": "icons/equipment",
+      "label_ru": "Возвратный серп",
+      "svg": "icons/equipment/return_sickle.svg",
+      "png": "icons/equipment/return_sickle.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Возвратный серп",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "weapon",
+      "level": null,
+      "hero_compatibility": "Pudge"
+    },
+    {
+      "id": "conductor_cuffs_1",
+      "category": "icons/equipment",
+      "label_ru": "Манжеты проводника I",
+      "svg": "icons/equipment/conductor_cuffs_1.svg",
+      "png": "icons/equipment/conductor_cuffs_1.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Манжеты I",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "body",
+      "level": 1,
+      "hero_compatibility": "all"
+    },
+    {
+      "id": "conductor_cuffs_2",
+      "category": "icons/equipment",
+      "label_ru": "Манжеты проводника II",
+      "svg": "icons/equipment/conductor_cuffs_2.svg",
+      "png": "icons/equipment/conductor_cuffs_2.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Манжеты II",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "body",
+      "level": 2,
+      "hero_compatibility": "all"
+    },
+    {
+      "id": "conductor_cuffs_3",
+      "category": "icons/equipment",
+      "label_ru": "Манжеты проводника III",
+      "svg": "icons/equipment/conductor_cuffs_3.svg",
+      "png": "icons/equipment/conductor_cuffs_3.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Манжеты III",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "body",
+      "level": 3,
+      "hero_compatibility": "all"
+    },
+    {
+      "id": "sidestep_boots_1",
+      "category": "icons/equipment",
+      "label_ru": "Сапоги бокового шага I",
+      "svg": "icons/equipment/sidestep_boots_1.svg",
+      "png": "icons/equipment/sidestep_boots_1.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Сапоги шага I",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "feet",
+      "level": 1,
+      "hero_compatibility": "all"
+    },
+    {
+      "id": "sidestep_boots_2",
+      "category": "icons/equipment",
+      "label_ru": "Сапоги бокового шага II",
+      "svg": "icons/equipment/sidestep_boots_2.svg",
+      "png": "icons/equipment/sidestep_boots_2.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Сапоги шага II",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "feet",
+      "level": 2,
+      "hero_compatibility": "all"
+    },
+    {
+      "id": "sidestep_boots_3",
+      "category": "icons/equipment",
+      "label_ru": "Сапоги бокового шага III",
+      "svg": "icons/equipment/sidestep_boots_3.svg",
+      "png": "icons/equipment/sidestep_boots_3.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Сапоги шага III",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "feet",
+      "level": 3,
+      "hero_compatibility": "all"
+    },
+    {
+      "id": "trophy_counter_1",
+      "category": "icons/equipment",
+      "label_ru": "Трофейный счётчик I",
+      "svg": "icons/equipment/trophy_counter_1.svg",
+      "png": "icons/equipment/trophy_counter_1.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Счётчик трофеев I",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "talisman",
+      "level": 1,
+      "hero_compatibility": "all"
+    },
+    {
+      "id": "trophy_counter_2",
+      "category": "icons/equipment",
+      "label_ru": "Трофейный счётчик II",
+      "svg": "icons/equipment/trophy_counter_2.svg",
+      "png": "icons/equipment/trophy_counter_2.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Счётчик трофеев II",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "talisman",
+      "level": 2,
+      "hero_compatibility": "all"
+    },
+    {
+      "id": "trophy_counter_3",
+      "category": "icons/equipment",
+      "label_ru": "Трофейный счётчик III",
+      "svg": "icons/equipment/trophy_counter_3.svg",
+      "png": "icons/equipment/trophy_counter_3.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Счётчик трофеев III",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "talisman",
+      "level": 3,
+      "hero_compatibility": "all"
+    },
+    {
+      "id": "debtors_watch",
+      "category": "icons/equipment",
+      "label_ru": "Часы должника",
+      "svg": "icons/equipment/debtors_watch.svg",
+      "png": "icons/equipment/debtors_watch.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Часы должника",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16",
+      "equipment_kind": "talisman",
+      "level": null,
+      "hero_compatibility": "all"
+    },
+    {
+      "id": "slowing_powder",
+      "category": "icons/consumables",
+      "label_ru": "Пыль торможения",
+      "svg": "icons/consumables/slowing_powder.svg",
+      "png": "icons/consumables/slowing_powder.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "collectors_vial",
+      "category": "icons/consumables",
+      "label_ru": "Флакон сборщика",
+      "svg": "icons/consumables/collectors_vial.svg",
+      "png": "icons/consumables/collectors_vial.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "state_owned",
+      "category": "ui",
+      "label_ru": "Есть в профиле",
+      "svg": "ui/state_owned.svg",
+      "png": "ui/state_owned.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Есть в профиле",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "state_equipped",
+      "category": "ui",
+      "label_ru": "Надето",
+      "svg": "ui/state_equipped.svg",
+      "png": "ui/state_equipped.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Надето",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "state_selected",
+      "category": "ui",
+      "label_ru": "Выбрано",
+      "svg": "ui/state_selected.svg",
+      "png": "ui/state_selected.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Выбрано",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "state_incompatible",
+      "category": "ui",
+      "label_ru": "Несовместимо",
+      "svg": "ui/state_incompatible.svg",
+      "png": "ui/state_incompatible.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Несовместимо",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "state_upgrade_pending",
+      "category": "ui",
+      "label_ru": "Улучшение: ожидание",
+      "svg": "ui/state_upgrade_pending.svg",
+      "png": "ui/state_upgrade_pending.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Ждём улучшение",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "state_resources_missing",
+      "category": "ui",
+      "label_ru": "Не хватает ресурсов",
+      "svg": "ui/state_resources_missing.svg",
+      "png": "ui/state_resources_missing.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Мало ресурсов",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "state_operation_error",
+      "category": "ui",
+      "label_ru": "Ошибка операции",
+      "svg": "ui/state_operation_error.svg",
+      "png": "ui/state_operation_error.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Ошибка операции",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "consumable_ready",
+      "category": "ui",
+      "label_ru": "Расходник готов",
+      "svg": "ui/consumable_ready.svg",
+      "png": "ui/consumable_ready.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Расходник: готов",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "consumable_active",
+      "category": "ui",
+      "label_ru": "Расходник активен",
+      "svg": "ui/consumable_active.svg",
+      "png": "ui/consumable_active.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Эффект активен",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "consumable_ended",
+      "category": "ui",
+      "label_ru": "Расходник завершён",
+      "svg": "ui/consumable_ended.svg",
+      "png": "ui/consumable_ended.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Эффект завершён",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "consumable_disabled",
+      "category": "ui",
+      "label_ru": "Расходник недоступен",
+      "svg": "ui/consumable_disabled.svg",
+      "png": "ui/consumable_disabled.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Недоступен",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "quantity_plate",
+      "category": "ui",
+      "label_ru": "Плашка количества",
+      "svg": "ui/quantity_plate.svg",
+      "png": "ui/quantity_plate.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Количество",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "slot_equipment",
+      "category": "ui",
+      "label_ru": "Слот экипировки",
+      "svg": "ui/slot_equipment.svg",
+      "png": "ui/slot_equipment.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Слот предмета",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "slot_consumable",
+      "category": "ui",
+      "label_ru": "Слот расходника",
+      "svg": "ui/slot_consumable.svg",
+      "png": "ui/slot_consumable.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Слот расходника",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "compare_arrow",
+      "category": "ui",
+      "label_ru": "Сравнение",
+      "svg": "ui/compare_arrow.svg",
+      "png": "ui/compare_arrow.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Сравнение",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "upgrade_chevrons",
+      "category": "ui",
+      "label_ru": "Улучшить",
+      "svg": "ui/upgrade_chevrons.svg",
+      "png": "ui/upgrade_chevrons.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Улучшить",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "fast_spool_1_overlay",
+      "category": "textures/decals",
+      "label_ru": "Быстрая катушка I",
+      "svg": "textures/decals/fast_spool_1_overlay.svg",
+      "png": "textures/decals/fast_spool_1_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Быстрая катушка I",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "fast_spool_2_overlay",
+      "category": "textures/decals",
+      "label_ru": "Быстрая катушка II",
+      "svg": "textures/decals/fast_spool_2_overlay.svg",
+      "png": "textures/decals/fast_spool_2_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Быстрая катушка II",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "fast_spool_3_overlay",
+      "category": "textures/decals",
+      "label_ru": "Быстрая катушка III",
+      "svg": "textures/decals/fast_spool_3_overlay.svg",
+      "png": "textures/decals/fast_spool_3_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Быстрая катушка III",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "long_link_1_overlay",
+      "category": "textures/decals",
+      "label_ru": "Длинное звено I",
+      "svg": "textures/decals/long_link_1_overlay.svg",
+      "png": "textures/decals/long_link_1_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Длинное звено I",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "piercing_tooth_overlay",
+      "category": "textures/decals",
+      "label_ru": "Сквозной зуб",
+      "svg": "textures/decals/piercing_tooth_overlay.svg",
+      "png": "textures/decals/piercing_tooth_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Сквозной зуб",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "return_sickle_overlay",
+      "category": "textures/decals",
+      "label_ru": "Возвратный серп",
+      "svg": "textures/decals/return_sickle_overlay.svg",
+      "png": "textures/decals/return_sickle_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Возвратный серп",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "conductor_cuffs_1_overlay",
+      "category": "textures/decals",
+      "label_ru": "Манжеты проводника I",
+      "svg": "textures/decals/conductor_cuffs_1_overlay.svg",
+      "png": "textures/decals/conductor_cuffs_1_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Манжеты I",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "conductor_cuffs_2_overlay",
+      "category": "textures/decals",
+      "label_ru": "Манжеты проводника II",
+      "svg": "textures/decals/conductor_cuffs_2_overlay.svg",
+      "png": "textures/decals/conductor_cuffs_2_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Манжеты II",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "conductor_cuffs_3_overlay",
+      "category": "textures/decals",
+      "label_ru": "Манжеты проводника III",
+      "svg": "textures/decals/conductor_cuffs_3_overlay.svg",
+      "png": "textures/decals/conductor_cuffs_3_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Манжеты III",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "sidestep_boots_1_overlay",
+      "category": "textures/decals",
+      "label_ru": "Сапоги бокового шага I",
+      "svg": "textures/decals/sidestep_boots_1_overlay.svg",
+      "png": "textures/decals/sidestep_boots_1_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Сапоги шага I",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "sidestep_boots_2_overlay",
+      "category": "textures/decals",
+      "label_ru": "Сапоги бокового шага II",
+      "svg": "textures/decals/sidestep_boots_2_overlay.svg",
+      "png": "textures/decals/sidestep_boots_2_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Сапоги шага II",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "sidestep_boots_3_overlay",
+      "category": "textures/decals",
+      "label_ru": "Сапоги бокового шага III",
+      "svg": "textures/decals/sidestep_boots_3_overlay.svg",
+      "png": "textures/decals/sidestep_boots_3_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Сапоги шага III",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "trophy_counter_1_overlay",
+      "category": "textures/decals",
+      "label_ru": "Трофейный счётчик I",
+      "svg": "textures/decals/trophy_counter_1_overlay.svg",
+      "png": "textures/decals/trophy_counter_1_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Счётчик трофеев I",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "trophy_counter_2_overlay",
+      "category": "textures/decals",
+      "label_ru": "Трофейный счётчик II",
+      "svg": "textures/decals/trophy_counter_2_overlay.svg",
+      "png": "textures/decals/trophy_counter_2_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Счётчик трофеев II",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "trophy_counter_3_overlay",
+      "category": "textures/decals",
+      "label_ru": "Трофейный счётчик III",
+      "svg": "textures/decals/trophy_counter_3_overlay.svg",
+      "png": "textures/decals/trophy_counter_3_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Счётчик трофеев III",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "debtors_watch_overlay",
+      "category": "textures/decals",
+      "label_ru": "Часы должника",
+      "svg": "textures/decals/debtors_watch_overlay.svg",
+      "png": "textures/decals/debtors_watch_overlay.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Часы должника",
+      "minimum_padding_px": 24,
+      "usage": "Unmapped transparent surface overlay; not a complete UV skin",
+      "catalogue_status": "proposed_P16"
+    },
+    {
+      "id": "piercing_contact",
+      "category": "vfx",
+      "label_ru": "Контакт сквозного зуба",
+      "svg": "vfx/piercing_contact.svg",
+      "png": "vfx/piercing_contact.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Сквозной контакт",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "return_hook_arc",
+      "category": "vfx",
+      "label_ru": "След возвратного серпа",
+      "svg": "vfx/return_hook_arc.svg",
+      "png": "vfx/return_hook_arc.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Возвратный след",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "equipment_upgrade",
+      "category": "vfx",
+      "label_ru": "Эффект улучшения",
+      "svg": "vfx/equipment_upgrade.svg",
+      "png": "vfx/equipment_upgrade.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Улучшение",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "slowing_dust",
+      "category": "vfx",
+      "label_ru": "Пыль торможения",
+      "svg": "vfx/slowing_dust.svg",
+      "png": "vfx/slowing_dust.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Пыль торможения",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "collectors_halo",
+      "category": "vfx",
+      "label_ru": "Эффект сборщика",
+      "svg": "vfx/collectors_halo.svg",
+      "png": "vfx/collectors_halo.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Эффект сборщика",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "consumable_end",
+      "category": "vfx",
+      "label_ru": "Завершение расходника",
+      "svg": "vfx/consumable_end.svg",
+      "png": "vfx/consumable_end.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "preview_label": "Эффект завершён",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "upgrade_flash_1",
+      "category": "flipbook/upgrade",
+      "label_ru": "Улучшение: кадр 1",
+      "svg": "flipbook/upgrade/upgrade_flash_1.svg",
+      "png": "flipbook/upgrade/upgrade_flash_1.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "phase_progress": 0.0
+    },
+    {
+      "id": "upgrade_flash_2",
+      "category": "flipbook/upgrade",
+      "label_ru": "Улучшение: кадр 2",
+      "svg": "flipbook/upgrade/upgrade_flash_2.svg",
+      "png": "flipbook/upgrade/upgrade_flash_2.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "phase_progress": 0.3333333333333333
+    },
+    {
+      "id": "upgrade_flash_3",
+      "category": "flipbook/upgrade",
+      "label_ru": "Улучшение: кадр 3",
+      "svg": "flipbook/upgrade/upgrade_flash_3.svg",
+      "png": "flipbook/upgrade/upgrade_flash_3.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "phase_progress": 0.6666666666666666
+    },
+    {
+      "id": "upgrade_flash_4",
+      "category": "flipbook/upgrade",
+      "label_ru": "Улучшение: кадр 4",
+      "svg": "flipbook/upgrade/upgrade_flash_4.svg",
+      "png": "flipbook/upgrade/upgrade_flash_4.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "phase_progress": 1.0
+    },
+    {
+      "id": "consumable_activation_1",
+      "category": "flipbook/consumable",
+      "label_ru": "Активация: кадр 1",
+      "svg": "flipbook/consumable/consumable_activation_1.svg",
+      "png": "flipbook/consumable/consumable_activation_1.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "phase_progress": 0.0
+    },
+    {
+      "id": "consumable_activation_2",
+      "category": "flipbook/consumable",
+      "label_ru": "Активация: кадр 2",
+      "svg": "flipbook/consumable/consumable_activation_2.svg",
+      "png": "flipbook/consumable/consumable_activation_2.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "phase_progress": 0.3333333333333333
+    },
+    {
+      "id": "consumable_activation_3",
+      "category": "flipbook/consumable",
+      "label_ru": "Активация: кадр 3",
+      "svg": "flipbook/consumable/consumable_activation_3.svg",
+      "png": "flipbook/consumable/consumable_activation_3.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "phase_progress": 0.6666666666666666
+    },
+    {
+      "id": "consumable_activation_4",
+      "category": "flipbook/consumable",
+      "label_ru": "Активация: кадр 4",
+      "svg": "flipbook/consumable/consumable_activation_4.svg",
+      "png": "flipbook/consumable/consumable_activation_4.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "phase_progress": 1.0
+    }
+  ],
+  "atlases": [
+    "atlases/equipment_icons.json",
+    "atlases/consumable_icons.json",
+    "atlases/ui_states.json",
+    "atlases/equipment_overlays.json",
+    "atlases/effects.json",
+    "atlases/upgrade_flash.json",
+    "atlases/consumable_activation.json"
+  ],
+  "palette": "palette.json",
+  "events": "events.json",
+  "excluded": [
+    "3D models, rigs and model animation clips",
+    "Audio and runtime code",
+    "R5 production mechanics and artwork",
+    "R6 heroes and their future equipment",
+    "Approved gameplay decisions for proposed P15/P16 catalogue",
+    "Baked prices, recipe quantities, duration, numeric effect values or keybindings"
+  ],
+  "checks_status": "PASS: exported files and visual review; Blender/runtime import not checked",
+  "files": [
+    {
+      "path": "ASSETS.csv",
+      "bytes": 9115,
+      "sha256": "4ba1a70f45cfe1694164d1a33545bbbfdee51d194a82b21a4f8b7987b54688d5"
+    },
+    {
+      "path": "INDEPENDENT-VERIFICATION.json",
+      "bytes": 10485,
+      "sha256": "f72332a35b127eb7c42aacb93976b0d676702b0efb2bd1753cb8a06fc6e6e402"
+    },
+    {
+      "path": "INTEGRATION.md",
+      "bytes": 8003,
+      "sha256": "753ae585e864d9d0cc2fa881826cb6d959c20a5aa4c961ea186ae66a38fac8e3"
+    },
+    {
+      "path": "OVERVIEW.png",
+      "bytes": 184950,
+      "sha256": "69c7fddaca7ef43b6963490332fcf6acfc0d543b25997eba0c847d4ac04abd60"
+    },
+    {
+      "path": "OVERVIEW.svg",
+      "bytes": 23948,
+      "sha256": "26150c9c8a7e4593353147ea5379ae1157de25a1bed348918efabf00ab0955e7"
+    },
+    {
+      "path": "PREVIEW.png",
+      "bytes": 519304,
+      "sha256": "d8c469ffbb6dffcb5ce0680158d2741886a0163bfd8e9bc8de8c83735b4a1b88"
+    },
+    {
+      "path": "PREVIEW.svg",
+      "bytes": 55911,
+      "sha256": "238fee4f444037315ee767e03776bc37bed6854e2badb7d8f7f43a63157d27b8"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3866,
+      "sha256": "e07969615783840c0573c5baf12105cf3590df35332ab8b4f0eded9be264c3cd"
+    },
+    {
+      "path": "VERIFICATION.md",
+      "bytes": 1620,
+      "sha256": "ed7bc9ad2dbbd1bebf124b38be05fa9a18d45daba31e6491b2f66ba7118d0aba"
+    },
+    {
+      "path": "atlases/consumable_activation.json",
+      "bytes": 2434,
+      "sha256": "26c7b2c331eea7123fbbef4632f1a61abaa15ae9e4b6cd1844f773e667983a9b"
+    },
+    {
+      "path": "atlases/consumable_activation.png",
+      "bytes": 27037,
+      "sha256": "c4aa2d89080fca03ae18ee10b1783704c2c7d405ccc15d61e8b45477d4f412f2"
+    },
+    {
+      "path": "atlases/consumable_activation.svg",
+      "bytes": 1235,
+      "sha256": "32789e9507672ba09296b8589cf259913db4d93dc7336f993135a84d38bd9578"
+    },
+    {
+      "path": "atlases/consumable_icons.json",
+      "bytes": 1132,
+      "sha256": "f6295a808ed9b97f340f69a0a90c768dadf6c7f51d7763a1cc9e84f22198f6c9"
+    },
+    {
+      "path": "atlases/consumable_icons.png",
+      "bytes": 12825,
+      "sha256": "bba2855bfb4c1dc2ab289b81782533e2465c887b2524c8f69648ed1c7b13522f"
+    },
+    {
+      "path": "atlases/consumable_icons.svg",
+      "bytes": 1518,
+      "sha256": "d438bbd764651f552a4f5a528a829fbbe1628d64a13b8bc8d1bc62959d241d0c"
+    },
+    {
+      "path": "atlases/effects.json",
+      "bytes": 3161,
+      "sha256": "7540da0a13ef44b155aaaaa068149215d26aef679f4dc31da0efd4499e1547c8"
+    },
+    {
+      "path": "atlases/effects.png",
+      "bytes": 40838,
+      "sha256": "3b416d2ec7991ac176334cdd8fcf85adcff3ec053d16ffd1763d5fc831dfcc4a"
+    },
+    {
+      "path": "atlases/effects.svg",
+      "bytes": 3385,
+      "sha256": "6aeed4366a6f51c7ef7efcd1e27abb5cb63986e0e2584309d6186c58618f18c9"
+    },
+    {
+      "path": "atlases/equipment_icons.json",
+      "bytes": 7657,
+      "sha256": "ca9d28773145085bd7f914c4e48b7694023c46c9f5bbfdc8db31d03b7ac8574b"
+    },
+    {
+      "path": "atlases/equipment_icons.png",
+      "bytes": 92407,
+      "sha256": "bf98928257c025bb8ad8796f010a48c3290a1cde03f79013d75abc0dc4214cc7"
+    },
+    {
+      "path": "atlases/equipment_icons.svg",
+      "bytes": 17147,
+      "sha256": "53740ab3a560073c19f2f0a3da26864644f8fc72a48110634500ddc54ae0c8bc"
+    },
+    {
+      "path": "atlases/equipment_overlays.json",
+      "bytes": 7932,
+      "sha256": "3ebd05f809de7e0256e5588fac4f12c0727383e20d385ab4219715868f037c7a"
+    },
+    {
+      "path": "atlases/equipment_overlays.png",
+      "bytes": 137023,
+      "sha256": "8389e0f30075505d64b79f761ba10d3007c3bc8472deb838fdc2664160bdeb1e"
+    },
+    {
+      "path": "atlases/equipment_overlays.svg",
+      "bytes": 8184,
+      "sha256": "ec27c3d457c3a98972fb0aa913b970d058786fead3d07f84719c5aa969acc02a"
+    },
+    {
+      "path": "atlases/ui_states.json",
+      "bytes": 7499,
+      "sha256": "c9241969314d620102431236deb599128635da6c58dad4a6122388106fed1a14"
+    },
+    {
+      "path": "atlases/ui_states.png",
+      "bytes": 98116,
+      "sha256": "082c7b4cfa3137fbb792266fd2f5bff1b8147488a242fb98d1901d0c9d0a69ae"
+    },
+    {
+      "path": "atlases/ui_states.svg",
+      "bytes": 5661,
+      "sha256": "d78687998ac084c59ad5db2a7c7487682e8dd50979099fd200139142272897ff"
+    },
+    {
+      "path": "atlases/upgrade_flash.json",
+      "bytes": 2318,
+      "sha256": "f9dfb20c19af638259236f30e7c02aeec3b7b79bbb59dec22ff95248f4d738f3"
+    },
+    {
+      "path": "atlases/upgrade_flash.png",
+      "bytes": 23739,
+      "sha256": "d0a828b1293678cc09020c0fb3a0a99f0eebacd54533c062f30bb33c9ac4fd6a"
+    },
+    {
+      "path": "atlases/upgrade_flash.svg",
+      "bytes": 1985,
+      "sha256": "80ca17047f60691929bbf2c0bad7a44c5f59821aa7a091272671613e0b1e7cc1"
+    },
+    {
+      "path": "catalogue.json",
+      "bytes": 6734,
+      "sha256": "d7d476befa6b51eebf4e49600e87918eefaac96a0404ab1f466c3a766fbe6de5"
+    },
+    {
+      "path": "events.json",
+      "bytes": 4122,
+      "sha256": "1a5f4da8b3b931d9bd26d7937a8830dee92022bc111499d867ca18070c86b30c"
+    },
+    {
+      "path": "flipbook/consumable/consumable_activation_1.png",
+      "bytes": 5119,
+      "sha256": "3e9fa1c397498aeecdd7d3d9e45895300fb50a2e6be48ed8594507f50d389045"
+    },
+    {
+      "path": "flipbook/consumable/consumable_activation_1.svg",
+      "bytes": 326,
+      "sha256": "f78e145225ff13df25e407521aa82e4c68c2ae76d0598081a86ed40fa6d75327"
+    },
+    {
+      "path": "flipbook/consumable/consumable_activation_2.png",
+      "bytes": 6557,
+      "sha256": "52d90fb9885b90cd075f01e8c3dc8491ea89c3e60f7dc4086597fdfbbcdc92fb"
+    },
+    {
+      "path": "flipbook/consumable/consumable_activation_2.svg",
+      "bytes": 326,
+      "sha256": "aa81ffe2b666f9c1744106cb8444f1001d50b53c4fb4bfede2ca8d3c7476ae98"
+    },
+    {
+      "path": "flipbook/consumable/consumable_activation_3.png",
+      "bytes": 8174,
+      "sha256": "245fc95c68085ca71af6925aea9e8dd9e032ca0c74cd660e5ec082f002dc401e"
+    },
+    {
+      "path": "flipbook/consumable/consumable_activation_3.svg",
+      "bytes": 328,
+      "sha256": "c43ad86613f52015cf327da5425f7dc3b63739dea8d8e072f2bb7319ec93fc55"
+    },
+    {
+      "path": "flipbook/consumable/consumable_activation_4.png",
+      "bytes": 8853,
+      "sha256": "56a584234d9a6131840745737e476cc77dc476f2154c5750d43dba45b5820afb"
+    },
+    {
+      "path": "flipbook/consumable/consumable_activation_4.svg",
+      "bytes": 330,
+      "sha256": "390352fdf060244007a2757628706669814fe982570306d4c02ab024733925f8"
+    },
+    {
+      "path": "flipbook/upgrade/upgrade_flash_1.png",
+      "bytes": 3622,
+      "sha256": "901a6de45026e5678c12ba4781755c89a13a19f5c84c7f4d9ac68dbf477f4115"
+    },
+    {
+      "path": "flipbook/upgrade/upgrade_flash_1.svg",
+      "bytes": 513,
+      "sha256": "df4069dc274c79451dcff5c3b4b9aee9733df7f7780d5e8a475cd5d989fbf3b2"
+    },
+    {
+      "path": "flipbook/upgrade/upgrade_flash_2.png",
+      "bytes": 5411,
+      "sha256": "0d0d95d4b49c62326fd4acfeac78e095eb214f518d3a219cbbbbcd64a2ef79e9"
+    },
+    {
+      "path": "flipbook/upgrade/upgrade_flash_2.svg",
+      "bytes": 518,
+      "sha256": "f427fa59fd51736bd6b4e1f97b4ff793705f86d2d51298c112fe79d42484c0ea"
+    },
+    {
+      "path": "flipbook/upgrade/upgrade_flash_3.png",
+      "bytes": 7591,
+      "sha256": "33fb1e949ff315e5aa662def2c8fdcc0a028f857adaa924c598479b561e3c530"
+    },
+    {
+      "path": "flipbook/upgrade/upgrade_flash_3.svg",
+      "bytes": 505,
+      "sha256": "b549f87de8a5d6f57c809b7890e018815e0debfe73c77335636cb08ac36b5213"
+    },
+    {
+      "path": "flipbook/upgrade/upgrade_flash_4.png",
+      "bytes": 8041,
+      "sha256": "125205cce9341df8cbfa9b3afba2f7d8460413f0d60d749ce418cafcafe39143"
+    },
+    {
+      "path": "flipbook/upgrade/upgrade_flash_4.svg",
+      "bytes": 524,
+      "sha256": "4484f1f275f998484d69cec7ecf71cae2b3eeac04ad660e4efe4cda945a12d55"
+    },
+    {
+      "path": "icons/consumables/collectors_vial.png",
+      "bytes": 5495,
+      "sha256": "393df697169a8cb6988713ff70a2865df05ee760d26af0e41e54d9f9450ccea5"
+    },
+    {
+      "path": "icons/consumables/collectors_vial.svg",
+      "bytes": 846,
+      "sha256": "974ff0c6aa5febdfdef190142f4938532866f554894904b21fc3f11515655b55"
+    },
+    {
+      "path": "icons/consumables/slowing_powder.png",
+      "bytes": 7975,
+      "sha256": "c3e12a9cd7911b0adbe42c6e9100a58237bc8cd2b22ac973fe5df66b681e5442"
+    },
+    {
+      "path": "icons/consumables/slowing_powder.svg",
+      "bytes": 665,
+      "sha256": "d8ea2f2e75adb0171d1bd6ba0c10473ed691bd7d9965d62bba8d07054891a336"
+    },
+    {
+      "path": "icons/equipment/conductor_cuffs_1.png",
+      "bytes": 7963,
+      "sha256": "120a17d626172464181f4bab5606e7be4b4ebe20284dac84c40421c0519b0a2c"
+    },
+    {
+      "path": "icons/equipment/conductor_cuffs_1.svg",
+      "bytes": 794,
+      "sha256": "4b4ea9fc66599e3974a305eb43a3632637938c6d7bcbd839ca9b8d692d37c831"
+    },
+    {
+      "path": "icons/equipment/conductor_cuffs_2.png",
+      "bytes": 9644,
+      "sha256": "80e24568d7d04f98a50d2eea80dd6156fd7fd97a9023e709053dd1484790c693"
+    },
+    {
+      "path": "icons/equipment/conductor_cuffs_2.svg",
+      "bytes": 1105,
+      "sha256": "b533d62455a19336c442904d847a4b1a3b8e8252226cd00a974396ddc7a4799b"
+    },
+    {
+      "path": "icons/equipment/conductor_cuffs_3.png",
+      "bytes": 11240,
+      "sha256": "9c8328bb04b1e8d4826558524c00821a11fae36c357788544623ef4444348d5b"
+    },
+    {
+      "path": "icons/equipment/conductor_cuffs_3.svg",
+      "bytes": 1416,
+      "sha256": "998ac654dcaf5137f21b336a77627e47b6cc459ad34ad61440c5a598ee03b983"
+    },
+    {
+      "path": "icons/equipment/debtors_watch.png",
+      "bytes": 12108,
+      "sha256": "bdb8f966d664bf1653d94e43c12b441514b083b7a34aee61c68d9c4c4eec0077"
+    },
+    {
+      "path": "icons/equipment/debtors_watch.svg",
+      "bytes": 1235,
+      "sha256": "09831ade1cf199cecb4d12c22c1aa7b9f7fd9a3c37a52830d4b6d77a402a531e"
+    },
+    {
+      "path": "icons/equipment/fast_spool_1.png",
+      "bytes": 10748,
+      "sha256": "11e76d0dd77583ce85d146e8c766419398d8e9ac09b8289c5b475118479da38a"
+    },
+    {
+      "path": "icons/equipment/fast_spool_1.svg",
+      "bytes": 943,
+      "sha256": "55494330be4b90b49a6af89eda67f1e3b1e39ed097b0dd50cfc00080d1fcf2b4"
+    },
+    {
+      "path": "icons/equipment/fast_spool_2.png",
+      "bytes": 11648,
+      "sha256": "e73e7e665a94b2bd26fa4b1a2dbd2eef6be324204eab218bfe1b00fe60e79c24"
+    },
+    {
+      "path": "icons/equipment/fast_spool_2.svg",
+      "bytes": 1237,
+      "sha256": "1ac0606da975cff85202c5168cb7a9e528a1d6c647d3c2c9c2d7db19ed19faea"
+    },
+    {
+      "path": "icons/equipment/fast_spool_3.png",
+      "bytes": 12700,
+      "sha256": "5bb85ef5be0b640968109fe2823f2fe777d3ba3025158fc861664ac32b97b4c6"
+    },
+    {
+      "path": "icons/equipment/fast_spool_3.svg",
+      "bytes": 1531,
+      "sha256": "e64b00fb24c90f236d03c84f59ea9dc11eb6c985a18c1abaf2ca13387ba90f47"
+    },
+    {
+      "path": "icons/equipment/long_link_1.png",
+      "bytes": 4542,
+      "sha256": "a83f8924027e43b9a6eafa7a23346e4f7870ae03b6ffb5f113f75d9a31045022"
+    },
+    {
+      "path": "icons/equipment/long_link_1.svg",
+      "bytes": 580,
+      "sha256": "a11abad0ba4540c2271303d46588627a838a84c214a63a950d47692eb9de38db"
+    },
+    {
+      "path": "icons/equipment/piercing_tooth.png",
+      "bytes": 5049,
+      "sha256": "5967bc5e9b44e3ee64b5f0b9397a355c93661ddd0be4580c277967fb0192cff9"
+    },
+    {
+      "path": "icons/equipment/piercing_tooth.svg",
+      "bytes": 573,
+      "sha256": "3d30fac49aca8c9a86808e06b1e2ba39c3a5c7d360e7bba65a7c396c7bb619c0"
+    },
+    {
+      "path": "icons/equipment/return_sickle.png",
+      "bytes": 10071,
+      "sha256": "65294d4582add392bcd0d895f8bef623ef5b1f65fb147556ebc0115ac60bf6c8"
+    },
+    {
+      "path": "icons/equipment/return_sickle.svg",
+      "bytes": 729,
+      "sha256": "80d2761fbaf620eadf189564e93780bd9f0db43899921b5f6d5303f76557a199"
+    },
+    {
+      "path": "icons/equipment/sidestep_boots_1.png",
+      "bytes": 2219,
+      "sha256": "f996baf1a42bcbaad1d593a44fc4188d8beea096cd3e3340e02e5bf24b1d2e93"
+    },
+    {
+      "path": "icons/equipment/sidestep_boots_1.svg",
+      "bytes": 1149,
+      "sha256": "e72a84053850c73ee1887ddb0368c9f771c6ed989ca17ed08551e34b64837855"
+    },
+    {
+      "path": "icons/equipment/sidestep_boots_2.png",
+      "bytes": 2315,
+      "sha256": "f6efa011d81861fbbe04ac69aec97e2f2bd720a01edf1f107d061e3284dee263"
+    },
+    {
+      "path": "icons/equipment/sidestep_boots_2.svg",
+      "bytes": 1619,
+      "sha256": "c6393f1495b8a93edf375617c0060b1c265d671ca25d7af63ef826119d1fb545"
+    },
+    {
+      "path": "icons/equipment/sidestep_boots_3.png",
+      "bytes": 2531,
+      "sha256": "93681172876fcab9089fb9b0a65d45a28163486485c5a054fd2db453fcd8d292"
+    },
+    {
+      "path": "icons/equipment/sidestep_boots_3.svg",
+      "bytes": 2092,
+      "sha256": "b6f2ba3a0422555637f7e0c0ace8a15a39798d88135e091d5a878cd6dfedafb6"
+    },
+    {
+      "path": "icons/equipment/trophy_counter_1.png",
+      "bytes": 3807,
+      "sha256": "05be7d173c809ed78f31694ad0d8b53e8a6a49dc2ee43fd55f746a07e6e80eac"
+    },
+    {
+      "path": "icons/equipment/trophy_counter_1.svg",
+      "bytes": 574,
+      "sha256": "c5ee5fc419f71ceca6133147facd12b14f4e921a57e3c6e26879dcb08aa7058c"
+    },
+    {
+      "path": "icons/equipment/trophy_counter_2.png",
+      "bytes": 4613,
+      "sha256": "87df1e7f9f07e59a0a771f5958f25897510950bf90ef1e9ccc1e890eaeba4b7c"
+    },
+    {
+      "path": "icons/equipment/trophy_counter_2.svg",
+      "bytes": 899,
+      "sha256": "1cfaf3038d47ffee2dd832c5a179c86a410bc8d883c91bb707a83799aff27822"
+    },
+    {
+      "path": "icons/equipment/trophy_counter_3.png",
+      "bytes": 5779,
+      "sha256": "8bb4fb356277700fbfdcce57c094277619dfe20e024818e9a6cb5241a04d5b77"
+    },
+    {
+      "path": "icons/equipment/trophy_counter_3.svg",
+      "bytes": 1230,
+      "sha256": "f91fb542b588d9a4060865071f63dad686ca738371e254878f623c87511e3dd0"
+    },
+    {
+      "path": "palette.gpl",
+      "bytes": 783,
+      "sha256": "e9f4caf7af12c9346c7e9f3ee6c2acbdb58050ef211bcf458c42b1723283836d"
+    },
+    {
+      "path": "palette.json",
+      "bytes": 25157,
+      "sha256": "449746037c851111c8b7ce1cade84ff1785b4db589e6768c551d017d8c5d3467"
+    },
+    {
+      "path": "textures/decals/conductor_cuffs_1_overlay.png",
+      "bytes": 3477,
+      "sha256": "b13a8f3976f3e708e242518f47425e96ba41a01bf6c023842923a39f35c54fcd"
+    },
+    {
+      "path": "textures/decals/conductor_cuffs_1_overlay.svg",
+      "bytes": 250,
+      "sha256": "78873c7dc52dffbb72bf3dd09b4cf664d2a9fc7a5b43dce7b7223227d782be7b"
+    },
+    {
+      "path": "textures/decals/conductor_cuffs_2_overlay.png",
+      "bytes": 4364,
+      "sha256": "3fe6931c24b6684339223d1bf81de73a5e9e584c14043816f0b92f15399dee89"
+    },
+    {
+      "path": "textures/decals/conductor_cuffs_2_overlay.svg",
+      "bytes": 407,
+      "sha256": "7cce2099cd42ccbc2f144d70f4e390f2c189e27e4a36b328c71bc7b29444e956"
+    },
+    {
+      "path": "textures/decals/conductor_cuffs_3_overlay.png",
+      "bytes": 5237,
+      "sha256": "e3c4a3e1e5f703d66b52e8c2ab31a3978f211f7d503731ac5571678e6bc3be02"
+    },
+    {
+      "path": "textures/decals/conductor_cuffs_3_overlay.svg",
+      "bytes": 563,
+      "sha256": "e161d5f309378fd99d28fee6770954c92e2586ee7d782020fb796a2c5fe21ce7"
+    },
+    {
+      "path": "textures/decals/debtors_watch_overlay.png",
+      "bytes": 16854,
+      "sha256": "11763a292053eda6853c8b18854e4d29d2262fb951241e8f1e5855e03e1d1fd7"
+    },
+    {
+      "path": "textures/decals/debtors_watch_overlay.svg",
+      "bytes": 809,
+      "sha256": "8b3dfa48080224713ffa69ccce312a281c1daad4165100eb4eefef8c85a52a52"
+    },
+    {
+      "path": "textures/decals/fast_spool_1_overlay.png",
+      "bytes": 21549,
+      "sha256": "e9d192bacf8f614a5c63f609505d0f4c8b5fa097b4d714df4a523b809e5191b3"
+    },
+    {
+      "path": "textures/decals/fast_spool_1_overlay.svg",
+      "bytes": 339,
+      "sha256": "164d075fd5b3286085cf1178161d1653ab53ebb8dd4dbd104c8307693651873e"
+    },
+    {
+      "path": "textures/decals/fast_spool_2_overlay.png",
+      "bytes": 28518,
+      "sha256": "3c9d9ec9b34a78a3f2de2b6b4d0faa9bcd49776264d225d91c8673c095997f3f"
+    },
+    {
+      "path": "textures/decals/fast_spool_2_overlay.svg",
+      "bytes": 431,
+      "sha256": "256c56c45468487c34dc781337b8cdd67486707a4d70d54392f03d54ef58cea1"
+    },
+    {
+      "path": "textures/decals/fast_spool_3_overlay.png",
+      "bytes": 34268,
+      "sha256": "65c0af002577b62c969d934fdd59c95d16c01f151a3708be93f7ceb59d22da1e"
+    },
+    {
+      "path": "textures/decals/fast_spool_3_overlay.svg",
+      "bytes": 523,
+      "sha256": "2d22488f0501188f530283f85b6b3a521598fd5ad69813094d479c36b1d6cd31"
+    },
+    {
+      "path": "textures/decals/long_link_1_overlay.png",
+      "bytes": 2330,
+      "sha256": "52fba7638a35da7726375bbd4e1a72edb76dff89a8c0728271e201bb14f00535"
+    },
+    {
+      "path": "textures/decals/long_link_1_overlay.svg",
+      "bytes": 326,
+      "sha256": "01270830cccf9a76aae8b62a9152060d2805e16a5b3df9f7283ce2842edf0c30"
+    },
+    {
+      "path": "textures/decals/piercing_tooth_overlay.png",
+      "bytes": 12787,
+      "sha256": "ca01cc4a9092229e5f20b63a944a0ec2fff6845cf5c86799d610977223183805"
+    },
+    {
+      "path": "textures/decals/piercing_tooth_overlay.svg",
+      "bytes": 291,
+      "sha256": "692f70bd9e660c566ee24f49d477a11aa42795cb41d85d2b03434432baa30f06"
+    },
+    {
+      "path": "textures/decals/return_sickle_overlay.png",
+      "bytes": 14023,
+      "sha256": "f5e0b3c7bc3c7ecb3beca014d09831233378b0507d8ad562814a80d424bec00d"
+    },
+    {
+      "path": "textures/decals/return_sickle_overlay.svg",
+      "bytes": 306,
+      "sha256": "77779ab702137ffa8eb27447cd8053c29b70447577108aa0b1aab3556bda1aec"
+    },
+    {
+      "path": "textures/decals/sidestep_boots_1_overlay.png",
+      "bytes": 5864,
+      "sha256": "a23278d40ac82fb07150bcf3d814bab07b4804777c2fdbe9a94838ce46a638dd"
+    },
+    {
+      "path": "textures/decals/sidestep_boots_1_overlay.svg",
+      "bytes": 425,
+      "sha256": "346990fae99c06047ce909083957c59e8ecf6c17b41aac5519e1b4157ad58127"
+    },
+    {
+      "path": "textures/decals/sidestep_boots_2_overlay.png",
+      "bytes": 6279,
+      "sha256": "0ef50b63a0498eded1132ab5b069fa04cd1f9f57295542d0963ac4d827fe655e"
+    },
+    {
+      "path": "textures/decals/sidestep_boots_2_overlay.svg",
+      "bytes": 662,
+      "sha256": "9014819a92f904248b93b405e3643d4db4ab83a9962ef3c19104edd9d1b321ef"
+    },
+    {
+      "path": "textures/decals/sidestep_boots_3_overlay.png",
+      "bytes": 6683,
+      "sha256": "3b80ab5fa4441c24705827dfd744d4cfde96cd4cd903127cbbcb24bd0b2a96d0"
+    },
+    {
+      "path": "textures/decals/sidestep_boots_3_overlay.svg",
+      "bytes": 902,
+      "sha256": "fb34bcffdfa8da19190109375499f24377a1883cec67480e11ed495ff98b2314"
+    },
+    {
+      "path": "textures/decals/trophy_counter_1_overlay.png",
+      "bytes": 6499,
+      "sha256": "09ce18a3c5db37ec986ae6cde36593ceb07b111e280c73b5a735803462487d41"
+    },
+    {
+      "path": "textures/decals/trophy_counter_1_overlay.svg",
+      "bytes": 504,
+      "sha256": "1fe36f2f77b828c962626061509cfcc5f13220bbb2fd397d4e34029f00adfec2"
+    },
+    {
+      "path": "textures/decals/trophy_counter_2_overlay.png",
+      "bytes": 10398,
+      "sha256": "f49cb99661a7edd72db8a6ae10ef690485b81e3560cedbf06378dfae256ec6f9"
+    },
+    {
+      "path": "textures/decals/trophy_counter_2_overlay.svg",
+      "bytes": 829,
+      "sha256": "383880e116f460e8443ec6ac773849f808a6b3cab7bb7211e291d1c441d5c82f"
+    },
+    {
+      "path": "textures/decals/trophy_counter_3_overlay.png",
+      "bytes": 10780,
+      "sha256": "ecc4ea631ebf8ac34d07addd70bccf9ea13b1747b2a5b34fb76f2e69f9988baf"
+    },
+    {
+      "path": "textures/decals/trophy_counter_3_overlay.svg",
+      "bytes": 1160,
+      "sha256": "126f7468e8f67adaa0bc450021d0085840639cbf8156cf6e35d2cc21114d65de"
+    },
+    {
+      "path": "textures/palette_basecolor.png",
+      "bytes": 2945,
+      "sha256": "4e4a366c6813bb32919894950987ba627426f6be1347e7fb7f36473e372c6197"
+    },
+    {
+      "path": "textures/solid/cloth.png",
+      "bytes": 154,
+      "sha256": "827e2e87a3fbd6586faf987d572e0c97bb3228e76f0bbd82b88066b7a30ec097"
+    },
+    {
+      "path": "textures/solid/cloth_light.png",
+      "bytes": 157,
+      "sha256": "9a49f2fcb74ed62fbfd0e3fe773b7bd5d64490c07ed4d95607fd052464632767"
+    },
+    {
+      "path": "textures/solid/cloud.png",
+      "bytes": 156,
+      "sha256": "2cca79d680a03a0fbb85dc891c8b9a9687673ca9da4dab5a179c9f86f7924294"
+    },
+    {
+      "path": "textures/solid/creep_cloth.png",
+      "bytes": 157,
+      "sha256": "87b898579554d256494474259b7ef075b0ba4b7faab91b0ddcd5e2b9ad84f8ce"
+    },
+    {
+      "path": "textures/solid/creep_mask.png",
+      "bytes": 156,
+      "sha256": "d82890dbd686a048b33a2c6f0d456692c6ce81b176acdc4fff457c74c59620f2"
+    },
+    {
+      "path": "textures/solid/creep_red.png",
+      "bytes": 155,
+      "sha256": "dfed0b890339889e2b69295672febb3079665e72c88ec6c2ad063aa7e7089ddc"
+    },
+    {
+      "path": "textures/solid/creep_red_dark.png",
+      "bytes": 156,
+      "sha256": "3a73798e49ad76abc84f5b9f97f011c7f1c4066f222e4017bf5c4cfe26fbdaf2"
+    },
+    {
+      "path": "textures/solid/dirt.png",
+      "bytes": 156,
+      "sha256": "8ddf94cdc439c926223f3d435de4e6e5d6c85b21eec89beb1bfbce37ccf72b73"
+    },
+    {
+      "path": "textures/solid/dirt_dark.png",
+      "bytes": 156,
+      "sha256": "482d208cfb15ebd292a89fc5ec2ee676990f9f18c607b3b956c0b79deecf5868"
+    },
+    {
+      "path": "textures/solid/foliage.png",
+      "bytes": 156,
+      "sha256": "3a3991b830fdac4afeca6c8fed563eb03fffb4b1d0e23c0baa229142c7fc5317"
+    },
+    {
+      "path": "textures/solid/foliage_dark.png",
+      "bytes": 157,
+      "sha256": "d965aac5d30bc2d259ec585a9383b7c867dc826c186270607398565651d1fb25"
+    },
+    {
+      "path": "textures/solid/gold.png",
+      "bytes": 157,
+      "sha256": "f95296ef2109c10a52007460cee73b1513f84c17093450133343a7d3532d5f8d"
+    },
+    {
+      "path": "textures/solid/gold_dark.png",
+      "bytes": 154,
+      "sha256": "ec006753477f72999f0d516eea433e44a4533e551eec3b02a9be3a2373a4a7d9"
+    },
+    {
+      "path": "textures/solid/gold_light.png",
+      "bytes": 156,
+      "sha256": "562e9d69fc6096c192f118ef5220c2018aa818eb5676eb83307d1d6ffed89750"
+    },
+    {
+      "path": "textures/solid/grass.png",
+      "bytes": 156,
+      "sha256": "05b1687978778af32b9e75d90e5f88840f7a3fccda03ee0ce0c0547eaa750e6c"
+    },
+    {
+      "path": "textures/solid/hair.png",
+      "bytes": 156,
+      "sha256": "d440731423c4a52af1609ec2a903373ec1d0a56f94b945f8980d7238c47a5708"
+    },
+    {
+      "path": "textures/solid/hair_light.png",
+      "bytes": 156,
+      "sha256": "286d18cfcd20ca9e2390775ca4d13666bb5ce2ac267b875f5cf5383ad34e0447"
+    },
+    {
+      "path": "textures/solid/hud_dark.png",
+      "bytes": 158,
+      "sha256": "38c4c67675e34b0cce6d0412731eaf2f734f5b15b1dc428f43722498af0c17d4"
+    },
+    {
+      "path": "textures/solid/leather.png",
+      "bytes": 157,
+      "sha256": "17556b8f69ee17d1419a2c4765b76375b1e83168564867599b975798b33a01ad"
+    },
+    {
+      "path": "textures/solid/leather_dark.png",
+      "bytes": 157,
+      "sha256": "ed025f658607d7fbf3e54daa20a287093aac4af176de10ba1199cb32e0dd0620"
+    },
+    {
+      "path": "textures/solid/neutral_white.png",
+      "bytes": 153,
+      "sha256": "c59cf93924a70d26ce2c4b9d28c64f39b1ca65a9dd2838324ba4fd5df3af601d"
+    },
+    {
+      "path": "textures/solid/rock.png",
+      "bytes": 156,
+      "sha256": "6fe7e98df4a6c34b1d8ab5b064f5ed56f78f2fd65d7902f6843705ae6c980cd8"
+    },
+    {
+      "path": "textures/solid/rock_dark.png",
+      "bytes": 156,
+      "sha256": "2d541e8ec0a9e381a0bbdebdd81abda57bd3f283037211eb66c37305d3a6b068"
+    },
+    {
+      "path": "textures/solid/skin.png",
+      "bytes": 157,
+      "sha256": "9b92e35c75c2ec948214a8c481f52b55c559d86f70e6f5f32d6152eef905e82d"
+    },
+    {
+      "path": "textures/solid/skin_light.png",
+      "bytes": 157,
+      "sha256": "b739cd01d8a87255bbf66a8688b8727205e745d52d45a1863b808b3452f66ab5"
+    },
+    {
+      "path": "textures/solid/skin_shadow.png",
+      "bytes": 156,
+      "sha256": "a5e94a98f3269e4707bc7d28011be250d31665b3dc5d174317b153118b2593fa"
+    },
+    {
+      "path": "textures/solid/sky.png",
+      "bytes": 156,
+      "sha256": "e84eea580dcdb08711215e7bf2b975c7e5e93167c15af4df122312c3c16db3f2"
+    },
+    {
+      "path": "textures/solid/steel.png",
+      "bytes": 157,
+      "sha256": "a99c049cd446183abea48626454bc34c1a246e1d0228e01967fe4fb1c8fc6a51"
+    },
+    {
+      "path": "textures/solid/steel_dark.png",
+      "bytes": 156,
+      "sha256": "af5089ce642c8ec3afb145aa2b4a968393ac5d0341e509042f63ab30793e7dd7"
+    },
+    {
+      "path": "textures/solid/stitches.png",
+      "bytes": 157,
+      "sha256": "e47982512c96a08e95dd00736c38aa4f6d66529d4cb97f535473123320d92da0"
+    },
+    {
+      "path": "textures/solid/wood.png",
+      "bytes": 156,
+      "sha256": "ad98092f418f42ff2c0f744ce6c9528e148252f1f29105be587b3615392f7938"
+    },
+    {
+      "path": "textures/solid/wood_dark.png",
+      "bytes": 156,
+      "sha256": "91bbdade18e71ffafb94c606de7d226d12f641b3a5a7d3a283eb2231d1ecfdfd"
+    },
+    {
+      "path": "ui/compare_arrow.png",
+      "bytes": 2231,
+      "sha256": "a8d806536105b71fc85e4a366531ca9a5d1ed409ca2f00dd683242d519ac63a2"
+    },
+    {
+      "path": "ui/compare_arrow.svg",
+      "bytes": 291,
+      "sha256": "24d8dca6b607dc1eabb04d25dc9a02769b7d6d973548b1d233a1d6d439d36fde"
+    },
+    {
+      "path": "ui/consumable_active.png",
+      "bytes": 8818,
+      "sha256": "350bad9a3356ea53c0822d02714cb89627dbc3851aacf3a19ee60b396d105a81"
+    },
+    {
+      "path": "ui/consumable_active.svg",
+      "bytes": 278,
+      "sha256": "add3455221a71b78e10c4ddc869bec4377b81e2536ffd2a0b75ac9a8bf8aa021"
+    },
+    {
+      "path": "ui/consumable_disabled.png",
+      "bytes": 9528,
+      "sha256": "fa2d156a6b720627c71b1eb9d1bd44cf98914d0826b896686b81872bcbd7f7de"
+    },
+    {
+      "path": "ui/consumable_disabled.svg",
+      "bytes": 394,
+      "sha256": "402846150d9de9433135335a322b7ee7268b7cb67057741a67cf47ec2134a106"
+    },
+    {
+      "path": "ui/consumable_ended.png",
+      "bytes": 8038,
+      "sha256": "0284d6ed42d0a1e186d946fc6fabb9383f10193cdf99f6701f6070c9fdce4f49"
+    },
+    {
+      "path": "ui/consumable_ended.svg",
+      "bytes": 524,
+      "sha256": "c840e4a7d30d01745fbaa1cfce36906fc448a566e294c5f5b39b833ee2f01bc1"
+    },
+    {
+      "path": "ui/consumable_ready.png",
+      "bytes": 5201,
+      "sha256": "8b4a6acf82ac50db1f5ec9295b0ccf533342c69425e9a90ada60439a0fca36f8"
+    },
+    {
+      "path": "ui/consumable_ready.svg",
+      "bytes": 275,
+      "sha256": "e5416c6493e1fb2b208a1a05988c4a1b94a8367600689ba593fc94caba2a2c21"
+    },
+    {
+      "path": "ui/quantity_plate.png",
+      "bytes": 3097,
+      "sha256": "88187536d779eb5ee99fa7e0039f131b6f841d90f9253f42af4a6cc4201e8b72"
+    },
+    {
+      "path": "ui/quantity_plate.svg",
+      "bytes": 288,
+      "sha256": "06ba4168d856ce82a754f40ae0d5cd8687071e93034f24568eb7c3cd9b84705f"
+    },
+    {
+      "path": "ui/slot_consumable.png",
+      "bytes": 10154,
+      "sha256": "476dc02849304f5fbd45cd2270f64716fd587cb31f4d2ea0af02e8f156073f8c"
+    },
+    {
+      "path": "ui/slot_consumable.svg",
+      "bytes": 428,
+      "sha256": "76be90eebd1ca5e878daef167dda663e014814b77e533c1ebb6a3748b29f9ac5"
+    },
+    {
+      "path": "ui/slot_equipment.png",
+      "bytes": 3318,
+      "sha256": "4ffc923da085ebc9059b8c9a8dbd2310ec4cbe2b35023accd88ade2a39fedebd"
+    },
+    {
+      "path": "ui/slot_equipment.svg",
+      "bytes": 420,
+      "sha256": "3ddfee2ae0a6ad5cb5fea42596da986763662d9e8c6e43af72270281c9d195a4"
+    },
+    {
+      "path": "ui/state_equipped.png",
+      "bytes": 3857,
+      "sha256": "55d737f51c00f4fe6fd4644ec826636d46bf64b9afbeabac324c62af0b6f245e"
+    },
+    {
+      "path": "ui/state_equipped.svg",
+      "bytes": 503,
+      "sha256": "a79460e92f22a291dd909f1a2430bf12226a118bd25d08bf1f387beed20ced77"
+    },
+    {
+      "path": "ui/state_incompatible.png",
+      "bytes": 9404,
+      "sha256": "26f901168189a3542a09858aa9563e6b605824766cb12e9b365e74140586582d"
+    },
+    {
+      "path": "ui/state_incompatible.svg",
+      "bytes": 503,
+      "sha256": "2d442721fcc060ae781b4ccdab22dfd65366d005c6c845da7bb0141fb0f2ce29"
+    },
+    {
+      "path": "ui/state_operation_error.png",
+      "bytes": 4871,
+      "sha256": "f4e05b03678ce7e79e9269f1cb656717331bac04807b7dabfc0bd970f8b81df0"
+    },
+    {
+      "path": "ui/state_operation_error.svg",
+      "bytes": 300,
+      "sha256": "be993525aff1c3ee17ad4bf299090da955768da9db09d2228dafdea52b2baea9"
+    },
+    {
+      "path": "ui/state_owned.png",
+      "bytes": 4697,
+      "sha256": "6d27fcc12f944673ab0e2ec18c0d70ead771231bd2adc3fb39afe11b99f8a50b"
+    },
+    {
+      "path": "ui/state_owned.svg",
+      "bytes": 483,
+      "sha256": "9ba3582f0399e6dfb0d837bc024a0d2bcf58fd802045b5e761cae5bad9413f8c"
+    },
+    {
+      "path": "ui/state_resources_missing.png",
+      "bytes": 5294,
+      "sha256": "81584906b6affa448b6b85959cbfbed4014925704b4246cf570443f4fb574c18"
+    },
+    {
+      "path": "ui/state_resources_missing.svg",
+      "bytes": 438,
+      "sha256": "7224eea018aac3e4ed03218ba18904364384272016c8f6559b98f4a1083d6d82"
+    },
+    {
+      "path": "ui/state_selected.png",
+      "bytes": 8745,
+      "sha256": "3ecc0ecb89118fbcbb796aad663d1805e0b3150bc1d5d2d82e7b7cd3fa505d01"
+    },
+    {
+      "path": "ui/state_selected.svg",
+      "bytes": 326,
+      "sha256": "cd10884505901952d6394e4abd3a98e3766373b0eb037f1bb7b71dddcd952722"
+    },
+    {
+      "path": "ui/state_upgrade_pending.png",
+      "bytes": 6891,
+      "sha256": "17ed174d1e07fa473e39d14ad8ef15381471ebdb9541be1cfcfcd696ffa29117"
+    },
+    {
+      "path": "ui/state_upgrade_pending.svg",
+      "bytes": 494,
+      "sha256": "e31218762f7a4a1bee473e7fffcc1acaca73f9172597f6db89b7600b4a394b5f"
+    },
+    {
+      "path": "ui/upgrade_chevrons.png",
+      "bytes": 5384,
+      "sha256": "9d75c623a2077212c37a03fe89a1d09a25ed55cf8ab8aa9c2661327e5a6be8cd"
+    },
+    {
+      "path": "ui/upgrade_chevrons.svg",
+      "bytes": 275,
+      "sha256": "14e0b30d9143506cab27d1b7a570664dc42af6f1466f1b3612b0cbe06d5002f2"
+    },
+    {
+      "path": "vfx/collectors_halo.png",
+      "bytes": 10028,
+      "sha256": "838ff7661a13cbf0c92cfac24b2cc96e32fd0ad0e6916aa2f355ab663b45037f"
+    },
+    {
+      "path": "vfx/collectors_halo.svg",
+      "bytes": 770,
+      "sha256": "a281398a0ab1b0a1379147b709ac79e5408a1f0415c55033c893b89c9723a3f9"
+    },
+    {
+      "path": "vfx/consumable_end.png",
+      "bytes": 6760,
+      "sha256": "494d400032dd34569312534e8eafc6421864ad738265ac142caddd116e43a944"
+    },
+    {
+      "path": "vfx/consumable_end.svg",
+      "bytes": 785,
+      "sha256": "68d595628c9840604d6c339af349da76546a2d776e5cea194098d10fc3f49d74"
+    },
+    {
+      "path": "vfx/equipment_upgrade.png",
+      "bytes": 7636,
+      "sha256": "cc8d69a0e3a23a10e7474384c1f4818a6a0821f565e36099d65cbd968d5fea86"
+    },
+    {
+      "path": "vfx/equipment_upgrade.svg",
+      "bytes": 608,
+      "sha256": "407e23dda5f5f6fd8418f4dcc3b17398f0919aac95e69b441c9a072438e65a64"
+    },
+    {
+      "path": "vfx/piercing_contact.png",
+      "bytes": 2952,
+      "sha256": "9f1a692e965676422abdac0ddb01f2cbeef3f162b01965f06b2a0c99e4499ba5"
+    },
+    {
+      "path": "vfx/piercing_contact.svg",
+      "bytes": 380,
+      "sha256": "d84f96870ad6f79154575e1a93b2bfe65748a34c89336e2768350db0aa4a7807"
+    },
+    {
+      "path": "vfx/return_hook_arc.png",
+      "bytes": 6855,
+      "sha256": "19d500f7645f0bfc133f1d57e14fa18b1102f7653b72871cfc012025f9f8a913"
+    },
+    {
+      "path": "vfx/return_hook_arc.svg",
+      "bytes": 452,
+      "sha256": "012882224bd1f51edf4dc647181856fcea81594888080ba90c1e5c02f59eb50b"
+    },
+    {
+      "path": "vfx/slowing_dust.png",
+      "bytes": 8068,
+      "sha256": "19a95afc4b73c96a2eb0dd4b09193cccac7fb768d95ecd26ffbf98f7637ec801"
+    },
+    {
+      "path": "vfx/slowing_dust.svg",
+      "bytes": 547,
+      "sha256": "817380f28db91505533c8d990e79f3576a80447e916d8e605b7ef10f37ef6a96"
+    }
+  ],
+  "verification": "VERIFICATION.md",
+  "independent_report": "INDEPENDENT-VERIFICATION.json"
+}

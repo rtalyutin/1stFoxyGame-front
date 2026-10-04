@@ -1,0 +1,129 @@
+{
+  "image": "flipbook_craft_confirmed.png",
+  "size": {
+    "w": 1024,
+    "h": 256
+  },
+  "origin": "top-left; x right, y down",
+  "alpha": "straight",
+  "grid": {
+    "columns": 4,
+    "rows": 1
+  },
+  "frames": [
+    {
+      "id": "craft_confirmed_00",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.0,
+        0.25,
+        1.0
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.0,
+        0.25,
+        1.0
+      ],
+      "source_png": "flipbooks/craft_confirmed/craft_confirmed_00.png"
+    },
+    {
+      "id": "craft_confirmed_01",
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.0,
+        0.25,
+        1.0
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.0,
+        0.5,
+        1.0
+      ],
+      "source_png": "flipbooks/craft_confirmed/craft_confirmed_01.png"
+    },
+    {
+      "id": "craft_confirmed_02",
+      "frame": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.0,
+        0.25,
+        1.0
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.0,
+        0.75,
+        1.0
+      ],
+      "source_png": "flipbooks/craft_confirmed/craft_confirmed_02.png"
+    },
+    {
+      "id": "craft_confirmed_03",
+      "frame": {
+        "x": 768,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.0,
+        0.25,
+        1.0
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source_png": "flipbooks/craft_confirmed/craft_confirmed_03.png"
+    }
+  ],
+  "animation": {
+    "frames": [
+      "craft_confirmed_00",
+      "craft_confirmed_01",
+      "craft_confirmed_02",
+      "craft_confirmed_03"
+    ],
+    "loop": false,
+    "timing": "Runtime maps actual phase progress to frames; no gameplay duration baked in."
+  }
+}

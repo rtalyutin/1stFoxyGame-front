@@ -43,6 +43,10 @@ npm run build
 
 Графический комплект R2 (UI, декали, VFX и атласы) находится в [`assets/graphics/r2/`](assets/graphics/r2/README-R2.md). Он поставлен отдельно от моделей; подключение UI и VFX к игровым событиям входит в интеграцию ассетов.
 
+## Модели для R3–R4
+
+24 GLB доступны в [`public/models/r3/`](public/models/r3/) и [`public/models/r4/`](public/models/r4/). [Состав, превью, контракт и проверки](docs/models/r3-r4/README.md); исходники — `assets/models/r3/`, `assets/models/r4/`, графика — `assets/graphics/r3/`, `assets/graphics/r4/`. Это поставка ассетов; подключение к игре выполняется отдельным изменением клиента.
+
 ## Устройство
 
 - `src/game/` — чистая детерминированная симуляция 60 Гц и её тесты; без DOM и 3D-зависимостей.

@@ -1,0 +1,65 @@
+id,category,label_ru,svg,png,width,height
+fast_spool_1,icons/equipment,Быстрая катушка I,icons/equipment/fast_spool_1.svg,icons/equipment/fast_spool_1.png,256,256
+fast_spool_2,icons/equipment,Быстрая катушка II,icons/equipment/fast_spool_2.svg,icons/equipment/fast_spool_2.png,256,256
+fast_spool_3,icons/equipment,Быстрая катушка III,icons/equipment/fast_spool_3.svg,icons/equipment/fast_spool_3.png,256,256
+long_link_1,icons/equipment,Длинное звено I,icons/equipment/long_link_1.svg,icons/equipment/long_link_1.png,256,256
+piercing_tooth,icons/equipment,Сквозной зуб,icons/equipment/piercing_tooth.svg,icons/equipment/piercing_tooth.png,256,256
+return_sickle,icons/equipment,Возвратный серп,icons/equipment/return_sickle.svg,icons/equipment/return_sickle.png,256,256
+conductor_cuffs_1,icons/equipment,Манжеты проводника I,icons/equipment/conductor_cuffs_1.svg,icons/equipment/conductor_cuffs_1.png,256,256
+conductor_cuffs_2,icons/equipment,Манжеты проводника II,icons/equipment/conductor_cuffs_2.svg,icons/equipment/conductor_cuffs_2.png,256,256
+conductor_cuffs_3,icons/equipment,Манжеты проводника III,icons/equipment/conductor_cuffs_3.svg,icons/equipment/conductor_cuffs_3.png,256,256
+sidestep_boots_1,icons/equipment,Сапоги бокового шага I,icons/equipment/sidestep_boots_1.svg,icons/equipment/sidestep_boots_1.png,256,256
+sidestep_boots_2,icons/equipment,Сапоги бокового шага II,icons/equipment/sidestep_boots_2.svg,icons/equipment/sidestep_boots_2.png,256,256
+sidestep_boots_3,icons/equipment,Сапоги бокового шага III,icons/equipment/sidestep_boots_3.svg,icons/equipment/sidestep_boots_3.png,256,256
+trophy_counter_1,icons/equipment,Трофейный счётчик I,icons/equipment/trophy_counter_1.svg,icons/equipment/trophy_counter_1.png,256,256
+trophy_counter_2,icons/equipment,Трофейный счётчик II,icons/equipment/trophy_counter_2.svg,icons/equipment/trophy_counter_2.png,256,256
+trophy_counter_3,icons/equipment,Трофейный счётчик III,icons/equipment/trophy_counter_3.svg,icons/equipment/trophy_counter_3.png,256,256
+debtors_watch,icons/equipment,Часы должника,icons/equipment/debtors_watch.svg,icons/equipment/debtors_watch.png,256,256
+slowing_powder,icons/consumables,Пыль торможения,icons/consumables/slowing_powder.svg,icons/consumables/slowing_powder.png,256,256
+collectors_vial,icons/consumables,Флакон сборщика,icons/consumables/collectors_vial.svg,icons/consumables/collectors_vial.png,256,256
+state_owned,ui,Есть в профиле,ui/state_owned.svg,ui/state_owned.png,256,256
+state_equipped,ui,Надето,ui/state_equipped.svg,ui/state_equipped.png,256,256
+state_selected,ui,Выбрано,ui/state_selected.svg,ui/state_selected.png,256,256
+state_incompatible,ui,Несовместимо,ui/state_incompatible.svg,ui/state_incompatible.png,256,256
+state_upgrade_pending,ui,Улучшение: ожидание,ui/state_upgrade_pending.svg,ui/state_upgrade_pending.png,256,256
+state_resources_missing,ui,Не хватает ресурсов,ui/state_resources_missing.svg,ui/state_resources_missing.png,256,256
+state_operation_error,ui,Ошибка операции,ui/state_operation_error.svg,ui/state_operation_error.png,256,256
+consumable_ready,ui,Расходник готов,ui/consumable_ready.svg,ui/consumable_ready.png,256,256
+consumable_active,ui,Расходник активен,ui/consumable_active.svg,ui/consumable_active.png,256,256
+consumable_ended,ui,Расходник завершён,ui/consumable_ended.svg,ui/consumable_ended.png,256,256
+consumable_disabled,ui,Расходник недоступен,ui/consumable_disabled.svg,ui/consumable_disabled.png,256,256
+quantity_plate,ui,Плашка количества,ui/quantity_plate.svg,ui/quantity_plate.png,256,256
+slot_equipment,ui,Слот экипировки,ui/slot_equipment.svg,ui/slot_equipment.png,256,256
+slot_consumable,ui,Слот расходника,ui/slot_consumable.svg,ui/slot_consumable.png,256,256
+compare_arrow,ui,Сравнение,ui/compare_arrow.svg,ui/compare_arrow.png,256,256
+upgrade_chevrons,ui,Улучшить,ui/upgrade_chevrons.svg,ui/upgrade_chevrons.png,256,256
+fast_spool_1_overlay,textures/decals,Быстрая катушка I,textures/decals/fast_spool_1_overlay.svg,textures/decals/fast_spool_1_overlay.png,512,512
+fast_spool_2_overlay,textures/decals,Быстрая катушка II,textures/decals/fast_spool_2_overlay.svg,textures/decals/fast_spool_2_overlay.png,512,512
+fast_spool_3_overlay,textures/decals,Быстрая катушка III,textures/decals/fast_spool_3_overlay.svg,textures/decals/fast_spool_3_overlay.png,512,512
+long_link_1_overlay,textures/decals,Длинное звено I,textures/decals/long_link_1_overlay.svg,textures/decals/long_link_1_overlay.png,512,512
+piercing_tooth_overlay,textures/decals,Сквозной зуб,textures/decals/piercing_tooth_overlay.svg,textures/decals/piercing_tooth_overlay.png,512,512
+return_sickle_overlay,textures/decals,Возвратный серп,textures/decals/return_sickle_overlay.svg,textures/decals/return_sickle_overlay.png,512,512
+conductor_cuffs_1_overlay,textures/decals,Манжеты проводника I,textures/decals/conductor_cuffs_1_overlay.svg,textures/decals/conductor_cuffs_1_overlay.png,512,512
+conductor_cuffs_2_overlay,textures/decals,Манжеты проводника II,textures/decals/conductor_cuffs_2_overlay.svg,textures/decals/conductor_cuffs_2_overlay.png,512,512
+conductor_cuffs_3_overlay,textures/decals,Манжеты проводника III,textures/decals/conductor_cuffs_3_overlay.svg,textures/decals/conductor_cuffs_3_overlay.png,512,512
+sidestep_boots_1_overlay,textures/decals,Сапоги бокового шага I,textures/decals/sidestep_boots_1_overlay.svg,textures/decals/sidestep_boots_1_overlay.png,512,512
+sidestep_boots_2_overlay,textures/decals,Сапоги бокового шага II,textures/decals/sidestep_boots_2_overlay.svg,textures/decals/sidestep_boots_2_overlay.png,512,512
+sidestep_boots_3_overlay,textures/decals,Сапоги бокового шага III,textures/decals/sidestep_boots_3_overlay.svg,textures/decals/sidestep_boots_3_overlay.png,512,512
+trophy_counter_1_overlay,textures/decals,Трофейный счётчик I,textures/decals/trophy_counter_1_overlay.svg,textures/decals/trophy_counter_1_overlay.png,512,512
+trophy_counter_2_overlay,textures/decals,Трофейный счётчик II,textures/decals/trophy_counter_2_overlay.svg,textures/decals/trophy_counter_2_overlay.png,512,512
+trophy_counter_3_overlay,textures/decals,Трофейный счётчик III,textures/decals/trophy_counter_3_overlay.svg,textures/decals/trophy_counter_3_overlay.png,512,512
+debtors_watch_overlay,textures/decals,Часы должника,textures/decals/debtors_watch_overlay.svg,textures/decals/debtors_watch_overlay.png,512,512
+piercing_contact,vfx,Контакт сквозного зуба,vfx/piercing_contact.svg,vfx/piercing_contact.png,256,256
+return_hook_arc,vfx,След возвратного серпа,vfx/return_hook_arc.svg,vfx/return_hook_arc.png,256,256
+equipment_upgrade,vfx,Эффект улучшения,vfx/equipment_upgrade.svg,vfx/equipment_upgrade.png,256,256
+slowing_dust,vfx,Пыль торможения,vfx/slowing_dust.svg,vfx/slowing_dust.png,256,256
+collectors_halo,vfx,Эффект сборщика,vfx/collectors_halo.svg,vfx/collectors_halo.png,256,256
+consumable_end,vfx,Завершение расходника,vfx/consumable_end.svg,vfx/consumable_end.png,256,256
+upgrade_flash_1,flipbook/upgrade,Улучшение: кадр 1,flipbook/upgrade/upgrade_flash_1.svg,flipbook/upgrade/upgrade_flash_1.png,256,256
+upgrade_flash_2,flipbook/upgrade,Улучшение: кадр 2,flipbook/upgrade/upgrade_flash_2.svg,flipbook/upgrade/upgrade_flash_2.png,256,256
+upgrade_flash_3,flipbook/upgrade,Улучшение: кадр 3,flipbook/upgrade/upgrade_flash_3.svg,flipbook/upgrade/upgrade_flash_3.png,256,256
+upgrade_flash_4,flipbook/upgrade,Улучшение: кадр 4,flipbook/upgrade/upgrade_flash_4.svg,flipbook/upgrade/upgrade_flash_4.png,256,256
+consumable_activation_1,flipbook/consumable,Активация: кадр 1,flipbook/consumable/consumable_activation_1.svg,flipbook/consumable/consumable_activation_1.png,256,256
+consumable_activation_2,flipbook/consumable,Активация: кадр 2,flipbook/consumable/consumable_activation_2.svg,flipbook/consumable/consumable_activation_2.png,256,256
+consumable_activation_3,flipbook/consumable,Активация: кадр 3,flipbook/consumable/consumable_activation_3.svg,flipbook/consumable/consumable_activation_3.png,256,256
+consumable_activation_4,flipbook/consumable,Активация: кадр 4,flipbook/consumable/consumable_activation_4.svg,flipbook/consumable/consumable_activation_4.png,256,256

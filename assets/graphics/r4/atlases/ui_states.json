@@ -1,0 +1,431 @@
+{
+  "image": "ui_states.png",
+  "size": {
+    "w": 1024,
+    "h": 1024
+  },
+  "origin": "top-left; x right, y down",
+  "alpha": "straight",
+  "grid": {
+    "columns": 4,
+    "rows": 4
+  },
+  "frames": [
+    {
+      "id": "state_owned",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.75,
+        0.25,
+        1.0
+      ],
+      "source_png": "ui/state_owned.png"
+    },
+    {
+      "id": "state_equipped",
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.75,
+        0.5,
+        1.0
+      ],
+      "source_png": "ui/state_equipped.png"
+    },
+    {
+      "id": "state_selected",
+      "frame": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.75,
+        0.75,
+        1.0
+      ],
+      "source_png": "ui/state_selected.png"
+    },
+    {
+      "id": "state_incompatible",
+      "frame": {
+        "x": 768,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.75,
+        1.0,
+        1.0
+      ],
+      "source_png": "ui/state_incompatible.png"
+    },
+    {
+      "id": "state_upgrade_pending",
+      "frame": {
+        "x": 0,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.5,
+        0.25,
+        0.75
+      ],
+      "source_png": "ui/state_upgrade_pending.png"
+    },
+    {
+      "id": "state_resources_missing",
+      "frame": {
+        "x": 256,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.5,
+        0.5,
+        0.75
+      ],
+      "source_png": "ui/state_resources_missing.png"
+    },
+    {
+      "id": "state_operation_error",
+      "frame": {
+        "x": 512,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.5,
+        0.75,
+        0.75
+      ],
+      "source_png": "ui/state_operation_error.png"
+    },
+    {
+      "id": "consumable_ready",
+      "frame": {
+        "x": 768,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.5,
+        1.0,
+        0.75
+      ],
+      "source_png": "ui/consumable_ready.png"
+    },
+    {
+      "id": "consumable_active",
+      "frame": {
+        "x": 0,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.25,
+        0.25,
+        0.5
+      ],
+      "source_png": "ui/consumable_active.png"
+    },
+    {
+      "id": "consumable_ended",
+      "frame": {
+        "x": 256,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.25,
+        0.5,
+        0.5
+      ],
+      "source_png": "ui/consumable_ended.png"
+    },
+    {
+      "id": "consumable_disabled",
+      "frame": {
+        "x": 512,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.25,
+        0.75,
+        0.5
+      ],
+      "source_png": "ui/consumable_disabled.png"
+    },
+    {
+      "id": "quantity_plate",
+      "frame": {
+        "x": 768,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.25,
+        1.0,
+        0.5
+      ],
+      "source_png": "ui/quantity_plate.png"
+    },
+    {
+      "id": "slot_equipment",
+      "frame": {
+        "x": 0,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "source_png": "ui/slot_equipment.png"
+    },
+    {
+      "id": "slot_consumable",
+      "frame": {
+        "x": 256,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.0,
+        0.5,
+        0.25
+      ],
+      "source_png": "ui/slot_consumable.png"
+    },
+    {
+      "id": "compare_arrow",
+      "frame": {
+        "x": 512,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.0,
+        0.75,
+        0.25
+      ],
+      "source_png": "ui/compare_arrow.png"
+    },
+    {
+      "id": "upgrade_chevrons",
+      "frame": {
+        "x": 768,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.0,
+        1.0,
+        0.25
+      ],
+      "source_png": "ui/upgrade_chevrons.png"
+    }
+  ]
+}
