@@ -1,0 +1,232 @@
+{
+  "browser": "143.0.7499.0",
+  "environment": "headless Linux; software GPU if using custom SwiftShader binary; not physical mobile QA",
+  "checks": [
+    "Three actual living GLB worlds; NPC movement without interaction",
+    "One physical GLB entry, one completion, reset in test fixture",
+    {
+      "width": 320,
+      "full": 1,
+      "partial": 1,
+      "overflow": false,
+      "text": "1–1 из 10"
+    },
+    {
+      "width": 390,
+      "full": 1,
+      "partial": 1,
+      "overflow": false,
+      "text": "1–1 из 10"
+    },
+    {
+      "width": 768,
+      "full": 2,
+      "partial": 1,
+      "overflow": false,
+      "text": "1–2 из 10"
+    },
+    {
+      "width": 1024,
+      "full": 2,
+      "partial": 1,
+      "overflow": false,
+      "text": "1–2 из 10"
+    },
+    {
+      "width": 1280,
+      "full": 3,
+      "partial": 1,
+      "overflow": false,
+      "text": "1–3 из 10"
+    },
+    {
+      "width": 1920,
+      "full": 3,
+      "partial": 1,
+      "overflow": false,
+      "text": "1–3 из 10"
+    },
+    {
+      "width": 2560,
+      "full": 3,
+      "partial": 1,
+      "overflow": false,
+      "text": "1–3 из 10"
+    },
+    "Two catalog sweeps: bounded resident worlds, no second engine",
+    "Preparing pin + cancel ignores late hero load",
+    "Context loss/restore recovers control without completion",
+    "Reduced motion renders a static scene and stops the loop",
+    "Scene completely outside viewport stops the loop",
+    "No-JS HTML catalog with real launch link"
+  ],
+  "measurements": [
+    {
+      "scenario": "three visible worlds",
+      "entry": "IDLE",
+      "selected": null,
+      "rendering": true,
+      "stageVisible": true,
+      "reduced": false,
+      "states": [
+        "active",
+        "active",
+        "active"
+      ],
+      "fps": 60,
+      "frameMs": 3.7999999970197678,
+      "meshes": 310,
+      "textures": 5,
+      "materials": 60,
+      "drawCalls": 142,
+      "buffer": [
+        1760,
+        590
+      ],
+      "dpr": 1,
+      "hardwareScaling": 1,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "scenario": "12 worlds pass 0 End",
+      "entry": "IDLE",
+      "selected": null,
+      "rendering": true,
+      "stageVisible": true,
+      "reduced": false,
+      "states": [
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "ready-paused",
+        "active",
+        "active",
+        "active",
+        "active"
+      ],
+      "fps": 60,
+      "frameMs": 48,
+      "meshes": 494,
+      "textures": 7,
+      "materials": 92,
+      "drawCalls": 186,
+      "buffer": [
+        1760,
+        590
+      ],
+      "dpr": 1,
+      "hardwareScaling": 1,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "scenario": "12 worlds pass 0 Home",
+      "entry": "IDLE",
+      "selected": null,
+      "rendering": true,
+      "stageVisible": true,
+      "reduced": false,
+      "states": [
+        "active",
+        "active",
+        "active",
+        "active",
+        "ready-paused",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed"
+      ],
+      "fps": 60,
+      "frameMs": 36.30000000447035,
+      "meshes": 517,
+      "textures": 7,
+      "materials": 91,
+      "drawCalls": 181,
+      "buffer": [
+        1760,
+        590
+      ],
+      "dpr": 1,
+      "hardwareScaling": 1,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "scenario": "12 worlds pass 1 End",
+      "entry": "IDLE",
+      "selected": null,
+      "rendering": true,
+      "stageVisible": true,
+      "reduced": false,
+      "states": [
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "ready-paused",
+        "active",
+        "active",
+        "active",
+        "active"
+      ],
+      "fps": 60,
+      "frameMs": 4.800000004470348,
+      "meshes": 494,
+      "textures": 7,
+      "materials": 92,
+      "drawCalls": 11,
+      "buffer": [
+        1760,
+        590
+      ],
+      "dpr": 1,
+      "hardwareScaling": 1,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "scenario": "12 worlds pass 1 Home",
+      "entry": "IDLE",
+      "selected": null,
+      "rendering": true,
+      "stageVisible": true,
+      "reduced": false,
+      "states": [
+        "active",
+        "active",
+        "active",
+        "active",
+        "ready-paused",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed",
+        "disposed"
+      ],
+      "fps": 60,
+      "frameMs": 26.200000002980232,
+      "meshes": 517,
+      "textures": 7,
+      "materials": 91,
+      "drawCalls": 142,
+      "buffer": [
+        1760,
+        590
+      ],
+      "dpr": 1,
+      "hardwareScaling": 1,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+  ],
+  "errors": []
+}

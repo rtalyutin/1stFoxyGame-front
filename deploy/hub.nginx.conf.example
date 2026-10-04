@@ -1,0 +1,22 @@
+# Include inside the EXISTING HTTPS server {} after reviewing its routes/mounts.
+# Host files: /srv/foxygames/hub/index.html and releases/<build_id>/...
+location = /hub { return 308 /hub/; }
+location = /hub/ {
+    alias /srv/foxygames/hub/index.html;
+    default_type text/html;
+    add_header Cache-Control "no-store" always;
+    open_file_cache off;
+}
+location = /hub/index.html {
+    alias /srv/foxygames/hub/index.html;
+    default_type text/html;
+    add_header Cache-Control "no-store" always;
+    open_file_cache off;
+}
+location ^~ /hub/releases/ {
+    alias /srv/foxygames/hub/releases/;
+    add_header Cache-Control "public, max-age=31536000, immutable";
+    autoindex off;
+}
+# No SPA fallback inside the hub prefix. Preserve the game's existing / and /api.
+location ^~ /hub/ { return 404; }

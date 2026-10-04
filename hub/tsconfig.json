@@ -1,0 +1,1 @@
+{"extends":"../tsconfig.json","include":["src","tests","vite.config.ts"],"compilerOptions":{"lib":["ES2023","DOM","DOM.Iterable"],"allowImportingTsExtensions":true}}

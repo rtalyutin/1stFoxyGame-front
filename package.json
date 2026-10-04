@@ -14,13 +14,19 @@
     "test:watch": "vitest",
     "validate:content": "vitest run src/platform/catalog.test.ts",
     "validate:r34-pair": "node scripts/validate-r34-pair.mjs",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "hub:dev": "vite --config hub/vite.config.ts",
+    "hub:typecheck": "tsc --noEmit -p hub/tsconfig.json",
+    "hub:test": "vitest run hub/tests",
+    "hub:build": "npm run hub:typecheck && node hub/scripts/build.mjs",
+    "hub:test:browser": "node hub/scripts/browser-tests.mjs"
   },
   "dependencies": {
     "@babylonjs/core": "9.29.0",
     "@babylonjs/loaders": "9.29.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.62.1",
     "@types/node": "24.10.1",
     "typescript": "7.0.2",
     "vite": "8.3.2",
