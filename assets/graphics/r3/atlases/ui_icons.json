@@ -1,0 +1,665 @@
+{
+  "image": "ui_icons.png",
+  "size": {
+    "w": 1280,
+    "h": 1280
+  },
+  "origin": "top-left; x right, y down",
+  "alpha": "straight",
+  "grid": {
+    "columns": 5,
+    "rows": 5
+  },
+  "frames": [
+    {
+      "id": "shop",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.0,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.8,
+        0.2,
+        1.0
+      ],
+      "source_png": "ui/icons/shop.png"
+    },
+    {
+      "id": "shop_enter",
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.2,
+        0.0,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.2,
+        0.8,
+        0.4,
+        1.0
+      ],
+      "source_png": "ui/icons/shop_enter.png"
+    },
+    {
+      "id": "shop_exit",
+      "frame": {
+        "x": 512,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.4,
+        0.0,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.4,
+        0.8,
+        0.6,
+        1.0
+      ],
+      "source_png": "ui/icons/shop_exit.png"
+    },
+    {
+      "id": "world_frozen",
+      "frame": {
+        "x": 768,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.6,
+        0.0,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.6,
+        0.8,
+        0.8,
+        1.0
+      ],
+      "source_png": "ui/icons/world_frozen.png"
+    },
+    {
+      "id": "gold",
+      "frame": {
+        "x": 1024,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.8,
+        0.0,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.8,
+        0.8,
+        1.0,
+        1.0
+      ],
+      "source_png": "ui/icons/gold.png"
+    },
+    {
+      "id": "steel",
+      "frame": {
+        "x": 0,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.6,
+        0.2,
+        0.8
+      ],
+      "source_png": "ui/icons/steel.png"
+    },
+    {
+      "id": "ember",
+      "frame": {
+        "x": 256,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.2,
+        0.6,
+        0.4,
+        0.8
+      ],
+      "source_png": "ui/icons/ember.png"
+    },
+    {
+      "id": "core",
+      "frame": {
+        "x": 512,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.4,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.4,
+        0.6,
+        0.6,
+        0.8
+      ],
+      "source_png": "ui/icons/core.png"
+    },
+    {
+      "id": "craft",
+      "frame": {
+        "x": 768,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.6,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.6,
+        0.6,
+        0.8,
+        0.8
+      ],
+      "source_png": "ui/icons/craft.png"
+    },
+    {
+      "id": "recipe",
+      "frame": {
+        "x": 1024,
+        "y": 256,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.8,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.8,
+        0.6,
+        1.0,
+        0.8
+      ],
+      "source_png": "ui/icons/recipe.png"
+    },
+    {
+      "id": "resource_missing",
+      "frame": {
+        "x": 0,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.4,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.4,
+        0.2,
+        0.6
+      ],
+      "source_png": "ui/icons/resource_missing.png"
+    },
+    {
+      "id": "operation_pending",
+      "frame": {
+        "x": 256,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.2,
+        0.4,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.2,
+        0.4,
+        0.4,
+        0.6
+      ],
+      "source_png": "ui/icons/operation_pending.png"
+    },
+    {
+      "id": "operation_success",
+      "frame": {
+        "x": 512,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.4,
+        0.4,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.4,
+        0.4,
+        0.6,
+        0.6
+      ],
+      "source_png": "ui/icons/operation_success.png"
+    },
+    {
+      "id": "operation_error",
+      "frame": {
+        "x": 768,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.6,
+        0.4,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.6,
+        0.4,
+        0.8,
+        0.6
+      ],
+      "source_png": "ui/icons/operation_error.png"
+    },
+    {
+      "id": "compare_effects",
+      "frame": {
+        "x": 1024,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.8,
+        0.4,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.8,
+        0.4,
+        1.0,
+        0.6
+      ],
+      "source_png": "ui/icons/compare_effects.png"
+    },
+    {
+      "id": "account",
+      "frame": {
+        "x": 0,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.6,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.19999999999999996,
+        0.2,
+        0.4
+      ],
+      "source_png": "ui/icons/account.png"
+    },
+    {
+      "id": "session_expired",
+      "frame": {
+        "x": 256,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.2,
+        0.6,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.2,
+        0.19999999999999996,
+        0.4,
+        0.4
+      ],
+      "source_png": "ui/icons/session_expired.png"
+    },
+    {
+      "id": "profile_load",
+      "frame": {
+        "x": 512,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.4,
+        0.6,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.4,
+        0.19999999999999996,
+        0.6,
+        0.4
+      ],
+      "source_png": "ui/icons/profile_load.png"
+    },
+    {
+      "id": "profile_save",
+      "frame": {
+        "x": 768,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.6,
+        0.6,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.6,
+        0.19999999999999996,
+        0.8,
+        0.4
+      ],
+      "source_png": "ui/icons/profile_save.png"
+    },
+    {
+      "id": "sync_retry",
+      "frame": {
+        "x": 1024,
+        "y": 768,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.8,
+        0.6,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.8,
+        0.19999999999999996,
+        1.0,
+        0.4
+      ],
+      "source_png": "ui/icons/sync_retry.png"
+    },
+    {
+      "id": "offline",
+      "frame": {
+        "x": 0,
+        "y": 1024,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.8,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.0,
+        0.2,
+        0.19999999999999996
+      ],
+      "source_png": "ui/icons/offline.png"
+    },
+    {
+      "id": "service_error",
+      "frame": {
+        "x": 256,
+        "y": 1024,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.2,
+        0.8,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.2,
+        0.0,
+        0.4,
+        0.19999999999999996
+      ],
+      "source_png": "ui/icons/service_error.png"
+    },
+    {
+      "id": "profile_recovery",
+      "frame": {
+        "x": 512,
+        "y": 1024,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.4,
+        0.8,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.4,
+        0.0,
+        0.6,
+        0.19999999999999996
+      ],
+      "source_png": "ui/icons/profile_recovery.png"
+    },
+    {
+      "id": "run_loot",
+      "frame": {
+        "x": 768,
+        "y": 1024,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.6,
+        0.8,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.6,
+        0.0,
+        0.8,
+        0.19999999999999996
+      ],
+      "source_png": "ui/icons/run_loot.png"
+    },
+    {
+      "id": "wallet",
+      "frame": {
+        "x": 1024,
+        "y": 1024,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.8,
+        0.8,
+        0.2,
+        0.2
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.8,
+        0.0,
+        1.0,
+        0.19999999999999996
+      ],
+      "source_png": "ui/icons/wallet.png"
+    }
+  ]
+}

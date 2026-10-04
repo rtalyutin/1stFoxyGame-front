@@ -1,0 +1,36 @@
+GIMP Palette
+Name: Pudge Flat Low Poly - Base Colors
+Columns: 8
+# RGB colors; row order follows the PNG atlas.
+253 181 154	skin
+254 197 169	skin_light
+219 147 124	skin_shadow
+218  70  51	stitches
+ 19 123  69	hair
+ 22 142  83	hair_light
+240  79  79	creep_red
+139  43  39	creep_red_dark
+197 158 112	creep_mask
+ 96  64  85	creep_cloth
+189 192 204	steel
+129 133 145	steel_dark
+ 97  78  72	leather
+ 74  58  52	leather_dark
+ 57  57  57	cloth
+ 89  74  68	cloth_light
+137 184  96	grass
+ 83 162 102	foliage
+ 49 114  75	foliage_dark
+221 177 123	dirt
+206 163 118	dirt_dark
+194 137  78	wood
+127  86  60	wood_dark
+146 147 171	rock
+103 110 130	rock_dark
+249 190   4	gold
+255 242  10	gold_light
+247 160   0	gold_dark
+111 190 252	sky
+237 243 253	cloud
+ 33  64  87	hud_dark
+254 254 254	neutral_white

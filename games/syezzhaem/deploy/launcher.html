@@ -1,0 +1,44 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark"><title>СЪЕЗЖАЕМ! — загрузка</title>
+<style>:root{font-family:system-ui,sans-serif;color:#f4f5e9;background:#19303a}*{box-sizing:border-box}body{margin:0;min-height:100dvh;display:grid;place-items:center;padding:24px}main{width:min(540px,100%);background:#16323e;border:1px solid #7ca19e5c;border-radius:16px;padding:30px}.eyebrow{font-size:11px;letter-spacing:2px;color:#b5e97a;font-weight:800}h1{font-size:32px;letter-spacing:-1px;margin:14px 0}p{line-height:1.55;color:#d3e0db}button{font:inherit;min-height:50px;padding:12px 18px;background:#bef181;color:#1c382d;border:0;border-radius:8px;font-weight:800;cursor:pointer}button:focus-visible{outline:3px solid white;outline-offset:3px}.secondary{background:#27444e;color:#eaf3e6;border:1px solid #55777c}#actions{display:flex;gap:10px;flex-wrap:wrap}#version{font-size:11px;color:#91adae}[hidden]{display:none!important}@media(max-height:500px){main{padding:20px}h1{font-size:25px}body{padding:12px}}</style></head>
+<body><main><div class="eyebrow">СТЕНЫ СТАНОВЯТСЯ ДОРОГОЙ</div><h1>СЪЕЗЖАЕМ!</h1><p id="status" role="status" aria-live="polite">Проверяем сборку и сохранение…</p><div id="actions"></div><p id="version"></p></main>
+<script type="module">
+const prefix='/games/syezzhaem/',api='/api/syezzhaem/v1/rpc/';
+const status=document.querySelector('#status'),actions=document.querySelector('#actions'),version=document.querySelector('#version');
+const id=/^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$/;
+let ownerHint;
+const request=async(url,options={})=>{const response=await fetch(url,{credentials:'same-origin',cache:'no-store',...options,headers:{...options.headers,...(ownerHint?{'X-Syezzhaem-Expected-User':ownerHint}:{})}});if(!response.ok)throw new Error('Не удалось проверить аккаунт или сборку. Сохранение осталось на устройстве.');return response.json();};
+function button(label,fn,secondary=false){const b=document.createElement('button');b.textContent=label;if(secondary)b.className='secondary';b.onclick=fn;actions.append(b);}
+function local(owner){return new Promise((resolve,reject)=>{const open=indexedDB.open('syezzhaem-r1');let fresh=false;open.onupgradeneeded=()=>{fresh=true;open.transaction.abort();};open.onerror=()=>fresh?resolve({}):reject(new Error('Не удалось прочитать локальное сохранение.'));open.onsuccess=()=>{const db=open.result;db.onversionchange=()=>db.close();if(!db.objectStoreNames.contains('state')){db.close();resolve({});return;}const tx=db.transaction('state','readonly'),store=tx.objectStore('state'),resume=store.get('resume:'+owner),start=store.get('start:'+owner);tx.oncomplete=()=>{db.close();resolve({resume:resume.result,start:start.result});};tx.onerror=tx.onabort=()=>{db.close();reject(new Error('Не удалось прочитать локальное сохранение.'));};};});}
+async function main(){
+  const [active,catalog,session]=await Promise.all([request(prefix+'active.json'),request(prefix+'catalog.json'),request('/api/syezzhaem/auth/get-session')]);
+  if(catalog.manifest_version!==1||!catalog.builds||!id.test(active.build_id))throw new Error('Каталог сборок повреждён.');
+  const same=(a,b)=>['manifest_version','build_id','entry_url','api_version','content_version','rules_version','snapshot_schema_version','level_id','manifest_sha256'].every(k=>a[k]===b[k]);
+  if(!catalog.builds[active.build_id]||!same(active,catalog.builds[active.build_id]))throw new Error('Активная сборка не прошла проверку каталога.');
+  async function launch(buildId,runId){
+    if(!id.test(buildId))throw new Error('Неверная версия сохранения.');
+    const d=catalog.builds[buildId];if(!d)throw new Error('Сборка этого сохранения недоступна. Данные сохранены.');
+    if(d.entry_url!==prefix+'releases/'+buildId+'/')throw new Error('Неверный путь сборки.');
+    const response=await fetch(d.entry_url+'release-manifest.json',{cache:'no-store'});if(!response.ok)throw new Error('Сборка этого сохранения недоступна. Данные сохранены.');
+    const raw=await response.arrayBuffer(),digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',raw)),n=>n.toString(16).padStart(2,'0')).join('');
+    const m=JSON.parse(new TextDecoder().decode(raw));if(digest!==d.manifest_sha256||!same(d,{...m,manifest_sha256:digest})||!m.files?.['index.html'])throw new Error('Сборка повреждена. Данные сохранены.');
+    version.textContent=buildId;const target=new URL(d.entry_url,location.origin);if(runId)target.searchParams.set('resume',runId);location.replace(target.href);
+  }
+  const owner=session?.user?.id;
+  if(!owner || session.user.emailVerified!==true){await launch(active.build_id);return;}
+  ownerHint=owner;
+  const envelope=await request(api+'bootstrap_v1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({client_build:active.build_id})});
+  if(!envelope.ok)throw new Error(envelope.error?.message||'Не удалось проверить серверное сохранение.');
+  const server=envelope.data.active_run;const saved=await local(owner);
+  const resume=saved.resume?.owner_id===owner?saved.resume:null,start=saved.start?.owner_id===owner?saved.start:null;
+  const query=new URLSearchParams(location.search);
+  if(query.get('new')==='1'){await launch(active.build_id);return;}
+  if(query.has('resume')){const run=await request(api+'run_get_v1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({run_id:query.get('resume')})});if(!run.ok)throw new Error('Сохранение недоступно этому аккаунту.');await launch(run.data.checkpoint.client_build_id,run.data.run_id);return;}
+  if(start){if(!id.test(start.body?.client_build_id))throw new Error('Локальная команда старта повреждена.');await launch(start.body.client_build_id);return;}
+  if(resume&&server&&resume.run_id!==server.run_id){status.textContent='На устройстве и сервере сохранены разные забеги. Выберите, какое состояние открыть. Обе копии сохранятся.';button('На этом устройстве',()=>launch(resume.client_build_id,resume.run_id).catch(fail));button('С сервера',()=>launch(server.checkpoint.client_build_id,server.run_id).catch(fail),true);return;}
+  if(resume){await launch(resume.client_build_id,resume.run_id);return;}
+  if(server){await launch(server.checkpoint.client_build_id,server.run_id);return;}
+  await launch(active.build_id);
+}
+function fail(error){status.textContent=error?.message||'Загрузка остановлена. Сохранения сохранены.';actions.replaceChildren();button('Повторить проверку',()=>location.reload());}
+main().catch(fail);
+</script></body></html>

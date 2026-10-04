@@ -1,0 +1,398 @@
+{
+  "verdict": "PASS_49_PORTABLE_BLENDS_UNCHANGED_CONTENT",
+  "fingerprint_scope": "All objects, static local matrices, meshes, weights, bones/rest, action curves, packed images and used packed fonts. Blender may discard unused orphan font datablocks on save.",
+  "files": {
+    "assets/models/r3/loot_core.blend": {
+      "open": "PASS",
+      "content_fingerprint": "629d9586f5416addc414e922160d085e161c45377280b6cd13c78dee76479495",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "055bc0a12eedf25b1f0e4f513edf1e537af50b741f2508ef0d555ba526ac9f8b"
+    },
+    "assets/models/r3/loot_ember.blend": {
+      "open": "PASS",
+      "content_fingerprint": "f407c07e5d479d492a5aedbc6eea23dca85b38ca4d11c841eee5d7c6ff63035f",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "9f6daad01abae188d91903a7e071ce7b7a2ec377143609e10607da832eaaea48"
+    },
+    "assets/models/r3/loot_gold.blend": {
+      "open": "PASS",
+      "content_fingerprint": "01f96b9482173f20fcae3e61e8637948299b0eb33d7d733cf41bc4cf2c2346fa",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "1bdecc555c13810fad82379c707a5e6566b7b37b89003c0874c4da21639dda84"
+    },
+    "assets/models/r3/loot_steel.blend": {
+      "open": "PASS",
+      "content_fingerprint": "b073050b730de1f3635e49e57484d0f17544cf0f64a0119bf8ced6f7bc187e4d",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "3e652ba75480c11586e81ebba1109aba18f78cdbff99796897f13fad93234f5d"
+    },
+    "assets/models/r3/pudge_r3.blend": {
+      "open": "PASS",
+      "content_fingerprint": "eeb0ccac313d195bb0e79db8e50886fc5d0ddbeb3f6ee3aeb26c19281f6752bc",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "66d3dab7d1b9a54eb159e8752828a53d7342322c306b2f9bab40e721c745e361"
+    },
+    "assets/models/r3/shop.blend": {
+      "open": "PASS",
+      "content_fingerprint": "e060ef3815970049a22b7704eda9dc757b86baea35b066855510d521385a2221",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 4,
+      "cleared_browser_directories": 1,
+      "sha256": "43cea78c2bb85622ee77563d2a81bf116861ea807cd9875faf586268ca8a6cd8"
+    },
+    "assets/models/r4/collectors_vial.blend": {
+      "open": "PASS",
+      "content_fingerprint": "65b31afdfacf501905fe3743e758c58ed9709ef7a3a05bbccc9f8c89bbb1964b",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "b0b43b2eea9cf4d63078ff1e976b9d3efe9296ea9e7ac781da65cd95fd7bfe90"
+    },
+    "assets/models/r4/conductor_cuffs_1.blend": {
+      "open": "PASS",
+      "content_fingerprint": "902bfc2692fa282d1727db41026bffc388b6609663eaa58a7a633fae2815a0fb",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "cbbf1a75ae21568c6826016180369077640e0652e28357b1b8a73110d90e5f68"
+    },
+    "assets/models/r4/conductor_cuffs_2.blend": {
+      "open": "PASS",
+      "content_fingerprint": "211c6c439cfa3d1b46b1cae0a0a67a13ad42a13ba64f6d27d829e4d4a2f3cf3c",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "c19c5020b05e31b05fe0de7d49e6b648a7171e7398e5eb10e9bcac654f3fa97c"
+    },
+    "assets/models/r4/conductor_cuffs_3.blend": {
+      "open": "PASS",
+      "content_fingerprint": "091bef43481cd4fcbc18a2a309a5dee00916df091292b1a602d6a628c4c279c0",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "b6699b68359e00fb71fcc462d4386373910fe9445deb877fb5cd058bb0ed0c17"
+    },
+    "assets/models/r4/debtors_watch.blend": {
+      "open": "PASS",
+      "content_fingerprint": "3e07e90a0fe0858533c107e831fd07f8f4e60115ea6268a4bf14742e3891dde9",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "749b65ac9679d226d209679c238faa0139132fbc30f0f26a747378bab2d8d10f"
+    },
+    "assets/models/r4/fast_spool_1.blend": {
+      "open": "PASS",
+      "content_fingerprint": "7946f63028a2865dc8973f38f592e78c027933c54a342f76dda9b4dee4490b07",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "2398eb77841d44a35bd6b55d4dcb0325d61bf64d8fa6cc76980aeb82e58a6333"
+    },
+    "assets/models/r4/fast_spool_2.blend": {
+      "open": "PASS",
+      "content_fingerprint": "0383f8dd55ae174224b8ae7ee91a97b8cc6cde15687b24ecc3aac05de23fe7cd",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "d26bb8025e69e3f07e2e7c7d60a5cbf1c71257be06378dcc0e0eb1bd58f75a4a"
+    },
+    "assets/models/r4/fast_spool_3.blend": {
+      "open": "PASS",
+      "content_fingerprint": "55eb587247cd6edc523d52edd44292dcd20ea58e64b5cabe59c6089881301761",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "10cc312eca122611a6c782511fad5f6495364d653fe73ae0a2b35bc7f676a261"
+    },
+    "assets/models/r4/long_link_1.blend": {
+      "open": "PASS",
+      "content_fingerprint": "cb681f3e29ccad6476601c7a7cdd4987256c035cab85dee0efe819bae2f96f65",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "d7ed6da6fc5b5970d8535ce1301b39591153adc2dcb4d866b78ee05663e5cf3d"
+    },
+    "assets/models/r4/piercing_tooth.blend": {
+      "open": "PASS",
+      "content_fingerprint": "c88aee70d49270733ebf06a801b9b19b7d50e9994d2900bec05600cae39483b6",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "8026cf609b2851e6d6e39b793ae3399cd0725cf8a281013e9758f16948c2d340"
+    },
+    "assets/models/r4/return_sickle.blend": {
+      "open": "PASS",
+      "content_fingerprint": "483b0235623b477d1e431d1fe7847839765cde889d98ebdbac6d3772146b7a16",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "66b7046acdfd40514d53d0360faeb680ac84e46402935f28aa0dbc72bd693300"
+    },
+    "assets/models/r4/sidestep_boots_1.blend": {
+      "open": "PASS",
+      "content_fingerprint": "d2c5a2fdf5db63cde93a8925fcca4b1345e9c09aebe309092b49355a0741e9af",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "eeac164730d52e524e6c2cc5bd426cb70403e4e5f8805bb201c1d73869d87a79"
+    },
+    "assets/models/r4/sidestep_boots_2.blend": {
+      "open": "PASS",
+      "content_fingerprint": "3355a0fa76537ed58582a1ccb965d550b199f35d9d5177a814314bea96599871",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "30842dc16de906985aa60f10b3b36207b9a31be952b2cd12a41e1858f6c5da24"
+    },
+    "assets/models/r4/sidestep_boots_3.blend": {
+      "open": "PASS",
+      "content_fingerprint": "8e0a73bf2283ac18a6e769215040c416206f4795e505b14263153a011618df55",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "230450d2ddcd280e0516002425749098a0aa8d6e48d1009c98ce88deb2aa67d8"
+    },
+    "assets/models/r4/slowing_powder.blend": {
+      "open": "PASS",
+      "content_fingerprint": "f05225d1633c8ee105a3ffb993868d2b5162a338e0a924882d043c7c47263ad0",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "043695c9a3a8a0c440ebd2049efc521e85e2b8fdedbd2870c5aff6ba91b8b3c4"
+    },
+    "assets/models/r4/trophy_counter_1.blend": {
+      "open": "PASS",
+      "content_fingerprint": "7ee667952f3193b76e8054545aa351af53e5f8e7798d72fcc965fef0de5af1b4",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "b2028a21783143f956d5e24ce1b21765b8a9e39ad8239137685cd6d841e287cb"
+    },
+    "assets/models/r4/trophy_counter_2.blend": {
+      "open": "PASS",
+      "content_fingerprint": "a9e2c4145953c0b5c0dc2d07300099c448c8f7a8a0facb5aa1c94a733f582830",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "5f6080a1810f05e0baba15cf34916b53751872b745bb5c714799d43c74a4784c"
+    },
+    "assets/models/r4/trophy_counter_3.blend": {
+      "open": "PASS",
+      "content_fingerprint": "1737b3db0598aff12218316a6758fcc1be991442dcfa4d84ebcebcdfb0e1da10",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "d7a85fa01cf4822c1b04cbb801287c487dc5ee6c87bb579717643dc3996d970b"
+    },
+    "assets/models/native/r3/loot_core-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "9e6e11a87fcf7df18503ea38ff099b55bc7c84e2949a816ec053e927be7c9c86",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "e1470da2a9e60a32c360be76552a90be71acaa22b0cce33199b04e04bf22d3b7"
+    },
+    "assets/models/native/r3/loot_ember-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "d5eef77a216208088ddbab3cd4477b368286e2d062e88326afb5168abcad4fa2",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "a4a110bb3118159cc07bd92f7e75ee01634863c1453c39bb82e132dd440beb72"
+    },
+    "assets/models/native/r3/loot_gold-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "ef329368b194b4c78159b0bdef71265fe9ee53e489f227c83f4cf710b4fa5c30",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "6ff6273ac6e3455e50f86443d053acc4f3601b5afb6fb62c70ca3a66004328ac"
+    },
+    "assets/models/native/r3/loot_steel-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "c83b0fc25900e8e366384d1863db28d54d9bd10282bb99fe80efd73008944a94",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "f507a3c93d5c99eff2857ef8529ad52883f7fa82a61a1416969d6ecfcef781d6"
+    },
+    "assets/models/native/r3/pudge_r3-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "2a7f452499561d2b63448cf4d5fbcef264cf1d84c41108faf77591d959913c33",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "101bc7a11eb7c53838b393c2b8f00348bfba18e1ac519c3d6685d6648fdf6d7d"
+    },
+    "assets/models/native/r3/shop-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "1f2717519636adcb5f895661fc1c2bfb8032bba2ddb86307fe02ec5e2c2a3521",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 4,
+      "cleared_browser_directories": 1,
+      "sha256": "6be4c60f53164ca7e36bff4b2e3953d1b045b20068c9c1083e8381819e4db2a2"
+    },
+    "assets/models/native/r4/collectors_vial-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "53339dfa249379a17ea91aeeaf9c875c8dc0e276871a471c90414973637c0675",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "bf591e71a1056048ee2700fd998a386b48bfbffaaf342cc3f98d0937a045b142"
+    },
+    "assets/models/native/r4/conductor_cuffs_1-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "a150cdf4310fa72b68e3592e21ac9d2a22deede3eacbb878fbc030a7c14b93c3",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "23463043ebc129fdce7a7f9e2c38073bbaa90eb4adf62d61165df77a477576a2"
+    },
+    "assets/models/native/r4/conductor_cuffs_2-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "48ceba5ee3583b81d6e83e3eac6ac5072fcc81d669693d7b7ff77d79d25038b5",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "c7affbf4c9d937a77dfaf456bdda8e430d2541c5235c9042d3ef44faee5b4328"
+    },
+    "assets/models/native/r4/conductor_cuffs_3-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "5ab35a78a66f37ade7d5e7556debd6afc34cd2d4b69967fdd29ec87e5f78c45e",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "b979181a3f612226ad68f15aa1f5d39372915985cdeaf8056119808b74fe2492"
+    },
+    "assets/models/native/r4/debtors_watch-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "bfe56fdc9c70900979c50a5f0a03acf2e699e651ce90d0e666d2407265dade1c",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "806d8b011907d7e97196b4a32747eb77476b4e9e89c10b58be7aad6f92f2b2d6"
+    },
+    "assets/models/native/r4/fast_spool_1-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "b0f2be3db1be93dc3950498f3d9a5ed764e29d78aac8469e11b9722315421f1b",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "f759f0fa60d98c47a4e03d0cf38e5f68b947e840f540e2fc213b4907d4d26a65"
+    },
+    "assets/models/native/r4/fast_spool_2-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "fe98e5ac1d5a5810e1087132330d713a0ede306da423f95e4ff76a9cd76cbaa2",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "40f3e73d83e8c30e92ac49869673a3ec4b8f19227284d69898a30295b6919956"
+    },
+    "assets/models/native/r4/fast_spool_3-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "a4a40a1d7d94a8b9af688a917e07601c7445bd422057b782eaacc9917bc67887",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "64559c87a3ba1bbe0c7326b5c814f9718b470c3cbbd82691601282bf94da2725"
+    },
+    "assets/models/native/r4/long_link_1-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "138c48cc277c457a0f4fd28776940a2a9832108b923fd595909cd2186da244b7",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "22daa2a8ccf6f3c873589f33b3cede2bc3155cc38c7a143c61d820b354591ecc"
+    },
+    "assets/models/native/r4/piercing_tooth-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "2ffc5318baf49b0ef92967f817765e68e6599645f334b7ecb3f960b4c86a3c20",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "1833f084b48227c10e32585ab39347bd580aa980b33cebfce122bf97fd68505c"
+    },
+    "assets/models/native/r4/return_sickle-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "9d1d3903b05a5491a8325dc125dd78332276424a6617c01ffee23da57a65cefe",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "4dbb2961fa6b2fd41a47ab924d8168bab6f36fe097ad2b261485e7444f577bcc"
+    },
+    "assets/models/native/r4/sidestep_boots_1-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "f7d438cb7f585f62151bd415dc6cec5ec451f8960f58793f580cd8e073508b6a",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "8900a3365a14134b2f0dbc9ee44879ff7043d32a240a4d26c8173f08116b8d6e"
+    },
+    "assets/models/native/r4/sidestep_boots_2-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "aa522bc70041d80de3e4e55d805f6297ee76a0f47a9fe30566b42f367156532a",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "ae6a8820b2c2bcbb9dbc9166f32bea72f41253b65563f6aca83e4d7080efb9bd"
+    },
+    "assets/models/native/r4/sidestep_boots_3-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "d67059fa1e0ac766681a4f99b0260ce3c95a371aca535a85849b2a39788ca6b7",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "62ff69c558869295a1bfb788f8dacd6a0ce942dc675c14b137fef9223e46c7b8"
+    },
+    "assets/models/native/r4/slowing_powder-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "beb3ae7461f18fb56f9148b2331d46d939fa9e26eeddf42c5aa713de3753531c",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "cb8ee2b176b7998d7364515bc758c0b5aeabff731434cc85b7f33c22f062a2ea"
+    },
+    "assets/models/native/r4/trophy_counter_1-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "c0d0981b027f08685b36fb545b82ef9d8d2c8f0ad780085312a9e1c2a919b232",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "3dfec55df5e063ca07e473a3a699eadb430325711afd31b0cb78e879989cc1b0"
+    },
+    "assets/models/native/r4/trophy_counter_2-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "632e0da7dffaf66b629c419b8e2871e012636840d883958137bb9fc29c2c7097",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "d2a7fbb2947589f33daca5e83f2cec27d4b94b620e97cec65900e37a3701580f"
+    },
+    "assets/models/native/r4/trophy_counter_3-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "3bd32c797878759342a96c8b99880491c73a5513456e08a8260395bad4bce148",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "df25098a422b663d362432a051c69afaed6e113fc8086049a0555dda6e2b0755"
+    },
+    "assets/models/r3-r4/Runner-Forge-R3-R4.blend": {
+      "open": "PASS",
+      "content_fingerprint": "63bbcbdf0a98c8fc6468e3f5b847e5f14fedbc48c7d3c9fc5309859d932ff446",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 20,
+      "cleared_browser_directories": 1,
+      "sha256": "13930f9c11a58048fd57eb3ff998c24b9cbafb6e6f51979f4e60a2b11a66cc5e"
+    }
+  }
+}

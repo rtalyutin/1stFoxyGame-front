@@ -1,0 +1,1913 @@
+{
+  "schema_version": 1,
+  "pack": "Runner-Forge-R3-Graphics-v1",
+  "release": "R3",
+  "extends": "Runner-Forge-R1/R2-Graphics-v1",
+  "source_requirements": [
+    "Runner-Forge-Release-Plan.xls",
+    "Runner-Forge-GDD-TZ-v1.0.md v1",
+    "Accepted R1-R2 visual language"
+  ],
+  "art_direction": "Flat geometry; original 32-color R1 palette; editable SVG; no new colors",
+  "assets": [
+    {
+      "id": "shop",
+      "category": "ui/icons",
+      "label_ru": "Магазин",
+      "svg": "ui/icons/shop.svg",
+      "png": "ui/icons/shop.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "shop_enter",
+      "category": "ui/icons",
+      "label_ru": "Войти в магазин",
+      "svg": "ui/icons/shop_enter.svg",
+      "png": "ui/icons/shop_enter.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "shop_exit",
+      "category": "ui/icons",
+      "label_ru": "Продолжить путь",
+      "svg": "ui/icons/shop_exit.svg",
+      "png": "ui/icons/shop_exit.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "world_frozen",
+      "category": "ui/icons",
+      "label_ru": "Мир остановлен",
+      "svg": "ui/icons/world_frozen.svg",
+      "png": "ui/icons/world_frozen.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "gold",
+      "category": "ui/icons",
+      "label_ru": "Золото",
+      "svg": "ui/icons/gold.svg",
+      "png": "ui/icons/gold.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "catalog_status": "approved_generic_resource"
+    },
+    {
+      "id": "steel",
+      "category": "ui/icons",
+      "label_ru": "Закалённое звено",
+      "svg": "ui/icons/steel.svg",
+      "png": "ui/icons/steel.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "catalog_status": "proposed",
+      "decision_ref": "P14"
+    },
+    {
+      "id": "ember",
+      "category": "ui/icons",
+      "label_ru": "Искра силы",
+      "svg": "ui/icons/ember.svg",
+      "png": "ui/icons/ember.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "catalog_status": "proposed",
+      "decision_ref": "P14"
+    },
+    {
+      "id": "core",
+      "category": "ui/icons",
+      "label_ru": "Ядро трофея",
+      "svg": "ui/icons/core.svg",
+      "png": "ui/icons/core.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "catalog_status": "proposed",
+      "decision_ref": "P14"
+    },
+    {
+      "id": "craft",
+      "category": "ui/icons",
+      "label_ru": "Создать предмет",
+      "svg": "ui/icons/craft.svg",
+      "png": "ui/icons/craft.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "recipe",
+      "category": "ui/icons",
+      "label_ru": "Универсальный рецепт",
+      "svg": "ui/icons/recipe.svg",
+      "png": "ui/icons/recipe.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Рецепт"
+    },
+    {
+      "id": "resource_missing",
+      "category": "ui/icons",
+      "label_ru": "Не хватает ресурса",
+      "svg": "ui/icons/resource_missing.svg",
+      "png": "ui/icons/resource_missing.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "operation_pending",
+      "category": "ui/icons",
+      "label_ru": "Операция ожидается",
+      "svg": "ui/icons/operation_pending.svg",
+      "png": "ui/icons/operation_pending.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "operation_success",
+      "category": "ui/icons",
+      "label_ru": "Операция успешна",
+      "svg": "ui/icons/operation_success.svg",
+      "png": "ui/icons/operation_success.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "operation_error",
+      "category": "ui/icons",
+      "label_ru": "Ошибка операции",
+      "svg": "ui/icons/operation_error.svg",
+      "png": "ui/icons/operation_error.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "compare_effects",
+      "category": "ui/icons",
+      "label_ru": "Текущий → будущий",
+      "svg": "ui/icons/compare_effects.svg",
+      "png": "ui/icons/compare_effects.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "account",
+      "category": "ui/icons",
+      "label_ru": "Профиль аккаунта",
+      "svg": "ui/icons/account.svg",
+      "png": "ui/icons/account.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "session_expired",
+      "category": "ui/icons",
+      "label_ru": "Сессия истекла",
+      "svg": "ui/icons/session_expired.svg",
+      "png": "ui/icons/session_expired.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "profile_load",
+      "category": "ui/icons",
+      "label_ru": "Загрузить профиль",
+      "svg": "ui/icons/profile_load.svg",
+      "png": "ui/icons/profile_load.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "profile_save",
+      "category": "ui/icons",
+      "label_ru": "Сохранить профиль",
+      "svg": "ui/icons/profile_save.svg",
+      "png": "ui/icons/profile_save.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "sync_retry",
+      "category": "ui/icons",
+      "label_ru": "Синхронизация / повтор",
+      "svg": "ui/icons/sync_retry.svg",
+      "png": "ui/icons/sync_retry.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Синхронизация"
+    },
+    {
+      "id": "offline",
+      "category": "ui/icons",
+      "label_ru": "Нет соединения",
+      "svg": "ui/icons/offline.svg",
+      "png": "ui/icons/offline.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "service_error",
+      "category": "ui/icons",
+      "label_ru": "Сервис недоступен",
+      "svg": "ui/icons/service_error.svg",
+      "png": "ui/icons/service_error.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "profile_recovery",
+      "category": "ui/icons",
+      "label_ru": "Восстановление профиля",
+      "svg": "ui/icons/profile_recovery.svg",
+      "png": "ui/icons/profile_recovery.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "run_loot",
+      "category": "ui/icons",
+      "label_ru": "Добыча забега",
+      "svg": "ui/icons/run_loot.svg",
+      "png": "ui/icons/run_loot.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "wallet",
+      "category": "ui/icons",
+      "label_ru": "Постоянный кошелёк",
+      "svg": "ui/icons/wallet.svg",
+      "png": "ui/icons/wallet.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "recipe_card",
+      "category": "ui/widgets",
+      "label_ru": "Карточка рецепта",
+      "svg": "ui/widgets/recipe_card.svg",
+      "png": "ui/widgets/recipe_card.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "cost_row",
+      "category": "ui/widgets",
+      "label_ru": "Строка стоимости",
+      "svg": "ui/widgets/cost_row.svg",
+      "png": "ui/widgets/cost_row.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "button_normal",
+      "category": "ui/widgets",
+      "label_ru": "Кнопка: обычная",
+      "svg": "ui/widgets/button_normal.svg",
+      "png": "ui/widgets/button_normal.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "button_disabled",
+      "category": "ui/widgets",
+      "label_ru": "Кнопка: недоступна",
+      "svg": "ui/widgets/button_disabled.svg",
+      "png": "ui/widgets/button_disabled.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "button_pending",
+      "category": "ui/widgets",
+      "label_ru": "Кнопка: ожидание",
+      "svg": "ui/widgets/button_pending.svg",
+      "png": "ui/widgets/button_pending.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "status_chip",
+      "category": "ui/widgets",
+      "label_ru": "Универсальный статус",
+      "svg": "ui/widgets/status_chip.svg",
+      "png": "ui/widgets/status_chip.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "comparison_arrow",
+      "category": "ui/widgets",
+      "label_ru": "Стрелка сравнения",
+      "svg": "ui/widgets/comparison_arrow.svg",
+      "png": "ui/widgets/comparison_arrow.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "resource_cell",
+      "category": "ui/widgets",
+      "label_ru": "Ячейка ресурса",
+      "svg": "ui/widgets/resource_cell.svg",
+      "png": "ui/widgets/resource_cell.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "shop_sign",
+      "category": "textures/decals",
+      "label_ru": "Вывеска магазина",
+      "svg": "textures/decals/shop_sign.svg",
+      "png": "textures/decals/shop_sign.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 24
+    },
+    {
+      "id": "shop_awning_stripes",
+      "category": "textures/decals",
+      "label_ru": "Полосы навеса",
+      "svg": "textures/decals/shop_awning_stripes.svg",
+      "png": "textures/decals/shop_awning_stripes.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 24
+    },
+    {
+      "id": "shop_wood_bolts",
+      "category": "textures/decals",
+      "label_ru": "Доски и крепления",
+      "svg": "textures/decals/shop_wood_bolts.svg",
+      "png": "textures/decals/shop_wood_bolts.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 24
+    },
+    {
+      "id": "shop_craft_insignia",
+      "category": "textures/decals",
+      "label_ru": "Знак мастерского крафта",
+      "svg": "textures/decals/shop_craft_insignia.svg",
+      "png": "textures/decals/shop_craft_insignia.png",
+      "width": 512,
+      "height": 512,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 24
+    },
+    {
+      "id": "shop_zone_ready",
+      "category": "vfx",
+      "label_ru": "Магазин доступен",
+      "svg": "vfx/shop_zone_ready.svg",
+      "png": "vfx/shop_zone_ready.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "gold_pickup",
+      "category": "vfx",
+      "label_ru": "Получение: Золото",
+      "svg": "vfx/gold_pickup.svg",
+      "png": "vfx/gold_pickup.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "catalog_status": "approved_generic_resource",
+      "decision_ref": null
+    },
+    {
+      "id": "steel_pickup",
+      "category": "vfx",
+      "label_ru": "Получение: Звено",
+      "svg": "vfx/steel_pickup.svg",
+      "png": "vfx/steel_pickup.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "catalog_status": "proposed",
+      "decision_ref": "P14"
+    },
+    {
+      "id": "ember_pickup",
+      "category": "vfx",
+      "label_ru": "Получение: Искра",
+      "svg": "vfx/ember_pickup.svg",
+      "png": "vfx/ember_pickup.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "catalog_status": "proposed",
+      "decision_ref": "P14"
+    },
+    {
+      "id": "core_pickup",
+      "category": "vfx",
+      "label_ru": "Получение: Ядро",
+      "svg": "vfx/core_pickup.svg",
+      "png": "vfx/core_pickup.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "catalog_status": "proposed",
+      "decision_ref": "P14"
+    },
+    {
+      "id": "craft_confirmed",
+      "category": "vfx",
+      "label_ru": "Крафт подтверждён",
+      "svg": "vfx/craft_confirmed.svg",
+      "png": "vfx/craft_confirmed.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "profile_save_confirmed",
+      "category": "vfx",
+      "label_ru": "Сохранение подтверждено",
+      "svg": "vfx/profile_save_confirmed.svg",
+      "png": "vfx/profile_save_confirmed.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12
+    },
+    {
+      "id": "craft_confirmed_00",
+      "category": "flipbooks/craft_confirmed",
+      "label_ru": "Крафт: кадр 1 / 4",
+      "svg": "flipbooks/craft_confirmed/craft_confirmed_00.svg",
+      "png": "flipbooks/craft_confirmed/craft_confirmed_00.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 1 / 4"
+    },
+    {
+      "id": "craft_confirmed_01",
+      "category": "flipbooks/craft_confirmed",
+      "label_ru": "Крафт: кадр 2 / 4",
+      "svg": "flipbooks/craft_confirmed/craft_confirmed_01.svg",
+      "png": "flipbooks/craft_confirmed/craft_confirmed_01.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 2 / 4"
+    },
+    {
+      "id": "craft_confirmed_02",
+      "category": "flipbooks/craft_confirmed",
+      "label_ru": "Крафт: кадр 3 / 4",
+      "svg": "flipbooks/craft_confirmed/craft_confirmed_02.svg",
+      "png": "flipbooks/craft_confirmed/craft_confirmed_02.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 3 / 4"
+    },
+    {
+      "id": "craft_confirmed_03",
+      "category": "flipbooks/craft_confirmed",
+      "label_ru": "Крафт: кадр 4 / 4",
+      "svg": "flipbooks/craft_confirmed/craft_confirmed_03.svg",
+      "png": "flipbooks/craft_confirmed/craft_confirmed_03.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 4 / 4"
+    },
+    {
+      "id": "pickup_confirmed_00",
+      "category": "flipbooks/pickup_confirmed",
+      "label_ru": "Добыча: кадр 1 / 4",
+      "svg": "flipbooks/pickup_confirmed/pickup_confirmed_00.svg",
+      "png": "flipbooks/pickup_confirmed/pickup_confirmed_00.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 1 / 4"
+    },
+    {
+      "id": "pickup_confirmed_01",
+      "category": "flipbooks/pickup_confirmed",
+      "label_ru": "Добыча: кадр 2 / 4",
+      "svg": "flipbooks/pickup_confirmed/pickup_confirmed_01.svg",
+      "png": "flipbooks/pickup_confirmed/pickup_confirmed_01.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 2 / 4"
+    },
+    {
+      "id": "pickup_confirmed_02",
+      "category": "flipbooks/pickup_confirmed",
+      "label_ru": "Добыча: кадр 3 / 4",
+      "svg": "flipbooks/pickup_confirmed/pickup_confirmed_02.svg",
+      "png": "flipbooks/pickup_confirmed/pickup_confirmed_02.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 3 / 4"
+    },
+    {
+      "id": "pickup_confirmed_03",
+      "category": "flipbooks/pickup_confirmed",
+      "label_ru": "Добыча: кадр 4 / 4",
+      "svg": "flipbooks/pickup_confirmed/pickup_confirmed_03.svg",
+      "png": "flipbooks/pickup_confirmed/pickup_confirmed_03.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 4 / 4"
+    },
+    {
+      "id": "save_confirmed_00",
+      "category": "flipbooks/save_confirmed",
+      "label_ru": "Сохранение: кадр 1 / 4",
+      "svg": "flipbooks/save_confirmed/save_confirmed_00.svg",
+      "png": "flipbooks/save_confirmed/save_confirmed_00.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 1 / 4"
+    },
+    {
+      "id": "save_confirmed_01",
+      "category": "flipbooks/save_confirmed",
+      "label_ru": "Сохранение: кадр 2 / 4",
+      "svg": "flipbooks/save_confirmed/save_confirmed_01.svg",
+      "png": "flipbooks/save_confirmed/save_confirmed_01.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 2 / 4"
+    },
+    {
+      "id": "save_confirmed_02",
+      "category": "flipbooks/save_confirmed",
+      "label_ru": "Сохранение: кадр 3 / 4",
+      "svg": "flipbooks/save_confirmed/save_confirmed_02.svg",
+      "png": "flipbooks/save_confirmed/save_confirmed_02.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 3 / 4"
+    },
+    {
+      "id": "save_confirmed_03",
+      "category": "flipbooks/save_confirmed",
+      "label_ru": "Сохранение: кадр 4 / 4",
+      "svg": "flipbooks/save_confirmed/save_confirmed_03.svg",
+      "png": "flipbooks/save_confirmed/save_confirmed_03.png",
+      "width": 256,
+      "height": 256,
+      "source_width": 256,
+      "source_height": 256,
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "alpha": "straight",
+      "minimum_padding_px": 12,
+      "preview_label": "Кадр 4 / 4"
+    }
+  ],
+  "atlases": [
+    "atlases/flipbook_craft_confirmed.json",
+    "atlases/flipbook_pickup_confirmed.json",
+    "atlases/flipbook_save_confirmed.json",
+    "atlases/ui_icons.json",
+    "atlases/ui_widgets.json",
+    "atlases/shop_decals.json",
+    "atlases/vfx.json"
+  ],
+  "palette": "palette.json",
+  "events": "events.json",
+  "excluded": [
+    "3D models, rigs and model animation clips",
+    "Audio",
+    "Specific first crafted item/recipe",
+    "Baked costs and effect values",
+    "Fixed shop side or keyboard binding",
+    "Authentication scheme or registration form",
+    "Local-only profile/import/export P20",
+    "Clicker/offline production R5",
+    "Additional heroes R6",
+    "Projectile-hit policy"
+  ],
+  "checks_status": "PASS: exported files and visual review; Blender/runtime import not checked",
+  "files": [
+    {
+      "path": "ASSETS.csv",
+      "bytes": 7520,
+      "sha256": "04a081ba99d6c222d0329683d487d524c060bc95fc7fbdf76d310de0c3711529"
+    },
+    {
+      "path": "INDEPENDENT-VERIFICATION.json",
+      "bytes": 7815,
+      "sha256": "c0682f148356aa9d24715e070bbbab52fe66719f315b5e759ee175d259a2b558"
+    },
+    {
+      "path": "INTEGRATION.md",
+      "bytes": 4250,
+      "sha256": "4cf98dd21c276df3e53e8ba1126887f7e44beb6b6fb0ccc2bdd3a616e76581da"
+    },
+    {
+      "path": "OVERVIEW.png",
+      "bytes": 205736,
+      "sha256": "a857a65dd854ff112cf76d76b2e32bb140efaab56f52268a51e4b5b1f521c616"
+    },
+    {
+      "path": "OVERVIEW.svg",
+      "bytes": 17057,
+      "sha256": "91ea5a2cba0975f720b6bd052cddbd302b3f64a1a5077c426e32cd5c11c30f12"
+    },
+    {
+      "path": "PREVIEW.png",
+      "bytes": 438580,
+      "sha256": "4417e5d0fdc65ccdacc7174f5a6f324955c9184ab0c2dc148f86d45731bef3ef"
+    },
+    {
+      "path": "PREVIEW.svg",
+      "bytes": 40534,
+      "sha256": "aa13f4475812f1f1870880df9cf92c220eba22e432f85fa35ec98128e97310dc"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3901,
+      "sha256": "d3141063a4e126152fd6c0854a7210b55f62f7e82ad22de61e148e0d0e92f5ba"
+    },
+    {
+      "path": "VERIFICATION.md",
+      "bytes": 1619,
+      "sha256": "49b76c5c2ae07c8317c5a7306b589380bc309141872071c4d395d519fda0e633"
+    },
+    {
+      "path": "atlases/flipbook_craft_confirmed.json",
+      "bytes": 2401,
+      "sha256": "c89b3ed6877344300a3e0d590decb546a1a7ed5418d8466508687248506c4029"
+    },
+    {
+      "path": "atlases/flipbook_craft_confirmed.png",
+      "bytes": 26164,
+      "sha256": "5dac08d81d4c43da0b6c21c071a58e379aa729d96f3f416fea39336dcfd3cc2d"
+    },
+    {
+      "path": "atlases/flipbook_craft_confirmed.svg",
+      "bytes": 2516,
+      "sha256": "61991a65d2a51e133bc86235f78a946999ac02a055654a1b68f2c40367575e34"
+    },
+    {
+      "path": "atlases/flipbook_pickup_confirmed.json",
+      "bytes": 2418,
+      "sha256": "1624544475ab29ad93a76548f5c64916d5eb2924e7c6f73f852081e81a467ecd"
+    },
+    {
+      "path": "atlases/flipbook_pickup_confirmed.png",
+      "bytes": 26346,
+      "sha256": "4979618127d1609632a9f70dcab011c2dba3bee82a7ed1c8732213a864f4c419"
+    },
+    {
+      "path": "atlases/flipbook_pickup_confirmed.svg",
+      "bytes": 1812,
+      "sha256": "09886ba86fbf88ad9a0b4e7d02512ccd738a00d50748a354d4b45a031cfa3e62"
+    },
+    {
+      "path": "atlases/flipbook_save_confirmed.json",
+      "bytes": 2384,
+      "sha256": "00cf6fd591ba79400ffeea239df312740073b3a46b1ad6311837d1fe698f5f24"
+    },
+    {
+      "path": "atlases/flipbook_save_confirmed.png",
+      "bytes": 32658,
+      "sha256": "8ac2be81cc2b4d418050582265a2285e538cf57c844cf9dfd96a5f9ef413acb2"
+    },
+    {
+      "path": "atlases/flipbook_save_confirmed.svg",
+      "bytes": 1965,
+      "sha256": "a788aa0e77fb77d57d6f68e4c8f4b640891f447a5b4e04ad2717201998279d79"
+    },
+    {
+      "path": "atlases/shop_decals.json",
+      "bytes": 2053,
+      "sha256": "dd4c3e41681ccb54314e8ac83ede655f102874c1f1d33293a4585732b3990e2c"
+    },
+    {
+      "path": "atlases/shop_decals.png",
+      "bytes": 23594,
+      "sha256": "9c46f098d7d11ad6bc82b14cb6f4b546c2e5b37bf89d37da86d16681945acf05"
+    },
+    {
+      "path": "atlases/shop_decals.svg",
+      "bytes": 2131,
+      "sha256": "1ffc89d5289159eaa819a25b0ece1a68a4585c2ddb2804678032a33cea08945f"
+    },
+    {
+      "path": "atlases/ui_icons.json",
+      "bytes": 11481,
+      "sha256": "90a595d77a1d1eec65e9aaa4e05405a4b27689a8728f1b6eb521ec02f5713963"
+    },
+    {
+      "path": "atlases/ui_icons.png",
+      "bytes": 116499,
+      "sha256": "cc67853bc0497cd048d77d346dbd2c2ebcc3a117881bff1e827ae4c382661078"
+    },
+    {
+      "path": "atlases/ui_icons.svg",
+      "bytes": 10153,
+      "sha256": "1ca849feac885f95f2fa3fb4d5a86fc57161c3fa508e0d367187d1b87fb35fec"
+    },
+    {
+      "path": "atlases/ui_widgets.json",
+      "bytes": 3833,
+      "sha256": "6175a8be554a381998cd4f77749ae796a98570c827f02a254fe047b7c1084abb"
+    },
+    {
+      "path": "atlases/ui_widgets.png",
+      "bytes": 19420,
+      "sha256": "4ed00435692ee5f452f620f8ebf456580c5976c72d10112ef4e7408843671306"
+    },
+    {
+      "path": "atlases/ui_widgets.svg",
+      "bytes": 1724,
+      "sha256": "c94079a3ebfa361cfccf1d9ee404524a9554a247f96cf119edd267d47be476e6"
+    },
+    {
+      "path": "atlases/vfx.json",
+      "bytes": 3341,
+      "sha256": "2493cc6197a019e7f433753c6c3c2095ed402704b5886646af1bf87d2de95a4a"
+    },
+    {
+      "path": "atlases/vfx.png",
+      "bytes": 49161,
+      "sha256": "8dfea27284341b40ffd33c26e5127bec196bd67c6dfb1ce3535a1c34053795a8"
+    },
+    {
+      "path": "atlases/vfx.svg",
+      "bytes": 5045,
+      "sha256": "989fce75c7db9e49adc338009913d5528ceaf530799a8ee4f478cd03c284853f"
+    },
+    {
+      "path": "events.json",
+      "bytes": 3792,
+      "sha256": "0ff10c0a6c90f8290f2d73038e154d403d6e5c8ab14f36af93ef8177a3f8d432"
+    },
+    {
+      "path": "flipbooks/craft_confirmed/craft_confirmed_00.png",
+      "bytes": 6443,
+      "sha256": "1e3b6f64a3f411b9250f62b9107f1bc51efb74ad935b8e27126e4b6c918d3f93"
+    },
+    {
+      "path": "flipbooks/craft_confirmed/craft_confirmed_00.svg",
+      "bytes": 644,
+      "sha256": "711ae2f21037eeeb486c968ef42c410e653b0201c8f410f2709aff723b05112f"
+    },
+    {
+      "path": "flipbooks/craft_confirmed/craft_confirmed_01.png",
+      "bytes": 6977,
+      "sha256": "fa56d89e2869cba3cbeb114944224e5606013afc5facab93f6b6bce3e0bb38c3"
+    },
+    {
+      "path": "flipbooks/craft_confirmed/craft_confirmed_01.svg",
+      "bytes": 650,
+      "sha256": "720572b0c37a7cbfb50b7c6cb6165e11769267da294431d1bafae09fe8c3e4d6"
+    },
+    {
+      "path": "flipbooks/craft_confirmed/craft_confirmed_02.png",
+      "bytes": 7396,
+      "sha256": "37b57981532d6224d6cc5a2949c7cf4172d8cb9a79d37538c2742e744ae8e44b"
+    },
+    {
+      "path": "flipbooks/craft_confirmed/craft_confirmed_02.svg",
+      "bytes": 645,
+      "sha256": "d982b29569d318799602bd6c3e139eba916f1c3ffec26e592b5a69e3717146e5"
+    },
+    {
+      "path": "flipbooks/craft_confirmed/craft_confirmed_03.png",
+      "bytes": 7507,
+      "sha256": "1e2e4150327f985975583d69cb1986587979c2f1bc45bb1efb161b7a4b933e33"
+    },
+    {
+      "path": "flipbooks/craft_confirmed/craft_confirmed_03.svg",
+      "bytes": 652,
+      "sha256": "b80e017238ee2278f9b48205f5d4e76ce2219881c92f02d602b261ff204a2097"
+    },
+    {
+      "path": "flipbooks/pickup_confirmed/pickup_confirmed_00.png",
+      "bytes": 6430,
+      "sha256": "919a45827c5bf6cc9abfc2bea0a9d50971c76c627f14b441f9dca66400e8f89b"
+    },
+    {
+      "path": "flipbooks/pickup_confirmed/pickup_confirmed_00.svg",
+      "bytes": 469,
+      "sha256": "aacf4421c7776e6baf2aa03e6d9c678df55f2f8150ed1c152a16464e2337768d"
+    },
+    {
+      "path": "flipbooks/pickup_confirmed/pickup_confirmed_01.png",
+      "bytes": 7453,
+      "sha256": "6bbb684c995a62f12090cac5840d7d4f70b5d4d644250fa659dee78d550528ff"
+    },
+    {
+      "path": "flipbooks/pickup_confirmed/pickup_confirmed_01.svg",
+      "bytes": 461,
+      "sha256": "f5b643a6b1f2270e8933c583490601f4358a7e2f5ce9136cfbbf116338672c3e"
+    },
+    {
+      "path": "flipbooks/pickup_confirmed/pickup_confirmed_02.png",
+      "bytes": 8266,
+      "sha256": "dd5d97e008d06302f813dac54ce5ce59655971967f939a7dcd27e5e9cc4f6c13"
+    },
+    {
+      "path": "flipbooks/pickup_confirmed/pickup_confirmed_02.svg",
+      "bytes": 471,
+      "sha256": "6b793c6e56caa0a677c03b6764e8ee5a7a4ba449e384e9be14c04092c599e6ce"
+    },
+    {
+      "path": "flipbooks/pickup_confirmed/pickup_confirmed_03.png",
+      "bytes": 8930,
+      "sha256": "498ff19065663c5cb4237ee4c823ed057805d6f4e4655010ee98fbded323b723"
+    },
+    {
+      "path": "flipbooks/pickup_confirmed/pickup_confirmed_03.svg",
+      "bytes": 486,
+      "sha256": "b3b7f5322dfc36f2313dc0583667649ad3152e956876d22d7ca67ac0802779b0"
+    },
+    {
+      "path": "flipbooks/save_confirmed/save_confirmed_00.png",
+      "bytes": 8668,
+      "sha256": "88344fef97ad63d5639905dcfc369dde301e6ef01385ec854aa83ac35486d478"
+    },
+    {
+      "path": "flipbooks/save_confirmed/save_confirmed_00.svg",
+      "bytes": 504,
+      "sha256": "2277e328925e750d4dc0962070a6467814475e0096fee6ee3672e98e385a60c0"
+    },
+    {
+      "path": "flipbooks/save_confirmed/save_confirmed_01.png",
+      "bytes": 8775,
+      "sha256": "36ce3ef5be2d14f2904898cadd7fbda144355c7bce507279bc0f8c446d808aec"
+    },
+    {
+      "path": "flipbooks/save_confirmed/save_confirmed_01.svg",
+      "bytes": 507,
+      "sha256": "8a3a64a932621a94088dcdd4a656c0e8b9cbf0c5e80b6074b882d2a8a536c66a"
+    },
+    {
+      "path": "flipbooks/save_confirmed/save_confirmed_02.png",
+      "bytes": 8721,
+      "sha256": "170ad11dc42ff7c6e39d210bb2ae7cb3523bc9c6acda501f963f09341a87c3be"
+    },
+    {
+      "path": "flipbooks/save_confirmed/save_confirmed_02.svg",
+      "bytes": 518,
+      "sha256": "9cd59711052116592d57255eeab1620c4b9cd5bb31e3118d3b9827bf14ef05fb"
+    },
+    {
+      "path": "flipbooks/save_confirmed/save_confirmed_03.png",
+      "bytes": 8302,
+      "sha256": "63c6563d53bd065ffa671df71c75cba565b0052635bee76c46794a025c791439"
+    },
+    {
+      "path": "flipbooks/save_confirmed/save_confirmed_03.svg",
+      "bytes": 511,
+      "sha256": "e204d7eb916baf53d1b5a1294ca3fb5e596c6130612a55723f2e9a28515e422f"
+    },
+    {
+      "path": "palette.gpl",
+      "bytes": 783,
+      "sha256": "e9f4caf7af12c9346c7e9f3ee6c2acbdb58050ef211bcf458c42b1723283836d"
+    },
+    {
+      "path": "palette.json",
+      "bytes": 25157,
+      "sha256": "449746037c851111c8b7ce1cade84ff1785b4db589e6768c551d017d8c5d3467"
+    },
+    {
+      "path": "textures/decals/shop_awning_stripes.png",
+      "bytes": 3250,
+      "sha256": "d0a1a32079c30834e5fc316b7e5cea305a0b5bcb255753e790b8a65ebbe5a820"
+    },
+    {
+      "path": "textures/decals/shop_awning_stripes.svg",
+      "bytes": 540,
+      "sha256": "32f13586a14d81706059e263d752e75606fa6d786a6d3e33cd9b703c51aab394"
+    },
+    {
+      "path": "textures/decals/shop_craft_insignia.png",
+      "bytes": 6980,
+      "sha256": "9f4d5465cb2b8fa9c5cf21cf570e594e3da3e3206a5febe830ace63e67b4e39b"
+    },
+    {
+      "path": "textures/decals/shop_craft_insignia.svg",
+      "bytes": 374,
+      "sha256": "dd0bd5c29677c9b18e5943bebf30304399c1a45117605eb56d73577bd7fdfbe4"
+    },
+    {
+      "path": "textures/decals/shop_sign.png",
+      "bytes": 10028,
+      "sha256": "38fea0d4088c2f4a2450e7e77f564a41cfceb102a02e2cedb06f6da116252236"
+    },
+    {
+      "path": "textures/decals/shop_sign.svg",
+      "bytes": 617,
+      "sha256": "1aa98a8a59112289846c0c9bf2449bb662f26dab553fd521e85483c276444e11"
+    },
+    {
+      "path": "textures/decals/shop_wood_bolts.png",
+      "bytes": 4640,
+      "sha256": "f6dd06b2f83a239e2a70507df01ce35f9e317e0363411584002a0cd9a802d4c4"
+    },
+    {
+      "path": "textures/decals/shop_wood_bolts.svg",
+      "bytes": 671,
+      "sha256": "4b79920d0a6ad435831068ece80608cd6f886d4f12b1ecce67144560ec793c4c"
+    },
+    {
+      "path": "textures/palette_basecolor.png",
+      "bytes": 2945,
+      "sha256": "4e4a366c6813bb32919894950987ba627426f6be1347e7fb7f36473e372c6197"
+    },
+    {
+      "path": "textures/solid/cloth.png",
+      "bytes": 154,
+      "sha256": "827e2e87a3fbd6586faf987d572e0c97bb3228e76f0bbd82b88066b7a30ec097"
+    },
+    {
+      "path": "textures/solid/cloth_light.png",
+      "bytes": 157,
+      "sha256": "9a49f2fcb74ed62fbfd0e3fe773b7bd5d64490c07ed4d95607fd052464632767"
+    },
+    {
+      "path": "textures/solid/cloud.png",
+      "bytes": 156,
+      "sha256": "2cca79d680a03a0fbb85dc891c8b9a9687673ca9da4dab5a179c9f86f7924294"
+    },
+    {
+      "path": "textures/solid/creep_cloth.png",
+      "bytes": 157,
+      "sha256": "87b898579554d256494474259b7ef075b0ba4b7faab91b0ddcd5e2b9ad84f8ce"
+    },
+    {
+      "path": "textures/solid/creep_mask.png",
+      "bytes": 156,
+      "sha256": "d82890dbd686a048b33a2c6f0d456692c6ce81b176acdc4fff457c74c59620f2"
+    },
+    {
+      "path": "textures/solid/creep_red.png",
+      "bytes": 155,
+      "sha256": "dfed0b890339889e2b69295672febb3079665e72c88ec6c2ad063aa7e7089ddc"
+    },
+    {
+      "path": "textures/solid/creep_red_dark.png",
+      "bytes": 156,
+      "sha256": "3a73798e49ad76abc84f5b9f97f011c7f1c4066f222e4017bf5c4cfe26fbdaf2"
+    },
+    {
+      "path": "textures/solid/dirt.png",
+      "bytes": 156,
+      "sha256": "8ddf94cdc439c926223f3d435de4e6e5d6c85b21eec89beb1bfbce37ccf72b73"
+    },
+    {
+      "path": "textures/solid/dirt_dark.png",
+      "bytes": 156,
+      "sha256": "482d208cfb15ebd292a89fc5ec2ee676990f9f18c607b3b956c0b79deecf5868"
+    },
+    {
+      "path": "textures/solid/foliage.png",
+      "bytes": 156,
+      "sha256": "3a3991b830fdac4afeca6c8fed563eb03fffb4b1d0e23c0baa229142c7fc5317"
+    },
+    {
+      "path": "textures/solid/foliage_dark.png",
+      "bytes": 157,
+      "sha256": "d965aac5d30bc2d259ec585a9383b7c867dc826c186270607398565651d1fb25"
+    },
+    {
+      "path": "textures/solid/gold.png",
+      "bytes": 157,
+      "sha256": "f95296ef2109c10a52007460cee73b1513f84c17093450133343a7d3532d5f8d"
+    },
+    {
+      "path": "textures/solid/gold_dark.png",
+      "bytes": 154,
+      "sha256": "ec006753477f72999f0d516eea433e44a4533e551eec3b02a9be3a2373a4a7d9"
+    },
+    {
+      "path": "textures/solid/gold_light.png",
+      "bytes": 156,
+      "sha256": "562e9d69fc6096c192f118ef5220c2018aa818eb5676eb83307d1d6ffed89750"
+    },
+    {
+      "path": "textures/solid/grass.png",
+      "bytes": 156,
+      "sha256": "05b1687978778af32b9e75d90e5f88840f7a3fccda03ee0ce0c0547eaa750e6c"
+    },
+    {
+      "path": "textures/solid/hair.png",
+      "bytes": 156,
+      "sha256": "d440731423c4a52af1609ec2a903373ec1d0a56f94b945f8980d7238c47a5708"
+    },
+    {
+      "path": "textures/solid/hair_light.png",
+      "bytes": 156,
+      "sha256": "286d18cfcd20ca9e2390775ca4d13666bb5ce2ac267b875f5cf5383ad34e0447"
+    },
+    {
+      "path": "textures/solid/hud_dark.png",
+      "bytes": 158,
+      "sha256": "38c4c67675e34b0cce6d0412731eaf2f734f5b15b1dc428f43722498af0c17d4"
+    },
+    {
+      "path": "textures/solid/leather.png",
+      "bytes": 157,
+      "sha256": "17556b8f69ee17d1419a2c4765b76375b1e83168564867599b975798b33a01ad"
+    },
+    {
+      "path": "textures/solid/leather_dark.png",
+      "bytes": 157,
+      "sha256": "ed025f658607d7fbf3e54daa20a287093aac4af176de10ba1199cb32e0dd0620"
+    },
+    {
+      "path": "textures/solid/neutral_white.png",
+      "bytes": 153,
+      "sha256": "c59cf93924a70d26ce2c4b9d28c64f39b1ca65a9dd2838324ba4fd5df3af601d"
+    },
+    {
+      "path": "textures/solid/rock.png",
+      "bytes": 156,
+      "sha256": "6fe7e98df4a6c34b1d8ab5b064f5ed56f78f2fd65d7902f6843705ae6c980cd8"
+    },
+    {
+      "path": "textures/solid/rock_dark.png",
+      "bytes": 156,
+      "sha256": "2d541e8ec0a9e381a0bbdebdd81abda57bd3f283037211eb66c37305d3a6b068"
+    },
+    {
+      "path": "textures/solid/skin.png",
+      "bytes": 157,
+      "sha256": "9b92e35c75c2ec948214a8c481f52b55c559d86f70e6f5f32d6152eef905e82d"
+    },
+    {
+      "path": "textures/solid/skin_light.png",
+      "bytes": 157,
+      "sha256": "b739cd01d8a87255bbf66a8688b8727205e745d52d45a1863b808b3452f66ab5"
+    },
+    {
+      "path": "textures/solid/skin_shadow.png",
+      "bytes": 156,
+      "sha256": "a5e94a98f3269e4707bc7d28011be250d31665b3dc5d174317b153118b2593fa"
+    },
+    {
+      "path": "textures/solid/sky.png",
+      "bytes": 156,
+      "sha256": "e84eea580dcdb08711215e7bf2b975c7e5e93167c15af4df122312c3c16db3f2"
+    },
+    {
+      "path": "textures/solid/steel.png",
+      "bytes": 157,
+      "sha256": "a99c049cd446183abea48626454bc34c1a246e1d0228e01967fe4fb1c8fc6a51"
+    },
+    {
+      "path": "textures/solid/steel_dark.png",
+      "bytes": 156,
+      "sha256": "af5089ce642c8ec3afb145aa2b4a968393ac5d0341e509042f63ab30793e7dd7"
+    },
+    {
+      "path": "textures/solid/stitches.png",
+      "bytes": 157,
+      "sha256": "e47982512c96a08e95dd00736c38aa4f6d66529d4cb97f535473123320d92da0"
+    },
+    {
+      "path": "textures/solid/wood.png",
+      "bytes": 156,
+      "sha256": "ad98092f418f42ff2c0f744ce6c9528e148252f1f29105be587b3615392f7938"
+    },
+    {
+      "path": "textures/solid/wood_dark.png",
+      "bytes": 156,
+      "sha256": "91bbdade18e71ffafb94c606de7d226d12f641b3a5a7d3a283eb2231d1ecfdfd"
+    },
+    {
+      "path": "ui/icons/account.png",
+      "bytes": 3096,
+      "sha256": "e1c3e109dc894a3d122eec456d2f5eb89ec74808fcbd5a21d50adfbb1a6bbe41"
+    },
+    {
+      "path": "ui/icons/account.svg",
+      "bytes": 231,
+      "sha256": "5a32511f2989b763849cf92847727de2093fdf7ad9b16720f1a3d99ab1df9f12"
+    },
+    {
+      "path": "ui/icons/compare_effects.png",
+      "bytes": 2069,
+      "sha256": "69213d1f5421a831efd6f107465f8211712d425b9b6684467c3c8690b8469724"
+    },
+    {
+      "path": "ui/icons/compare_effects.svg",
+      "bytes": 406,
+      "sha256": "33194bd747002d7d8a87daaadedbdb98697181eb851d8f6197362b2546607de9"
+    },
+    {
+      "path": "ui/icons/core.png",
+      "bytes": 6772,
+      "sha256": "517c876115f5ebc4df5a9274c82d0ad9f6433958b4425e8a660f681d3d3ddfc9"
+    },
+    {
+      "path": "ui/icons/core.svg",
+      "bytes": 398,
+      "sha256": "a5a6eef22b71545de81198e302101911a3c610fb2c3e9894d5994473b700594a"
+    },
+    {
+      "path": "ui/icons/craft.png",
+      "bytes": 3613,
+      "sha256": "855750fb608b4f163e82b69acd8578085e689d5bc16b8e8d2db485b4ebab6239"
+    },
+    {
+      "path": "ui/icons/craft.svg",
+      "bytes": 390,
+      "sha256": "0c3db3b44369e92d7bf79cc69804d9c22e6f1cfbf19231c096eabbf305151b9d"
+    },
+    {
+      "path": "ui/icons/ember.png",
+      "bytes": 5315,
+      "sha256": "b19952eb5b8a37fc01bacbf8126fed25d65538fa219af81789910cfcd8ff8ebd"
+    },
+    {
+      "path": "ui/icons/ember.svg",
+      "bytes": 369,
+      "sha256": "276ae0c895e4f8b4a635b60f45094e39890b7b82e2c34b69c00c619d60a21996"
+    },
+    {
+      "path": "ui/icons/gold.png",
+      "bytes": 5106,
+      "sha256": "bb20398fbe85a4a6802a70155883db5def04dfb9c440a63cee7c3d735c797848"
+    },
+    {
+      "path": "ui/icons/gold.svg",
+      "bytes": 541,
+      "sha256": "55e468bcf3b1ca6ff559d20168f8ab2d7c580df0008698a540a0c406e72a703f"
+    },
+    {
+      "path": "ui/icons/offline.png",
+      "bytes": 6670,
+      "sha256": "dd86bad15a5ee8d18dde9a2cf8510aec5a0e47c695370b7dfbdfbe3ba1fee39e"
+    },
+    {
+      "path": "ui/icons/offline.svg",
+      "bytes": 418,
+      "sha256": "c2176567a6460afa02960cb554d3e4da215fbff06b48c582ccef2d312b223a4e"
+    },
+    {
+      "path": "ui/icons/operation_error.png",
+      "bytes": 4593,
+      "sha256": "a9e277a612d073cb254c816dceecabd9e0ad41b555ad1ef95037161eaf0087f2"
+    },
+    {
+      "path": "ui/icons/operation_error.svg",
+      "bytes": 300,
+      "sha256": "8422a6a29bf8104fb8d5901eb15f21d6eb86a9e0ebb93efdee90a6418c1102b7"
+    },
+    {
+      "path": "ui/icons/operation_pending.png",
+      "bytes": 1887,
+      "sha256": "8eb086e9ecbe21e2e2354ecfac6a8f8a34832a7655ddeb22617532531efdc76e"
+    },
+    {
+      "path": "ui/icons/operation_pending.svg",
+      "bytes": 275,
+      "sha256": "504f31bcf146911c9a250458ad15d3679f0a384d5ea9f5cd5fcb59324239b2bc"
+    },
+    {
+      "path": "ui/icons/operation_success.png",
+      "bytes": 4463,
+      "sha256": "6b03701e4388029349868f459152dfa2786b5de3d1a563a0dc538fd3080e4f77"
+    },
+    {
+      "path": "ui/icons/operation_success.svg",
+      "bytes": 233,
+      "sha256": "716a0c214cfad5110ac3f5c83498ffb72f4c8e62ba6b7162001b701984972967"
+    },
+    {
+      "path": "ui/icons/profile_load.png",
+      "bytes": 1800,
+      "sha256": "bd0298b8cd45191f32755ce82b7d8b7fc8ca19e652c4a76aa7f506b33d187dad"
+    },
+    {
+      "path": "ui/icons/profile_load.svg",
+      "bytes": 329,
+      "sha256": "f0af9d88dfa28e14429e0b065b573079f0886c31d2b4c2c044da6fe2c67ff199"
+    },
+    {
+      "path": "ui/icons/profile_recovery.png",
+      "bytes": 9975,
+      "sha256": "9de774ea944cd1b6ac1164a0383e52f4ceabe1c41bb14fce85bf5c22471a6d1b"
+    },
+    {
+      "path": "ui/icons/profile_recovery.svg",
+      "bytes": 691,
+      "sha256": "a83ff95a80a336ee8788b8eab9a99747573fc7c8bbfbf860063c8ed870e27083"
+    },
+    {
+      "path": "ui/icons/profile_save.png",
+      "bytes": 1595,
+      "sha256": "7e4998dfb012728378949d820c1e8e763e0588f0327ff74baf983557685a3055"
+    },
+    {
+      "path": "ui/icons/profile_save.svg",
+      "bytes": 393,
+      "sha256": "ee9ce328105e503235d51f9f2d97351a82a76a5cc7de38e15c64b7368c15d5f9"
+    },
+    {
+      "path": "ui/icons/recipe.png",
+      "bytes": 2464,
+      "sha256": "cc5f4eeef0f102fe919d5e4b743890c594cd7bd59b428c1d95f16c9cbc771d6a"
+    },
+    {
+      "path": "ui/icons/recipe.svg",
+      "bytes": 568,
+      "sha256": "f27fd44728c32d1b045db979fba48fa0e3453b976a4a0598b0c3fdeaec076fe0"
+    },
+    {
+      "path": "ui/icons/resource_missing.png",
+      "bytes": 9119,
+      "sha256": "fbaa9c4ae6e8e9ddd24050a3ef8e1fa0d2dcfe98fb6e27ca5e453635a37b1620"
+    },
+    {
+      "path": "ui/icons/resource_missing.svg",
+      "bytes": 450,
+      "sha256": "e67b26ce2eea8e8bbc5b6948c2dffc393444510e0a36780e63091d53bdf5fab1"
+    },
+    {
+      "path": "ui/icons/run_loot.png",
+      "bytes": 4411,
+      "sha256": "2887a46b7b1f7e95d7545377365156198fd77337ae001c218c9e493da314d4f4"
+    },
+    {
+      "path": "ui/icons/run_loot.svg",
+      "bytes": 325,
+      "sha256": "0ce3450607272021ffa4390856c42b830d1772d243c7218ea06b6120f6333ed1"
+    },
+    {
+      "path": "ui/icons/service_error.png",
+      "bytes": 4165,
+      "sha256": "8bc2ef3294fe551102c7e1010a6af42cdbebee1e8061444c471c4f0464e4751f"
+    },
+    {
+      "path": "ui/icons/service_error.svg",
+      "bytes": 896,
+      "sha256": "86ebb3c436d4caac13f9d9e1073a332ef170c2f9d07e5f65976bbacae8fe2367"
+    },
+    {
+      "path": "ui/icons/session_expired.png",
+      "bytes": 7021,
+      "sha256": "ae25c820e9a5d26ee96adc30156de8a1ea0d25942b7fd6435e992276489548b1"
+    },
+    {
+      "path": "ui/icons/session_expired.svg",
+      "bytes": 639,
+      "sha256": "7b1d9fe2d0370bbafb39bec93fa29a3dd50d3daadc39bc6edf0f2cc6a3b44928"
+    },
+    {
+      "path": "ui/icons/shop.png",
+      "bytes": 2950,
+      "sha256": "a2d674eb0509650bec4602654ed26ccca3fc1c59635293544c89d093f552f4b3"
+    },
+    {
+      "path": "ui/icons/shop.svg",
+      "bytes": 761,
+      "sha256": "60071b3616e76683e00cf14f0e575eddb9b100eb7e53b031869a9cba7644b4fc"
+    },
+    {
+      "path": "ui/icons/shop_enter.png",
+      "bytes": 2770,
+      "sha256": "29df9a4c171ba91e420d9221fb74bc38430423aefdbaa3e753fb2b4158c4819e"
+    },
+    {
+      "path": "ui/icons/shop_enter.svg",
+      "bytes": 329,
+      "sha256": "1d197c1bd3cc54c47d0912a89d464d66aa8cbd2a0b81e30d8c66df303c5c9748"
+    },
+    {
+      "path": "ui/icons/shop_exit.png",
+      "bytes": 2692,
+      "sha256": "8c6186b3f825c7b775008173674c5f422146822614a7483de6285f29d8ae49e1"
+    },
+    {
+      "path": "ui/icons/shop_exit.svg",
+      "bytes": 362,
+      "sha256": "77b6783aca4d55b50c70173c0862d2e9628f67ee5550f6c5f4d36d5eec1abc30"
+    },
+    {
+      "path": "ui/icons/steel.png",
+      "bytes": 13407,
+      "sha256": "829ba3ef8143ffad7d7b88aca3ba158329a463d013c04967837bb116a01ddbfe"
+    },
+    {
+      "path": "ui/icons/steel.svg",
+      "bytes": 565,
+      "sha256": "52849909b8c8b65802206b94d58f4703721ac3745f38d5afc1a56f6d2816b0ae"
+    },
+    {
+      "path": "ui/icons/sync_retry.png",
+      "bytes": 5019,
+      "sha256": "781569ce1506553266e24de386b457d12848750c8d859b9ff090f9111957fb38"
+    },
+    {
+      "path": "ui/icons/sync_retry.svg",
+      "bytes": 405,
+      "sha256": "dbb7ed2ab1c81df59880d1a18f66a51d15bb7b02aadf680bdf79352772125747"
+    },
+    {
+      "path": "ui/icons/wallet.png",
+      "bytes": 2771,
+      "sha256": "541125a2bc4c5f1a3a9eddb4013bbe5131dbf951b0ebd1d00c4da470c054ac0f"
+    },
+    {
+      "path": "ui/icons/wallet.svg",
+      "bytes": 448,
+      "sha256": "69fc598c3eb6bca5d160602b70255564ae4935a0329a8c8cce3d48953d7daef2"
+    },
+    {
+      "path": "ui/icons/world_frozen.png",
+      "bytes": 8187,
+      "sha256": "11708ef6cbbd848ada82d65f45e7e1e1d9e63bfa924bde3097b0af5a1bd9796a"
+    },
+    {
+      "path": "ui/icons/world_frozen.svg",
+      "bytes": 344,
+      "sha256": "6d031cf17f85a1a8052106e41bf69c5a082c8c546269afd6a8e4297ba29402ba"
+    },
+    {
+      "path": "ui/widgets/button_disabled.png",
+      "bytes": 2648,
+      "sha256": "3b65b0a85bb476373a76df2cec7e442b108c8c190ab05f83703521ed5b0c897f"
+    },
+    {
+      "path": "ui/widgets/button_disabled.svg",
+      "bytes": 210,
+      "sha256": "a8baf6fbdf94630bf649c2884c0499e4feea0d05d83a6d088c32300a9e4bf6d5"
+    },
+    {
+      "path": "ui/widgets/button_normal.png",
+      "bytes": 2557,
+      "sha256": "52942a8545f894b3104ae296ed17f0b8eeeae5aab8493caccfcc085beecdd8cc"
+    },
+    {
+      "path": "ui/widgets/button_normal.svg",
+      "bytes": 207,
+      "sha256": "48aee0044e3c2f2d213788d5fba7b32451c3eaed66bbe290715776ff8d033294"
+    },
+    {
+      "path": "ui/widgets/button_pending.png",
+      "bytes": 3680,
+      "sha256": "c55617ac837c2251dd097f1b1679dfe4ad59d957de658ddb1b0aa3c4e1fc774f"
+    },
+    {
+      "path": "ui/widgets/button_pending.svg",
+      "bytes": 389,
+      "sha256": "c03e2e02f7daad34e27763ad640ef80d18003fff01f7d4087a00361b326359e7"
+    },
+    {
+      "path": "ui/widgets/comparison_arrow.png",
+      "bytes": 2519,
+      "sha256": "b91e0e8b27e0bc16911087e8b4289e24b6acf6f7aa1be9bcb35c51ff65cce786"
+    },
+    {
+      "path": "ui/widgets/comparison_arrow.svg",
+      "bytes": 192,
+      "sha256": "017aac24867fc982d076ecf46dcd24df322465dd0dcbdcc86b326d6c96f4b0f4"
+    },
+    {
+      "path": "ui/widgets/cost_row.png",
+      "bytes": 2391,
+      "sha256": "1fadfe77606d1a542a1ea7958dbec24e9956f2b06acf29ca5b4f520aa5fc26e5"
+    },
+    {
+      "path": "ui/widgets/cost_row.svg",
+      "bytes": 208,
+      "sha256": "d62f2c9c44a990c920e20868644c61319b84054b38def2bbddc65fc1721b864b"
+    },
+    {
+      "path": "ui/widgets/recipe_card.png",
+      "bytes": 2795,
+      "sha256": "83cc2cb93c16a527f8f09387f5d8795e490b0cece6fa01b3a14f34103ed5e499"
+    },
+    {
+      "path": "ui/widgets/recipe_card.svg",
+      "bytes": 340,
+      "sha256": "c841d0a6103168e8b78c8a5e674e30c2bb9be7108ff2e5391a280bf440bf4d46"
+    },
+    {
+      "path": "ui/widgets/resource_cell.png",
+      "bytes": 2735,
+      "sha256": "c6d6a0541e8fff2289e15114f5a241fc35d1787dff82e549ce7773d62f8b75c0"
+    },
+    {
+      "path": "ui/widgets/resource_cell.svg",
+      "bytes": 208,
+      "sha256": "74548560ab2ea1de2e6fd0fcef4289b34da309499672dda43ea993ff7bb6a937"
+    },
+    {
+      "path": "ui/widgets/status_chip.png",
+      "bytes": 3735,
+      "sha256": "7329bc96257c344ea05bae08bbb2c12d2d16f2772bf6660e8fbdeac718c528f5"
+    },
+    {
+      "path": "ui/widgets/status_chip.svg",
+      "bytes": 207,
+      "sha256": "db356c7ff26dfdeff50dcd8cf48be897f732368ace79d705f10469dac2a9a8c5"
+    },
+    {
+      "path": "vfx/core_pickup.png",
+      "bytes": 5885,
+      "sha256": "99ac519f323e314c0b3b9a213eafca50ea4fcc6d3abb6a78c28792fa02651877"
+    },
+    {
+      "path": "vfx/core_pickup.svg",
+      "bytes": 855,
+      "sha256": "efa8865efdaa62927f92bfd418a6283b8c0fdd026dfe1b155d28adff0e21e7c5"
+    },
+    {
+      "path": "vfx/craft_confirmed.png",
+      "bytes": 7507,
+      "sha256": "1e2e4150327f985975583d69cb1986587979c2f1bc45bb1efb161b7a4b933e33"
+    },
+    {
+      "path": "vfx/craft_confirmed.svg",
+      "bytes": 652,
+      "sha256": "b80e017238ee2278f9b48205f5d4e76ce2219881c92f02d602b261ff204a2097"
+    },
+    {
+      "path": "vfx/ember_pickup.png",
+      "bytes": 4892,
+      "sha256": "f25df486e75a8ec7d12cf555cee49a417350a626482930423520dd2dbee7fd2d"
+    },
+    {
+      "path": "vfx/ember_pickup.svg",
+      "bytes": 826,
+      "sha256": "453c29fd717cf1b6f6d6ddd4d73bd19cb5e087b583e032e9218d23f0efd23d82"
+    },
+    {
+      "path": "vfx/gold_pickup.png",
+      "bytes": 4856,
+      "sha256": "374e6e3cdac14d67bdc048bac247ee269df8e63a2b9e444926e70b7547bdece7"
+    },
+    {
+      "path": "vfx/gold_pickup.svg",
+      "bytes": 998,
+      "sha256": "cebbe8c9580a61dc7b818a46436677e6ece27c01661ca46f948413bf1d399bb7"
+    },
+    {
+      "path": "vfx/profile_save_confirmed.png",
+      "bytes": 8302,
+      "sha256": "63c6563d53bd065ffa671df71c75cba565b0052635bee76c46794a025c791439"
+    },
+    {
+      "path": "vfx/profile_save_confirmed.svg",
+      "bytes": 511,
+      "sha256": "e204d7eb916baf53d1b5a1294ca3fb5e596c6130612a55723f2e9a28515e422f"
+    },
+    {
+      "path": "vfx/shop_zone_ready.png",
+      "bytes": 11321,
+      "sha256": "efa6a8c894e3697f7d3e863de43a3f02681fd7b40df236ab396d2e602730cf02"
+    },
+    {
+      "path": "vfx/shop_zone_ready.svg",
+      "bytes": 378,
+      "sha256": "d7d1ee418354b8fc35b4181939413e420a62b60137744400b2248e1dc1f1bb27"
+    },
+    {
+      "path": "vfx/steel_pickup.png",
+      "bytes": 9119,
+      "sha256": "7ffaf3745d993edd1cfcb6a5d2c171090b6b8e4fbe85b2af5263ac908adf5b36"
+    },
+    {
+      "path": "vfx/steel_pickup.svg",
+      "bytes": 1022,
+      "sha256": "63ef1197832e95c82bf257b52639e7d2c0842b44b87301eba4dcec2ff481895c"
+    }
+  ],
+  "verification": "VERIFICATION.md",
+  "independent_report": "INDEPENDENT-VERIFICATION.json"
+}

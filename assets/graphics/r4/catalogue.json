@@ -1,0 +1,200 @@
+{
+  "status": "PROPOSAL; not approved gameplay catalogue",
+  "source": "GDD v1.0 P15/P16",
+  "items": [
+    {
+      "graphic_id": "fast_spool_1",
+      "name_ru": "Быстрая катушка I",
+      "level": 1,
+      "kind": "weapon",
+      "hero_compatibility": "Pudge",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/fast_spool_1.png",
+      "decal": "textures/decals/fast_spool_1_overlay.png"
+    },
+    {
+      "graphic_id": "fast_spool_2",
+      "name_ru": "Быстрая катушка II",
+      "level": 2,
+      "kind": "weapon",
+      "hero_compatibility": "Pudge",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/fast_spool_2.png",
+      "decal": "textures/decals/fast_spool_2_overlay.png"
+    },
+    {
+      "graphic_id": "fast_spool_3",
+      "name_ru": "Быстрая катушка III",
+      "level": 3,
+      "kind": "weapon",
+      "hero_compatibility": "Pudge",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/fast_spool_3.png",
+      "decal": "textures/decals/fast_spool_3_overlay.png"
+    },
+    {
+      "graphic_id": "long_link_1",
+      "name_ru": "Длинное звено I",
+      "level": 1,
+      "kind": "weapon",
+      "hero_compatibility": "Pudge",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/long_link_1.png",
+      "decal": "textures/decals/long_link_1_overlay.png"
+    },
+    {
+      "graphic_id": "piercing_tooth",
+      "name_ru": "Сквозной зуб",
+      "level": null,
+      "kind": "weapon",
+      "hero_compatibility": "Pudge",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/piercing_tooth.png",
+      "decal": "textures/decals/piercing_tooth_overlay.png"
+    },
+    {
+      "graphic_id": "return_sickle",
+      "name_ru": "Возвратный серп",
+      "level": null,
+      "kind": "weapon",
+      "hero_compatibility": "Pudge",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/return_sickle.png",
+      "decal": "textures/decals/return_sickle_overlay.png"
+    },
+    {
+      "graphic_id": "conductor_cuffs_1",
+      "name_ru": "Манжеты проводника I",
+      "level": 1,
+      "kind": "body",
+      "hero_compatibility": "all",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/conductor_cuffs_1.png",
+      "decal": "textures/decals/conductor_cuffs_1_overlay.png"
+    },
+    {
+      "graphic_id": "conductor_cuffs_2",
+      "name_ru": "Манжеты проводника II",
+      "level": 2,
+      "kind": "body",
+      "hero_compatibility": "all",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/conductor_cuffs_2.png",
+      "decal": "textures/decals/conductor_cuffs_2_overlay.png"
+    },
+    {
+      "graphic_id": "conductor_cuffs_3",
+      "name_ru": "Манжеты проводника III",
+      "level": 3,
+      "kind": "body",
+      "hero_compatibility": "all",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/conductor_cuffs_3.png",
+      "decal": "textures/decals/conductor_cuffs_3_overlay.png"
+    },
+    {
+      "graphic_id": "sidestep_boots_1",
+      "name_ru": "Сапоги бокового шага I",
+      "level": 1,
+      "kind": "feet",
+      "hero_compatibility": "all",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/sidestep_boots_1.png",
+      "decal": "textures/decals/sidestep_boots_1_overlay.png"
+    },
+    {
+      "graphic_id": "sidestep_boots_2",
+      "name_ru": "Сапоги бокового шага II",
+      "level": 2,
+      "kind": "feet",
+      "hero_compatibility": "all",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/sidestep_boots_2.png",
+      "decal": "textures/decals/sidestep_boots_2_overlay.png"
+    },
+    {
+      "graphic_id": "sidestep_boots_3",
+      "name_ru": "Сапоги бокового шага III",
+      "level": 3,
+      "kind": "feet",
+      "hero_compatibility": "all",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/sidestep_boots_3.png",
+      "decal": "textures/decals/sidestep_boots_3_overlay.png"
+    },
+    {
+      "graphic_id": "trophy_counter_1",
+      "name_ru": "Трофейный счётчик I",
+      "level": 1,
+      "kind": "talisman",
+      "hero_compatibility": "all",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/trophy_counter_1.png",
+      "decal": "textures/decals/trophy_counter_1_overlay.png"
+    },
+    {
+      "graphic_id": "trophy_counter_2",
+      "name_ru": "Трофейный счётчик II",
+      "level": 2,
+      "kind": "talisman",
+      "hero_compatibility": "all",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/trophy_counter_2.png",
+      "decal": "textures/decals/trophy_counter_2_overlay.png"
+    },
+    {
+      "graphic_id": "trophy_counter_3",
+      "name_ru": "Трофейный счётчик III",
+      "level": 3,
+      "kind": "talisman",
+      "hero_compatibility": "all",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/trophy_counter_3.png",
+      "decal": "textures/decals/trophy_counter_3_overlay.png"
+    },
+    {
+      "graphic_id": "debtors_watch",
+      "name_ru": "Часы должника",
+      "level": null,
+      "kind": "talisman",
+      "hero_compatibility": "all",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/equipment/debtors_watch.png",
+      "decal": "textures/decals/debtors_watch_overlay.png"
+    },
+    {
+      "graphic_id": "slowing_powder",
+      "name_ru": "Пыль торможения",
+      "kind": "consumable",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/consumables/slowing_powder.png"
+    },
+    {
+      "graphic_id": "collectors_vial",
+      "name_ru": "Флакон сборщика",
+      "kind": "consumable",
+      "status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "icon": "icons/consumables/collectors_vial.png"
+    }
+  ],
+  "level_policy": "Only levels explicitly listed in P16 are drawn. Long link has I only; piercing tooth, return sickle and debtors watch have no invented extra levels.",
+  "layout_policy": "Individual slots are modular. Four equipment kinds and two quick slots remain a P15 proposal."
+}

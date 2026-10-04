@@ -1,0 +1,119 @@
+{
+  "image": "shop_decals.png",
+  "size": {
+    "w": 1024,
+    "h": 1024
+  },
+  "origin": "top-left; x right, y down",
+  "alpha": "straight",
+  "grid": {
+    "columns": 2,
+    "rows": 2
+  },
+  "frames": [
+    {
+      "id": "shop_sign",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.5,
+        0.5,
+        1.0
+      ],
+      "source_png": "textures/decals/shop_sign.png"
+    },
+    {
+      "id": "shop_awning_stripes",
+      "frame": {
+        "x": 512,
+        "y": 0,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "source_png": "textures/decals/shop_awning_stripes.png"
+    },
+    {
+      "id": "shop_wood_bolts",
+      "frame": {
+        "x": 0,
+        "y": 512,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "source_png": "textures/decals/shop_wood_bolts.png"
+    },
+    {
+      "id": "shop_craft_insignia",
+      "frame": {
+        "x": 512,
+        "y": 512,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.0,
+        1.0,
+        0.5
+      ],
+      "source_png": "textures/decals/shop_craft_insignia.png"
+    }
+  ]
+}

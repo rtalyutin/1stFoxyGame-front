@@ -1,0 +1,1263 @@
+{
+  "schema_version": 1,
+  "palette_name": "Pudge Flat Low Poly - Base Colors",
+  "color_space": "sRGB",
+  "channels": "RGB",
+  "bit_depth_per_channel": 8,
+  "alpha": false,
+  "reference": {
+    "file_name": "exec-4ee01627-64a9-4eb4-8968-f0919bf0ec78.png",
+    "sha256": "dd11ec9ae8671b9be41b913bf9ab9db578194c1dd28b24616dad92ee4658b3bd",
+    "width": 941,
+    "height": 1670,
+    "sampling_note_ru": "Точные RGB пикселей просмотренного и принятого визуального образца. Это образец с освещением, а не исходные Base Color материалов. Цвета служат рабочей палитрой принятого плоского вида."
+  },
+  "atlas": {
+    "file": "textures/palette_basecolor.png",
+    "width": 1024,
+    "height": 512,
+    "columns": 8,
+    "rows": 4,
+    "cell_width": 128,
+    "cell_height": 128,
+    "cell_order": "row-major, left-to-right, top-to-bottom",
+    "png_pixel_origin": "top-left; x right, y down",
+    "png_normalized_origin": "top-left; u right, v down",
+    "blender_uv_origin": "bottom-left; u right, v up",
+    "conversion_png_to_blender": "u_blender = u_png; v_blender = 1 - v_png",
+    "uv_center_formula_blender": "u=(column+0.5)/8; v=1-(row_from_top+0.5)/4",
+    "gutter_pixels": 0,
+    "usage": "Sample the center of a cell; do not span UVs across cell boundaries."
+  },
+  "solid_textures": {
+    "width": 64,
+    "height": 64,
+    "constant_color_per_image": true
+  },
+  "material_starting_values": {
+    "roughness": 1.0,
+    "metallic": 0.0,
+    "normal_texture": null,
+    "roughness_texture": null,
+    "metallic_texture": null,
+    "note_ru": "Стартовые значения для простого матового вида, включая стилизованную сталь и золото; не физически точные металлические материалы."
+  },
+  "colors": [
+    {
+      "id": "skin",
+      "label_ru": "Кожа Пуджа",
+      "hex": "#FDB59A",
+      "rgb_u8": [
+        253,
+        181,
+        154
+      ],
+      "rgb_srgb_normalized": [
+        0.99215686,
+        0.70980392,
+        0.60392157
+      ],
+      "atlas_cell": {
+        "column": 0,
+        "row_from_top": 0,
+        "pixel_bounds_inclusive": [
+          0,
+          0,
+          127,
+          127
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.0625,
+        0.125
+      ],
+      "uv_center_blender_bottom_left": [
+        0.0625,
+        0.875
+      ],
+      "solid_texture": "textures/solid/skin.png",
+      "source_sample_xy": [
+        433,
+        967
+      ]
+    },
+    {
+      "id": "skin_light",
+      "label_ru": "Светлая кожа",
+      "hex": "#FEC5A9",
+      "rgb_u8": [
+        254,
+        197,
+        169
+      ],
+      "rgb_srgb_normalized": [
+        0.99607843,
+        0.77254902,
+        0.6627451
+      ],
+      "atlas_cell": {
+        "column": 1,
+        "row_from_top": 0,
+        "pixel_bounds_inclusive": [
+          128,
+          0,
+          255,
+          127
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.1875,
+        0.125
+      ],
+      "uv_center_blender_bottom_left": [
+        0.1875,
+        0.875
+      ],
+      "solid_texture": "textures/solid/skin_light.png",
+      "source_sample_xy": [
+        435,
+        930
+      ]
+    },
+    {
+      "id": "skin_shadow",
+      "label_ru": "Тёмный вариант кожи",
+      "hex": "#DB937C",
+      "rgb_u8": [
+        219,
+        147,
+        124
+      ],
+      "rgb_srgb_normalized": [
+        0.85882353,
+        0.57647059,
+        0.48627451
+      ],
+      "atlas_cell": {
+        "column": 2,
+        "row_from_top": 0,
+        "pixel_bounds_inclusive": [
+          256,
+          0,
+          383,
+          127
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.3125,
+        0.125
+      ],
+      "uv_center_blender_bottom_left": [
+        0.3125,
+        0.875
+      ],
+      "solid_texture": "textures/solid/skin_shadow.png",
+      "source_sample_xy": [
+        638,
+        1160
+      ]
+    },
+    {
+      "id": "stitches",
+      "label_ru": "Красные швы",
+      "hex": "#DA4633",
+      "rgb_u8": [
+        218,
+        70,
+        51
+      ],
+      "rgb_srgb_normalized": [
+        0.85490196,
+        0.2745098,
+        0.2
+      ],
+      "atlas_cell": {
+        "column": 3,
+        "row_from_top": 0,
+        "pixel_bounds_inclusive": [
+          384,
+          0,
+          511,
+          127
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.4375,
+        0.125
+      ],
+      "uv_center_blender_bottom_left": [
+        0.4375,
+        0.875
+      ],
+      "solid_texture": "textures/solid/stitches.png",
+      "source_sample_xy": [
+        627,
+        1091
+      ]
+    },
+    {
+      "id": "hair",
+      "label_ru": "Зелёные волосы",
+      "hex": "#137B45",
+      "rgb_u8": [
+        19,
+        123,
+        69
+      ],
+      "rgb_srgb_normalized": [
+        0.0745098,
+        0.48235294,
+        0.27058824
+      ],
+      "atlas_cell": {
+        "column": 4,
+        "row_from_top": 0,
+        "pixel_bounds_inclusive": [
+          512,
+          0,
+          639,
+          127
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.5625,
+        0.125
+      ],
+      "uv_center_blender_bottom_left": [
+        0.5625,
+        0.875
+      ],
+      "solid_texture": "textures/solid/hair.png",
+      "source_sample_xy": [
+        528,
+        945
+      ]
+    },
+    {
+      "id": "hair_light",
+      "label_ru": "Светлый зелёный волос",
+      "hex": "#168E53",
+      "rgb_u8": [
+        22,
+        142,
+        83
+      ],
+      "rgb_srgb_normalized": [
+        0.08627451,
+        0.55686275,
+        0.3254902
+      ],
+      "atlas_cell": {
+        "column": 5,
+        "row_from_top": 0,
+        "pixel_bounds_inclusive": [
+          640,
+          0,
+          767,
+          127
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.6875,
+        0.125
+      ],
+      "uv_center_blender_bottom_left": [
+        0.6875,
+        0.875
+      ],
+      "solid_texture": "textures/solid/hair_light.png",
+      "source_sample_xy": [
+        573,
+        937
+      ]
+    },
+    {
+      "id": "creep_red",
+      "label_ru": "Красный доспех крипа",
+      "hex": "#F04F4F",
+      "rgb_u8": [
+        240,
+        79,
+        79
+      ],
+      "rgb_srgb_normalized": [
+        0.94117647,
+        0.30980392,
+        0.30980392
+      ],
+      "atlas_cell": {
+        "column": 6,
+        "row_from_top": 0,
+        "pixel_bounds_inclusive": [
+          768,
+          0,
+          895,
+          127
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.8125,
+        0.125
+      ],
+      "uv_center_blender_bottom_left": [
+        0.8125,
+        0.875
+      ],
+      "solid_texture": "textures/solid/creep_red.png",
+      "source_sample_xy": [
+        193,
+        570
+      ]
+    },
+    {
+      "id": "creep_red_dark",
+      "label_ru": "Тёмный красный доспех",
+      "hex": "#8B2B27",
+      "rgb_u8": [
+        139,
+        43,
+        39
+      ],
+      "rgb_srgb_normalized": [
+        0.54509804,
+        0.16862745,
+        0.15294118
+      ],
+      "atlas_cell": {
+        "column": 7,
+        "row_from_top": 0,
+        "pixel_bounds_inclusive": [
+          896,
+          0,
+          1023,
+          127
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.9375,
+        0.125
+      ],
+      "uv_center_blender_bottom_left": [
+        0.9375,
+        0.875
+      ],
+      "solid_texture": "textures/solid/creep_red_dark.png",
+      "source_sample_xy": [
+        205,
+        637
+      ]
+    },
+    {
+      "id": "creep_mask",
+      "label_ru": "Песочный цвет маски",
+      "hex": "#C59E70",
+      "rgb_u8": [
+        197,
+        158,
+        112
+      ],
+      "rgb_srgb_normalized": [
+        0.77254902,
+        0.61960784,
+        0.43921569
+      ],
+      "atlas_cell": {
+        "column": 0,
+        "row_from_top": 1,
+        "pixel_bounds_inclusive": [
+          0,
+          128,
+          127,
+          255
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.0625,
+        0.375
+      ],
+      "uv_center_blender_bottom_left": [
+        0.0625,
+        0.625
+      ],
+      "solid_texture": "textures/solid/creep_mask.png",
+      "source_sample_xy": [
+        247,
+        588
+      ]
+    },
+    {
+      "id": "creep_cloth",
+      "label_ru": "Фиолетовая ткань крипа",
+      "hex": "#604055",
+      "rgb_u8": [
+        96,
+        64,
+        85
+      ],
+      "rgb_srgb_normalized": [
+        0.37647059,
+        0.25098039,
+        0.33333333
+      ],
+      "atlas_cell": {
+        "column": 1,
+        "row_from_top": 1,
+        "pixel_bounds_inclusive": [
+          128,
+          128,
+          255,
+          255
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.1875,
+        0.375
+      ],
+      "uv_center_blender_bottom_left": [
+        0.1875,
+        0.625
+      ],
+      "solid_texture": "textures/solid/creep_cloth.png",
+      "source_sample_xy": [
+        550,
+        521
+      ]
+    },
+    {
+      "id": "steel",
+      "label_ru": "Светлая сталь",
+      "hex": "#BDC0CC",
+      "rgb_u8": [
+        189,
+        192,
+        204
+      ],
+      "rgb_srgb_normalized": [
+        0.74117647,
+        0.75294118,
+        0.8
+      ],
+      "atlas_cell": {
+        "column": 2,
+        "row_from_top": 1,
+        "pixel_bounds_inclusive": [
+          256,
+          128,
+          383,
+          255
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.3125,
+        0.375
+      ],
+      "uv_center_blender_bottom_left": [
+        0.3125,
+        0.625
+      ],
+      "solid_texture": "textures/solid/steel.png",
+      "source_sample_xy": [
+        299,
+        700
+      ]
+    },
+    {
+      "id": "steel_dark",
+      "label_ru": "Тёмная сталь",
+      "hex": "#818591",
+      "rgb_u8": [
+        129,
+        133,
+        145
+      ],
+      "rgb_srgb_normalized": [
+        0.50588235,
+        0.52156863,
+        0.56862745
+      ],
+      "atlas_cell": {
+        "column": 3,
+        "row_from_top": 1,
+        "pixel_bounds_inclusive": [
+          384,
+          128,
+          511,
+          255
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.4375,
+        0.375
+      ],
+      "uv_center_blender_bottom_left": [
+        0.4375,
+        0.625
+      ],
+      "solid_texture": "textures/solid/steel_dark.png",
+      "source_sample_xy": [
+        281,
+        657
+      ]
+    },
+    {
+      "id": "leather",
+      "label_ru": "Кожаный ремень",
+      "hex": "#614E48",
+      "rgb_u8": [
+        97,
+        78,
+        72
+      ],
+      "rgb_srgb_normalized": [
+        0.38039216,
+        0.30588235,
+        0.28235294
+      ],
+      "atlas_cell": {
+        "column": 4,
+        "row_from_top": 1,
+        "pixel_bounds_inclusive": [
+          512,
+          128,
+          639,
+          255
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.5625,
+        0.375
+      ],
+      "uv_center_blender_bottom_left": [
+        0.5625,
+        0.625
+      ],
+      "solid_texture": "textures/solid/leather.png",
+      "source_sample_xy": [
+        825,
+        1243
+      ]
+    },
+    {
+      "id": "leather_dark",
+      "label_ru": "Тёмная кожа",
+      "hex": "#4A3A34",
+      "rgb_u8": [
+        74,
+        58,
+        52
+      ],
+      "rgb_srgb_normalized": [
+        0.29019608,
+        0.22745098,
+        0.20392157
+      ],
+      "atlas_cell": {
+        "column": 5,
+        "row_from_top": 1,
+        "pixel_bounds_inclusive": [
+          640,
+          128,
+          767,
+          255
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.6875,
+        0.375
+      ],
+      "uv_center_blender_bottom_left": [
+        0.6875,
+        0.625
+      ],
+      "solid_texture": "textures/solid/leather_dark.png",
+      "source_sample_xy": [
+        674,
+        1300
+      ]
+    },
+    {
+      "id": "cloth",
+      "label_ru": "Тёмная одежда Пуджа",
+      "hex": "#393939",
+      "rgb_u8": [
+        57,
+        57,
+        57
+      ],
+      "rgb_srgb_normalized": [
+        0.22352941,
+        0.22352941,
+        0.22352941
+      ],
+      "atlas_cell": {
+        "column": 6,
+        "row_from_top": 1,
+        "pixel_bounds_inclusive": [
+          768,
+          128,
+          895,
+          255
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.8125,
+        0.375
+      ],
+      "uv_center_blender_bottom_left": [
+        0.8125,
+        0.625
+      ],
+      "solid_texture": "textures/solid/cloth.png",
+      "source_sample_xy": [
+        629,
+        1359
+      ]
+    },
+    {
+      "id": "cloth_light",
+      "label_ru": "Светлый коричневый вариант одежды",
+      "hex": "#594A44",
+      "rgb_u8": [
+        89,
+        74,
+        68
+      ],
+      "rgb_srgb_normalized": [
+        0.34901961,
+        0.29019608,
+        0.26666667
+      ],
+      "atlas_cell": {
+        "column": 7,
+        "row_from_top": 1,
+        "pixel_bounds_inclusive": [
+          896,
+          128,
+          1023,
+          255
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.9375,
+        0.375
+      ],
+      "uv_center_blender_bottom_left": [
+        0.9375,
+        0.625
+      ],
+      "solid_texture": "textures/solid/cloth_light.png",
+      "source_sample_xy": [
+        531,
+        1311
+      ]
+    },
+    {
+      "id": "grass",
+      "label_ru": "Трава",
+      "hex": "#89B860",
+      "rgb_u8": [
+        137,
+        184,
+        96
+      ],
+      "rgb_srgb_normalized": [
+        0.5372549,
+        0.72156863,
+        0.37647059
+      ],
+      "atlas_cell": {
+        "column": 0,
+        "row_from_top": 2,
+        "pixel_bounds_inclusive": [
+          0,
+          256,
+          127,
+          383
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.0625,
+        0.625
+      ],
+      "uv_center_blender_bottom_left": [
+        0.0625,
+        0.375
+      ],
+      "solid_texture": "textures/solid/grass.png",
+      "source_sample_xy": [
+        75,
+        818
+      ]
+    },
+    {
+      "id": "foliage",
+      "label_ru": "Листва",
+      "hex": "#53A266",
+      "rgb_u8": [
+        83,
+        162,
+        102
+      ],
+      "rgb_srgb_normalized": [
+        0.3254902,
+        0.63529412,
+        0.4
+      ],
+      "atlas_cell": {
+        "column": 1,
+        "row_from_top": 2,
+        "pixel_bounds_inclusive": [
+          128,
+          256,
+          255,
+          383
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.1875,
+        0.625
+      ],
+      "uv_center_blender_bottom_left": [
+        0.1875,
+        0.375
+      ],
+      "solid_texture": "textures/solid/foliage.png",
+      "source_sample_xy": [
+        71,
+        240
+      ]
+    },
+    {
+      "id": "foliage_dark",
+      "label_ru": "Тёмная листва",
+      "hex": "#31724B",
+      "rgb_u8": [
+        49,
+        114,
+        75
+      ],
+      "rgb_srgb_normalized": [
+        0.19215686,
+        0.44705882,
+        0.29411765
+      ],
+      "atlas_cell": {
+        "column": 2,
+        "row_from_top": 2,
+        "pixel_bounds_inclusive": [
+          256,
+          256,
+          383,
+          383
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.3125,
+        0.625
+      ],
+      "uv_center_blender_bottom_left": [
+        0.3125,
+        0.375
+      ],
+      "solid_texture": "textures/solid/foliage_dark.png",
+      "source_sample_xy": [
+        13,
+        260
+      ]
+    },
+    {
+      "id": "dirt",
+      "label_ru": "Песочная дорога",
+      "hex": "#DDB17B",
+      "rgb_u8": [
+        221,
+        177,
+        123
+      ],
+      "rgb_srgb_normalized": [
+        0.86666667,
+        0.69411765,
+        0.48235294
+      ],
+      "atlas_cell": {
+        "column": 3,
+        "row_from_top": 2,
+        "pixel_bounds_inclusive": [
+          384,
+          256,
+          511,
+          383
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.4375,
+        0.625
+      ],
+      "uv_center_blender_bottom_left": [
+        0.4375,
+        0.375
+      ],
+      "solid_texture": "textures/solid/dirt.png",
+      "source_sample_xy": [
+        212,
+        906
+      ]
+    },
+    {
+      "id": "dirt_dark",
+      "label_ru": "Тёмный вариант дороги",
+      "hex": "#CEA376",
+      "rgb_u8": [
+        206,
+        163,
+        118
+      ],
+      "rgb_srgb_normalized": [
+        0.80784314,
+        0.63921569,
+        0.4627451
+      ],
+      "atlas_cell": {
+        "column": 4,
+        "row_from_top": 2,
+        "pixel_bounds_inclusive": [
+          512,
+          256,
+          639,
+          383
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.5625,
+        0.625
+      ],
+      "uv_center_blender_bottom_left": [
+        0.5625,
+        0.375
+      ],
+      "solid_texture": "textures/solid/dirt_dark.png",
+      "source_sample_xy": [
+        145,
+        1254
+      ]
+    },
+    {
+      "id": "wood",
+      "label_ru": "Дерево и вывеска",
+      "hex": "#C2894E",
+      "rgb_u8": [
+        194,
+        137,
+        78
+      ],
+      "rgb_srgb_normalized": [
+        0.76078431,
+        0.5372549,
+        0.30588235
+      ],
+      "atlas_cell": {
+        "column": 5,
+        "row_from_top": 2,
+        "pixel_bounds_inclusive": [
+          640,
+          256,
+          767,
+          383
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.6875,
+        0.625
+      ],
+      "uv_center_blender_bottom_left": [
+        0.6875,
+        0.375
+      ],
+      "solid_texture": "textures/solid/wood.png",
+      "source_sample_xy": [
+        776,
+        476
+      ]
+    },
+    {
+      "id": "wood_dark",
+      "label_ru": "Тёмное дерево",
+      "hex": "#7F563C",
+      "rgb_u8": [
+        127,
+        86,
+        60
+      ],
+      "rgb_srgb_normalized": [
+        0.49803922,
+        0.3372549,
+        0.23529412
+      ],
+      "atlas_cell": {
+        "column": 6,
+        "row_from_top": 2,
+        "pixel_bounds_inclusive": [
+          768,
+          256,
+          895,
+          383
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.8125,
+        0.625
+      ],
+      "uv_center_blender_bottom_left": [
+        0.8125,
+        0.375
+      ],
+      "solid_texture": "textures/solid/wood_dark.png",
+      "source_sample_xy": [
+        848,
+        581
+      ]
+    },
+    {
+      "id": "rock",
+      "label_ru": "Светлый камень",
+      "hex": "#9293AB",
+      "rgb_u8": [
+        146,
+        147,
+        171
+      ],
+      "rgb_srgb_normalized": [
+        0.57254902,
+        0.57647059,
+        0.67058824
+      ],
+      "atlas_cell": {
+        "column": 7,
+        "row_from_top": 2,
+        "pixel_bounds_inclusive": [
+          896,
+          256,
+          1023,
+          383
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.9375,
+        0.625
+      ],
+      "uv_center_blender_bottom_left": [
+        0.9375,
+        0.375
+      ],
+      "solid_texture": "textures/solid/rock.png",
+      "source_sample_xy": [
+        184,
+        488
+      ]
+    },
+    {
+      "id": "rock_dark",
+      "label_ru": "Тёмный камень",
+      "hex": "#676E82",
+      "rgb_u8": [
+        103,
+        110,
+        130
+      ],
+      "rgb_srgb_normalized": [
+        0.40392157,
+        0.43137255,
+        0.50980392
+      ],
+      "atlas_cell": {
+        "column": 0,
+        "row_from_top": 3,
+        "pixel_bounds_inclusive": [
+          0,
+          384,
+          127,
+          511
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.0625,
+        0.875
+      ],
+      "uv_center_blender_bottom_left": [
+        0.0625,
+        0.125
+      ],
+      "solid_texture": "textures/solid/rock_dark.png",
+      "source_sample_xy": [
+        267,
+        405
+      ]
+    },
+    {
+      "id": "gold",
+      "label_ru": "Золото",
+      "hex": "#F9BE04",
+      "rgb_u8": [
+        249,
+        190,
+        4
+      ],
+      "rgb_srgb_normalized": [
+        0.97647059,
+        0.74509804,
+        0.01568627
+      ],
+      "atlas_cell": {
+        "column": 1,
+        "row_from_top": 3,
+        "pixel_bounds_inclusive": [
+          128,
+          384,
+          255,
+          511
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.1875,
+        0.875
+      ],
+      "uv_center_blender_bottom_left": [
+        0.1875,
+        0.125
+      ],
+      "solid_texture": "textures/solid/gold.png",
+      "source_sample_xy": [
+        375,
+        683
+      ]
+    },
+    {
+      "id": "gold_light",
+      "label_ru": "Светлый золотой акцент",
+      "hex": "#FFF20A",
+      "rgb_u8": [
+        255,
+        242,
+        10
+      ],
+      "rgb_srgb_normalized": [
+        1.0,
+        0.94901961,
+        0.03921569
+      ],
+      "atlas_cell": {
+        "column": 2,
+        "row_from_top": 3,
+        "pixel_bounds_inclusive": [
+          256,
+          384,
+          383,
+          511
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.3125,
+        0.875
+      ],
+      "uv_center_blender_bottom_left": [
+        0.3125,
+        0.125
+      ],
+      "solid_texture": "textures/solid/gold_light.png",
+      "source_sample_xy": [
+        428,
+        722
+      ]
+    },
+    {
+      "id": "gold_dark",
+      "label_ru": "Тёмный золотой акцент",
+      "hex": "#F7A000",
+      "rgb_u8": [
+        247,
+        160,
+        0
+      ],
+      "rgb_srgb_normalized": [
+        0.96862745,
+        0.62745098,
+        0.0
+      ],
+      "atlas_cell": {
+        "column": 3,
+        "row_from_top": 3,
+        "pixel_bounds_inclusive": [
+          384,
+          384,
+          511,
+          511
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.4375,
+        0.875
+      ],
+      "uv_center_blender_bottom_left": [
+        0.4375,
+        0.125
+      ],
+      "solid_texture": "textures/solid/gold_dark.png",
+      "source_sample_xy": [
+        415,
+        743
+      ]
+    },
+    {
+      "id": "sky",
+      "label_ru": "Небо",
+      "hex": "#6FBEFC",
+      "rgb_u8": [
+        111,
+        190,
+        252
+      ],
+      "rgb_srgb_normalized": [
+        0.43529412,
+        0.74509804,
+        0.98823529
+      ],
+      "atlas_cell": {
+        "column": 4,
+        "row_from_top": 3,
+        "pixel_bounds_inclusive": [
+          512,
+          384,
+          639,
+          511
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.5625,
+        0.875
+      ],
+      "uv_center_blender_bottom_left": [
+        0.5625,
+        0.125
+      ],
+      "solid_texture": "textures/solid/sky.png",
+      "source_sample_xy": [
+        470,
+        221
+      ]
+    },
+    {
+      "id": "cloud",
+      "label_ru": "Облако",
+      "hex": "#EDF3FD",
+      "rgb_u8": [
+        237,
+        243,
+        253
+      ],
+      "rgb_srgb_normalized": [
+        0.92941176,
+        0.95294118,
+        0.99215686
+      ],
+      "atlas_cell": {
+        "column": 5,
+        "row_from_top": 3,
+        "pixel_bounds_inclusive": [
+          640,
+          384,
+          767,
+          511
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.6875,
+        0.875
+      ],
+      "uv_center_blender_bottom_left": [
+        0.6875,
+        0.125
+      ],
+      "solid_texture": "textures/solid/cloud.png",
+      "source_sample_xy": [
+        825,
+        109
+      ]
+    },
+    {
+      "id": "hud_dark",
+      "label_ru": "Тёмная панель интерфейса",
+      "hex": "#214057",
+      "rgb_u8": [
+        33,
+        64,
+        87
+      ],
+      "rgb_srgb_normalized": [
+        0.12941176,
+        0.25098039,
+        0.34117647
+      ],
+      "atlas_cell": {
+        "column": 6,
+        "row_from_top": 3,
+        "pixel_bounds_inclusive": [
+          768,
+          384,
+          895,
+          511
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.8125,
+        0.875
+      ],
+      "uv_center_blender_bottom_left": [
+        0.8125,
+        0.125
+      ],
+      "solid_texture": "textures/solid/hud_dark.png",
+      "source_sample_xy": [
+        63,
+        79
+      ]
+    },
+    {
+      "id": "neutral_white",
+      "label_ru": "Белая пиктограмма",
+      "hex": "#FEFEFE",
+      "rgb_u8": [
+        254,
+        254,
+        254
+      ],
+      "rgb_srgb_normalized": [
+        0.99607843,
+        0.99607843,
+        0.99607843
+      ],
+      "atlas_cell": {
+        "column": 7,
+        "row_from_top": 3,
+        "pixel_bounds_inclusive": [
+          896,
+          384,
+          1023,
+          511
+        ]
+      },
+      "uv_center_png_top_left": [
+        0.9375,
+        0.875
+      ],
+      "uv_center_blender_bottom_left": [
+        0.9375,
+        0.125
+      ],
+      "solid_texture": "textures/solid/neutral_white.png",
+      "source_sample_xy": [
+        137,
+        1535
+      ]
+    }
+  ]
+}

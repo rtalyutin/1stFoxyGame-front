@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "scope": "Graphics binding proposals, not existing runtime API or gameplay decisions",
+  "catalogue_status": "P15/P16 proposed",
+  "bindings": [
+    {
+      "event": "profile.item_owned",
+      "graphics": [
+        "state_owned"
+      ],
+      "rule": "Display ownership from authoritative profile; does not imply equipped."
+    },
+    {
+      "event": "profile.item_equipped",
+      "graphics": [
+        "state_equipped"
+      ],
+      "rule": "Show on actual worn item; use the same appearance in gallery and battle."
+    },
+    {
+      "event": "inventory.selection_changed",
+      "graphics": [
+        "state_selected",
+        "compare_arrow"
+      ],
+      "rule": "Selection is local presentation; compatibility and effect values come from runtime data."
+    },
+    {
+      "event": "inventory.compatibility_rejected",
+      "graphics": [
+        "state_incompatible"
+      ],
+      "rule": "Do not equip on an incompatible hero."
+    },
+    {
+      "event": "upgrade.pending",
+      "graphics": [
+        "state_upgrade_pending"
+      ],
+      "rule": "Await authoritative operation result; graphics do not spend currency."
+    },
+    {
+      "event": "upgrade.resource_missing",
+      "graphics": [
+        "state_resources_missing"
+      ],
+      "rule": "Specific missing component icons come from R3; show actual recipe requirements as runtime text."
+    },
+    {
+      "event": "upgrade.failed",
+      "graphics": [
+        "state_operation_error"
+      ],
+      "rule": "Show failure state; never display success before acknowledgement."
+    },
+    {
+      "event": "upgrade.acknowledged",
+      "graphics": [
+        "equipment_upgrade",
+        "upgrade_flash_1",
+        "upgrade_flash_2",
+        "upgrade_flash_3",
+        "upgrade_flash_4"
+      ],
+      "atlas": "atlases/upgrade_flash.json",
+      "rule": "Playback is visual only; map phase progress to four frames, duration controlled by runtime."
+    },
+    {
+      "event": "consumable.state_changed",
+      "graphics": [
+        "quantity_plate",
+        "consumable_ready",
+        "consumable_active",
+        "consumable_ended",
+        "consumable_disabled"
+      ],
+      "rule": "Quantity is dynamic text. Availability and state reflect gameplay data; icons do not enforce duration or power."
+    },
+    {
+      "event": "consumable.activation_acknowledged",
+      "graphics": [
+        "consumable_activation_1",
+        "consumable_activation_2",
+        "consumable_activation_3",
+        "consumable_activation_4"
+      ],
+      "atlas": "atlases/consumable_activation.json",
+      "rule": "Generic activation accent for both consumables; actual acknowledgement is supplied by runtime."
+    },
+    {
+      "event": "consumable.slowing_powder_effect",
+      "graphics": [
+        "slowing_dust"
+      ],
+      "rule": "Display only while runtime reports this proposed effect. No numeric slowdown or duration is baked in."
+    },
+    {
+      "event": "consumable.collectors_vial_effect",
+      "graphics": [
+        "collectors_halo"
+      ],
+      "rule": "Display only while runtime reports this proposed effect. No reward multiplier is baked in."
+    },
+    {
+      "event": "consumable.effect_ended",
+      "graphics": [
+        "consumable_end"
+      ],
+      "rule": "Visual expiration, without resurrection, invulnerability or healing."
+    },
+    {
+      "event": "hook.piercing_contact",
+      "graphics": [
+        "piercing_contact"
+      ],
+      "rule": "Visual contact cue only. Boss still requires at least three independent hits; not an extra hit or instant kill."
+    },
+    {
+      "event": "hook.return_phase",
+      "graphics": [
+        "return_hook_arc"
+      ],
+      "rule": "Trail follows the actual return path. Rendering does not add damage or a second hit."
+    }
+  ],
+  "exclusions": [
+    "Debt clock passive production bonus is R5; no production graphic or activation binding here.",
+    "Models, rigging, model animation clips, audio and code integration are outside this pack.",
+    "No health, resurrection, invulnerability, automatic kill or altered boss hit count."
+  ]
+}

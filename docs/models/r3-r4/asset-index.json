@@ -1,0 +1,1676 @@
+{
+  "schema": "runner-forge-model-delivery/1",
+  "status": "LOCAL_MODELS_VERIFIED; game integration pending",
+  "units": "meter",
+  "source_axes": {
+    "up": "+Z",
+    "forward": "-Y"
+  },
+  "glb_axes": {
+    "up": "+Y",
+    "forward": "+Z",
+    "handedness": "right"
+  },
+  "additional_half_turn": false,
+  "skinned_hero": "pudge_r3",
+  "joint_names_in_order": [
+    "root",
+    "pelvis",
+    "spine",
+    "chest",
+    "neck",
+    "head",
+    "upper_arm.L",
+    "forearm.L",
+    "hand.L",
+    "upper_arm.R",
+    "forearm.R",
+    "hand.R",
+    "thigh.L",
+    "shin.L",
+    "foot.L",
+    "thigh.R",
+    "shin.R",
+    "foot.R"
+  ],
+  "assets": [
+    {
+      "graphic_id": "pudge_r3",
+      "release": "r3",
+      "name_ru": "Пудж R3",
+      "kind": "hero",
+      "level": null,
+      "file": "public/models/r3/pudge_r3.glb",
+      "source": "assets/models/r3/pudge_r3.blend",
+      "native": "assets/models/native/r3/pudge_r3-client.blend",
+      "root": "hero_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 414940,
+      "sha256": "d7b5087be5b1b0c9a3cd3dc52eb29e6494a13351bacdf571ef5d203096b56436",
+      "triangles": 2650,
+      "material_primitives": 11,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -1.0008453130722046,
+          0.0,
+          -0.4478471577167511
+        ],
+        [
+          1.0008453130722046,
+          2.299999952316284,
+          0.6125905513763428
+        ]
+      ],
+      "clips": [
+        "death",
+        "hook_cast",
+        "hook_hold",
+        "hook_return_capture",
+        "hook_return_empty",
+        "idle",
+        "run",
+        "shop_enter",
+        "shop_idle",
+        "strafe_left",
+        "strafe_right"
+      ],
+      "socket_nodes": [
+        "socket_head",
+        "socket_cuff.L",
+        "socket_hook_hand",
+        "socket_spool",
+        "socket_weapon",
+        "socket_cuff.R",
+        "socket_body",
+        "socket_boot.L",
+        "socket_boot.R",
+        "socket_belt_talisman",
+        "socket_feet"
+      ],
+      "source_sha256": "66d3dab7d1b9a54eb159e8752828a53d7342322c306b2f9bab40e721c745e361",
+      "native_sha256": "101bc7a11eb7c53838b393c2b8f00348bfba18e1ac519c3d6685d6648fdf6d7d"
+    },
+    {
+      "graphic_id": "shop",
+      "release": "r3",
+      "name_ru": "Придорожный магазин",
+      "kind": "shop",
+      "level": null,
+      "file": "public/models/r3/shop.glb",
+      "source": "assets/models/r3/shop.blend",
+      "native": "assets/models/native/r3/shop-client.blend",
+      "root": "shop_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 77372,
+      "sha256": "f8ad027223c0c7be6236518014033b93468e4c3a19792e5783d9a480b88d6dcf",
+      "triangles": 686,
+      "material_primitives": 10,
+      "embedded_images": 4,
+      "bounds_glTF_xyz": [
+        [
+          -1.9600000381469727,
+          0.0,
+          -1.274999976158142
+        ],
+        [
+          1.9600000381469727,
+          2.799999952316284,
+          1.4320000410079956
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [
+        "socket_shop_entry",
+        "socket_shop_focus"
+      ],
+      "source_sha256": "43cea78c2bb85622ee77563d2a81bf116861ea807cd9875faf586268ca8a6cd8",
+      "native_sha256": "6be4c60f53164ca7e36bff4b2e3953d1b045b20068c9c1083e8381819e4db2a2"
+    },
+    {
+      "graphic_id": "loot_gold",
+      "release": "r3",
+      "name_ru": "Золото",
+      "kind": "loot",
+      "level": null,
+      "file": "public/models/r3/loot_gold.glb",
+      "source": "assets/models/r3/loot_gold.blend",
+      "native": "assets/models/native/r3/loot_gold-client.blend",
+      "root": "loot_gold_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 8736,
+      "sha256": "184ecbf331744515383e043a463339ffbbdda42e8c6a445b705d164882a741a5",
+      "triangles": 148,
+      "material_primitives": 2,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.23000000417232513,
+          0.0,
+          -0.03750000149011612
+        ],
+        [
+          0.23000000417232513,
+          0.46000000834465027,
+          0.12800000607967377
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "catalogue_status": "P14 visual proposal",
+      "not_runtime_resource_id": true,
+      "source_sha256": "1bdecc555c13810fad82379c707a5e6566b7b37b89003c0874c4da21639dda84",
+      "native_sha256": "6ff6273ac6e3455e50f86443d053acc4f3601b5afb6fb62c70ca3a66004328ac"
+    },
+    {
+      "graphic_id": "loot_steel",
+      "release": "r3",
+      "name_ru": "Сталь / звено",
+      "kind": "loot",
+      "level": null,
+      "file": "public/models/r3/loot_steel.glb",
+      "source": "assets/models/r3/loot_steel.blend",
+      "native": "assets/models/native/r3/loot_steel-client.blend",
+      "root": "loot_steel_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 22004,
+      "sha256": "14adb681b3afe0a99a6df9507f2dbc8540315c5a8cba2eb6ea4311be98b3c30d",
+      "triangles": 400,
+      "material_primitives": 2,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.2680000066757202,
+          0.017091035842895508,
+          -0.08799999952316284
+        ],
+        [
+          0.25770363211631775,
+          0.6829089522361755,
+          0.03799999877810478
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "catalogue_status": "P14 visual proposal",
+      "not_runtime_resource_id": true,
+      "source_sha256": "3e652ba75480c11586e81ebba1109aba18f78cdbff99796897f13fad93234f5d",
+      "native_sha256": "f507a3c93d5c99eff2857ef8529ad52883f7fa82a61a1416969d6ecfcef781d6"
+    },
+    {
+      "graphic_id": "loot_ember",
+      "release": "r3",
+      "name_ru": "Искра",
+      "kind": "loot",
+      "level": null,
+      "file": "public/models/r3/loot_ember.glb",
+      "source": "assets/models/r3/loot_ember.blend",
+      "native": "assets/models/native/r3/loot_ember-client.blend",
+      "root": "loot_ember_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 3152,
+      "sha256": "de5b99f71da0a8bfd2c8df742164cd7faaa33871921c648ca37148b5cddd5fc8",
+      "triangles": 16,
+      "material_primitives": 2,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.19599999487400055,
+          0.0,
+          -0.19599999487400055
+        ],
+        [
+          0.19599999487400055,
+          0.5600000023841858,
+          0.210999995470047
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "catalogue_status": "P14 visual proposal",
+      "not_runtime_resource_id": true,
+      "source_sha256": "9f6daad01abae188d91903a7e071ce7b7a2ec377143609e10607da832eaaea48",
+      "native_sha256": "a4a110bb3118159cc07bd92f7e75ee01634863c1453c39bb82e132dd440beb72"
+    },
+    {
+      "graphic_id": "loot_core",
+      "release": "r3",
+      "name_ru": "Ядро",
+      "kind": "loot",
+      "level": null,
+      "file": "public/models/r3/loot_core.glb",
+      "source": "assets/models/r3/loot_core.blend",
+      "native": "assets/models/native/r3/loot_core-client.blend",
+      "root": "loot_core_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 3148,
+      "sha256": "92504276370dc69203c8eb6f3daa67b7f66454f24571536e8dcd5b885ece4c6f",
+      "triangles": 16,
+      "material_primitives": 2,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.19599999487400055,
+          0.0,
+          -0.19599999487400055
+        ],
+        [
+          0.19599999487400055,
+          0.5600000023841858,
+          0.25999999046325684
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "catalogue_status": "P14 visual proposal",
+      "not_runtime_resource_id": true,
+      "source_sha256": "055bc0a12eedf25b1f0e4f513edf1e537af50b741f2508ef0d555ba526ac9f8b",
+      "native_sha256": "e1470da2a9e60a32c360be76552a90be71acaa22b0cce33199b04e04bf22d3b7"
+    },
+    {
+      "graphic_id": "long_link_1",
+      "release": "r4",
+      "name_ru": "Длинное звено I",
+      "kind": "hook",
+      "level": 1,
+      "file": "public/models/r4/long_link_1.glb",
+      "source": "assets/models/r4/long_link_1.blend",
+      "native": "assets/models/native/r4/long_link_1-client.blend",
+      "root": "hook_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 17668,
+      "sha256": "1aa28c94fbfa9cec72d97019abcfa8f0d8e34163f7a45803f1e4b43af6c94968",
+      "triangles": 184,
+      "material_primitives": 3,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -0.08799999952316284,
+          -0.08799999952316284,
+          0.0
+        ],
+        [
+          0.6393969655036926,
+          0.08799999952316284,
+          1.456437349319458
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [
+        "socket_chain_hook",
+        "socket_target_hook"
+      ],
+      "icon": "assets/graphics/r4/icons/equipment/long_link_1.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/long_link_1_overlay.png",
+      "source_sha256": "d7ed6da6fc5b5970d8535ce1301b39591153adc2dcb4d866b78ee05663e5cf3d",
+      "native_sha256": "22daa2a8ccf6f3c873589f33b3cede2bc3155cc38c7a143c61d820b354591ecc"
+    },
+    {
+      "graphic_id": "piercing_tooth",
+      "release": "r4",
+      "name_ru": "Сквозной зуб",
+      "kind": "hook",
+      "level": null,
+      "file": "public/models/r4/piercing_tooth.glb",
+      "source": "assets/models/r4/piercing_tooth.blend",
+      "native": "assets/models/native/r4/piercing_tooth-client.blend",
+      "root": "hook_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 24472,
+      "sha256": "c7028830ca69410d7e3d6e7aabbbb7e087b13adde87011ef87e550d1e767a903",
+      "triangles": 174,
+      "material_primitives": 3,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -0.08799999952316284,
+          -0.08799999952316284,
+          0.0
+        ],
+        [
+          0.5443604588508606,
+          0.08799999952316284,
+          0.9488393068313599
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [
+        "socket_chain_hook",
+        "socket_target_hook"
+      ],
+      "icon": "assets/graphics/r4/icons/equipment/piercing_tooth.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/piercing_tooth_overlay.png",
+      "source_sha256": "8026cf609b2851e6d6e39b793ae3399cd0725cf8a281013e9758f16948c2d340",
+      "native_sha256": "1833f084b48227c10e32585ab39347bd580aa980b33cebfce122bf97fd68505c"
+    },
+    {
+      "graphic_id": "return_sickle",
+      "release": "r4",
+      "name_ru": "Возвратный серп",
+      "kind": "hook",
+      "level": null,
+      "file": "public/models/r4/return_sickle.glb",
+      "source": "assets/models/r4/return_sickle.blend",
+      "native": "assets/models/native/r4/return_sickle-client.blend",
+      "root": "hook_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 25808,
+      "sha256": "476b296af00718addeec73d37f5c111931db4b10efa6029dd71722364f9bb529",
+      "triangles": 168,
+      "material_primitives": 2,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -0.16476783156394958,
+          -0.10000000149011612,
+          0.0
+        ],
+        [
+          0.7680479288101196,
+          0.10000000149011612,
+          1.0146725177764893
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [
+        "socket_chain_hook",
+        "socket_target_hook"
+      ],
+      "icon": "assets/graphics/r4/icons/equipment/return_sickle.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/return_sickle_overlay.png",
+      "source_sha256": "66b7046acdfd40514d53d0360faeb680ac84e46402935f28aa0dbc72bd693300",
+      "native_sha256": "4dbb2961fa6b2fd41a47ab924d8168bab6f36fe097ad2b261485e7444f577bcc"
+    },
+    {
+      "graphic_id": "fast_spool_1",
+      "release": "r4",
+      "name_ru": "Быстрая катушка I",
+      "kind": "skinned_equipment",
+      "level": 1,
+      "file": "public/models/r4/fast_spool_1.glb",
+      "source": "assets/models/r4/fast_spool_1.blend",
+      "native": "assets/models/native/r4/fast_spool_1-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 66968,
+      "sha256": "724984b72af57887fb61d285bc6cceb96cf055f9cecd9a5b184c4dee99299670",
+      "triangles": 350,
+      "material_primitives": 6,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -1.149999976158142,
+          0.7592264413833618,
+          0.09916216135025024
+        ],
+        [
+          -0.7100000381469727,
+          1.2599999904632568,
+          0.4300000071525574
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/fast_spool_1.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/fast_spool_1_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "2398eb77841d44a35bd6b55d4dcb0325d61bf64d8fa6cc76980aeb82e58a6333",
+      "native_sha256": "f759f0fa60d98c47a4e03d0cf38e5f68b947e840f540e2fc213b4907d4d26a65"
+    },
+    {
+      "graphic_id": "fast_spool_2",
+      "release": "r4",
+      "name_ru": "Быстрая катушка II",
+      "kind": "skinned_equipment",
+      "level": 2,
+      "file": "public/models/r4/fast_spool_2.glb",
+      "source": "assets/models/r4/fast_spool_2.blend",
+      "native": "assets/models/native/r4/fast_spool_2-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 94528,
+      "sha256": "630d3d385c65f0ac3c7150db9fe20ab1902455f64d5a79286fcf80d3b09b148c",
+      "triangles": 556,
+      "material_primitives": 6,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -1.149999976158142,
+          0.7592264413833618,
+          0.09916216135025024
+        ],
+        [
+          -0.7100000381469727,
+          1.2599999904632568,
+          0.4300000071525574
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/fast_spool_2.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/fast_spool_2_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "d26bb8025e69e3f07e2e7c7d60a5cbf1c71257be06378dcc0e0eb1bd58f75a4a",
+      "native_sha256": "40f3e73d83e8c30e92ac49869673a3ec4b8f19227284d69898a30295b6919956"
+    },
+    {
+      "graphic_id": "fast_spool_3",
+      "release": "r4",
+      "name_ru": "Быстрая катушка III",
+      "kind": "skinned_equipment",
+      "level": 3,
+      "file": "public/models/r4/fast_spool_3.glb",
+      "source": "assets/models/r4/fast_spool_3.blend",
+      "native": "assets/models/native/r4/fast_spool_3-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 120616,
+      "sha256": "038f1a7b2c01d6909bb9269294aa9182b66c0ee30a3a08c34e4c57d54c658806",
+      "triangles": 762,
+      "material_primitives": 6,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -1.149999976158142,
+          0.7592264413833618,
+          0.09916216135025024
+        ],
+        [
+          -0.7100000381469727,
+          1.2599999904632568,
+          0.4300000071525574
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/fast_spool_3.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/fast_spool_3_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "10cc312eca122611a6c782511fad5f6495364d653fe73ae0a2b35bc7f676a261",
+      "native_sha256": "64559c87a3ba1bbe0c7326b5c814f9718b470c3cbbd82691601282bf94da2725"
+    },
+    {
+      "graphic_id": "conductor_cuffs_1",
+      "release": "r4",
+      "name_ru": "Манжеты проводника I",
+      "kind": "skinned_equipment",
+      "level": 1,
+      "file": "public/models/r4/conductor_cuffs_1.glb",
+      "source": "assets/models/r4/conductor_cuffs_1.blend",
+      "native": "assets/models/native/r4/conductor_cuffs_1-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 27768,
+      "sha256": "5dd88bb5cbb4c95ff55558716673817c4fb14cd16f83354a0286e101e7590c72",
+      "triangles": 161,
+      "material_primitives": 3,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -0.9887951612472534,
+          0.9444290995597839,
+          -0.10726025700569153
+        ],
+        [
+          0.9887951612472534,
+          1.2469621896743774,
+          0.5328357219696045
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/conductor_cuffs_1.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/conductor_cuffs_1_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "cbbf1a75ae21568c6826016180369077640e0652e28357b1b8a73110d90e5f68",
+      "native_sha256": "23463043ebc129fdce7a7f9e2c38073bbaa90eb4adf62d61165df77a477576a2"
+    },
+    {
+      "graphic_id": "conductor_cuffs_2",
+      "release": "r4",
+      "name_ru": "Манжеты проводника II",
+      "kind": "skinned_equipment",
+      "level": 2,
+      "file": "public/models/r4/conductor_cuffs_2.glb",
+      "source": "assets/models/r4/conductor_cuffs_2.blend",
+      "native": "assets/models/native/r4/conductor_cuffs_2-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 37920,
+      "sha256": "c699f93059f668b0b6c40ac01e87ed96a519b615f62f060568802471658678fc",
+      "triangles": 255,
+      "material_primitives": 3,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -0.9887951612472534,
+          0.9444290995597839,
+          -0.10726025700569153
+        ],
+        [
+          0.9887951612472534,
+          1.3504027128219604,
+          0.5328357219696045
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/conductor_cuffs_2.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/conductor_cuffs_2_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "c19c5020b05e31b05fe0de7d49e6b648a7171e7398e5eb10e9bcac654f3fa97c",
+      "native_sha256": "c7affbf4c9d937a77dfaf456bdda8e430d2541c5235c9042d3ef44faee5b4328"
+    },
+    {
+      "graphic_id": "conductor_cuffs_3",
+      "release": "r4",
+      "name_ru": "Манжеты проводника III",
+      "kind": "skinned_equipment",
+      "level": 3,
+      "file": "public/models/r4/conductor_cuffs_3.glb",
+      "source": "assets/models/r4/conductor_cuffs_3.blend",
+      "native": "assets/models/native/r4/conductor_cuffs_3-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 46124,
+      "sha256": "6b4f9927b92dc566a8d66bc7d749f8e94e5f32264204337fde7e0e8356133487",
+      "triangles": 334,
+      "material_primitives": 3,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -0.9929412603378296,
+          0.9444290995597839,
+          -0.10726025700569153
+        ],
+        [
+          0.9929412603378296,
+          1.4431111812591553,
+          0.5328357219696045
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/conductor_cuffs_3.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/conductor_cuffs_3_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "b6699b68359e00fb71fcc462d4386373910fe9445deb877fb5cd058bb0ed0c17",
+      "native_sha256": "b979181a3f612226ad68f15aa1f5d39372915985cdeaf8056119808b74fe2492"
+    },
+    {
+      "graphic_id": "sidestep_boots_1",
+      "release": "r4",
+      "name_ru": "Сапоги бокового шага I",
+      "kind": "skinned_equipment",
+      "level": 1,
+      "file": "public/models/r4/sidestep_boots_1.glb",
+      "source": "assets/models/r4/sidestep_boots_1.blend",
+      "native": "assets/models/native/r4/sidestep_boots_1-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 68868,
+      "sha256": "b8cebffd7c865892d4a3185e0f07754473fc0aac9eeb6a9048f2253636c8113a",
+      "triangles": 448,
+      "material_primitives": 5,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -0.46073582768440247,
+          0.0020000000949949026,
+          -0.1821000576019287
+        ],
+        [
+          0.46073582768440247,
+          0.38499999046325684,
+          0.3581000566482544
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/sidestep_boots_1.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/sidestep_boots_1_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "eeac164730d52e524e6c2cc5bd426cb70403e4e5f8805bb201c1d73869d87a79",
+      "native_sha256": "8900a3365a14134b2f0dbc9ee44879ff7043d32a240a4d26c8173f08116b8d6e"
+    },
+    {
+      "graphic_id": "sidestep_boots_2",
+      "release": "r4",
+      "name_ru": "Сапоги бокового шага II",
+      "kind": "skinned_equipment",
+      "level": 2,
+      "file": "public/models/r4/sidestep_boots_2.glb",
+      "source": "assets/models/r4/sidestep_boots_2.blend",
+      "native": "assets/models/native/r4/sidestep_boots_2-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 79840,
+      "sha256": "e3ba5aa2c09b36be6833f1ac8cd80f20d367d50eece3cdb2660841f8ecc53b3e",
+      "triangles": 544,
+      "material_primitives": 5,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -0.46073582768440247,
+          0.0020000000949949026,
+          -0.1821000576019287
+        ],
+        [
+          0.46073582768440247,
+          0.38499999046325684,
+          0.3581000566482544
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/sidestep_boots_2.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/sidestep_boots_2_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "30842dc16de906985aa60f10b3b36207b9a31be952b2cd12a41e1858f6c5da24",
+      "native_sha256": "ae6a8820b2c2bcbb9dbc9166f32bea72f41253b65563f6aca83e4d7080efb9bd"
+    },
+    {
+      "graphic_id": "sidestep_boots_3",
+      "release": "r4",
+      "name_ru": "Сапоги бокового шага III",
+      "kind": "skinned_equipment",
+      "level": 3,
+      "file": "public/models/r4/sidestep_boots_3.glb",
+      "source": "assets/models/r4/sidestep_boots_3.blend",
+      "native": "assets/models/native/r4/sidestep_boots_3-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 90796,
+      "sha256": "ae240a3f1b24bb41865418c088913986dbb43224f4dcb95b881f695a0aa6fecf",
+      "triangles": 640,
+      "material_primitives": 5,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -0.46073582768440247,
+          0.0020000000949949026,
+          -0.1821000576019287
+        ],
+        [
+          0.46073582768440247,
+          0.38499999046325684,
+          0.3581000566482544
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/sidestep_boots_3.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/sidestep_boots_3_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "230450d2ddcd280e0516002425749098a0aa8d6e48d1009c98ce88deb2aa67d8",
+      "native_sha256": "62ff69c558869295a1bfb788f8dacd6a0ce942dc675c14b137fef9223e46c7b8"
+    },
+    {
+      "graphic_id": "trophy_counter_1",
+      "release": "r4",
+      "name_ru": "Трофейный счётчик I",
+      "kind": "skinned_equipment",
+      "level": 1,
+      "file": "public/models/r4/trophy_counter_1.glb",
+      "source": "assets/models/r4/trophy_counter_1.blend",
+      "native": "assets/models/native/r4/trophy_counter_1-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 24296,
+      "sha256": "a9cd554cfbe937703472a1696ab6e8c99346f107181752673a9de39d3bd42313",
+      "triangles": 72,
+      "material_primitives": 4,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          0.15000000596046448,
+          0.5867686867713928,
+          0.46050000190734863
+        ],
+        [
+          0.5099999904632568,
+          0.9150000214576721,
+          0.5888000130653381
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/trophy_counter_1.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/trophy_counter_1_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "b2028a21783143f956d5e24ce1b21765b8a9e39ad8239137685cd6d841e287cb",
+      "native_sha256": "3dfec55df5e063ca07e473a3a699eadb430325711afd31b0cb78e879989cc1b0"
+    },
+    {
+      "graphic_id": "trophy_counter_2",
+      "release": "r4",
+      "name_ru": "Трофейный счётчик II",
+      "kind": "skinned_equipment",
+      "level": 2,
+      "file": "public/models/r4/trophy_counter_2.glb",
+      "source": "assets/models/r4/trophy_counter_2.blend",
+      "native": "assets/models/native/r4/trophy_counter_2-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 34344,
+      "sha256": "e6b828281ea387e78c5f2fb157dbc470708d87eb3e815f832761235bfee9b28c",
+      "triangles": 132,
+      "material_primitives": 4,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          0.15000000596046448,
+          0.5317686796188354,
+          0.46050000190734863
+        ],
+        [
+          0.5099999904632568,
+          0.9150000214576721,
+          0.5888000130653381
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/trophy_counter_2.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/trophy_counter_2_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "5f6080a1810f05e0baba15cf34916b53751872b745bb5c714799d43c74a4784c",
+      "native_sha256": "d2a7fbb2947589f33daca5e83f2cec27d4b94b620e97cec65900e37a3701580f"
+    },
+    {
+      "graphic_id": "trophy_counter_3",
+      "release": "r4",
+      "name_ru": "Трофейный счётчик III",
+      "kind": "skinned_equipment",
+      "level": 3,
+      "file": "public/models/r4/trophy_counter_3.glb",
+      "source": "assets/models/r4/trophy_counter_3.blend",
+      "native": "assets/models/native/r4/trophy_counter_3-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 41032,
+      "sha256": "8e62ac984842c96717530929eb91c41e3a382bcbed853221c632acbc5a92e387",
+      "triangles": 192,
+      "material_primitives": 4,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          0.12300000339746475,
+          0.5317686796188354,
+          0.46050000190734863
+        ],
+        [
+          0.5370000004768372,
+          0.9150000214576721,
+          0.5888000130653381
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/trophy_counter_3.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/trophy_counter_3_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "d7a85fa01cf4822c1b04cbb801287c487dc5ee6c87bb579717643dc3996d970b",
+      "native_sha256": "df25098a422b663d362432a051c69afaed6e113fc8086049a0555dda6e2b0755"
+    },
+    {
+      "graphic_id": "debtors_watch",
+      "release": "r4",
+      "name_ru": "Часы должника",
+      "kind": "skinned_equipment",
+      "level": null,
+      "file": "public/models/r4/debtors_watch.glb",
+      "source": "assets/models/r4/debtors_watch.blend",
+      "native": "assets/models/native/r4/debtors_watch-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 41708,
+      "sha256": "c988bc49f7f2b451cb0beaab2be134e918d06399f44b8913e07f45f39d36e290",
+      "triangles": 184,
+      "material_primitives": 3,
+      "embedded_images": 1,
+      "bounds_glTF_xyz": [
+        [
+          -0.4960000216960907,
+          0.593999981880188,
+          0.4780000150203705
+        ],
+        [
+          -0.2240000069141388,
+          0.906000018119812,
+          0.5705000162124634
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/equipment/debtors_watch.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_decal": "assets/graphics/r4/textures/decals/debtors_watch_overlay.png",
+      "compatible_hero": "pudge_r3",
+      "skin_binding": "rebind_by_joint_name_same_rest_and_inverse_bind",
+      "joint_names_in_order": [
+        "root",
+        "pelvis",
+        "spine",
+        "chest",
+        "neck",
+        "head",
+        "upper_arm.L",
+        "forearm.L",
+        "hand.L",
+        "upper_arm.R",
+        "forearm.R",
+        "hand.R",
+        "thigh.L",
+        "shin.L",
+        "foot.L",
+        "thigh.R",
+        "shin.R",
+        "foot.R"
+      ],
+      "placement": "full_hero_bind_space; shared hero world transform; no extra socket parent",
+      "source_sha256": "749b65ac9679d226d209679c238faa0139132fbc30f0f26a747378bab2d8d10f",
+      "native_sha256": "806d8b011907d7e97196b4a32747eb77476b4e9e89c10b58be7aad6f92f2b2d6"
+    },
+    {
+      "graphic_id": "slowing_powder",
+      "release": "r4",
+      "name_ru": "Пыль торможения",
+      "kind": "consumable",
+      "level": null,
+      "file": "public/models/r4/slowing_powder.glb",
+      "source": "assets/models/r4/slowing_powder.blend",
+      "native": "assets/models/native/r4/slowing_powder-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 11640,
+      "sha256": "9c5206c98f204bd9655d427db14e648e13314464d59bd38d74a2465e5722df6f",
+      "triangles": 142,
+      "material_primitives": 4,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.20999999344348907,
+          0.019999999552965164,
+          -0.15000000596046448
+        ],
+        [
+          0.20999999344348907,
+          0.5265634059906006,
+          0.22010000050067902
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/consumables/slowing_powder.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_sha256": "043695c9a3a8a0c440ebd2049efc521e85e2b8fdedbd2870c5aff6ba91b8b3c4",
+      "native_sha256": "cb8ee2b176b7998d7364515bc758c0b5aeabff731434cc85b7f33c22f062a2ea"
+    },
+    {
+      "graphic_id": "collectors_vial",
+      "release": "r4",
+      "name_ru": "Флакон сборщика",
+      "kind": "consumable",
+      "level": null,
+      "file": "public/models/r4/collectors_vial.glb",
+      "source": "assets/models/r4/collectors_vial.blend",
+      "native": "assets/models/native/r4/collectors_vial-client.blend",
+      "root": "equipment_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 11376,
+      "sha256": "9c3f9ee8f738ff1899be7d4cccb23b856f34639627be745de4badde9b34a9898",
+      "triangles": 140,
+      "material_primitives": 4,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.15216904878616333,
+          0.03999999910593033,
+          -0.1141267791390419
+        ],
+        [
+          0.15216904878616333,
+          0.5400000214576721,
+          0.19259999692440033
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "icon": "assets/graphics/r4/icons/consumables/collectors_vial.png",
+      "catalogue_status": "proposed_P16",
+      "not_runtime_item_id": true,
+      "source_sha256": "b0b43b2eea9cf4d63078ff1e976b9d3efe9296ea9e7ac781da65cd95fd7bfe90",
+      "native_sha256": "bf591e71a1056048ee2700fd998a386b48bfbffaaf342cc3f98d0937a045b142"
+    }
+  ],
+  "dependencies": [
+    {
+      "asset": "hook",
+      "file": "public/models/r1/hook.glb",
+      "origin": "existing R1 export, byte-for-byte copy",
+      "root": "hook_root",
+      "socket_nodes": [
+        "socket_chain_hook",
+        "socket_target_hook"
+      ],
+      "bytes": 8316,
+      "sha256": "77e3c87baecfbeada86dc988c7565c7fb45bc77c900e4dd0354f8f09c13757a3"
+    },
+    {
+      "asset": "chain",
+      "file": "public/models/r1/chain.glb",
+      "origin": "existing R1 export, byte-for-byte copy",
+      "root": "chain_root",
+      "socket_nodes": [],
+      "bytes": 10120,
+      "sha256": "25e8488e5ca5f487554691d42001be8cc6db4cf9a169c3e2d59a5ae29211a338"
+    }
+  ],
+  "catalogue_boundary": "Graphic IDs and P14/P16 visuals do not approve gameplay IDs, slots, recipes, prices or effects.",
+  "source_path_policy": "Publication .blend copies have relative packed resource paths and cleared saved file-browser directories. Geometry, rig, animation curves and packed bytes match the original delivery."
+}

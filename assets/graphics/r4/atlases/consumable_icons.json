@@ -1,0 +1,67 @@
+{
+  "image": "consumable_icons.png",
+  "size": {
+    "w": 512,
+    "h": 256
+  },
+  "origin": "top-left; x right, y down",
+  "alpha": "straight",
+  "grid": {
+    "columns": 2,
+    "rows": 1
+  },
+  "frames": [
+    {
+      "id": "slowing_powder",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.0,
+        0.5,
+        1.0
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.0,
+        0.5,
+        1.0
+      ],
+      "source_png": "icons/consumables/slowing_powder.png"
+    },
+    {
+      "id": "collectors_vial",
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.0,
+        0.5,
+        1.0
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "source_png": "icons/consumables/collectors_vial.png"
+    }
+  ]
+}

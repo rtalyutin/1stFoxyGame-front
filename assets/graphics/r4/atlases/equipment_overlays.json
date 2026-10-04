@@ -1,0 +1,431 @@
+{
+  "image": "equipment_overlays.png",
+  "size": {
+    "w": 2048,
+    "h": 2048
+  },
+  "origin": "top-left; x right, y down",
+  "alpha": "straight",
+  "grid": {
+    "columns": 4,
+    "rows": 4
+  },
+  "frames": [
+    {
+      "id": "fast_spool_1_overlay",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.75,
+        0.25,
+        1.0
+      ],
+      "source_png": "textures/decals/fast_spool_1_overlay.png"
+    },
+    {
+      "id": "fast_spool_2_overlay",
+      "frame": {
+        "x": 512,
+        "y": 0,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.75,
+        0.5,
+        1.0
+      ],
+      "source_png": "textures/decals/fast_spool_2_overlay.png"
+    },
+    {
+      "id": "fast_spool_3_overlay",
+      "frame": {
+        "x": 1024,
+        "y": 0,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.75,
+        0.75,
+        1.0
+      ],
+      "source_png": "textures/decals/fast_spool_3_overlay.png"
+    },
+    {
+      "id": "long_link_1_overlay",
+      "frame": {
+        "x": 1536,
+        "y": 0,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.75,
+        1.0,
+        1.0
+      ],
+      "source_png": "textures/decals/long_link_1_overlay.png"
+    },
+    {
+      "id": "piercing_tooth_overlay",
+      "frame": {
+        "x": 0,
+        "y": 512,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.5,
+        0.25,
+        0.75
+      ],
+      "source_png": "textures/decals/piercing_tooth_overlay.png"
+    },
+    {
+      "id": "return_sickle_overlay",
+      "frame": {
+        "x": 512,
+        "y": 512,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.5,
+        0.5,
+        0.75
+      ],
+      "source_png": "textures/decals/return_sickle_overlay.png"
+    },
+    {
+      "id": "conductor_cuffs_1_overlay",
+      "frame": {
+        "x": 1024,
+        "y": 512,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.5,
+        0.75,
+        0.75
+      ],
+      "source_png": "textures/decals/conductor_cuffs_1_overlay.png"
+    },
+    {
+      "id": "conductor_cuffs_2_overlay",
+      "frame": {
+        "x": 1536,
+        "y": 512,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.5,
+        1.0,
+        0.75
+      ],
+      "source_png": "textures/decals/conductor_cuffs_2_overlay.png"
+    },
+    {
+      "id": "conductor_cuffs_3_overlay",
+      "frame": {
+        "x": 0,
+        "y": 1024,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.25,
+        0.25,
+        0.5
+      ],
+      "source_png": "textures/decals/conductor_cuffs_3_overlay.png"
+    },
+    {
+      "id": "sidestep_boots_1_overlay",
+      "frame": {
+        "x": 512,
+        "y": 1024,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.25,
+        0.5,
+        0.5
+      ],
+      "source_png": "textures/decals/sidestep_boots_1_overlay.png"
+    },
+    {
+      "id": "sidestep_boots_2_overlay",
+      "frame": {
+        "x": 1024,
+        "y": 1024,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.25,
+        0.75,
+        0.5
+      ],
+      "source_png": "textures/decals/sidestep_boots_2_overlay.png"
+    },
+    {
+      "id": "sidestep_boots_3_overlay",
+      "frame": {
+        "x": 1536,
+        "y": 1024,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.5,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.25,
+        1.0,
+        0.5
+      ],
+      "source_png": "textures/decals/sidestep_boots_3_overlay.png"
+    },
+    {
+      "id": "trophy_counter_1_overlay",
+      "frame": {
+        "x": 0,
+        "y": 1536,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.0,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.0,
+        0.0,
+        0.25,
+        0.25
+      ],
+      "source_png": "textures/decals/trophy_counter_1_overlay.png"
+    },
+    {
+      "id": "trophy_counter_2_overlay",
+      "frame": {
+        "x": 512,
+        "y": 1536,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.25,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.25,
+        0.0,
+        0.5,
+        0.25
+      ],
+      "source_png": "textures/decals/trophy_counter_2_overlay.png"
+    },
+    {
+      "id": "trophy_counter_3_overlay",
+      "frame": {
+        "x": 1024,
+        "y": 1536,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.5,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.5,
+        0.0,
+        0.75,
+        0.25
+      ],
+      "source_png": "textures/decals/trophy_counter_3_overlay.png"
+    },
+    {
+      "id": "debtors_watch_overlay",
+      "frame": {
+        "x": 1536,
+        "y": 1536,
+        "w": 512,
+        "h": 512
+      },
+      "pivot_normalized": [
+        0.5,
+        0.5
+      ],
+      "normalized_rect_png_top_left": [
+        0.75,
+        0.75,
+        0.25,
+        0.25
+      ],
+      "uv_bounds_blender_bottom_left": [
+        0.75,
+        0.0,
+        1.0,
+        0.25
+      ],
+      "source_png": "textures/decals/debtors_watch_overlay.png"
+    }
+  ]
+}

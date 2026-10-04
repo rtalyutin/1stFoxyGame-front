@@ -1,0 +1,57 @@
+[
+  {
+    "clip": "idle",
+    "start": 1,
+    "end": 61
+  },
+  {
+    "clip": "run",
+    "start": 62,
+    "end": 92
+  },
+  {
+    "clip": "strafe_left",
+    "start": 93,
+    "end": 123
+  },
+  {
+    "clip": "strafe_right",
+    "start": 124,
+    "end": 154
+  },
+  {
+    "clip": "hook_cast",
+    "start": 155,
+    "end": 179
+  },
+  {
+    "clip": "hook_hold",
+    "start": 180,
+    "end": 210
+  },
+  {
+    "clip": "hook_return_empty",
+    "start": 211,
+    "end": 241
+  },
+  {
+    "clip": "hook_return_capture",
+    "start": 242,
+    "end": 272
+  },
+  {
+    "clip": "shop_enter",
+    "start": 273,
+    "end": 303
+  },
+  {
+    "clip": "shop_idle",
+    "start": 304,
+    "end": 364
+  },
+  {
+    "clip": "death",
+    "start": 365,
+    "end": 395
+  }
+]

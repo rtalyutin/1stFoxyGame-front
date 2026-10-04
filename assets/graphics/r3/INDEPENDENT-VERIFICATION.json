@@ -1,0 +1,449 @@
+{
+  "pack": "Runner-Forge-R3-Graphics-v1",
+  "independent_verifier": "verify_assets",
+  "failures": [],
+  "warnings": [],
+  "checks": {
+    "hash_files": 176,
+    "png_full_decode": 98,
+    "svg_parse": 65,
+    "asset_categories": {
+      "ui/icons": 25,
+      "ui/widgets": 8,
+      "textures/decals": 4,
+      "vfx": 7,
+      "flipbooks/craft_confirmed": 4,
+      "flipbooks/pickup_confirmed": 4,
+      "flipbooks/save_confirmed": 4
+    },
+    "atlas_frame_cells": 56,
+    "animations": {
+      "atlases/flipbook_craft_confirmed.json": {
+        "frames": [
+          "craft_confirmed_00",
+          "craft_confirmed_01",
+          "craft_confirmed_02",
+          "craft_confirmed_03"
+        ],
+        "loop": false,
+        "timing": "Runtime maps actual phase progress to frames; no gameplay duration baked in."
+      },
+      "atlases/flipbook_pickup_confirmed.json": {
+        "frames": [
+          "pickup_confirmed_00",
+          "pickup_confirmed_01",
+          "pickup_confirmed_02",
+          "pickup_confirmed_03"
+        ],
+        "loop": false,
+        "timing": "Runtime maps actual phase progress to frames; no gameplay duration baked in."
+      },
+      "atlases/flipbook_save_confirmed.json": {
+        "frames": [
+          "save_confirmed_00",
+          "save_confirmed_01",
+          "save_confirmed_02",
+          "save_confirmed_03"
+        ],
+        "loop": false,
+        "timing": "Runtime maps actual phase progress to frames; no gameplay duration baked in."
+      }
+    },
+    "event_references": 28,
+    "identifier_references": 0,
+    "final_manifest_targeted_recheck": {
+      "hash_files": 176,
+      "failures": [],
+      "preview_labels_fixed": true
+    }
+  },
+  "asset_padding": {
+    "shop": [
+      42,
+      51,
+      42,
+      54
+    ],
+    "shop_enter": [
+      51,
+      40,
+      48,
+      40
+    ],
+    "shop_exit": [
+      50,
+      40,
+      37,
+      40
+    ],
+    "world_frozen": [
+      35,
+      35,
+      35,
+      35
+    ],
+    "gold": [
+      45,
+      45,
+      45,
+      45
+    ],
+    "steel": [
+      54,
+      34,
+      54,
+      35
+    ],
+    "ember": [
+      74,
+      43,
+      79,
+      57
+    ],
+    "core": [
+      54,
+      41,
+      54,
+      42
+    ],
+    "craft": [
+      27,
+      47,
+      58,
+      49
+    ],
+    "recipe": [
+      67,
+      47,
+      65,
+      45
+    ],
+    "resource_missing": [
+      36,
+      36,
+      36,
+      36
+    ],
+    "operation_pending": [
+      49,
+      112,
+      49,
+      112
+    ],
+    "operation_success": [
+      55,
+      73,
+      53,
+      74
+    ],
+    "operation_error": [
+      41,
+      41,
+      41,
+      52
+    ],
+    "compare_effects": [
+      38,
+      65,
+      38,
+      65
+    ],
+    "account": [
+      59,
+      54,
+      59,
+      45
+    ],
+    "session_expired": [
+      41,
+      40,
+      21,
+      35
+    ],
+    "profile_load": [
+      51,
+      42,
+      51,
+      35
+    ],
+    "profile_save": [
+      54,
+      47,
+      50,
+      46
+    ],
+    "sync_retry": [
+      46,
+      56,
+      46,
+      56
+    ],
+    "offline": [
+      33,
+      44,
+      35,
+      41
+    ],
+    "service_error": [
+      55,
+      43,
+      39,
+      48
+    ],
+    "profile_recovery": [
+      33,
+      33,
+      33,
+      33
+    ],
+    "run_loot": [
+      50,
+      24,
+      50,
+      51
+    ],
+    "wallet": [
+      41,
+      45,
+      36,
+      51
+    ],
+    "recipe_card": [
+      19,
+      19,
+      19,
+      19
+    ],
+    "cost_row": [
+      19,
+      72,
+      19,
+      72
+    ],
+    "button_normal": [
+      21,
+      81,
+      21,
+      81
+    ],
+    "button_disabled": [
+      21,
+      81,
+      21,
+      81
+    ],
+    "button_pending": [
+      21,
+      81,
+      21,
+      81
+    ],
+    "status_chip": [
+      21,
+      81,
+      21,
+      81
+    ],
+    "comparison_arrow": [
+      51,
+      72,
+      48,
+      72
+    ],
+    "resource_cell": [
+      31,
+      31,
+      31,
+      31
+    ],
+    "shop_sign": [
+      56,
+      136,
+      56,
+      138
+    ],
+    "shop_awning_stripes": [
+      51,
+      94,
+      51,
+      106
+    ],
+    "shop_wood_bolts": [
+      60,
+      96,
+      60,
+      96
+    ],
+    "shop_craft_insignia": [
+      50,
+      56,
+      98,
+      92
+    ],
+    "shop_zone_ready": [
+      41,
+      41,
+      41,
+      41
+    ],
+    "gold_pickup": [
+      36,
+      41,
+      43,
+      37
+    ],
+    "steel_pickup": [
+      36,
+      41,
+      43,
+      37
+    ],
+    "ember_pickup": [
+      36,
+      41,
+      43,
+      37
+    ],
+    "core_pickup": [
+      36,
+      41,
+      43,
+      37
+    ],
+    "craft_confirmed": [
+      63,
+      55,
+      63,
+      67
+    ],
+    "profile_save_confirmed": [
+      62,
+      62,
+      62,
+      62
+    ],
+    "craft_confirmed_00": [
+      32,
+      19,
+      32,
+      36
+    ],
+    "craft_confirmed_01": [
+      43,
+      31,
+      43,
+      48
+    ],
+    "craft_confirmed_02": [
+      53,
+      43,
+      53,
+      60
+    ],
+    "craft_confirmed_03": [
+      63,
+      55,
+      63,
+      67
+    ],
+    "pickup_confirmed_00": [
+      79,
+      79,
+      79,
+      79
+    ],
+    "pickup_confirmed_01": [
+      66,
+      66,
+      66,
+      66
+    ],
+    "pickup_confirmed_02": [
+      53,
+      53,
+      53,
+      53
+    ],
+    "pickup_confirmed_03": [
+      40,
+      40,
+      40,
+      40
+    ],
+    "save_confirmed_00": [
+      41,
+      41,
+      41,
+      41
+    ],
+    "save_confirmed_01": [
+      48,
+      48,
+      48,
+      48
+    ],
+    "save_confirmed_02": [
+      55,
+      55,
+      55,
+      55
+    ],
+    "save_confirmed_03": [
+      62,
+      62,
+      62,
+      62
+    ]
+  },
+  "semantic_review": [
+    {
+      "path": "events.json.policy.resource_catalog.gold.status",
+      "value": "approved_generic"
+    },
+    {
+      "path": "events.json.policy.resource_catalog.steel.status",
+      "value": "proposed"
+    },
+    {
+      "path": "events.json.policy.resource_catalog.ember.status",
+      "value": "proposed"
+    },
+    {
+      "path": "events.json.policy.resource_catalog.core.status",
+      "value": "proposed"
+    },
+    {
+      "path": "events.json.events.shop_entered.status_icon",
+      "value": "ui/icons/world_frozen.png"
+    }
+  ],
+  "external_references": [],
+  "limitations": [
+    "Blender import not performed",
+    "Runtime integration not performed"
+  ],
+  "release": "R3",
+  "result": "PASS",
+  "visual_review": {
+    "inspected": [
+      "PREVIEW.png 1440x2976",
+      "OVERVIEW.png 1440x1462",
+      "20 representative UI icons and VFX downsampled to actual64px",
+      "textures/decals/shop_sign.png at512px"
+    ],
+    "finding": "Clean flat shapes compatible with R1/R2; resources remain visually distinct; neutral profile/save/recovery states readable; shop decal has clean transparency and legible Cyrillic. No sprite visual shipping blocker.",
+    "cosmetic_notes": [
+      "Targeted preview correction verified: short labels \"Рецепт\" and \"Синхронизация\" now fit; full asset label_ru preserved."
+    ]
+  },
+  "scope_review": {
+    "finding": "R3 shop, resources, generic crafting and server-profile graphics only. First crafted item and recipe remain unspecified; P14steel/ember/core resources explicitly proposed. Profile graphics are neutral and do not select auth method. No R5production, R6heroes, health or projectile consequence policy.",
+    "event_mapping": "All28 concrete local file references exist; policy separates server-confirmed resource/craft/save events from cosmetic animation. No baked gameplay duration/value found.",
+    "external_dependencies": "R1/R2 explicitly declared; no unresolved external file reference found."
+  },
+  "limits": [
+    "No Blender or engine import performed",
+    "No game runtime integration, economic operation or device performance tested",
+    "Aesthetic acceptance by user not yet received"
+  ]
+}

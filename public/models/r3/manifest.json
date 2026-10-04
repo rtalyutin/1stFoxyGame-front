@@ -1,0 +1,367 @@
+{
+  "release": "R3",
+  "unit": "meter",
+  "up": "+Y",
+  "forward": "+Z",
+  "contract": "docs/models/r3-r4/contract.md",
+  "sha256": {
+    "pudge_r3.glb": "d7b5087be5b1b0c9a3cd3dc52eb29e6494a13351bacdf571ef5d203096b56436",
+    "shop.glb": "f8ad027223c0c7be6236518014033b93468e4c3a19792e5783d9a480b88d6dcf",
+    "loot_gold.glb": "184ecbf331744515383e043a463339ffbbdda42e8c6a445b705d164882a741a5",
+    "loot_steel.glb": "14adb681b3afe0a99a6df9507f2dbc8540315c5a8cba2eb6ea4311be98b3c30d",
+    "loot_ember.glb": "de5b99f71da0a8bfd2c8df742164cd7faaa33871921c648ca37148b5cddd5fc8",
+    "loot_core.glb": "92504276370dc69203c8eb6f3daa67b7f66454f24571536e8dcd5b885ece4c6f"
+  },
+  "clips": {
+    "pudge_r3": [
+      "death",
+      "hook_cast",
+      "hook_hold",
+      "hook_return_capture",
+      "hook_return_empty",
+      "idle",
+      "run",
+      "shop_enter",
+      "shop_idle",
+      "strafe_left",
+      "strafe_right"
+    ]
+  },
+  "assets": [
+    {
+      "graphic_id": "pudge_r3",
+      "release": "r3",
+      "name_ru": "Пудж R3",
+      "kind": "hero",
+      "level": null,
+      "file": "public/models/r3/pudge_r3.glb",
+      "source": "assets/models/r3/pudge_r3.blend",
+      "native": "assets/models/native/r3/pudge_r3-client.blend",
+      "root": "hero_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 414940,
+      "sha256": "d7b5087be5b1b0c9a3cd3dc52eb29e6494a13351bacdf571ef5d203096b56436",
+      "triangles": 2650,
+      "material_primitives": 11,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -1.0008453130722046,
+          0.0,
+          -0.4478471577167511
+        ],
+        [
+          1.0008453130722046,
+          2.299999952316284,
+          0.6125905513763428
+        ]
+      ],
+      "clips": [
+        "death",
+        "hook_cast",
+        "hook_hold",
+        "hook_return_capture",
+        "hook_return_empty",
+        "idle",
+        "run",
+        "shop_enter",
+        "shop_idle",
+        "strafe_left",
+        "strafe_right"
+      ],
+      "socket_nodes": [
+        "socket_head",
+        "socket_cuff.L",
+        "socket_hook_hand",
+        "socket_spool",
+        "socket_weapon",
+        "socket_cuff.R",
+        "socket_body",
+        "socket_boot.L",
+        "socket_boot.R",
+        "socket_belt_talisman",
+        "socket_feet"
+      ],
+      "source_sha256": "66d3dab7d1b9a54eb159e8752828a53d7342322c306b2f9bab40e721c745e361",
+      "native_sha256": "101bc7a11eb7c53838b393c2b8f00348bfba18e1ac519c3d6685d6648fdf6d7d"
+    },
+    {
+      "graphic_id": "shop",
+      "release": "r3",
+      "name_ru": "Придорожный магазин",
+      "kind": "shop",
+      "level": null,
+      "file": "public/models/r3/shop.glb",
+      "source": "assets/models/r3/shop.blend",
+      "native": "assets/models/native/r3/shop-client.blend",
+      "root": "shop_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 77372,
+      "sha256": "f8ad027223c0c7be6236518014033b93468e4c3a19792e5783d9a480b88d6dcf",
+      "triangles": 686,
+      "material_primitives": 10,
+      "embedded_images": 4,
+      "bounds_glTF_xyz": [
+        [
+          -1.9600000381469727,
+          0.0,
+          -1.274999976158142
+        ],
+        [
+          1.9600000381469727,
+          2.799999952316284,
+          1.4320000410079956
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [
+        "socket_shop_entry",
+        "socket_shop_focus"
+      ],
+      "source_sha256": "43cea78c2bb85622ee77563d2a81bf116861ea807cd9875faf586268ca8a6cd8",
+      "native_sha256": "6be4c60f53164ca7e36bff4b2e3953d1b045b20068c9c1083e8381819e4db2a2"
+    },
+    {
+      "graphic_id": "loot_gold",
+      "release": "r3",
+      "name_ru": "Золото",
+      "kind": "loot",
+      "level": null,
+      "file": "public/models/r3/loot_gold.glb",
+      "source": "assets/models/r3/loot_gold.blend",
+      "native": "assets/models/native/r3/loot_gold-client.blend",
+      "root": "loot_gold_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 8736,
+      "sha256": "184ecbf331744515383e043a463339ffbbdda42e8c6a445b705d164882a741a5",
+      "triangles": 148,
+      "material_primitives": 2,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.23000000417232513,
+          0.0,
+          -0.03750000149011612
+        ],
+        [
+          0.23000000417232513,
+          0.46000000834465027,
+          0.12800000607967377
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "catalogue_status": "P14 visual proposal",
+      "not_runtime_resource_id": true,
+      "source_sha256": "1bdecc555c13810fad82379c707a5e6566b7b37b89003c0874c4da21639dda84",
+      "native_sha256": "6ff6273ac6e3455e50f86443d053acc4f3601b5afb6fb62c70ca3a66004328ac"
+    },
+    {
+      "graphic_id": "loot_steel",
+      "release": "r3",
+      "name_ru": "Сталь / звено",
+      "kind": "loot",
+      "level": null,
+      "file": "public/models/r3/loot_steel.glb",
+      "source": "assets/models/r3/loot_steel.blend",
+      "native": "assets/models/native/r3/loot_steel-client.blend",
+      "root": "loot_steel_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 22004,
+      "sha256": "14adb681b3afe0a99a6df9507f2dbc8540315c5a8cba2eb6ea4311be98b3c30d",
+      "triangles": 400,
+      "material_primitives": 2,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.2680000066757202,
+          0.017091035842895508,
+          -0.08799999952316284
+        ],
+        [
+          0.25770363211631775,
+          0.6829089522361755,
+          0.03799999877810478
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "catalogue_status": "P14 visual proposal",
+      "not_runtime_resource_id": true,
+      "source_sha256": "3e652ba75480c11586e81ebba1109aba18f78cdbff99796897f13fad93234f5d",
+      "native_sha256": "f507a3c93d5c99eff2857ef8529ad52883f7fa82a61a1416969d6ecfcef781d6"
+    },
+    {
+      "graphic_id": "loot_ember",
+      "release": "r3",
+      "name_ru": "Искра",
+      "kind": "loot",
+      "level": null,
+      "file": "public/models/r3/loot_ember.glb",
+      "source": "assets/models/r3/loot_ember.blend",
+      "native": "assets/models/native/r3/loot_ember-client.blend",
+      "root": "loot_ember_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 3152,
+      "sha256": "de5b99f71da0a8bfd2c8df742164cd7faaa33871921c648ca37148b5cddd5fc8",
+      "triangles": 16,
+      "material_primitives": 2,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.19599999487400055,
+          0.0,
+          -0.19599999487400055
+        ],
+        [
+          0.19599999487400055,
+          0.5600000023841858,
+          0.210999995470047
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "catalogue_status": "P14 visual proposal",
+      "not_runtime_resource_id": true,
+      "source_sha256": "9f6daad01abae188d91903a7e071ce7b7a2ec377143609e10607da832eaaea48",
+      "native_sha256": "a4a110bb3118159cc07bd92f7e75ee01634863c1453c39bb82e132dd440beb72"
+    },
+    {
+      "graphic_id": "loot_core",
+      "release": "r3",
+      "name_ru": "Ядро",
+      "kind": "loot",
+      "level": null,
+      "file": "public/models/r3/loot_core.glb",
+      "source": "assets/models/r3/loot_core.blend",
+      "native": "assets/models/native/r3/loot_core-client.blend",
+      "root": "loot_core_root",
+      "root_TRS": {
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "bytes": 3148,
+      "sha256": "92504276370dc69203c8eb6f3daa67b7f66454f24571536e8dcd5b885ece4c6f",
+      "triangles": 16,
+      "material_primitives": 2,
+      "embedded_images": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.19599999487400055,
+          0.0,
+          -0.19599999487400055
+        ],
+        [
+          0.19599999487400055,
+          0.5600000023841858,
+          0.25999999046325684
+        ]
+      ],
+      "clips": [],
+      "socket_nodes": [],
+      "catalogue_status": "P14 visual proposal",
+      "not_runtime_resource_id": true,
+      "source_sha256": "055bc0a12eedf25b1f0e4f513edf1e537af50b741f2508ef0d555ba526ac9f8b",
+      "native_sha256": "e1470da2a9e60a32c360be76552a90be71acaa22b0cce33199b04e04bf22d3b7"
+    }
+  ]
+}

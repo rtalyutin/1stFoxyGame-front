@@ -1,0 +1,139 @@
+# Поставка R1 на существующий VPS
+
+Статус: **PREPARED, локальные проверки выполнены; на VPS ничего не опубликовано**.
+Известный адрес первой игры — `https://129.101.114.184/`. Проверка HTTPS из
+текущей среды вернула HTTP 502; это не подтверждает состояние самого VPS.
+Инструмент управления Timeweb/SSH здесь не доступен. Исторический пакет первой
+игры описывает host nginx и Docker, но не заменяет чтение текущей конфигурации.
+
+До первоначальной установки оператор читает актуальные nginx/Compose/порты,
+проверяет HTTPS, ресурсы для двух API и PostgreSQL, фиксирует версию и данные
+первой игры. Каталог этой игры и схемы `syezzhaem`, `syezzhaem_auth` отдельные.
+Секреты хранятся в защищённом окружении сервера, вне архива и логов.
+
+## Один раз: маршруты и каталог
+
+`/srv/foxygames/syezzhaem` содержит `index.html` (из `launcher.html`),
+`active.json`, `catalog.json` и `releases/<build_id>/`. nginx получает
+`nginx-upstreams.conf` в блоке `http`, `nginx-syezzhaem.conf` в существующем
+HTTPS `server` и отдельный `/etc/nginx/syezzhaem/upstream.conf` с одним API
+на loopback. Существующие upstream и маршруты первой игры сохраняются.
+После проверки `nginx -t` первоначальное изменение активируется graceful reload.
+
+Если nginx работает в контейнере, подключается read-only mount всего каталога
+`/srv/foxygames/syezzhaem`, а не отдельного файла pointer. Первоначальная установка
+mount может потребовать пересоздания nginx-контейнера. Последующие фронтовые
+публикации этого не требуют. Никакой `docker cp` для обновления приложения.
+
+Launcher/pointer/catalog: `no-store`, `open_file_cache off`. Файлы под `releases`
+имеют cache `public, max-age=31536000, immutable`. Service Worker не устанавливается.
+Launcher проверяет сессию и owner локальной записи перед выбором старой сборки;
+неизвестный исход проверки сети останавливает загрузку, сохраняя данные.
+
+## Собрать и опубликовать фронт
+
+Сборка выполняется до доставки на VPS, с неизменяемым новым ID. Пример ниже —
+операторские команды после первоначальной установки маршрутов:
+
+```sh
+BUILD_ID=r1-20261004.001 npm run build
+python3 scripts/pack-release.py --output Syezzhaem-r1-20261004.001-Frontend.zip
+python3 scripts/publish.py publish \
+  --root /srv/foxygames/syezzhaem \
+  --archive Syezzhaem-r1-20261004.001-Frontend.zip \
+  --expected-previous none \
+  --verify-origin https://129.101.114.184
+```
+
+Для последующей публикации `--expected-previous` — точный текущий build ID.
+Публикатор сериализует операции `flock`, проверяет ZIP paths/виды файлов/полный
+набор файлов/SHA-256, fsync файлов и каталогов, публикует готовый каталог через
+rename, проверяет **каждый файл через HTTP**, затем атомарно и с fsync меняет
+catalog и active pointer. Ошибка или прерывание до переключения сохраняют старый
+активный entry. Повтор с тем же ID и другими байтами отклоняется.
+
+В обоих API `SYEZZHAEM_RELEASE_ROOT=/srv/foxygames/syezzhaem` задаёт один источник
+активной версии. Каталог активного контента БД должен уже обслуживать версии
+сборки. Локальное отсутствие этого env допускает только режим разработки с
+`BUILD_ID` или `r1-local-001`; это не production-резолвер.
+
+Фронт rollback публикует прежний проверенный ZIP с ожидаемым текущим ID. Это
+переключает только новые запуски. Уже созданные забеги остаются на своих версиях.
+Все каталоги сохраняются: `cleanup` намеренно отклоняется, пока не согласована
+единая политика локальных сохранений и дедупликации. Сборки, нужные сохранениям,
+нельзя удалять после одного переключения pointer.
+
+## Восстановление после перезапуска хоста
+
+```sh
+python3 scripts/publish.py recover --root /srv/foxygames/syezzhaem
+```
+
+Recovery проверяет active, catalog и полный набор хешей retained builds. Ошибка
+блокирует readiness API; повреждённую публикацию не следует открывать аудитории.
+Незавершённые `.staging` не используются launcher. Автоматический выбор иной
+совместимой версии и удаление файлов не выполняются. Проверки с SIGKILL подтверждают
+поведение при прерывании процесса и искусственно повреждённых файлах; физический
+отказ питания/файловой системы VPS остаётся отдельным эксплуатационным испытанием.
+
+## Обновить API без остановки первой игры
+
+Новый исполняемый код требует **нового процесса**. `bluegreen.py` не перезагружает
+модули работающего Node.js. Запускаются два API на свободных loopback-портах,
+с одной БД/сессией/active-slot/CAS/дедупликацией. `AUTH_SECRET`, `AUTH_ORIGIN`,
+`AUTH_DATABASE_URL`, `DATABASE_URL`, `API_DRAIN_TOKEN` и release root одинаковые
+между ними. SMTP настраивается оператором и проверяется реальными письмами.
+
+Конкретный конфиг создаётся из `bluegreen.example.json`: указываются проверенные
+API build IDs, реальный PID старого Node, свободные порты, immutable директория
+нового артефакта и штатная команда миграции. Пример PID не является командой
+остановки. Скрипт сверяет PID и build с `/version` перед сигналом.
+
+```sh
+python3 scripts/bluegreen.py plan --config /secure/syezzhaem-bluegreen.json
+python3 scripts/bluegreen.py execute \
+  --config /secure/syezzhaem-bluegreen.json \
+  --state /var/lib/syezzhaem/bluegreen-state.json
+```
+
+`server/migrate.ts` использует отдельный `MIGRATION_DATABASE_URL`, не равный
+runtime `DATABASE_URL`/`AUTH_DATABASE_URL`. Он сериализует миграцию advisory lock,
+применяет additive DDL и immutable seed в одной транзакции. Первый bootstrap ролей
+требует соответствующих прав оператора. Runtime самостоятельно DDL не выполняет.
+
+`execute` применяет отдельной командой совместимую миграцию, запускает новый API,
+проверяет `/ready`, совпадение `/version` и поддержку контрактов обоими процессами,
+выполняет игровую пробу, атомарно меняет только dedicated upstream, выполняет
+`nginx -t` и graceful reload. Затем включает drain старого API, ждёт
+`in_flight=0` и только после этого посылает SIGTERM подтверждённому старому PID.
+Неуспешная readiness/проба не меняет upstream. Неуспешный nginx-check возвращает
+прежний файл. Ошибка после cutover оставляет процессы для явного восстановления.
+
+`scripts/api-smoke.mjs` использует **отдельный подтверждённый synthetic account**:
+`SYEZZHAEM_SMOKE_EMAIL`, `SYEZZHAEM_SMOKE_PASSWORD`,
+`SYEZZHAEM_SMOKE_SYNTHETIC_ACCOUNT=yes`. Он проверяет авторизацию, bootstrap,
+start retry, чтение, checkpoint CAS/retry и освобождение active slot через abandon.
+При обнаружении существующего активного забега проба останавливается; оператор
+разбирает его явно. Пароли и cookie не выводятся. Эта проба создаёт тестовые
+игровые записи, поэтому её аккаунт/охват должны входить в разрешение выпуска.
+
+Откат API выполняется тем же blue-green процессом с новым запуском прежнего
+артефакта. Старый код должен поддерживать уже записанные новые данные и клиентов;
+иначе откат запрещён и требуется исправление вперёд. БД и пользовательский
+прогресс при откате кода не сбрасываются. Миграционная роль отделена от runtime;
+PostgreSQL не перезапускается ради прикладной миграции.
+
+## Подтверждённые границы
+
+`python3 tests/release_tests.py` — 9 локальных fixture проверок: сохранение первой
+игры в общей статической fixture среде, hash/path/collision checks, SIGKILL/recovery,
+flock/CAS pointer, отказ HTTP-зависимости, retention guard, отказ readiness без
+cutover, drain долгого запроса, отказ несовместимого rollback и повторная проверка
+хешей при упаковке ZIP. Python HTTP fixture
+не является реальным nginx или игровым API. Реальные Auth/PostgreSQL/двухверсионные
+сценарии проверяются отдельными тестами проекта. На VPS AT-32–39 пока не выполнены.
+
+Первичные основания: [nginx process control](https://nginx.org/en/docs/control.html),
+[nginx syntax/reload switches](https://nginx.org/en/docs/switches.html),
+[Python ZIP](https://docs.python.org/3/library/zipfile.html). Текущие свойства целевой
+файловой системы/host и первичной установки нужно подтвердить на самом VPS.

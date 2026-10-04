@@ -4,3 +4,16 @@ assets/graphics/r2/ASSETS.csv whitespace=cr-at-eol
 assets/models/r2/*.blend -text
 public/models/r2/*.glb -text
 docs/models/r2/preview.png -text
+
+# Preserve exact R3/R4 delivery bytes.
+assets/graphics/r3/** -text
+assets/graphics/r4/** -text
+assets/graphics/r3/ASSETS.csv whitespace=cr-at-eol
+assets/graphics/r4/ASSETS.csv whitespace=cr-at-eol
+assets/models/r3/*.blend -text
+assets/models/r4/*.blend -text
+assets/models/native/** -text
+assets/models/r3-r4/** -text
+public/models/r3/*.glb -text
+public/models/r4/*.glb -text
+docs/models/r3-r4/evidence/*.png -text

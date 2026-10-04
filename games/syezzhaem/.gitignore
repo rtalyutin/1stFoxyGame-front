@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build-manifest.json
+.env
+.env.*
+!.env.example
+.dev-mail/
+.r1-data/
+__pycache__/
+*.pyc
+*.zip

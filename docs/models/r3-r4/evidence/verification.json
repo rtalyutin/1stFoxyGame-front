@@ -1,0 +1,2032 @@
+{
+  "time": "2026-10-04T11:20:38.520534+00:00",
+  "blender": "5.2.1 LTS",
+  "boundary": "Independent .blend opens, real GLB buffers, fresh Blender reimports; runtime game/FPS not tested",
+  "glb": {
+    "pudge_r3": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 2.9802322387695312e-08,
+      "bounds_glTF_xyz": [
+        [
+          -1.0008453130722046,
+          0.0,
+          -0.4478471577167511
+        ],
+        [
+          1.0008453130722046,
+          2.299999952316284,
+          0.6125905513763428
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 0,
+      "sha256": "d7b5087be5b1b0c9a3cd3dc52eb29e6494a13351bacdf571ef5d203096b56436"
+    },
+    "shop": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -1.9600000381469727,
+          0.0,
+          -1.274999976158142
+        ],
+        [
+          1.9600000381469727,
+          2.799999952316284,
+          1.4320000410079956
+        ]
+      ],
+      "bind_matches_pudge": null,
+      "embedded_images": 4,
+      "sha256": "f8ad027223c0c7be6236518014033b93468e4c3a19792e5783d9a480b88d6dcf"
+    },
+    "loot_gold": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.23000000417232513,
+          0.0,
+          -0.03750000149011612
+        ],
+        [
+          0.23000000417232513,
+          0.46000000834465027,
+          0.12800000607967377
+        ]
+      ],
+      "bind_matches_pudge": null,
+      "embedded_images": 0,
+      "sha256": "184ecbf331744515383e043a463339ffbbdda42e8c6a445b705d164882a741a5"
+    },
+    "loot_steel": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.2680000066757202,
+          0.017091035842895508,
+          -0.08799999952316284
+        ],
+        [
+          0.25770363211631775,
+          0.6829089522361755,
+          0.03799999877810478
+        ]
+      ],
+      "bind_matches_pudge": null,
+      "embedded_images": 0,
+      "sha256": "14adb681b3afe0a99a6df9507f2dbc8540315c5a8cba2eb6ea4311be98b3c30d"
+    },
+    "loot_ember": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.19599999487400055,
+          0.0,
+          -0.19599999487400055
+        ],
+        [
+          0.19599999487400055,
+          0.5600000023841858,
+          0.210999995470047
+        ]
+      ],
+      "bind_matches_pudge": null,
+      "embedded_images": 0,
+      "sha256": "de5b99f71da0a8bfd2c8df742164cd7faaa33871921c648ca37148b5cddd5fc8"
+    },
+    "loot_core": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.19599999487400055,
+          0.0,
+          -0.19599999487400055
+        ],
+        [
+          0.19599999487400055,
+          0.5600000023841858,
+          0.25999999046325684
+        ]
+      ],
+      "bind_matches_pudge": null,
+      "embedded_images": 0,
+      "sha256": "92504276370dc69203c8eb6f3daa67b7f66454f24571536e8dcd5b885ece4c6f"
+    },
+    "long_link_1": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.08799999952316284,
+          -0.08799999952316284,
+          0.0
+        ],
+        [
+          0.6393969655036926,
+          0.08799999952316284,
+          1.456437349319458
+        ]
+      ],
+      "bind_matches_pudge": null,
+      "embedded_images": 1,
+      "sha256": "1aa28c94fbfa9cec72d97019abcfa8f0d8e34163f7a45803f1e4b43af6c94968"
+    },
+    "piercing_tooth": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.08799999952316284,
+          -0.08799999952316284,
+          0.0
+        ],
+        [
+          0.5443604588508606,
+          0.08799999952316284,
+          0.9488393068313599
+        ]
+      ],
+      "bind_matches_pudge": null,
+      "embedded_images": 1,
+      "sha256": "c7028830ca69410d7e3d6e7aabbbb7e087b13adde87011ef87e550d1e767a903"
+    },
+    "return_sickle": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.16476783156394958,
+          -0.10000000149011612,
+          0.0
+        ],
+        [
+          0.7680479288101196,
+          0.10000000149011612,
+          1.0146725177764893
+        ]
+      ],
+      "bind_matches_pudge": null,
+      "embedded_images": 1,
+      "sha256": "476b296af00718addeec73d37f5c111931db4b10efa6029dd71722364f9bb529"
+    },
+    "fast_spool_1": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -1.149999976158142,
+          0.7592264413833618,
+          0.09916216135025024
+        ],
+        [
+          -0.7100000381469727,
+          1.2599999904632568,
+          0.4300000071525574
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "724984b72af57887fb61d285bc6cceb96cf055f9cecd9a5b184c4dee99299670"
+    },
+    "fast_spool_2": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -1.149999976158142,
+          0.7592264413833618,
+          0.09916216135025024
+        ],
+        [
+          -0.7100000381469727,
+          1.2599999904632568,
+          0.4300000071525574
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "630d3d385c65f0ac3c7150db9fe20ab1902455f64d5a79286fcf80d3b09b148c"
+    },
+    "fast_spool_3": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -1.149999976158142,
+          0.7592264413833618,
+          0.09916216135025024
+        ],
+        [
+          -0.7100000381469727,
+          1.2599999904632568,
+          0.4300000071525574
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "038f1a7b2c01d6909bb9269294aa9182b66c0ee30a3a08c34e4c57d54c658806"
+    },
+    "conductor_cuffs_1": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 3.827153705060482e-08,
+      "bounds_glTF_xyz": [
+        [
+          -0.9887951612472534,
+          0.9444290995597839,
+          -0.10726025700569153
+        ],
+        [
+          0.9887951612472534,
+          1.2469621896743774,
+          0.5328357219696045
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "5dd88bb5cbb4c95ff55558716673817c4fb14cd16f83354a0286e101e7590c72"
+    },
+    "conductor_cuffs_2": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 8.940696716308594e-08,
+      "bounds_glTF_xyz": [
+        [
+          -0.9887951612472534,
+          0.9444290995597839,
+          -0.10726025700569153
+        ],
+        [
+          0.9887951612472534,
+          1.3504027128219604,
+          0.5328357219696045
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "c699f93059f668b0b6c40ac01e87ed96a519b615f62f060568802471658678fc"
+    },
+    "conductor_cuffs_3": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 8.940696716308594e-08,
+      "bounds_glTF_xyz": [
+        [
+          -0.9929412603378296,
+          0.9444290995597839,
+          -0.10726025700569153
+        ],
+        [
+          0.9929412603378296,
+          1.4431111812591553,
+          0.5328357219696045
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "6b4f9927b92dc566a8d66bc7d749f8e94e5f32264204337fde7e0e8356133487"
+    },
+    "sidestep_boots_1": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 2.9802322387695312e-08,
+      "bounds_glTF_xyz": [
+        [
+          -0.46073582768440247,
+          0.0020000000949949026,
+          -0.1821000576019287
+        ],
+        [
+          0.46073582768440247,
+          0.38499999046325684,
+          0.3581000566482544
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "b8cebffd7c865892d4a3185e0f07754473fc0aac9eeb6a9048f2253636c8113a"
+    },
+    "sidestep_boots_2": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 2.9802322387695312e-08,
+      "bounds_glTF_xyz": [
+        [
+          -0.46073582768440247,
+          0.0020000000949949026,
+          -0.1821000576019287
+        ],
+        [
+          0.46073582768440247,
+          0.38499999046325684,
+          0.3581000566482544
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "e3ba5aa2c09b36be6833f1ac8cd80f20d367d50eece3cdb2660841f8ecc53b3e"
+    },
+    "sidestep_boots_3": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 2.9802322387695312e-08,
+      "bounds_glTF_xyz": [
+        [
+          -0.46073582768440247,
+          0.0020000000949949026,
+          -0.1821000576019287
+        ],
+        [
+          0.46073582768440247,
+          0.38499999046325684,
+          0.3581000566482544
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "ae240a3f1b24bb41865418c088913986dbb43224f4dcb95b881f695a0aa6fecf"
+    },
+    "trophy_counter_1": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          0.15000000596046448,
+          0.5867686867713928,
+          0.46050000190734863
+        ],
+        [
+          0.5099999904632568,
+          0.9150000214576721,
+          0.5888000130653381
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "a9cd554cfbe937703472a1696ab6e8c99346f107181752673a9de39d3bd42313"
+    },
+    "trophy_counter_2": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          0.15000000596046448,
+          0.5317686796188354,
+          0.46050000190734863
+        ],
+        [
+          0.5099999904632568,
+          0.9150000214576721,
+          0.5888000130653381
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "e6b828281ea387e78c5f2fb157dbc470708d87eb3e815f832761235bfee9b28c"
+    },
+    "trophy_counter_3": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          0.12300000339746475,
+          0.5317686796188354,
+          0.46050000190734863
+        ],
+        [
+          0.5370000004768372,
+          0.9150000214576721,
+          0.5888000130653381
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "8e62ac984842c96717530929eb91c41e3a382bcbed853221c632acbc5a92e387"
+    },
+    "debtors_watch": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.4960000216960907,
+          0.593999981880188,
+          0.4780000150203705
+        ],
+        [
+          -0.2240000069141388,
+          0.906000018119812,
+          0.5705000162124634
+        ]
+      ],
+      "bind_matches_pudge": "PASS",
+      "embedded_images": 1,
+      "sha256": "c988bc49f7f2b451cb0beaab2be134e918d06399f44b8913e07f45f39d36e290"
+    },
+    "slowing_powder": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.20999999344348907,
+          0.019999999552965164,
+          -0.15000000596046448
+        ],
+        [
+          0.20999999344348907,
+          0.5265634059906006,
+          0.22010000050067902
+        ]
+      ],
+      "bind_matches_pudge": null,
+      "embedded_images": 0,
+      "sha256": "9c5206c98f204bd9655d427db14e648e13314464d59bd38d74a2465e5722df6f"
+    },
+    "collectors_vial": {
+      "reimport": "PASS",
+      "root_identity": "PASS",
+      "weight_error": 0,
+      "bounds_glTF_xyz": [
+        [
+          -0.15216904878616333,
+          0.03999999910593033,
+          -0.1141267791390419
+        ],
+        [
+          0.15216904878616333,
+          0.5400000214576721,
+          0.19259999692440033
+        ]
+      ],
+      "bind_matches_pudge": null,
+      "embedded_images": 0,
+      "sha256": "9c3f9ee8f738ff1899be7d4cccb23b856f34639627be745de4badde9b34a9898"
+    }
+  },
+  "garment_motion": {
+    "fast_spool_1": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 1.472018357957305,
+          "min_ground_z_m": 0.7413249015808105
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.8422944153746711,
+          "min_ground_z_m": 0.7612267732620239
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.013250816318372882,
+          "min_ground_z_m": 1.0901093482971191
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.4974496514396076,
+          "min_ground_z_m": 0.7612267732620239
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.4974496514396076,
+          "min_ground_z_m": 0.7612267732620239
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.021288713737345234,
+          "min_ground_z_m": 0.74571692943573
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.1850059261021773,
+          "min_ground_z_m": 0.7674355506896973
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.2386401085074645,
+          "min_ground_z_m": 0.6532827615737915
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.008476973005763378,
+          "min_ground_z_m": 0.7054972052574158
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.17239547758387444,
+          "min_ground_z_m": 0.6575780510902405
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.1643859361206152,
+          "min_ground_z_m": 0.9099597334861755
+        }
+      }
+    },
+    "fast_spool_2": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 1.472018357957305,
+          "min_ground_z_m": 0.7413249015808105
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.8422944153746711,
+          "min_ground_z_m": 0.7612267732620239
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.013250816318372882,
+          "min_ground_z_m": 1.0901093482971191
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.4974496514396076,
+          "min_ground_z_m": 0.7612267732620239
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.4974496514396076,
+          "min_ground_z_m": 0.7612267732620239
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.021288713737345234,
+          "min_ground_z_m": 0.74571692943573
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.1850059261021773,
+          "min_ground_z_m": 0.7674355506896973
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.2386401085074645,
+          "min_ground_z_m": 0.6532827615737915
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.008476973005763378,
+          "min_ground_z_m": 0.7054972052574158
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.17239547758387444,
+          "min_ground_z_m": 0.6575780510902405
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.1643859361206152,
+          "min_ground_z_m": 0.9099597334861755
+        }
+      }
+    },
+    "fast_spool_3": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 1.4794988824044524,
+          "min_ground_z_m": 0.7413249015808105
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.8422944153746711,
+          "min_ground_z_m": 0.7612267732620239
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.0134183320508628,
+          "min_ground_z_m": 1.0901093482971191
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.4974496514396076,
+          "min_ground_z_m": 0.7612267732620239
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.4974496514396076,
+          "min_ground_z_m": 0.7612267732620239
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.021288713737345234,
+          "min_ground_z_m": 0.74571692943573
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.18998838161892564,
+          "min_ground_z_m": 0.7674355506896973
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.2386401085074645,
+          "min_ground_z_m": 0.6532827615737915
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.008476973005763378,
+          "min_ground_z_m": 0.7054972052574158
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.17687082431994014,
+          "min_ground_z_m": 0.6575780510902405
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.16849365024249519,
+          "min_ground_z_m": 0.9099597334861755
+        }
+      }
+    },
+    "conductor_cuffs_1": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 1.5708685065727954,
+          "min_ground_z_m": 0.6025897264480591
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.6272066626156961,
+          "min_ground_z_m": 0.9434211254119873
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.009198907939746035,
+          "min_ground_z_m": 0.9459713101387024
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.36191552074898725,
+          "min_ground_z_m": 0.8578467965126038
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.36191552074898725,
+          "min_ground_z_m": 0.8583062887191772
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.017048329782571765,
+          "min_ground_z_m": 0.9355406761169434
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.1335743701875458,
+          "min_ground_z_m": 0.9443807601928711
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.15150288682687843,
+          "min_ground_z_m": 0.9180295467376709
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.005470395149243509,
+          "min_ground_z_m": 0.9287062883377075
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.12152736796558818,
+          "min_ground_z_m": 0.8749375939369202
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.12152739478776581,
+          "min_ground_z_m": 0.8749374747276306
+        }
+      }
+    },
+    "conductor_cuffs_2": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 1.6212058568590606,
+          "min_ground_z_m": 0.6025897264480591
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.6272066626156961,
+          "min_ground_z_m": 0.9434211254119873
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.009198907939746035,
+          "min_ground_z_m": 0.9459713101387024
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.36191552074898725,
+          "min_ground_z_m": 0.8578467965126038
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.36191552074898725,
+          "min_ground_z_m": 0.8583062887191772
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.017048329782571765,
+          "min_ground_z_m": 0.9355406761169434
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.1335743701875458,
+          "min_ground_z_m": 0.9443807601928711
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.15150288682687843,
+          "min_ground_z_m": 0.9180295467376709
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.005470395149243509,
+          "min_ground_z_m": 0.9287062883377075
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.12152736796558818,
+          "min_ground_z_m": 0.8749375939369202
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.12152739478776581,
+          "min_ground_z_m": 0.8749374747276306
+        }
+      }
+    },
+    "conductor_cuffs_3": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 1.7056724412721873,
+          "min_ground_z_m": 0.6025897264480591
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.6272066626156961,
+          "min_ground_z_m": 0.9434211254119873
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.009198907939746035,
+          "min_ground_z_m": 0.9459713101387024
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.36191552074898725,
+          "min_ground_z_m": 0.8578467965126038
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.36191552074898725,
+          "min_ground_z_m": 0.8583062887191772
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.017314578496680253,
+          "min_ground_z_m": 0.9355406761169434
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.1335743701875458,
+          "min_ground_z_m": 0.9443807601928711
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.15150288682687843,
+          "min_ground_z_m": 0.9180295467376709
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.005470395149243509,
+          "min_ground_z_m": 0.9287062883377075
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.12152736796558818,
+          "min_ground_z_m": 0.8749375939369202
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.12152739478776581,
+          "min_ground_z_m": 0.8749374747276306
+        }
+      }
+    },
+    "sidestep_boots_1": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 0.5123922124471874,
+          "min_ground_z_m": 0.000999748706817627
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.32333322610526694,
+          "min_ground_z_m": 0.00100012868642807
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.003000073367729783
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.003000073367729783
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.317611900988184,
+          "min_ground_z_m": 0.0009998977184295654
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.31761168009151164,
+          "min_ground_z_m": 0.0009997710585594177
+        }
+      }
+    },
+    "sidestep_boots_2": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 0.5123922124471874,
+          "min_ground_z_m": 0.000999748706817627
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.32333322610526694,
+          "min_ground_z_m": 0.00100012868642807
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.003000073367729783
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.003000073367729783
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.317611900988184,
+          "min_ground_z_m": 0.0009998977184295654
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.31761168009151164,
+          "min_ground_z_m": 0.0009997710585594177
+        }
+      }
+    },
+    "sidestep_boots_3": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 0.5145945746463008,
+          "min_ground_z_m": 0.000999748706817627
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.004000052809715271
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.32333322610526694,
+          "min_ground_z_m": 0.00100012868642807
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.003000073367729783
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.003000073367729783
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.317611900988184,
+          "min_ground_z_m": 0.0009998977184295654
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.31761168009151164,
+          "min_ground_z_m": 0.0009997710585594177
+        }
+      }
+    },
+    "trophy_counter_1": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 1.2899662808744778,
+          "min_ground_z_m": 0.5887687802314758
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5887687802314758
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5887687802314758
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5887687802314758
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5887687802314758
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5887687802314758
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.035682261433755844,
+          "min_ground_z_m": 0.5887687802314758
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5877687931060791
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5877687931060791
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.023953157210579404,
+          "min_ground_z_m": 0.6513819694519043
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.023953215532000208,
+          "min_ground_z_m": 0.5723719000816345
+        }
+      }
+    },
+    "trophy_counter_2": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 1.2899662808744778,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.035682261433755844,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.532768726348877
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.532768726348877
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.023953157210579404,
+          "min_ground_z_m": 0.6045587062835693
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.02395327506830414,
+          "min_ground_z_m": 0.5099861025810242
+        }
+      }
+    },
+    "trophy_counter_3": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 1.2899662808744778,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.035682261433755844,
+          "min_ground_z_m": 0.5337687134742737
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.532768726348877
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.532768726348877
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.023953157210579404,
+          "min_ground_z_m": 0.5967774391174316
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.023953215532000208,
+          "min_ground_z_m": 0.5177673697471619
+        }
+      }
+    },
+    "debtors_watch": {
+      "clips": {
+        "death": {
+          "frames": 31,
+          "vertex_motion_m": 1.299589573508962,
+          "min_ground_z_m": 0.5960000157356262
+        },
+        "hook_cast": {
+          "frames": 25,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5960000157356262
+        },
+        "hook_hold": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5960000157356262
+        },
+        "hook_return_capture": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5960000157356262
+        },
+        "hook_return_empty": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5960000157356262
+        },
+        "idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5960000157356262
+        },
+        "run": {
+          "frames": 31,
+          "vertex_motion_m": 0.035682261433755844,
+          "min_ground_z_m": 0.5960000157356262
+        },
+        "shop_enter": {
+          "frames": 31,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5950000286102295
+        },
+        "shop_idle": {
+          "frames": 61,
+          "vertex_motion_m": 0.0,
+          "min_ground_z_m": 0.5950000286102295
+        },
+        "strafe_left": {
+          "frames": 31,
+          "vertex_motion_m": 0.023953157210579404,
+          "min_ground_z_m": 0.5788082480430603
+        },
+        "strafe_right": {
+          "frames": 31,
+          "vertex_motion_m": 0.02395327506830414,
+          "min_ground_z_m": 0.6650009751319885
+        }
+      }
+    }
+  },
+  "hero_clips": {
+    "death": {
+      "frames": 31,
+      "min_ground_z_m": 0.0020000506192445755,
+      "root_route_motion_m": 1.4046608320938958e-08
+    },
+    "hook_cast": {
+      "frames": 25,
+      "min_ground_z_m": 0.0020000506192445755,
+      "root_route_motion_m": 6.845719824344343e-11
+    },
+    "hook_hold": {
+      "frames": 31,
+      "min_ground_z_m": 0.0020000506192445755,
+      "root_route_motion_m": 6.845719824344343e-11
+    },
+    "hook_return_capture": {
+      "frames": 31,
+      "min_ground_z_m": 0.0020000506192445755,
+      "root_route_motion_m": 6.845719824344343e-11
+    },
+    "hook_return_empty": {
+      "frames": 31,
+      "min_ground_z_m": 0.0020000506192445755,
+      "root_route_motion_m": 6.845719824344343e-11
+    },
+    "idle": {
+      "frames": 61,
+      "min_ground_z_m": 0.0020000506192445755,
+      "root_route_motion_m": 6.845719824344343e-11
+    },
+    "run": {
+      "frames": 31,
+      "min_ground_z_m": 0.0020000506192445755,
+      "root_route_motion_m": 2.759257267115345e-10
+    },
+    "shop_enter": {
+      "frames": 31,
+      "min_ground_z_m": 0.0010000623296946287,
+      "root_route_motion_m": 3.42286650412138e-11
+    },
+    "shop_idle": {
+      "frames": 61,
+      "min_ground_z_m": 0.0010000623296946287,
+      "root_route_motion_m": 3.42286650412138e-11
+    },
+    "strafe_left": {
+      "frames": 31,
+      "min_ground_z_m": 0.002000007778406143,
+      "root_route_motion_m": 1.5760885929694268e-09
+    },
+    "strafe_right": {
+      "frames": 31,
+      "min_ground_z_m": 0.0019999705255031586,
+      "root_route_motion_m": 1.5760880378579145e-09
+    }
+  },
+  "surface_fit_samples": {
+    "conductor_cuffs_1": {
+      "sample_frames": 33,
+      "worst_signed_distance_m": -0.01450489740818739,
+      "deep_vertices": 0
+    },
+    "conductor_cuffs_2": {
+      "sample_frames": 33,
+      "worst_signed_distance_m": -0.015139985363930464,
+      "deep_vertices": 1
+    },
+    "conductor_cuffs_3": {
+      "sample_frames": 33,
+      "worst_signed_distance_m": -0.015139985363930464,
+      "deep_vertices": 1
+    },
+    "sidestep_boots_1": {
+      "sample_frames": 33,
+      "worst_signed_distance_m": -0.037319071125239134,
+      "deep_vertices": 2244
+    },
+    "sidestep_boots_2": {
+      "sample_frames": 33,
+      "worst_signed_distance_m": -0.037319071125239134,
+      "deep_vertices": 2244
+    },
+    "sidestep_boots_3": {
+      "sample_frames": 33,
+      "worst_signed_distance_m": -0.037319071125239134,
+      "deep_vertices": 2244
+    }
+  },
+  "surface_fit_note": "Non-blocking nearest-body signed-distance diagnostic, including concealed intersections of closed layered garments. It is not a zero-intersection certificate. Visual inspection covers the delivered overview and run/cast/death renders; runtime camera and long gameplay remain untested.",
+  "verdict": "PASS_48_NATIVE_24_GLB_11_CLIPS_13_GARMENTS",
+  "original_native": {
+    "assets/r3/loot_core.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "c03be6082f1be1e2dc016ebd1450845dc02500291a14fd85af28a8b65db648d4"
+    },
+    "assets/r3/loot_ember.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "ff15e2568da1c230438972d6ecfda2bbec247f715936665d2276a4c6b00a579a"
+    },
+    "assets/r3/loot_gold.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "93df3f691b02338edd7a3e8310359c1c38380ab38942a39cadc981058d77102a"
+    },
+    "assets/r3/loot_steel.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "d32b6a41e2acb75709bb0dba94ce709362571f5be817f2c8710f39c009bdaa84"
+    },
+    "assets/r3/pudge_r3.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "aa2d160ce78bc97e7738a42dc087c398db45f8c429b99f360e9b5b80316e131b"
+    },
+    "assets/r3/shop.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "41c92a269779e413252007243949e1611e465e36501dd172941d79432c4af16c"
+    },
+    "assets/r4/collectors_vial.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "1b37f47c08ddc360e29f2965746d4b38f65f12d7a55b0e0975ef963d98c24705"
+    },
+    "assets/r4/conductor_cuffs_1.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "61a71e72d432f806e6605f566bcd09e1e3fe8d28738244e782af27d70daef615"
+    },
+    "assets/r4/conductor_cuffs_2.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "3fa73b6aef01f5e0eb33e58bdd2023f6ed16d791e1f9329607c88e3bcb3038af"
+    },
+    "assets/r4/conductor_cuffs_3.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "8f400ab18ed3bf4e6050e8932ae13a901177bd2e2880e6cb488a602e2bcfc370"
+    },
+    "assets/r4/debtors_watch.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "c3b911e2bfcc382dd5410c037d1e29b1e24de6310e4e6469b7b69c6f7191eaf3"
+    },
+    "assets/r4/fast_spool_1.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "669beaccfa5bd8f9a2faa6371c8ed86373ea2e10b643857ecd4011ef60004986"
+    },
+    "assets/r4/fast_spool_2.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "98304f8ab01836b49b5efe9dfc06a162d8b913ec3c02e4fbfdfa688981849697"
+    },
+    "assets/r4/fast_spool_3.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "4a898900c1ae60de1e34b98acf03c9a77c0926fd4e41715b480f868bba1cb679"
+    },
+    "assets/r4/long_link_1.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "71690c68d9640df7d714488047b5a10c64afdc20e7a95a4eb6f2dee8b4f82e03"
+    },
+    "assets/r4/piercing_tooth.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "1fc79cf7090849caff4508cc18311637abc3027d9189f9427fb1f3b95facb4a4"
+    },
+    "assets/r4/return_sickle.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "291600d1808dfeb21ff3e4ab7ffd7bd1e7c401947d5cdcdefa98a5d90573a1ed"
+    },
+    "assets/r4/sidestep_boots_1.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "2279c7a84e416f4b547a360b39cfb4e981fb459e347603fcc7489bac6b767a55"
+    },
+    "assets/r4/sidestep_boots_2.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "b1fad5adfa6a12f579cdad17dbd88d39583ba58160abf49c30cbcbfb66a5e425"
+    },
+    "assets/r4/sidestep_boots_3.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "d4ab8b70071ab9656b244a5787d8ab4cf5949593b25530e47430057a5fca075b"
+    },
+    "assets/r4/slowing_powder.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "1d6a002adc90ef0876163e60097f64410880b75016e03cc60072cc0349c79b1c"
+    },
+    "assets/r4/trophy_counter_1.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "130fa8fdf8c2e0e92fba2bd2156609d094aff6cbcbf83a85e6850ac550158e63"
+    },
+    "assets/r4/trophy_counter_2.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "e2ea20785f8438525953190a93d276e5136cbf725c07a806c7607ce90450bd6b"
+    },
+    "assets/r4/trophy_counter_3.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "6f3b2d81bc87dc21414e6d121677c6291aa6e061bf487e9eab124f2d85419434"
+    },
+    "exports/native/r3/loot_core-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "a22f55a6df24cf13a7021a3f0bbf1a302ab1616d627c5f6c10922083d3d9cff4"
+    },
+    "exports/native/r3/loot_ember-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "1ea812f2cae10a76ee3a7e587c1a1c8c15ac97434a60151298fe83e6706049eb"
+    },
+    "exports/native/r3/loot_gold-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "67bfa577d293fd0a23c071991af652eae3a3c900ae9f0ea144114a1b40ae8a3f"
+    },
+    "exports/native/r3/loot_steel-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "04c76713d4db3baf904b8dd652ed41db477e91faab905c74bab4245eae53c29d"
+    },
+    "exports/native/r3/pudge_r3-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "9883360af030e2315e70e273a8f6c6c60adcc63a299b6659d9916c34d586b8a7"
+    },
+    "exports/native/r3/shop-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "9091a0d94a61740e9a637bd8a5844f0b4e765b2a83aa51c8a7c57588ba0228ee"
+    },
+    "exports/native/r4/collectors_vial-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "a15e9086229ac81706495a38fe208beb4df771a1668d077ebb17c9a4d92573bd"
+    },
+    "exports/native/r4/conductor_cuffs_1-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "9939671e7c85c3069dbbae6ccfcd7c9b915ed3d5c6ebce07866eff5c1d56f794"
+    },
+    "exports/native/r4/conductor_cuffs_2-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "173ed34eb62ab2d90ccb8d175d42cf7458b0b69b0eb54c5d3aa7c441adc001e8"
+    },
+    "exports/native/r4/conductor_cuffs_3-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "0f7696fe5a516424256977aa7b2e0d1820d76a60425043e8e6bd3fc5ecb45e28"
+    },
+    "exports/native/r4/debtors_watch-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "2fc35df15625d19195d06398482d674bb19261f6f7e3a8cc47103ea847bcf863"
+    },
+    "exports/native/r4/fast_spool_1-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "8216c92f53008085a4a1645918c1efe95d7bf27a8455ddfd318620c2b86c21ec"
+    },
+    "exports/native/r4/fast_spool_2-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "30a9c14b3d800e0263fd9bbfdc29faa85e7b8c68e6583338ba33187267ef795e"
+    },
+    "exports/native/r4/fast_spool_3-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "e6d108f96eba3e6a85f538975b3aefcf4dc6b275ceb415ae7e78e5536cd50146"
+    },
+    "exports/native/r4/long_link_1-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "61b6482758cc71d3d09c8b317f11c8b651a58c497e4a49ceef20d3d7fce92dbc"
+    },
+    "exports/native/r4/piercing_tooth-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "8dd10c2ab848db96ecbb146d5c532ba33131b039b9a9ba5ca17544463ed73f89"
+    },
+    "exports/native/r4/return_sickle-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "5e0d741e8538de4a8418fa598cb4424765ed020db055d444ab4c05467473ad9a"
+    },
+    "exports/native/r4/sidestep_boots_1-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "48349a8d6852947bd53703af113da0587db4a37cd268c173dccb60449f4ddf24"
+    },
+    "exports/native/r4/sidestep_boots_2-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "5c8e43b59aca48476cf1304c7d18999a5402b916734d94dd1a67d5d38ee377b4"
+    },
+    "exports/native/r4/sidestep_boots_3-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "0eb1f9c3de522ee3522720f20bb144d3324ab6166376c34657e78926d022b0ff"
+    },
+    "exports/native/r4/slowing_powder-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 0,
+      "sha256": "6ad8db7687c0d6044129905d5826bfedb8aa6197481be9812f7f8a799510f17e"
+    },
+    "exports/native/r4/trophy_counter_1-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "df17467629ff10685f3178eb746cfd42643a3d1a333f52c1d29f6f275c3dc72e"
+    },
+    "exports/native/r4/trophy_counter_2-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "36c6c87ca7517ff32e9106f172a7bb052ce0dc34995680d79eb5b2a29ac6bfbc"
+    },
+    "exports/native/r4/trophy_counter_3-client.blend": {
+      "open": "PASS",
+      "root": "PASS",
+      "bones": 18,
+      "sha256": "1cd2a791692c6125620852ba3ba9c8c2603408245c5b416d603abd7c9e1e6720"
+    }
+  },
+  "native": {
+    "assets/models/r3/loot_core.blend": {
+      "open": "PASS",
+      "content_fingerprint": "629d9586f5416addc414e922160d085e161c45377280b6cd13c78dee76479495",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "055bc0a12eedf25b1f0e4f513edf1e537af50b741f2508ef0d555ba526ac9f8b"
+    },
+    "assets/models/r3/loot_ember.blend": {
+      "open": "PASS",
+      "content_fingerprint": "f407c07e5d479d492a5aedbc6eea23dca85b38ca4d11c841eee5d7c6ff63035f",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "9f6daad01abae188d91903a7e071ce7b7a2ec377143609e10607da832eaaea48"
+    },
+    "assets/models/r3/loot_gold.blend": {
+      "open": "PASS",
+      "content_fingerprint": "01f96b9482173f20fcae3e61e8637948299b0eb33d7d733cf41bc4cf2c2346fa",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "1bdecc555c13810fad82379c707a5e6566b7b37b89003c0874c4da21639dda84"
+    },
+    "assets/models/r3/loot_steel.blend": {
+      "open": "PASS",
+      "content_fingerprint": "b073050b730de1f3635e49e57484d0f17544cf0f64a0119bf8ced6f7bc187e4d",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "3e652ba75480c11586e81ebba1109aba18f78cdbff99796897f13fad93234f5d"
+    },
+    "assets/models/r3/pudge_r3.blend": {
+      "open": "PASS",
+      "content_fingerprint": "eeb0ccac313d195bb0e79db8e50886fc5d0ddbeb3f6ee3aeb26c19281f6752bc",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "66d3dab7d1b9a54eb159e8752828a53d7342322c306b2f9bab40e721c745e361"
+    },
+    "assets/models/r3/shop.blend": {
+      "open": "PASS",
+      "content_fingerprint": "e060ef3815970049a22b7704eda9dc757b86baea35b066855510d521385a2221",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 4,
+      "cleared_browser_directories": 1,
+      "sha256": "43cea78c2bb85622ee77563d2a81bf116861ea807cd9875faf586268ca8a6cd8"
+    },
+    "assets/models/r4/collectors_vial.blend": {
+      "open": "PASS",
+      "content_fingerprint": "65b31afdfacf501905fe3743e758c58ed9709ef7a3a05bbccc9f8c89bbb1964b",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "b0b43b2eea9cf4d63078ff1e976b9d3efe9296ea9e7ac781da65cd95fd7bfe90"
+    },
+    "assets/models/r4/conductor_cuffs_1.blend": {
+      "open": "PASS",
+      "content_fingerprint": "902bfc2692fa282d1727db41026bffc388b6609663eaa58a7a633fae2815a0fb",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "cbbf1a75ae21568c6826016180369077640e0652e28357b1b8a73110d90e5f68"
+    },
+    "assets/models/r4/conductor_cuffs_2.blend": {
+      "open": "PASS",
+      "content_fingerprint": "211c6c439cfa3d1b46b1cae0a0a67a13ad42a13ba64f6d27d829e4d4a2f3cf3c",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "c19c5020b05e31b05fe0de7d49e6b648a7171e7398e5eb10e9bcac654f3fa97c"
+    },
+    "assets/models/r4/conductor_cuffs_3.blend": {
+      "open": "PASS",
+      "content_fingerprint": "091bef43481cd4fcbc18a2a309a5dee00916df091292b1a602d6a628c4c279c0",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "b6699b68359e00fb71fcc462d4386373910fe9445deb877fb5cd058bb0ed0c17"
+    },
+    "assets/models/r4/debtors_watch.blend": {
+      "open": "PASS",
+      "content_fingerprint": "3e07e90a0fe0858533c107e831fd07f8f4e60115ea6268a4bf14742e3891dde9",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "749b65ac9679d226d209679c238faa0139132fbc30f0f26a747378bab2d8d10f"
+    },
+    "assets/models/r4/fast_spool_1.blend": {
+      "open": "PASS",
+      "content_fingerprint": "7946f63028a2865dc8973f38f592e78c027933c54a342f76dda9b4dee4490b07",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "2398eb77841d44a35bd6b55d4dcb0325d61bf64d8fa6cc76980aeb82e58a6333"
+    },
+    "assets/models/r4/fast_spool_2.blend": {
+      "open": "PASS",
+      "content_fingerprint": "0383f8dd55ae174224b8ae7ee91a97b8cc6cde15687b24ecc3aac05de23fe7cd",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "d26bb8025e69e3f07e2e7c7d60a5cbf1c71257be06378dcc0e0eb1bd58f75a4a"
+    },
+    "assets/models/r4/fast_spool_3.blend": {
+      "open": "PASS",
+      "content_fingerprint": "55eb587247cd6edc523d52edd44292dcd20ea58e64b5cabe59c6089881301761",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "10cc312eca122611a6c782511fad5f6495364d653fe73ae0a2b35bc7f676a261"
+    },
+    "assets/models/r4/long_link_1.blend": {
+      "open": "PASS",
+      "content_fingerprint": "cb681f3e29ccad6476601c7a7cdd4987256c035cab85dee0efe819bae2f96f65",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "d7ed6da6fc5b5970d8535ce1301b39591153adc2dcb4d866b78ee05663e5cf3d"
+    },
+    "assets/models/r4/piercing_tooth.blend": {
+      "open": "PASS",
+      "content_fingerprint": "c88aee70d49270733ebf06a801b9b19b7d50e9994d2900bec05600cae39483b6",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "8026cf609b2851e6d6e39b793ae3399cd0725cf8a281013e9758f16948c2d340"
+    },
+    "assets/models/r4/return_sickle.blend": {
+      "open": "PASS",
+      "content_fingerprint": "483b0235623b477d1e431d1fe7847839765cde889d98ebdbac6d3772146b7a16",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "66b7046acdfd40514d53d0360faeb680ac84e46402935f28aa0dbc72bd693300"
+    },
+    "assets/models/r4/sidestep_boots_1.blend": {
+      "open": "PASS",
+      "content_fingerprint": "d2c5a2fdf5db63cde93a8925fcca4b1345e9c09aebe309092b49355a0741e9af",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "eeac164730d52e524e6c2cc5bd426cb70403e4e5f8805bb201c1d73869d87a79"
+    },
+    "assets/models/r4/sidestep_boots_2.blend": {
+      "open": "PASS",
+      "content_fingerprint": "3355a0fa76537ed58582a1ccb965d550b199f35d9d5177a814314bea96599871",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "30842dc16de906985aa60f10b3b36207b9a31be952b2cd12a41e1858f6c5da24"
+    },
+    "assets/models/r4/sidestep_boots_3.blend": {
+      "open": "PASS",
+      "content_fingerprint": "8e0a73bf2283ac18a6e769215040c416206f4795e505b14263153a011618df55",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "230450d2ddcd280e0516002425749098a0aa8d6e48d1009c98ce88deb2aa67d8"
+    },
+    "assets/models/r4/slowing_powder.blend": {
+      "open": "PASS",
+      "content_fingerprint": "f05225d1633c8ee105a3ffb993868d2b5162a338e0a924882d043c7c47263ad0",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "043695c9a3a8a0c440ebd2049efc521e85e2b8fdedbd2870c5aff6ba91b8b3c4"
+    },
+    "assets/models/r4/trophy_counter_1.blend": {
+      "open": "PASS",
+      "content_fingerprint": "7ee667952f3193b76e8054545aa351af53e5f8e7798d72fcc965fef0de5af1b4",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "b2028a21783143f956d5e24ce1b21765b8a9e39ad8239137685cd6d841e287cb"
+    },
+    "assets/models/r4/trophy_counter_2.blend": {
+      "open": "PASS",
+      "content_fingerprint": "a9e2c4145953c0b5c0dc2d07300099c448c8f7a8a0facb5aa1c94a733f582830",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "5f6080a1810f05e0baba15cf34916b53751872b745bb5c714799d43c74a4784c"
+    },
+    "assets/models/r4/trophy_counter_3.blend": {
+      "open": "PASS",
+      "content_fingerprint": "1737b3db0598aff12218316a6758fcc1be991442dcfa4d84ebcebcdfb0e1da10",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "d7a85fa01cf4822c1b04cbb801287c487dc5ee6c87bb579717643dc3996d970b"
+    },
+    "assets/models/native/r3/loot_core-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "9e6e11a87fcf7df18503ea38ff099b55bc7c84e2949a816ec053e927be7c9c86",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "e1470da2a9e60a32c360be76552a90be71acaa22b0cce33199b04e04bf22d3b7"
+    },
+    "assets/models/native/r3/loot_ember-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "d5eef77a216208088ddbab3cd4477b368286e2d062e88326afb5168abcad4fa2",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "a4a110bb3118159cc07bd92f7e75ee01634863c1453c39bb82e132dd440beb72"
+    },
+    "assets/models/native/r3/loot_gold-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "ef329368b194b4c78159b0bdef71265fe9ee53e489f227c83f4cf710b4fa5c30",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "6ff6273ac6e3455e50f86443d053acc4f3601b5afb6fb62c70ca3a66004328ac"
+    },
+    "assets/models/native/r3/loot_steel-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "c83b0fc25900e8e366384d1863db28d54d9bd10282bb99fe80efd73008944a94",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "f507a3c93d5c99eff2857ef8529ad52883f7fa82a61a1416969d6ecfcef781d6"
+    },
+    "assets/models/native/r3/pudge_r3-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "2a7f452499561d2b63448cf4d5fbcef264cf1d84c41108faf77591d959913c33",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "101bc7a11eb7c53838b393c2b8f00348bfba18e1ac519c3d6685d6648fdf6d7d"
+    },
+    "assets/models/native/r3/shop-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "1f2717519636adcb5f895661fc1c2bfb8032bba2ddb86307fe02ec5e2c2a3521",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 4,
+      "cleared_browser_directories": 1,
+      "sha256": "6be4c60f53164ca7e36bff4b2e3953d1b045b20068c9c1083e8381819e4db2a2"
+    },
+    "assets/models/native/r4/collectors_vial-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "53339dfa249379a17ea91aeeaf9c875c8dc0e276871a471c90414973637c0675",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "bf591e71a1056048ee2700fd998a386b48bfbffaaf342cc3f98d0937a045b142"
+    },
+    "assets/models/native/r4/conductor_cuffs_1-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "a150cdf4310fa72b68e3592e21ac9d2a22deede3eacbb878fbc030a7c14b93c3",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "23463043ebc129fdce7a7f9e2c38073bbaa90eb4adf62d61165df77a477576a2"
+    },
+    "assets/models/native/r4/conductor_cuffs_2-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "48ceba5ee3583b81d6e83e3eac6ac5072fcc81d669693d7b7ff77d79d25038b5",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "c7affbf4c9d937a77dfaf456bdda8e430d2541c5235c9042d3ef44faee5b4328"
+    },
+    "assets/models/native/r4/conductor_cuffs_3-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "5ab35a78a66f37ade7d5e7556debd6afc34cd2d4b69967fdd29ec87e5f78c45e",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "b979181a3f612226ad68f15aa1f5d39372915985cdeaf8056119808b74fe2492"
+    },
+    "assets/models/native/r4/debtors_watch-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "bfe56fdc9c70900979c50a5f0a03acf2e699e651ce90d0e666d2407265dade1c",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "806d8b011907d7e97196b4a32747eb77476b4e9e89c10b58be7aad6f92f2b2d6"
+    },
+    "assets/models/native/r4/fast_spool_1-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "b0f2be3db1be93dc3950498f3d9a5ed764e29d78aac8469e11b9722315421f1b",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "f759f0fa60d98c47a4e03d0cf38e5f68b947e840f540e2fc213b4907d4d26a65"
+    },
+    "assets/models/native/r4/fast_spool_2-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "fe98e5ac1d5a5810e1087132330d713a0ede306da423f95e4ff76a9cd76cbaa2",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "40f3e73d83e8c30e92ac49869673a3ec4b8f19227284d69898a30295b6919956"
+    },
+    "assets/models/native/r4/fast_spool_3-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "a4a40a1d7d94a8b9af688a917e07601c7445bd422057b782eaacc9917bc67887",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "64559c87a3ba1bbe0c7326b5c814f9718b470c3cbbd82691601282bf94da2725"
+    },
+    "assets/models/native/r4/long_link_1-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "138c48cc277c457a0f4fd28776940a2a9832108b923fd595909cd2186da244b7",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "22daa2a8ccf6f3c873589f33b3cede2bc3155cc38c7a143c61d820b354591ecc"
+    },
+    "assets/models/native/r4/piercing_tooth-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "2ffc5318baf49b0ef92967f817765e68e6599645f334b7ecb3f960b4c86a3c20",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "1833f084b48227c10e32585ab39347bd580aa980b33cebfce122bf97fd68505c"
+    },
+    "assets/models/native/r4/return_sickle-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "9d1d3903b05a5491a8325dc125dd78332276424a6617c01ffee23da57a65cefe",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "4dbb2961fa6b2fd41a47ab924d8168bab6f36fe097ad2b261485e7444f577bcc"
+    },
+    "assets/models/native/r4/sidestep_boots_1-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "f7d438cb7f585f62151bd415dc6cec5ec451f8960f58793f580cd8e073508b6a",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "8900a3365a14134b2f0dbc9ee44879ff7043d32a240a4d26c8173f08116b8d6e"
+    },
+    "assets/models/native/r4/sidestep_boots_2-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "aa522bc70041d80de3e4e55d805f6297ee76a0f47a9fe30566b42f367156532a",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "ae6a8820b2c2bcbb9dbc9166f32bea72f41253b65563f6aca83e4d7080efb9bd"
+    },
+    "assets/models/native/r4/sidestep_boots_3-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "d67059fa1e0ac766681a4f99b0260ce3c95a371aca535a85849b2a39788ca6b7",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "62ff69c558869295a1bfb788f8dacd6a0ce942dc675c14b137fef9223e46c7b8"
+    },
+    "assets/models/native/r4/slowing_powder-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "beb3ae7461f18fb56f9148b2331d46d939fa9e26eeddf42c5aa713de3753531c",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 0,
+      "cleared_browser_directories": 1,
+      "sha256": "cb8ee2b176b7998d7364515bc758c0b5aeabff731434cc85b7f33c22f062a2ea"
+    },
+    "assets/models/native/r4/trophy_counter_1-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "c0d0981b027f08685b36fb545b82ef9d8d2c8f0ad780085312a9e1c2a919b232",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "3dfec55df5e063ca07e473a3a699eadb430325711afd31b0cb78e879989cc1b0"
+    },
+    "assets/models/native/r4/trophy_counter_2-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "632e0da7dffaf66b629c419b8e2871e012636840d883958137bb9fc29c2c7097",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "d2a7fbb2947589f33daca5e83f2cec27d4b94b620e97cec65900e37a3701580f"
+    },
+    "assets/models/native/r4/trophy_counter_3-client.blend": {
+      "open": "PASS",
+      "content_fingerprint": "3bd32c797878759342a96c8b99880491c73a5513456e08a8260395bad4bce148",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 1,
+      "cleared_browser_directories": 1,
+      "sha256": "df25098a422b663d362432a051c69afaed6e113fc8086049a0555dda6e2b0755"
+    },
+    "assets/models/r3-r4/Runner-Forge-R3-R4.blend": {
+      "open": "PASS",
+      "content_fingerprint": "63bbcbdf0a98c8fc6468e3f5b847e5f14fedbc48c7d3c9fc5309859d932ff446",
+      "content_unchanged": "PASS",
+      "relative_packed_images": 20,
+      "cleared_browser_directories": 1,
+      "sha256": "13930f9c11a58048fd57eb3ff998c24b9cbafb6e6f51979f4e60a2b11a66cc5e"
+    }
+  },
+  "native_note": "Publication copies have normalized packed-resource/UI paths. original_native hashes refer to the local original ZIP; native hashes refer to committed publication copies."
+}

@@ -1,0 +1,19 @@
+{
+  "verdict": "PASS_MAIN_REOPEN_3_OUTFITS_11_NLA_CLIPS",
+  "file": "assets/models/r3-r4/Runner-Forge-R3-R4.blend",
+  "sha256": "13930f9c11a58048fd57eb3ff998c24b9cbafb6e6f51979f4e60a2b11a66cc5e",
+  "scenes": [
+    "R3_Overview",
+    "R4_Overview",
+    "R4_Equipped",
+    "R4_MotionCheck"
+  ],
+  "source_scenes": 24,
+  "outfits": 3,
+  "garments": 12,
+  "motion_frames": 395,
+  "min_ground_z_m": 0.0009999573230743408,
+  "packed_images": 20,
+  "packed_labels": true,
+  "original_sha256": "0fb6617131fb9a48637787eecc147f423b8ebd0e2f7c94f1d624ce09fa6864cc"
+}
