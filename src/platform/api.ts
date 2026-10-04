@@ -10,12 +10,12 @@ export class GameApi {
   csrfToken = '';
   accountId: string | null = null;
   constructor(private readonly request: typeof fetch = (...args) => globalThis.fetch(...args), readonly timeoutMs = 8000) {}
-  async call<T>(path: string, body?: unknown): Promise<T> {
+  async call<T>(path: string, body?: unknown, method: 'GET' | 'POST' | 'PUT' = body === undefined ? 'GET' : 'POST'): Promise<T> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), this.timeoutMs);
     try {
       const response = await this.request(`/api/v1${path}`, {
-        method: body === undefined ? 'GET' : 'POST', credentials: 'same-origin', cache: 'no-store',
+        method, credentials: 'same-origin', cache: 'no-store',
         signal: controller.signal, headers: { Accept: 'application/json', ...(body === undefined ? {} : { 'Content-Type': 'application/json', ...(this.csrfToken ? { 'X-CSRF-Token': this.csrfToken } : {}) }) },
         ...(body === undefined ? {} : { body: JSON.stringify(body) }),
       });

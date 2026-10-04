@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101919" />
+    <title>Баланс · Бесконечный путь</title>
+  </head>
+  <body class="balance-page">
+    <main id="balance-app" class="balance-shell">
+      <header class="balance-header"><div><p class="eyebrow">БЕСКОНЕЧНЫЙ ПУТЬ</p><h1>Игровой баланс</h1></div><a href="/">В игру →</a></header>
+      <p class="balance-notice">Меняй правила следующего забега. Начатые и сохранённые забеги продолжаются на закреплённой версии баланса.</p>
+      <p id="balance-status" role="status" aria-live="polite">Проверяем доступ…</p>
+      <p id="balance-error" class="error-message" role="alert" hidden></p>
+      <form id="balance-login" class="login-form" hidden>
+        <label>Логин<input name="login" autocomplete="username" required maxlength="120"></label>
+        <label>Пароль<input name="password" type="password" autocomplete="current-password" required maxlength="256"></label>
+        <button type="submit" class="primary">Войти</button>
+        <p class="control-hint">Нужен выданный аккаунт с правом управления балансом.</p>
+      </form>
+      <form id="balance-form" hidden>
+        <div class="balance-toolbar"><button id="balance-save" type="submit" class="primary" disabled>Сохранить для новых забегов</button><button id="balance-reload" type="button" class="secondary">Загрузить текущую версию</button><button id="balance-logout" type="button" class="secondary">Выйти</button></div>
+        <p id="balance-draft" class="control-hint" role="status"></p>
+        <div id="balance-fields"></div>
+      </form>
+    </main>
+    <script type="module" src="/src/admin/balance.ts"></script>
+  </body>
+</html>

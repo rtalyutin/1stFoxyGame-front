@@ -1,7 +1,9 @@
 import type { Command } from '../game/simulation';
-import { EQUIPMENT_CATALOG, validateProfile as validateDomainProfile, validateRecipe } from '../game/equipment';
+import { validateCatalog as validateDomainCatalog, validateProfile as validateDomainProfile, validateRecipe } from '../game/equipment';
 import type { EquipmentCatalog, Operation, OperationResult, Profile, RunView } from '../game/equipment';
 import { ApiError, GameApi, TransportError } from './api';
+import { validateBalanceDocument, validatePinnedBalance } from './balance';
+import type { BalanceDocument, PinnedBalance } from './balance';
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const KEY = 'foxy-r34-client';
@@ -67,12 +69,8 @@ export function validateProfile(value: unknown): Profile {
   catch { throw new ApiError('CORRUPT_PROFILE', 'Профиль повреждён. Имущество не изменено; повтори загрузку.', 503); }
 }
 export function validateEquipmentCatalog(value: unknown): EquipmentCatalog {
-  if (JSON.stringify(value) !== JSON.stringify(EQUIPMENT_CATALOG)) {
-    // Compare canonical keys, not JSON property insertion order.
-    const canonical = (v: unknown): unknown => Array.isArray(v) ? v.map(canonical) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).sort(([a],[b]) => a.localeCompare(b)).map(([k,x]) => [k,canonical(x)])) : v;
-    if (JSON.stringify(canonical(value)) !== JSON.stringify(canonical(EQUIPMENT_CATALOG))) throw new ApiError('CATALOG_ERROR', 'Каталог экипировки не соответствует сборке. Обнови страницу.', 503);
-  }
-  return structuredClone(value) as EquipmentCatalog;
+  try { return validateDomainCatalog(value); }
+  catch { throw new ApiError('CATALOG_ERROR', 'Каталог экипировки повреждён или несовместим. Повтори загрузку.', 503); }
 }
 /** Independent metadata lets the UI close an incompatible snapshot safely. */
 export function validateRunView(value: unknown): RunView | null {
@@ -83,7 +81,7 @@ export function validateRunView(value: unknown): RunView | null {
     || typeof view.updatedAt !== 'string' || !Number.isFinite(Date.parse(view.updatedAt))) {
     throw new ApiError('CORRUPT_RUN', 'Метаданные забега повреждены. Повтори загрузку профиля.', 503);
   }
-  try { validateRecipe(view.loot); } catch { throw new ApiError('CORRUPT_RUN', 'Подтверждённая добыча забега повреждена. Повтори загрузку профиля.', 503); }
+  try { validateRecipe(view.loot); validatePinnedBalance(view.balance); } catch { throw new ApiError('CORRUPT_RUN', 'Подтверждённые настройки или добыча забега повреждены. Повтори загрузку профиля.', 503); }
   return structuredClone(value) as RunView;
 }
 export function goldText(milli: string): string {
@@ -93,7 +91,13 @@ export function goldText(milli: string): string {
 export class ProfileSession {
   profile: Profile | null = null;
   run: RunView | null = null;
-  catalog: EquipmentCatalog | null = null;
+  balance: BalanceDocument | null = null;
+  previewState: 'idle' | 'loading' | 'ready' | 'error' = 'idle';
+  previewError = '';
+  private previewRequest: Promise<void> | null = null;
+  private balanceEpoch = 0;
+  get pinnedBalance(): PinnedBalance | null { return this.run?.balance ?? this.balance; }
+  get catalog(): EquipmentCatalog | null { return this.pinnedBalance?.compiled.equipment ?? null; }
   pending: Operation | null = null;
   private requestPending = false;
   private pendingAccountId: string | null = null;
@@ -108,10 +112,30 @@ export class ProfileSession {
   }
   async load(): Promise<void> {
     await this.identity.ready;
-    const [profile, catalog, run] = await Promise.all([this.api.call<Profile>('/profile'), this.api.call<EquipmentCatalog>('/economy/catalog'), this.api.call<RunView | null>(`/run?clientId=${this.clientId}`)]);
-    this.acceptProfile(profile); this.catalog = validateEquipmentCatalog(catalog); this.run = validateRunView(run);
+    this.invalidatePreview();
+    const [profile, balance, run] = await Promise.all([this.api.call<Profile>('/profile'), this.api.call<BalanceDocument>('/balance'), this.api.call<RunView | null>(`/run?clientId=${this.clientId}`)]);
+    this.acceptProfile(profile); this.balance = validateBalanceDocument(balance); this.previewState = 'ready'; this.run = validateRunView(run);
     if (this.pending && this.pendingAccountId !== this.profile!.accountId) this.clearPending();
     if (this.pending) await this.recover();
+  }
+  private invalidatePreview(): void {
+    this.balanceEpoch++; this.previewRequest = null; this.balance = null; this.previewState = 'idle'; this.previewError = '';
+  }
+  /** A preview read cannot undo or retry a committed game operation. */
+  refreshBalancePreview(): Promise<void> {
+    if (this.run || !this.profile) return Promise.resolve();
+    if (this.previewRequest) return this.previewRequest;
+    const epoch = ++this.balanceEpoch, accountId = this.profile.accountId;
+    this.balance = null; this.previewState = 'loading'; this.previewError = '';
+    const current = () => epoch === this.balanceEpoch && !this.run && this.profile?.accountId === accountId;
+    const request = this.api.call('/balance').then(value => {
+      if (!current()) return;
+      this.balance = validateBalanceDocument(value); this.previewState = 'ready';
+    }).catch(() => {
+      if (!current()) return;
+      this.balance = null; this.previewState = 'error'; this.previewError = 'Предпросмотр баланса недоступен. Цены и модификаторы не показаны. Подтверждённые действия сохранены; повтори загрузку предпросмотра.';
+    }).finally(() => { if (epoch === this.balanceEpoch) this.previewRequest = null; });
+    this.previewRequest = request; return request;
   }
   acceptProfile(value: unknown): boolean {
     const incoming = validateProfile(value);
@@ -123,7 +147,11 @@ export class ProfileSession {
     if (!result || result.status !== 'committed' || !this.pending || result.operationId !== this.pending.operationId) throw new ApiError('CORRUPT_OPERATION', 'Ответ операции повреждён. Повторно проверим её результат.', 503);
     // Replayed historic results cannot roll a newly loaded profile/run back.
     if (result.profile.accountId !== this.pendingAccountId) throw new ApiError('CORRUPT_OPERATION', 'Ответ операции принадлежит другому аккаунту.', 503);
-    if (this.acceptProfile(result.profile)) this.run = validateRunView(result.run);
+    if (this.acceptProfile(result.profile)) {
+      const run = validateRunView(result.run);
+      if (this.run?.runId !== run?.runId) this.invalidatePreview();
+      this.run = run;
+    }
     this.clearPending();
     return result;
   }
@@ -170,7 +198,7 @@ export class ProfileSession {
     try { return await this.lookupOrRetry(); } finally { this.requestPending = false; }
   }
   private clearPending(): void { this.pending = null; this.pendingAccountId = null; try { this.storage?.removeItem(PENDING_KEY); } catch { /* optional command cache */ } }
-  clearIdentity(): void { this.profile = null; this.run = null; this.catalog = null; }
+  clearIdentity(): void { this.profile = null; this.run = null; this.invalidatePreview(); }
 }
 /** Every fixed frame is journaled. In-flight frames remain recoverable on errors. */
 export class FrameJournal {
