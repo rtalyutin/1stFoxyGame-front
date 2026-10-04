@@ -1,0 +1,148 @@
+name: foxy-r2
+services:
+  postgres:
+    image: postgres:18.6-bookworm@sha256:3725f4e2499eef5134592b3b4ab79a543ed7f8e533b05b5b637af926630f6650
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: foxy_migrator
+      POSTGRES_DB: foxy
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+    - db_password
+    command:
+    - postgres
+    - -c
+    - shared_buffers=64MB
+    - -c
+    - max_connections=10
+    - -c
+    - work_mem=2MB
+    - -c
+    - maintenance_work_mem=32MB
+    volumes:
+    - postgres_data:/var/lib/postgresql
+    mem_limit: 384m
+    shm_size: 128m
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready -U foxy_migrator -d foxy
+      interval: 5s
+      timeout: 3s
+      start_period: 20s
+      retries: 12
+    security_opt:
+    - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '3'
+  migrate:
+    profiles:
+    - migrations
+    image: ${BACK_IMAGE:?Set BACK_IMAGE to the verified backend image ID}
+    pull_policy: never
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL_FILE: /run/secrets/database_url
+    secrets:
+    - database_url
+    command:
+    - node
+    - dist/db/migrate-cli.js
+    read_only: true
+    tmpfs:
+    - /tmp
+    mem_limit: 256m
+    cap_drop:
+    - ALL
+    security_opt:
+    - no-new-privileges:true
+  backend:
+    image: ${BACK_IMAGE:?Set BACK_IMAGE to the verified backend image ID}
+    pull_policy: never
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3001
+      DATABASE_URL_FILE: /run/secrets/runtime_database_url
+    read_only: true
+    tmpfs:
+    - /tmp
+    mem_limit: 192m
+    cap_drop:
+    - ALL
+    security_opt:
+    - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '3'
+    secrets:
+    - runtime_database_url
+    depends_on:
+      postgres:
+        condition: service_healthy
+  frontend:
+    image: ${FRONT_IMAGE:?Set FRONT_IMAGE to the verified frontend image ID}
+    pull_policy: never
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+    - ${BIND_ADDRESS:-127.0.0.1}:${HTTP_PORT:-8081}:8080
+    read_only: true
+    tmpfs:
+    - /tmp
+    mem_limit: 64m
+    cap_drop:
+    - ALL
+    security_opt:
+    - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '3'
+  provision:
+    profiles:
+    - accounts
+    image: ${BACK_IMAGE:?Set BACK_IMAGE to the verified backend image ID}
+    pull_policy: never
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL_FILE: /run/secrets/database_url
+    secrets:
+    - database_url
+    command:
+    - node
+    - dist/profile/provision-cli.js
+    - --file
+    - /run/provision/accounts.json
+    read_only: true
+    tmpfs:
+    - /tmp
+    mem_limit: 256m
+    cap_drop:
+    - ALL
+    security_opt:
+    - no-new-privileges:true
+    volumes:
+    - ${PROVISION_FILE:?Set protected account hash file}:/run/provision/accounts.json:ro
+secrets:
+  db_password:
+    file: ${DB_PASSWORD_FILE:?Set DB_PASSWORD_FILE to a protected local secret file}
+  database_url:
+    file: ${DATABASE_URL_FILE:?Set DATABASE_URL_FILE to a protected local secret file}
+  runtime_database_url:
+    file: ${RUNTIME_DATABASE_URL_FILE:?Set runtime database URL secret file}
+volumes:
+  postgres_data: null

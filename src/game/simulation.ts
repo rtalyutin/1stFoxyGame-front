@@ -1,8 +1,8 @@
-import { DEFAULT_CONFIG, FIXED_STEP, type SimulationConfig } from './config';
+import { DEFAULT_CONFIG, DEFAULT_SHOP_ZONE, FIXED_STEP, type SimulationConfig, type ShopZoneConfig } from './config';
 
 export type Point = { x: number; z: number };
-export type Command = { type: 'move'; axis: number } | { type: 'cast'; aim: Point };
-export type DeathReason = 'contact' | 'breach' | 'projectile';
+export type Command = { type: 'move'; axis: number } | { type: 'cast'; aim: Point } | { type: 'enterShop'; shopId: string; offset?: number };
+export type DeathReason = 'contact' | 'breach' | 'projectile' | 'abandoned';
 export type EnemyKind = 'normal' | 'strong' | 'boss';
 export interface Shooting {
   phase: 'cooldown' | 'telegraph';
@@ -37,6 +37,9 @@ export interface HookConfig {
   readonly returnSpeed: number;
   readonly cooldown: number;
   readonly radius: number;
+  readonly pierceTargets: number;
+  readonly returnHitTargets: number;
+  readonly goldMultiplierMilli: number;
 }
 export interface Hook extends Point {
   castId: string;
@@ -44,10 +47,14 @@ export interface Hook extends Point {
   readonly direction: Readonly<Point>;
   traveled: number;
   capturedEnemyId: string | null;
+  capturedEnemyIds: string[];
+  hitEnemyIds: string[];
+  outboundHits: number;
+  returnHits: number;
   readonly config: Readonly<HookConfig>;
 }
 export interface GameEvent {
-  type: 'cast' | 'castRejected' | 'hit' | 'returned' | 'spawn' | 'gameOver' | 'telegraph' | 'shoot' | 'shopCandidate';
+  type: 'cast' | 'castRejected' | 'hit' | 'returned' | 'spawn' | 'gameOver' | 'telegraph' | 'shoot' | 'shopCandidate' | 'shopEntered' | 'shopLeft' | 'consumed';
   at: number;
   castId?: string;
   enemyId?: string;
@@ -55,11 +62,15 @@ export interface GameEvent {
   lethal?: boolean;
   kind?: EnemyKind;
   projectileId?: string;
+  shopId?: string;
+  definitionId?: string;
+  /** Exact total gold multiplier at this lethal event, before collector decrement. */
+  goldMultiplierMilli?: number;
 }
 export interface RunState {
   runId: string;
   seed: number;
-  phase: 'running' | 'paused' | 'gameOver';
+  phase: 'running' | 'paused' | 'shop' | 'gameOver';
   tick: number;
   time: number;
   distance: number;
@@ -67,6 +78,9 @@ export interface RunState {
   enemies: Enemy[];
   projectiles: Projectile[];
   shopCandidates: ShopCandidate[];
+  usedShopIds: string[];
+  activeShopId: string | null;
+  effects: CombatEffects;
   hook: Hook | null;
   cooldownRemaining: number;
   kills: { normal: number; strong: number; boss: number };
@@ -75,14 +89,46 @@ export interface RunState {
 }
 export interface SimulationOptions {
   config?: Partial<SimulationConfig>;
+  shopZone?: Partial<ShopZoneConfig>;
   initialEnemies?: Array<Point & { id?: string; kind?: EnemyKind; requiredHits?: number; hitsRemaining?: number; shooting?: Shooting | null }>;
   initialProjectiles?: Projectile[];
 }
 
+
+export interface EquipmentModifiers {
+  rangeMultiplier: number; outboundSpeedMultiplier: number; returnSpeedMultiplier: number;
+  cooldown: number; lateralSpeedMultiplier: number; pierceTargets: number; returnHitTargets: number; goldMultiplierMilli: number;
+}
+export interface CombatEffects {
+  slowRemaining: number; slowedEnemyIds: string[]; slowedProjectileIds: string[]; collectorKillsRemaining: number;
+}
+export interface SimulationSnapshot {
+  version: 'r34.1'; state: RunState; config: SimulationConfig; shopZone: ShopZoneConfig; equipment: EquipmentModifiers;
+  randomState: number; counters: { enemy: number; cast: number; projectile: number; shop: number };
+  generator: { spawnDistanceRemaining: number; bossAt: number; shopDistanceRemaining: number };
+}
+export class SimulationRuleError extends Error {
+  constructor(readonly code: string, message = code) { super(message); this.name = 'SimulationRuleError'; }
+}
+const emptyEffects = (): CombatEffects => ({ slowRemaining: 0, slowedEnemyIds: [], slowedProjectileIds: [], collectorKillsRemaining: 0 });
+const validateEquipment = (value: EquipmentModifiers): Readonly<EquipmentModifiers> => {
+  const keys = ['rangeMultiplier', 'outboundSpeedMultiplier', 'returnSpeedMultiplier', 'cooldown', 'lateralSpeedMultiplier', 'pierceTargets', 'returnHitTargets', 'goldMultiplierMilli'];
+  if (!value || typeof value !== 'object' || Object.keys(value).length !== keys.length || keys.some(key => !(key in value))) throw new SimulationRuleError('invalid_modifiers');
+  for (const key of keys) {
+    const n = value[key as keyof EquipmentModifiers];
+    if (!Number.isFinite(n) || n < 0 || n > 10000) throw new SimulationRuleError('invalid_modifiers');
+  }
+  if (value.rangeMultiplier <= 0 || value.outboundSpeedMultiplier <= 0 || value.returnSpeedMultiplier <= 0 || value.lateralSpeedMultiplier <= 0 ||
+    value.rangeMultiplier > 4 || value.outboundSpeedMultiplier > 4 || value.returnSpeedMultiplier > 4 || value.lateralSpeedMultiplier > 4 ||
+    ![1, 2].includes(value.pierceTargets) || ![0, 1].includes(value.returnHitTargets) || value.pierceTargets > 1 && value.returnHitTargets > 0 ||
+    !Number.isInteger(value.goldMultiplierMilli) || value.goldMultiplierMilli < 1000 || value.goldMultiplierMilli > 4000) throw new SimulationRuleError('invalid_modifiers');
+  return Object.freeze({ ...value });
+};
+
 export interface SpawnAssessment { accepted: boolean; reason: 'ok' | 'capacity' | 'deadline' | 'corridor' | 'position'; }
 
 type Motion = { hero: Point; hook: Point; intercept: number | null };
-type EventKind = 'hit' | 'contact' | 'breach' | 'projectileHit' | 'projectileExpired' | 'range' | 'return' | 'boundary' | 'spawn' | 'shotStart' | 'shotRelease' | 'shop';
+type EventKind = 'shopEnter' | 'effectExpired' | 'hit' | 'contact' | 'breach' | 'projectileHit' | 'projectileExpired' | 'range' | 'return' | 'boundary' | 'spawn' | 'shotStart' | 'shotRelease' | 'shop';
 type CollisionEvent = { kind: EventKind; time: number; id: string; priority: number };
 const EPSILON = 1e-9;
 const ZERO: Point = Object.freeze({ x: 0, z: 0 });
@@ -99,6 +145,8 @@ export function resolveHeroProjectileHit(state: RunState, projectileId: string):
   state.phase = 'gameOver';
   state.deathReason = 'projectile';
   state.hook = null;
+  state.effects = emptyEffects();
+  state.activeShopId = null;
   state.events.push({ type: 'gameOver', at: state.time, reason: 'projectile', enemyId: projectile.sourceEnemyId, projectileId });
   return true;
 }
@@ -146,6 +194,8 @@ function returnMotion(hook: Hook, hero: Point, velocity: Point): { velocity: Poi
 export class RunSimulation {
   readonly state: RunState;
   readonly config: Readonly<SimulationConfig>;
+  readonly shopZone: Readonly<ShopZoneConfig>;
+  private equipment: Readonly<EquipmentModifiers>;
   private randomState: number;
   private enemySequence = 0;
   private castSequence = 0;
@@ -181,13 +231,16 @@ export class RunSimulation {
       throw new Error('Invalid simulation timing or capacity');
     }
     this.config = Object.freeze(config);
+    this.shopZone = Object.freeze({ ...DEFAULT_SHOP_ZONE, ...options.shopZone });
+    if (Object.keys(this.shopZone).length !== 2 || Object.values(this.shopZone).some(n => !Number.isFinite(n) || n <= 0 || n > 10)) throw new Error('Invalid shop zone');
+    this.equipment = validateEquipment({ rangeMultiplier: 1, outboundSpeedMultiplier: 1, returnSpeedMultiplier: 1, cooldown: config.hookCooldown, lateralSpeedMultiplier: 1, pierceTargets: 1, returnHitTargets: 0, goldMultiplierMilli: 1000 });
     this.randomState = seed >>> 0;
     this.spawnDistanceRemaining = this.nextSpawnDelay() * this.streamSpeed;
     this.bossAt = config.bossFirstSeconds;
     this.shopDistanceRemaining = this.randomInterval(config.shopMinInterval, config.shopMaxInterval) * this.streamSpeed;
     this.state = {
       runId, seed, phase: 'running', tick: 0, time: 0, distance: 0,
-      hero: { x: 0, z: 0 }, enemies: [], projectiles: [], shopCandidates: [], hook: null, cooldownRemaining: 0,
+      hero: { x: 0, z: 0 }, enemies: [], projectiles: [], shopCandidates: [], usedShopIds: [], activeShopId: null, effects: emptyEffects(), hook: null, cooldownRemaining: 0,
       kills: { normal: 0, strong: 0, boss: 0 }, deathReason: null, events: [],
     };
     for (const enemy of options.initialEnemies ?? []) {
@@ -235,30 +288,124 @@ export class RunSimulation {
     return this.state.phase === 'running' && this.state.hook === null && this.state.cooldownRemaining <= EPSILON;
   }
 
+  get availableShop(): ShopCandidate | null { return this.state.shopCandidates.find(candidate => this.shop(candidate.id) !== null) ?? null; }
+  get canEnterShop(): boolean { return this.availableShop !== null; }
+  shop(id: string): ShopCandidate | null {
+    if (this.state.phase !== 'running' || this.state.usedShopIds.includes(id)) return null;
+    const candidate = this.state.shopCandidates.find(shop => shop.id === id);
+    return candidate && Math.abs(candidate.x - this.state.hero.x) <= this.shopZone.lateralRadius + EPSILON &&
+      Math.abs(candidate.z - this.state.hero.z) <= this.shopZone.longitudinalRadius + EPSILON ? candidate : null;
+  }
+  /** Resolve combat at the current instant before a direct UI/server transition. No tick is advanced. */
+  enterShop(id: string): boolean {
+    if (this.state.phase !== 'running') return false;
+    while (this.state.phase === 'running') {
+      const event = this.nextEvent(this.motion(0), 0);
+      if (!event) break;
+      this.resolve(event);
+    }
+    return this.enterShopNow(id);
+  }
+  private enterShopNow(id: string): boolean {
+    if (!this.shop(id)) return false;
+    this.state.phase = 'shop';
+    this.state.activeShopId = id;
+    this.state.usedShopIds.push(id);
+    this.state.events.push({ type: 'shopEntered', at: this.state.time, shopId: id });
+    return true;
+  }
+  leaveShop(): boolean {
+    if (this.state.phase !== 'shop') return false;
+    this.state.events.push({ type: 'shopLeft', at: this.state.time, shopId: this.state.activeShopId! });
+    this.state.activeShopId = null;
+    this.state.phase = 'paused';
+    return true;
+  }
+  setEquipment(modifiers: EquipmentModifiers): void {
+    const next = validateEquipment(modifiers);
+    if (this.state.phase === 'running' && (this.state.tick > 0 || this.state.hook !== null)) throw new SimulationRuleError('equipment_unavailable');
+    this.equipment = next;
+  }
+  applyConsumable(definitionId: string): true {
+    if (!['slow_dust', 'collector_vial'].includes(definitionId)) throw new SimulationRuleError('invalid_consumable');
+    if (this.state.phase !== 'running') throw new SimulationRuleError('consumable_unavailable');
+    if (definitionId === 'collector_vial') {
+      if (this.state.effects.collectorKillsRemaining > 0) throw new SimulationRuleError('effect_active');
+      this.state.effects.collectorKillsRemaining = 10;
+    } else {
+      this.state.effects.slowRemaining = 3;
+      this.state.effects.slowedEnemyIds = this.state.enemies.filter(enemy => enemy.status === 'alive').map(enemy => enemy.id);
+      this.state.effects.slowedProjectileIds = this.state.projectiles.map(projectile => projectile.id);
+    }
+    this.state.events.push({ type: 'consumed', at: this.state.time, definitionId });
+    return true;
+  }
+  abandon(): void {
+    if (this.state.phase === 'gameOver') return;
+    this.state.phase = 'gameOver'; this.state.deathReason = 'abandoned'; this.state.hook = null;
+    this.state.effects = emptyEffects(); this.state.activeShopId = null;
+    this.state.events.push({ type: 'gameOver', at: this.state.time, reason: 'abandoned' });
+  }
   pause(): void { if (this.state.phase === 'running') this.state.phase = 'paused'; }
   resume(): void { if (this.state.phase === 'paused') this.state.phase = 'running'; }
 
   step(commands: readonly Command[] = []): void {
     if (this.state.phase !== 'running') return;
+    // Reject invalid shop timing before any input/cast or tick mutation.
+    for (const command of commands) if (command.type === 'enterShop' &&
+      (typeof command.shopId !== 'string' || !command.shopId || !Number.isFinite(command.offset ?? 0) || (command.offset ?? 0) < 0 || (command.offset ?? 0) > FIXED_STEP)) {
+      throw new SimulationRuleError('invalid_shop_command');
+    }
     this.state.events = [];
     let axis = 0;
+    const entries: Array<{ shopId: string; at: number }> = [];
     for (const command of commands) {
       if (command.type === 'move') axis = Number.isFinite(command.axis) ? clamp(command.axis, -1, 1) : 0;
-      else this.cast(command.aim);
+      else if (command.type === 'cast') this.cast(command.aim);
+      else entries.push({ shopId: command.shopId, at: this.state.time + (command.offset ?? 0) });
     }
     this.state.tick += 1;
     let remaining = FIXED_STEP;
-    // Continue through zero-time events at the tick boundary: a same-time hit
-    // must not defer another enemy's contact to the following input frame.
+    // Same-time hit/death events are resolved even at the tick boundary. Shop
+    // is lower priority than death and stops the segment exactly at its time.
     while (this.state.phase === 'running') {
       const motion = this.motion(axis);
-      const event = this.nextEvent(motion, remaining);
+      const event = this.nextEvent(motion, remaining, entries);
       const elapsed = event ? clamp(event.time, 0, remaining) : remaining;
       this.advance(motion, elapsed);
-      remaining -= elapsed;
+      remaining = Math.max(0, remaining - elapsed);
       if (!event) break;
-      this.resolve(event);
+      if (event.kind === 'shopEnter') {
+        const index = entries.findIndex(entry => entry.shopId === event.id && Math.abs(entry.at - this.state.time) <= EPSILON);
+        if (index >= 0) entries.splice(index, 1);
+        this.enterShopNow(event.id);
+      } else this.resolve(event);
     }
+  }
+
+  exportSnapshot(): SimulationSnapshot {
+    return structuredClone({
+      version: 'r34.1', state: this.state, config: this.config, shopZone: this.shopZone, equipment: this.equipment,
+      randomState: this.randomState,
+      counters: { enemy: this.enemySequence, cast: this.castSequence, projectile: this.projectileSequence, shop: this.shopSequence },
+      generator: { spawnDistanceRemaining: this.spawnDistanceRemaining, bossAt: this.bossAt, shopDistanceRemaining: this.shopDistanceRemaining },
+    });
+  }
+
+  static restore(value: unknown): RunSimulation {
+    const snapshot = validateSnapshot(value);
+    const simulation = new RunSimulation(snapshot.state.runId, snapshot.state.seed, { config: snapshot.config, shopZone: snapshot.shopZone });
+    Object.assign(simulation.state, structuredClone(snapshot.state));
+    simulation.equipment = validateEquipment(snapshot.equipment);
+    if (simulation.state.hook) {
+      Object.freeze(simulation.state.hook.config); Object.freeze(simulation.state.hook.direction);
+    }
+    simulation.randomState = snapshot.randomState;
+    simulation.enemySequence = snapshot.counters.enemy; simulation.castSequence = snapshot.counters.cast;
+    simulation.projectileSequence = snapshot.counters.projectile; simulation.shopSequence = snapshot.counters.shop;
+    simulation.spawnDistanceRemaining = snapshot.generator.spawnDistanceRemaining;
+    simulation.bossAt = snapshot.generator.bossAt; simulation.shopDistanceRemaining = snapshot.generator.shopDistanceRemaining;
+    return simulation;
   }
 
   private cast(aim: Point): void {
@@ -273,15 +420,15 @@ export class RunSimulation {
     // zero-length and rearward aims do not consume the ability.
     if (!Number.isFinite(length) || length <= EPSILON || dz <= 0) return;
     const settings = Object.freeze({
-      range: this.config.hookRange, outboundSpeed: this.config.hookOutboundSpeed,
-      returnSpeed: this.config.hookReturnSpeed, cooldown: this.config.hookCooldown,
-      radius: this.config.hookRadius,
+      range: this.config.hookRange * this.equipment.rangeMultiplier, outboundSpeed: this.config.hookOutboundSpeed * this.equipment.outboundSpeedMultiplier,
+      returnSpeed: this.config.hookReturnSpeed * this.equipment.returnSpeedMultiplier, cooldown: this.equipment.cooldown,
+      radius: this.config.hookRadius, pierceTargets: this.equipment.pierceTargets, returnHitTargets: this.equipment.returnHitTargets, goldMultiplierMilli: this.equipment.goldMultiplierMilli,
     });
     const castId = `${this.state.runId}:cast:${++this.castSequence}`;
     this.state.hook = {
       ...this.state.hero, castId, phase: 'outbound',
       direction: Object.freeze({ x: dx / length, z: dz / length }),
-      traveled: 0, capturedEnemyId: null, config: settings,
+      traveled: 0, capturedEnemyId: null, capturedEnemyIds: [], hitEnemyIds: [], outboundHits: 0, returnHits: 0, config: settings,
     };
     this.state.cooldownRemaining = settings.cooldown;
     this.state.events.push({ type: 'cast', at: this.state.time, castId });
@@ -289,7 +436,7 @@ export class RunSimulation {
 
   private motion(axis: number): Motion {
     const { hero, hook } = this.state;
-    let vx = axis * this.config.lateralSpeed;
+    let vx = axis * this.config.lateralSpeed * this.equipment.lateralSpeedMultiplier;
     if ((hero.x >= this.config.lateralLimit - EPSILON && vx > 0) ||
         (hero.x <= -this.config.lateralLimit + EPSILON && vx < 0)) vx = 0;
     const heroVelocity = { x: vx, z: this.config.heroSpeed };
@@ -303,7 +450,7 @@ export class RunSimulation {
     return { hero: heroVelocity, hook: returning.velocity, intercept: returning.time };
   }
 
-  private nextEvent(motion: Motion, horizon: number): CollisionEvent | null {
+  private nextEvent(motion: Motion, horizon: number, entries: Array<{ shopId: string; at: number }> = []): CollisionEvent | null {
     const candidates: CollisionEvent[] = [];
     const add = (kind: EventKind, time: number | null, id: string, priority: number) => {
       if (time !== null && Number.isFinite(time) && time >= -EPSILON && time <= horizon + EPSILON) {
@@ -322,7 +469,8 @@ export class RunSimulation {
       const gap = enemy.z - hero.z + this.config.breachOffset;
       const closing = enemySpeed + motion.hero.z;
       add('breach', gap <= EPSILON ? 0 : closing > 0 ? gap / closing : null, enemy.id, 1);
-      if (hook?.phase === 'outbound') add('hit', sweptContact(
+      if (hook && !hook.hitEnemyIds.includes(enemy.id) && !enemy.hitCastIds.includes(hook.castId) &&
+        (hook.phase === 'outbound' && hook.outboundHits < hook.config.pierceTargets || hook.phase === 'returning' && hook.returnHits < hook.config.returnHitTargets)) add('hit', sweptContact(
         { x: enemy.x - hook.x, z: enemy.z - hook.z },
         { x: -motion.hook.x, z: -enemySpeed - motion.hook.z },
         enemy.radius + hook.config.radius,
@@ -332,11 +480,11 @@ export class RunSimulation {
     for (const projectile of this.state.projectiles) {
       add('projectileHit', sweptContact(
         { x: projectile.x - hero.x, z: projectile.z - hero.z },
-        { x: projectile.velocity.x - motion.hero.x, z: projectile.velocity.z - motion.hero.z },
+        { x: this.projectileVelocity(projectile).x - motion.hero.x, z: this.projectileVelocity(projectile).z - motion.hero.z },
         projectile.radius + this.config.heroRadius,
       ), projectile.id, 1);
       add('projectileExpired', projectile.lifetimeRemaining, projectile.id, 3);
-      const closing = motion.hero.z - projectile.velocity.z;
+      const closing = motion.hero.z - this.projectileVelocity(projectile).z;
       const rearGap = projectile.z - hero.z + this.config.breachOffset + projectile.radius + this.config.heroRadius;
       add('projectileExpired', rearGap <= EPSILON ? 0 : closing > 0 ? rearGap / closing : null, projectile.id, 3);
     }
@@ -351,6 +499,8 @@ export class RunSimulation {
       add('spawn', this.spawnDistanceRemaining / this.streamSpeed, '', 5);
       add('shop', this.shopDistanceRemaining / this.streamSpeed, '', 6);
     }
+    if (this.state.effects.slowRemaining > 0) add('effectExpired', this.state.effects.slowRemaining, '', 3);
+    for (const entry of entries) add('shopEnter', entry.at - this.state.time, entry.shopId, 7);
     const compare = (a: string, b: string) => a === b ? 0 : a < b ? -1 : 1;
     candidates.sort((a, b) => Math.abs(a.time - b.time) > EPSILON ? a.time - b.time :
       a.priority - b.priority || compare(a.id, b.id) || compare(a.kind, b.kind));
@@ -371,17 +521,18 @@ export class RunSimulation {
       if (enemy.shooting) enemy.shooting.remaining = Math.max(0, enemy.shooting.remaining - elapsed);
     }
     for (const projectile of state.projectiles) {
-      projectile.x += projectile.velocity.x * elapsed;
-      projectile.z += projectile.velocity.z * elapsed;
+      const velocity = this.projectileVelocity(projectile);
+      projectile.x += velocity.x * elapsed;
+      projectile.z += velocity.z * elapsed;
       projectile.lifetimeRemaining = Math.max(0, projectile.lifetimeRemaining - elapsed);
     }
-    state.shopCandidates = state.shopCandidates.filter((shop) => shop.z >= state.hero.z - this.config.breachOffset);
+    state.effects.slowRemaining = Math.max(0, state.effects.slowRemaining - elapsed);
+    state.shopCandidates = state.shopCandidates.filter((shop) => shop.z >= state.hero.z - this.shopZone.longitudinalRadius - EPSILON);
     if (state.hook) {
       state.hook.x += motion.hook.x * elapsed;
       state.hook.z += motion.hook.z * elapsed;
       if (state.hook.phase === 'outbound') state.hook.traveled += state.hook.config.outboundSpeed * elapsed;
-      const body = state.enemies.find((enemy) => enemy.id === state.hook?.capturedEnemyId);
-      if (body) { body.x = state.hook.x; body.z = state.hook.z; }
+      for (const body of state.enemies.filter(enemy => state.hook!.capturedEnemyIds.includes(enemy.id))) { body.x = state.hook.x; body.z = state.hook.z; }
     }
   }
 
@@ -396,22 +547,29 @@ export class RunSimulation {
         enemy.hitCastIds.push(hook.castId);
         enemy.hitsRemaining -= 1;
       }
+      hook.hitEnemyIds.push(enemy.id);
+      if (hook.phase === 'outbound') hook.outboundHits += 1; else hook.returnHits += 1;
       const lethal = enemy.hitsRemaining === 0;
+      let goldMultiplierMilli: number | undefined;
       if (lethal) {
         enemy.status = 'captured';
         enemy.shooting = null;
         enemy.x = hook.x;
         enemy.z = hook.z;
-        hook.capturedEnemyId = enemy.id;
+        hook.capturedEnemyId ??= enemy.id;
+        hook.capturedEnemyIds.push(enemy.id);
         state.kills[enemy.kind] += 1;
+        goldMultiplierMilli = hook.config.goldMultiplierMilli * (state.effects.collectorKillsRemaining > 0 ? 1.5 : 1);
+        if (state.effects.collectorKillsRemaining > 0) state.effects.collectorKillsRemaining -= 1;
       }
-      // A surviving boss stays on its route; the empty hook comes back.
-      hook.phase = 'returning';
-      state.events.push({ type: 'hit', at: state.time, enemyId: enemy.id, castId: hook.castId, lethal, kind: enemy.kind });
+      // Pierce continues after a surviving boss too. Every target stays in the
+      // per-cast set, so a return can only credit a previously untouched enemy.
+      if (hook.phase === 'outbound' && hook.outboundHits >= hook.config.pierceTargets) hook.phase = 'returning';
+      state.events.push({ type: 'hit', at: state.time, enemyId: enemy.id, castId: hook.castId, lethal, kind: enemy.kind, ...(goldMultiplierMilli === undefined ? {} : { goldMultiplierMilli }) });
     } else if (event.kind === 'contact' || event.kind === 'breach') {
       state.phase = 'gameOver';
       state.deathReason = event.kind;
-      state.hook = null;
+      state.hook = null; state.effects = emptyEffects(); state.activeShopId = null;
       state.events.push({ type: 'gameOver', at: state.time, reason: event.kind, enemyId: event.id });
     } else if (event.kind === 'projectileHit') resolveHeroProjectileHit(state, event.id);
     else if (event.kind === 'projectileExpired') state.projectiles = state.projectiles.filter((projectile) => projectile.id !== event.id);
@@ -425,9 +583,11 @@ export class RunSimulation {
       state.shopCandidates.push(candidate);
       state.events.push({ type: 'shopCandidate', at: state.time });
       this.shopDistanceRemaining = this.randomInterval(this.config.shopMinInterval, this.config.shopMaxInterval) * this.streamSpeed;
+    } else if (event.kind === 'effectExpired') {
+      state.effects.slowRemaining = 0; state.effects.slowedEnemyIds = []; state.effects.slowedProjectileIds = [];
     } else if (event.kind === 'range' && hook) hook.phase = 'returning';
     else if (event.kind === 'return' && hook) {
-      state.enemies = state.enemies.filter((enemy) => enemy.id !== hook.capturedEnemyId);
+      state.enemies = state.enemies.filter((enemy) => !hook.capturedEnemyIds.includes(enemy.id));
       state.events.push({ type: 'returned', at: state.time, castId: hook.castId });
       state.hook = null;
     } else if (event.kind === 'spawn') {
@@ -448,7 +608,14 @@ export class RunSimulation {
     };
   }
 
-  private enemySpeed(enemy: Enemy): number { return enemy.kind === 'boss' ? this.config.bossEnemySpeed : this.config.enemySpeed; }
+  private enemySpeed(enemy: Enemy): number {
+    const base = enemy.kind === 'boss' ? this.config.bossEnemySpeed : this.config.enemySpeed;
+    return base * (this.state.effects.slowRemaining > 0 && this.state.effects.slowedEnemyIds.includes(enemy.id) ? 0.65 : 1);
+  }
+  private projectileVelocity(projectile: Projectile): Point {
+    const factor = this.state.effects.slowRemaining > 0 && this.state.effects.slowedProjectileIds.includes(projectile.id) ? 0.65 : 1;
+    return { x: projectile.velocity.x * factor, z: projectile.velocity.z * factor };
+  }
 
   // Production stream milestones are metres of forward progress. A stationary
   // fixture uses active seconds only to retain R1's isolated capacity tests.
@@ -638,4 +805,96 @@ export class RunSimulation {
   }
 
   private randomInterval(min: number, max: number): number { return min + this.random() * (max - min); }
+}
+
+/** Strict finite/range validation is shared by the browser and server replay. */
+function validateSnapshot(value: unknown): SimulationSnapshot {
+  const fail = (): never => { throw new SimulationRuleError('invalid_snapshot'); };
+  const object = (v: unknown): Record<string, unknown> => !v || typeof v !== 'object' || Array.isArray(v) ? fail() : v as Record<string, unknown>;
+  const number = (v: unknown, min = 0, max = 1e12, integer = false): number => typeof v !== 'number' || !Number.isFinite(v) || v < min || v > max || integer && !Number.isSafeInteger(v) ? fail() : v;
+  const string = (v: unknown): string => typeof v !== 'string' || v.length < 1 || v.length > 512 ? fail() : v;
+  const list = (v: unknown, limit = 10000): unknown[] => !Array.isArray(v) || v.length > limit ? fail() : v;
+  const ids = (v: unknown, limit = 10000): string[] => {
+    const a = list(v, limit).map(string); if (new Set(a).size !== a.length) fail(); return a;
+  };
+  const point = (v: unknown) => { const p = object(v); number(p.x, -1e12); number(p.z, -1e12); };
+  const oneOf = (v: unknown, values: readonly unknown[]) => { if (!values.includes(v)) fail(); };
+  const root = object(value);
+  if (root.version !== 'r34.1') throw new SimulationRuleError('snapshot_version_mismatch');
+  const cfg = object(root.config);
+  if (Object.keys(cfg).length !== Object.keys(DEFAULT_CONFIG).length) fail();
+  for (const [key, base] of Object.entries(DEFAULT_CONFIG)) {
+    if (typeof base === 'boolean') { if (typeof cfg[key] !== 'boolean') fail(); }
+    else number(cfg[key], 0, 10000);
+  }
+  const config = cfg as unknown as SimulationConfig;
+  const zone = object(root.shopZone); if (Object.keys(zone).length !== 2) fail();
+  number(zone.lateralRadius, EPSILON, 10); number(zone.longitudinalRadius, EPSILON, 10);
+  validateEquipment(root.equipment as EquipmentModifiers);
+  number(root.randomState, 0, 0xffffffff, true);
+  const counters = object(root.counters); for (const key of ['enemy', 'cast', 'projectile', 'shop']) number(counters[key], 0, Number.MAX_SAFE_INTEGER, true);
+  const generator = object(root.generator);
+  number(generator.spawnDistanceRemaining, -1e12, 1e12);
+  number(generator.shopDistanceRemaining, -1e12, 1e12); number(generator.bossAt);
+  const state = object(root.state); string(state.runId); number(state.seed, -Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+  oneOf(state.phase, ['running', 'paused', 'shop', 'gameOver']); number(state.tick, 0, Number.MAX_SAFE_INTEGER, true);
+  const time = number(state.time); number(state.distance); point(state.hero);
+  const hero = object(state.hero); number(hero.x, -config.lateralLimit - EPSILON, config.lateralLimit + EPSILON);
+  if (Math.abs(number(hero.z) - number(state.distance)) > EPSILON) fail();
+  number(state.cooldownRemaining, 0, 10000);
+  const kills = object(state.kills); for (const kind of ['normal', 'strong', 'boss']) number(kills[kind], 0, Number.MAX_SAFE_INTEGER, true);
+  const used = ids(state.usedShopIds); if (state.activeShopId !== null) string(state.activeShopId);
+  if (state.phase === 'shop' && (state.activeShopId === null || !used.includes(state.activeShopId as string))) fail();
+  if (state.phase !== 'shop' && state.activeShopId !== null) fail();
+  oneOf(state.deathReason, [null, 'contact', 'breach', 'projectile', 'abandoned']);
+  if ((state.phase === 'gameOver') !== (state.deathReason !== null)) fail();
+  const effects = object(state.effects); number(effects.slowRemaining, 0, 3); ids(effects.slowedEnemyIds); ids(effects.slowedProjectileIds);
+  number(effects.collectorKillsRemaining, 0, 10, true);
+  const enemies = list(state.enemies, config.maxEnemies + 3); ids(enemies.map(v => object(v).id));
+  for (const v of enemies) {
+    const enemy = object(v); point(enemy); string(enemy.id); oneOf(enemy.kind, ['normal', 'strong', 'boss']);
+    oneOf(enemy.status, ['alive', 'captured']); number(enemy.radius, EPSILON, 10000);
+    const hits = number(enemy.requiredHits, enemy.kind === 'boss' ? 3 : 1, 10000, true);
+    if (enemy.kind !== 'boss' && hits !== 1) fail();
+    number(enemy.hitsRemaining, enemy.status === 'alive' ? 1 : 0, hits, true);
+    if (enemy.status === 'captured' && enemy.hitsRemaining !== 0) fail();
+    ids(enemy.hitCastIds, hits);
+    if (enemy.shooting !== null) {
+      if (enemy.kind === 'normal' || enemy.status !== 'alive') fail();
+      const shooting = object(enemy.shooting); oneOf(shooting.phase, ['cooldown', 'telegraph']); number(shooting.remaining, 0, 10000);
+      const directions = list(shooting.directions, 3);
+      if (directions.length !== (shooting.phase === 'cooldown' ? 0 : enemy.kind === 'boss' ? 3 : 1)) fail();
+      for (const dir of directions) { point(dir); const p = dir as Point; if (Math.abs(Math.hypot(p.x, p.z) - 1) > EPSILON) fail(); }
+    }
+  }
+  const projectiles = list(state.projectiles, config.maxProjectiles); ids(projectiles.map(v => object(v).id));
+  for (const v of projectiles) { const p = object(v); point(p); point(p.velocity); string(p.id); string(p.sourceEnemyId); number(p.radius, 0, 10000); number(p.lifetimeRemaining, 0, 10000); }
+  const shops = list(state.shopCandidates); ids(shops.map(v => object(v).id));
+  for (const v of shops) { const shop = object(v); string(shop.id); point(shop); number(shop.at, 0, time + EPSILON); }
+  if (state.hook !== null) {
+    if (state.phase === 'gameOver') fail();
+    const hook = object(state.hook); point(hook); string(hook.castId); oneOf(hook.phase, ['outbound', 'returning']);
+    point(hook.direction); const dir = hook.direction as Point; if (Math.abs(Math.hypot(dir.x, dir.z) - 1) > EPSILON || dir.z <= 0) fail();
+    const settings = object(hook.config);
+    for (const key of ['range', 'outboundSpeed', 'returnSpeed']) number(settings[key], EPSILON, 100000);
+    number(settings.cooldown, 0, 10000); number(settings.radius, 0, 10000); number(settings.goldMultiplierMilli, 1000, 4000, true);
+    oneOf(settings.pierceTargets, [1, 2]); oneOf(settings.returnHitTargets, [0, 1]);
+    if (settings.pierceTargets === 2 && settings.returnHitTargets === 1) fail();
+    number(hook.traveled, 0, number(settings.range) + EPSILON);
+    const captured = ids(hook.capturedEnemyIds, 3), hit = ids(hook.hitEnemyIds, 3);
+    const outboundHits = number(hook.outboundHits, 0, settings.pierceTargets as number, true), returnHits = number(hook.returnHits, 0, settings.returnHitTargets as number, true);
+    if (outboundHits + returnHits !== hit.length || captured.some(id => !hit.includes(id))) fail();
+    if (hook.capturedEnemyId !== null && (!captured.includes(hook.capturedEnemyId as string) || typeof hook.capturedEnemyId !== 'string')) fail();
+    if ((captured.length === 0) !== (hook.capturedEnemyId === null)) fail();
+    for (const id of captured) if (!enemies.some(v => object(v).id === id && object(v).status === 'captured')) fail();
+  }
+  for (const v of list(state.events, 10000)) {
+    const event = object(v); oneOf(event.type, ['cast', 'castRejected', 'hit', 'returned', 'spawn', 'gameOver', 'telegraph', 'shoot', 'shopCandidate', 'shopEntered', 'shopLeft', 'consumed']);
+    number(event.at, 0, time + EPSILON);
+    for (const key of ['castId', 'enemyId', 'projectileId', 'shopId', 'definitionId']) if (event[key] !== undefined) string(event[key]);
+    if (event.lethal !== undefined && typeof event.lethal !== 'boolean') fail();
+    if (event.goldMultiplierMilli !== undefined) number(event.goldMultiplierMilli, 1000, 6000);
+  }
+  if (state.phase === 'gameOver' && (effects.slowRemaining !== 0 || effects.collectorKillsRemaining !== 0)) fail();
+  return structuredClone(root) as unknown as SimulationSnapshot;
 }

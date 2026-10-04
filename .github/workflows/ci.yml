@@ -1,4 +1,4 @@
-name: R2 CI
+name: R3-R4 CI
 
 on:
   pull_request:
@@ -15,14 +15,14 @@ defaults:
     shell: bash
 
 concurrency:
-  group: r2-ci-${{ github.workflow }}-${{ github.ref }}
+  group: r34-ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   verify:
-    name: R2 verify
+    name: R3-R4 verify
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 20
     env:
       CI: 'true'
       SOURCE_SHA: ${{ github.sha }}
@@ -54,9 +54,9 @@ jobs:
         run: npm ci
       - name: Typecheck
         run: npm run typecheck
-      - name: Validate the R2 content contract
+      - name: Validate the combat content contract
         run: npm run validate:content
-      - name: Verify R1 and deterministic R2 scenarios
+      - name: Verify combat, items and profile scenarios
         run: npm test
       - name: Build
         run: npm run build
@@ -86,30 +86,38 @@ jobs:
           npm run typecheck
           npm run validate:content
           npm test
-          npm run test:db
+          timeout --signal=TERM --kill-after=5s 150s npm run test:db
           npm run build
+          npm run db:migrate
           docker build --build-arg SOURCE_SHA="$BACKEND_SHA" --tag "foxy-back:$BACKEND_SHA" .
       - name: Verify frontend and paired backend catalog compatibility
         env:
           BACKEND_CATALOG_PATH: ${{ github.workspace }}/.ci-backend/content/catalog.json
         run: npm run validate:content
+      - name: Verify equipment catalog and authoritative simulation parity
+        run: npm run validate:r34-pair
       - name: Package tested build
         run: |
           docker build --build-arg SOURCE_SHA="$SOURCE_SHA" --tag "foxy-front:$SOURCE_SHA" .
       - name: Smoke test the real frontend and backend pair
         env:
           BACKEND_SHA: ${{ steps.backend-ref.outputs.sha }}
+          PG_TEST_CONTAINER: ${{ job.services.postgres.id }}
+          DATABASE_URL: postgresql://foxy_ci:ci_ephemeral_only@127.0.0.1:${{ job.services.postgres.ports[5432] }}/foxy_ci
+          SMOKE_ORIGIN: http://127.0.0.1:18080
         run: |
-          trap 'docker logs foxy-smoke; docker logs foxy-back-smoke; docker rm -f foxy-smoke foxy-back-smoke; docker network rm foxy-smoke-net' EXIT
-          docker network create foxy-smoke-net
-          docker run --detach --name foxy-back-smoke --network foxy-smoke-net --network-alias backend --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true "foxy-back:$BACKEND_SHA"
-          docker run --detach --name foxy-smoke --network foxy-smoke-net --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true --publish 127.0.0.1:18080:8080 "foxy-front:$SOURCE_SHA"
+          trap 'docker logs foxy-smoke; docker logs foxy-back-smoke; docker rm -f foxy-smoke foxy-back-smoke' EXIT
+          smoke_network=$(docker inspect --format '{{json .NetworkSettings.Networks}}' "$PG_TEST_CONTAINER" | node -e 'let s=""; process.stdin.on("data",c=>s+=c).on("end",()=>{const names=Object.keys(JSON.parse(s)); if(names.length!==1)process.exit(1); console.log(names[0])})')
+          docker run --detach --name foxy-back-smoke --network "$smoke_network" --network-alias backend --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true --env DATABASE_URL=postgresql://foxy_ci:ci_ephemeral_only@postgres:5432/foxy_ci "foxy-back:$BACKEND_SHA"
+          docker run --detach --name foxy-smoke --network "$smoke_network" --read-only --tmpfs /tmp --cap-drop ALL --security-opt no-new-privileges:true --publish 127.0.0.1:18080:8080 "foxy-front:$SOURCE_SHA"
           curl --fail --silent --show-error --retry 10 --retry-delay 1 --retry-all-errors --retry-max-time 30 --max-time 3 --connect-timeout 3 http://127.0.0.1:18080/healthz
           curl --fail --silent --show-error --retry 10 --retry-delay 1 --retry-all-errors --retry-max-time 30 --max-time 3 --connect-timeout 3 http://127.0.0.1:18080/api/v1/health | node -e 'let s=""; process.stdin.on("data",c=>s+=c).on("end",()=>{const h=JSON.parse(s); if(h.status!=="ok"||h.apiVersion!=="1"||!Number.isFinite(Date.parse(h.serverTime)))process.exit(1)})'
+          docker exec foxy-back-smoke node -e "fetch('http://127.0.0.1:3001/readyz').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
           curl --fail --silent --show-error http://127.0.0.1:18080/version.json | node -e 'let s=""; process.stdin.on("data",c=>s+=c).on("end",()=>{if(JSON.parse(s).revision!==process.env.SOURCE_SHA)process.exit(1)})'
           test "$(docker inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' foxy-back-smoke)" = "$BACKEND_SHA"
           curl --fail --silent --show-error --max-time 3 http://127.0.0.1:18080/api/v1/catalog > /tmp/foxy-runtime-catalog.json
           node --input-type=module -e 'import {readFileSync} from "node:fs"; import {deepStrictEqual} from "node:assert"; deepStrictEqual(JSON.parse(readFileSync("/tmp/foxy-runtime-catalog.json", "utf8")), JSON.parse(readFileSync(".ci-backend/content/catalog.json", "utf8")))'
+          node .ci-backend/test/smoke-pair.mjs
       - name: Verify the packaged PostgreSQL migration runner
         env:
           BACKEND_SHA: ${{ steps.backend-ref.outputs.sha }}
@@ -135,7 +143,9 @@ jobs:
           docker save "foxy-back:$BACKEND_SHA" | gzip -n > artifact/backend-image.tar.gz
           docker image inspect --format '{{.Id}}' "foxy-back:$BACKEND_SHA" > artifact/backend-image-id.txt
           printf '%s\n' "$BACKEND_SHA" > artifact/backend-source-sha.txt
-          (cd artifact && sha256sum image.tar.gz dist.tar.gz deploy.tar.gz image-id.txt source-sha.txt backend-image.tar.gz backend-image-id.txt backend-source-sha.txt > SHA256SUMS)
+          node --input-type=module -e 'import {readFileSync,writeFileSync} from "node:fs"; const read=p=>readFileSync(`artifact/${p}`,"utf8").trim(); const release={release:"R3/R4 without new graphics",frontend:{source:read("source-sha.txt"),image:read("image-id.txt")},backend:{source:read("backend-source-sha.txt"),image:read("backend-image-id.txt")}}; writeFileSync("artifact/release.json",JSON.stringify(release,null,2)+"\n")'
+          cat artifact/release.json
+          (cd artifact && sha256sum image.tar.gz dist.tar.gz deploy.tar.gz image-id.txt source-sha.txt backend-image.tar.gz backend-image-id.txt backend-source-sha.txt release.json > SHA256SUMS)
       - name: Upload review artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
