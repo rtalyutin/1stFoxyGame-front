@@ -4,6 +4,9 @@ import type { Operation, Profile } from '../game/equipment';
 import { ApiError, GameApi } from './api';
 import type { TabChannel } from './profile';
 import { FrameJournal, ProfileSession, clientId, goldText, validateEquipmentCatalog, validateProfile, validateRunView, TabIdentity } from './profile';
+import { balanceFixture } from './balance.fixture';
+import { RunSimulation } from '../game/simulation';
+import { recipeCost } from '../game/equipment';
 const accountId = '69e7e09c-c672-47e0-8a6b-b26b3e9966cb';
 const otherAccountId = '9ce360de-6e08-4a53-8f3e-0e98811a9c43';
 const profile = (revision = 0): Profile => ({...createEmptyProfile(accountId),revision});
@@ -21,7 +24,7 @@ describe('server profile and operation recovery', () => {
     expect(validateEquipmentCatalog(structuredClone(EQUIPMENT_CATALOG))).toEqual(EQUIPMENT_CATALOG);
   });
   it('retains trusted run metadata even when the simulation snapshot is incompatible', () => {
-    const view = {runId:crypto.randomUUID(),loot:{goldMilli:'7500',components:{steel:1,ember:0,core:0}},control:'owner',ownerEpoch:2,updatedAt:'2026-10-03T10:00:00Z',snapshot:null};
+    const view = {runId:crypto.randomUUID(),loot:{goldMilli:'7500',components:{steel:1,ember:0,core:0}},control:'owner',ownerEpoch:2,updatedAt:'2026-10-03T10:00:00Z',snapshot:null,balance:balanceFixture()};
     expect(validateRunView(view)?.runId).toBe(view.runId);
     expect(() => validateRunView({...view,runId:undefined})).toThrow(ApiError);
     expect(() => validateRunView({...view,ownerEpoch:NaN})).toThrow(ApiError);
@@ -64,7 +67,7 @@ describe('server profile and operation recovery', () => {
     await expect(offline.operate('craft',{definitionId:'slow_dust'})).rejects.toMatchObject({code:'OPERATION_PENDING'});
     // A new account must never replay an old account's pending purchase.
     const oldOp = offline.pending!; storage.setItem('foxy-r34-pending',JSON.stringify({accountId,operation:oldOp}));
-    const request = vi.fn(async (url: unknown) => String(url).endsWith('/profile') ? json(createEmptyProfile(otherAccountId)) : String(url).endsWith('/economy/catalog') ? json(EQUIPMENT_CATALOG) : json(null));
+    const request = vi.fn(async (url: unknown) => String(url).endsWith('/profile') ? json(createEmptyProfile(otherAccountId)) : String(url).endsWith('/balance') ? json(balanceFixture()) : json(null));
     const other = new ProfileSession(new GameApi(request),storage); await other.load(); expect(other.pending).toBeNull(); expect(request).toHaveBeenCalledTimes(3);
   });
   it('historic replay does not roll back a current profile revision', async () => {
@@ -79,6 +82,39 @@ describe('server profile and operation recovery', () => {
     const state = new ProfileSession(new GameApi(request)); state.acceptProfile(profile(4));
     await expect(state.operate('craft',{definitionId:'long_link'})).rejects.toMatchObject({code:'REVISION_CONFLICT'});
     expect(request).toHaveBeenCalledTimes(1); expect(state.pending).toBeNull(); expect(state.profile?.revision).toBe(4);
+  });
+  it('renders saved-run prices and modifiers from its pinned revision until start_run returns a new one', async () => {
+    const old=balanceFixture(),latest=balanceFixture(); latest.revision='ca5b0000-0000-5000-a000-000000000010'; latest.compiled.config.heroSpeed=3; latest.compiled.config.hookCooldown=1; latest.compiled.baseModifiers={...latest.compiled.baseModifiers,cooldown:1};
+    latest.compiled.equipment.items[0].levels[0].recipe.goldMilli='200000';
+    const runId=crypto.randomUUID(); const view=(balance:typeof old)=>({runId,loot:{goldMilli:'0',components:{steel:0,ember:0,core:0}},control:'owner',ownerEpoch:1,updatedAt:'2026-10-03T10:00:00Z',balance,snapshot:new RunSimulation(runId,7,{config:balance.compiled.config,shopZone:balance.compiled.shopZone,runtimeBalance:balance.compiled.runtime}).exportSnapshot()});
+    const request=vi.fn(async (url:unknown,options?:RequestInit)=>String(url).endsWith('/profile')?json(profile()):String(url).endsWith('/balance')?json(latest):String(url).endsWith('/operations')?json({...result(JSON.parse(String(options?.body))),run:view(latest)}):json(view(old)));
+    const state=new ProfileSession(new GameApi(request)); await state.load();
+    expect(state.balance!.revision).toBe(latest.revision); expect(state.pinnedBalance!.revision).toBe(old.revision); expect(recipeCost('fast_reel',0,state.catalog!).goldMilli).toBe('100000'); expect(state.pinnedBalance!.compiled.baseModifiers.cooldown).toBe(2); expect(RunSimulation.restore(state.run!.snapshot).config.heroSpeed).toBe(2);
+    await state.operate('start_run',{}); expect(state.pinnedBalance!.revision).toBe(latest.revision); expect(recipeCost('fast_reel',0,state.catalog!).goldMilli).toBe('200000'); expect(state.pinnedBalance!.compiled.baseModifiers.cooldown).toBe(1); expect(RunSimulation.restore(state.run!.snapshot).config.heroSpeed).toBe(3);
+  });
+  it('refreshes no-run preview after a committed end_run and keeps that commit when the independent read fails', async () => {
+    const old=balanceFixture(),latest=balanceFixture(); latest.revision='ca5b0000-0000-5000-a000-000000000011'; latest.compiled.config.heroSpeed=3;
+    latest.compiled.equipment.items[0].levels[0].recipe.goldMilli='200000'; latest.values['items.fast_reel.levels.1.recipe.goldMilli']='200000';
+    const runId=crypto.randomUUID(),run={runId,loot:{goldMilli:'0',components:{steel:0,ember:0,core:0}},control:'owner',ownerEpoch:1,updatedAt:'2026-10-03T10:00:00Z',balance:old,snapshot:new RunSimulation(runId,7,{runtimeBalance:old.compiled.runtime}).exportSnapshot()};
+    let balanceReads=0,posts=0;
+    const request=vi.fn(async (url:unknown,options?:RequestInit)=>{
+      if (String(url).endsWith('/balance')) { balanceReads++; return balanceReads===1?json(old):balanceReads===2?json({error:{code:'BALANCE_STORAGE_UNAVAILABLE',message:'unavailable'}},503):json(latest); }
+      if (String(url).endsWith('/profile')) return json(profile());
+      if (String(url).endsWith('/operations')) { posts++; return json(result(JSON.parse(String(options?.body)))); }
+      return json(run);
+    });
+    const state=new ProfileSession(new GameApi(request)); await state.load(); expect(state.balance!.revision).toBe(old.revision);
+    await state.operate('end_run',{runId,ownerEpoch:1});
+    expect(state.run).toBeNull(); expect(state.pending).toBeNull(); expect(state.profile!.revision).toBe(1);
+    const refresh=state.refreshBalancePreview(); expect(state.previewState).toBe('loading'); expect(state.catalog).toBeNull(); await refresh;
+    expect(state.previewState).toBe('error'); expect(state.previewError).toContain('Подтверждённые действия сохранены'); expect(state.catalog).toBeNull(); expect(posts).toBe(1); expect(state.pending).toBeNull();
+    await state.refreshBalancePreview(); expect(state.previewState).toBe('ready'); expect(state.balance!.revision).toBe(latest.revision); expect(recipeCost('fast_reel',0,state.catalog!).goldMilli).toBe('200000'); expect(posts).toBe(1); expect(state.profile!.revision).toBe(1);
+  });
+  it('does not let an obsolete preview read restore the previous account after logout', async () => {
+    let resolve!: (value:Response)=>void;
+    const state=new ProfileSession(new GameApi(()=>new Promise<Response>(done=>{resolve=done;}))); state.acceptProfile(profile()); state.balance=balanceFixture(); state.previewState='ready';
+    const refresh=state.refreshBalancePreview(); state.clearIdentity(); resolve(json(balanceFixture())); await refresh;
+    expect(state.profile).toBeNull(); expect(state.balance).toBeNull(); expect(state.previewState).toBe('idle');
   });
 });
 describe('fixed frame journal', () => {
@@ -136,7 +172,7 @@ describe('tab ownership arbitration', () => {
     const original = new TabIdentity(originalStorage,bus.create); await vi.advanceTimersByTimeAsync(100); await original.ready;
     const clonedStorage = new MemoryStorage(); for (const [key,value] of originalStorage.data) clonedStorage.setItem(key,value);
     clonedStorage.setItem('foxy-r34-pending',JSON.stringify({accountId,operation:{operationId:crypto.randomUUID(),expectedRevision:0,clientId:original.id,type:'craft',payload:{definitionId:'fast_reel'}}}));
-    const request = vi.fn(async (url: unknown) => String(url).endsWith('/profile') ? json(profile()) : String(url).endsWith('/economy/catalog') ? json(EQUIPMENT_CATALOG) : json(null));
+    const request = vi.fn(async (url: unknown) => String(url).endsWith('/profile') ? json(profile()) : String(url).endsWith('/balance') ? json(balanceFixture()) : json(null));
     const clone = new ProfileSession(new GameApi(request),clonedStorage,bus.create); const loading = clone.load();
     expect(request).not.toHaveBeenCalled(); await vi.advanceTimersByTimeAsync(100); await loading;
     expect(clone.clientId).not.toBe(original.id); expect(clone.pending).toBeNull(); expect(request).toHaveBeenCalledTimes(3); expect(request.mock.calls.some(([url]) => String(url).includes('/operations'))).toBe(false); original.close();

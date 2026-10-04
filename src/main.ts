@@ -51,10 +51,16 @@ const slotNames: Record<Slot, string> = { weapon: 'Оружие', body: 'Тел�
 
 function feedback(text: string): void { get('feedback').textContent = text; feedbackUntil = performance.now() + 1600; }
 function transition(next: AppPhase): void {
+  const previous = phase;
   phase = next; document.body.dataset.phase = next; accumulator = 0; commands = [];
   input?.setEnabled(next === 'RUNNING' && session.run?.control === 'owner');
   if (next === 'RUNNING') canvas.focus({ preventScroll: true });
+  if (next === 'GALLERY' && !session.run && previous !== 'GALLERY') refreshBalancePreview();
   updateScreen();
+}
+function refreshBalancePreview(): void {
+  const request = session.refreshBalancePreview(); profileRenderKey = ''; updateScreen();
+  void request.finally(() => { profileRenderKey = ''; updateScreen(); });
 }
 function liveReadOnly(): boolean { return session.run?.control === 'readOnly' && session.run.snapshot?.state?.phase !== 'gameOver'; }
 function ownedRun(): { runId: string; ownerEpoch: number } {
@@ -193,24 +199,32 @@ function deficitText(recipe: Recipe): string {
 }
 function renderProfile(): void {
   const p = session.profile, catalog = session.catalog;
-  if (!p || !catalog) return;
+  if (!p) return;
+  if (!catalog) {
+    const key = `${p.accountId}/${p.revision}/preview-${session.previewState}`;
+    if (key === profileRenderKey) return; profileRenderKey = key;
+    get('wallet').textContent = `Золото ${goldText(p.goldMilli)} · сталь ${p.components.steel} · жар ${p.components.ember} · ядра ${p.components.core}`;
+    get('profile-stats').textContent = `Подтверждённая ревизия ${p.revision} · забегов ${p.stats.runs} · убийств ${p.stats.totalKills} · рекорд ${Math.floor(p.stats.bestDistance)} м`;
+    get('loadout').replaceChildren(); get('inventory').replaceChildren(); get('recipes').replaceChildren(make('p','Цены и модификаторы появятся после загрузки предпросмотра баланса.','control-hint'));
+    return;
+  }
   const editable = !liveReadOnly() && (phase === 'SHOP' || phase === 'GALLERY' && (!session.run || session.run.snapshot?.state?.phase === 'gameOver'));
-  const key = `${p.accountId}/${p.revision}/${phase}/${blocked()}/${editable}`;
-  if (key === profileRenderKey) return; profileRenderKey = key; cooldownDuration = computeModifiers(p).cooldown;
+  const key = `${p.accountId}/${p.revision}/${session.pinnedBalance?.revision}/${phase}/${blocked()}/${editable}`;
+  if (key === profileRenderKey) return; profileRenderKey = key; cooldownDuration = computeModifiers(p, catalog, session.pinnedBalance!.compiled.baseModifiers).cooldown;
   get('wallet').textContent = `Золото ${goldText(p.goldMilli)} · сталь ${p.components.steel} · жар ${p.components.ember} · ядра ${p.components.core}`;
-  get('profile-stats').textContent = `Подтверждённая ревизия ${p.revision} · забегов ${p.stats.runs} · убийств ${p.stats.totalKills} · рекорд ${Math.floor(p.stats.bestDistance)} м`;
+  get('profile-stats').textContent = `Подтверждённая ревизия ${p.revision} · забегов ${p.stats.runs} · убийств ${p.stats.totalKills} · рекорд ${Math.floor(p.stats.bestDistance)} м · баланс ${session.pinnedBalance!.revision}${session.run ? ' закреплён за этим забегом' : ' — предпросмотр; текущая версия закрепляется при старте'} `;
   const loadout = get('loadout'); loadout.replaceChildren();
   for (const slot of EQUIPMENT_SLOTS) {
     const row = make('div', undefined, 'loadout-row'), select = make('select'); select.setAttribute('aria-label', slotNames[slot]);
     select.append(new Option('Не надето', ''));
-    for (const item of p.items) if (getItemDefinition(item.definitionId).slot === slot) select.append(new Option(`${getItemDefinition(item.definitionId).name} · ур. ${item.level}`, item.id));
+    for (const item of p.items) if (getItemDefinition(item.definitionId, catalog).slot === slot) select.append(new Option(`${getItemDefinition(item.definitionId, catalog).name} · ур. ${item.level}`, item.id));
     select.value = p.loadouts.pudge[slot] ?? ''; select.disabled = !editable || blocked();
     row.append(make('label', slotNames[slot]), select, actionButton('Надеть', () => { void transact('equip', { slot, itemId: select.value || null }); }, !editable || blocked())); loadout.append(row);
   }
   for (let slot = 0; slot < 2; slot++) {
     const row = make('div', undefined, 'loadout-row'), select = make('select'); select.setAttribute('aria-label', `Быстрый слот ${slot + 1}`);
     select.append(new Option('Пусто', ''));
-    for (const id of CONSUMABLE_IDS) select.append(new Option(`${getConsumableDefinition(id).name} · ${p.consumables[id]} шт.`, id));
+    for (const id of CONSUMABLE_IDS) select.append(new Option(`${getConsumableDefinition(id, catalog).name} · ${p.consumables[id]} шт.`, id));
     select.value = p.loadouts.pudge.quick[slot] ?? ''; select.disabled = !editable || blocked();
     row.append(make('label', `Быстрый ${slot + 1}`), select, actionButton('Сохранить', () => {
       const slots = [...p.loadouts.pudge.quick] as [ConsumableId|null,ConsumableId|null]; slots[slot] = select.value as ConsumableId || null; void transact('quick_slots', { slots });
@@ -219,10 +233,10 @@ function renderProfile(): void {
   const inventory = get('inventory'); inventory.replaceChildren();
   inventory.append(make('p', p.items.length ? 'Собранные предметы' : 'Предметов пока нет. Золото и компоненты добываются в забеге.'));
   for (const item of p.items) {
-    const definition = getItemDefinition(item.definitionId), row = make('div', undefined, 'inventory-row');
+    const definition = getItemDefinition(item.definitionId, catalog), row = make('div', undefined, 'inventory-row');
     row.append(make('strong', `${definition.name} · уровень ${item.level}`), make('p', effectText(definition.levels[item.level - 1].modifiers), 'recipe-effect'));
     const nextLevel = definition.levels.find(level => level.level === item.level + 1);
-    const recipe = nextLevel ? recipeCost(item.definitionId, item.level) : null;
+    const recipe = nextLevel ? recipeCost(item.definitionId, item.level, catalog) : null;
     if (recipe && nextLevel) row.append(make('p', `Следующий уровень: ${effectText(nextLevel.modifiers)}`, 'recipe-effect'), make('p', `Улучшение: ${costText(recipe)}`, 'recipe-cost'), make('p', deficitText(recipe), 'recipe-deficit'), actionButton('Улучшить', () => { void transact('upgrade', { itemId: item.id }); }, phase !== 'SHOP' || !editable || blocked() || !canCraft(p, recipe)));
     else row.append(make('p', 'Максимальный уровень', 'recipe-cost'));
     inventory.append(row);
@@ -230,7 +244,7 @@ function renderProfile(): void {
   const recipes = get('recipes'); recipes.replaceChildren();
   if (phase !== 'SHOP') recipes.append(make('p', 'Крафт и улучшение доступны в магазине на пути. Здесь можно посмотреть цены.', 'control-hint'));
   for (const definition of [...catalog.items, ...catalog.consumables]) {
-    const recipe = recipeCost(definition.id); if (!recipe) continue;
+    const recipe = recipeCost(definition.id, 0, catalog); if (!recipe) continue;
     const row = make('div', undefined, 'recipe-card'); row.append(make('strong', definition.name), make('p', costText(recipe), 'recipe-cost'));
     if ('levels' in definition) row.append(make('p', `${slotNames[definition.slot]} · ${effectText(definition.levels[0].modifiers)}`, 'recipe-effect'));
     else row.append(make('p', definition.effect.type === 'slow' ? `Замедляет текущих врагов и снаряды на ${definition.effect.durationSeconds} с` : `Золото ×${definition.effect.goldMultiplierMilli / 1000} за следующие ${definition.effect.kills} убийства`, 'recipe-effect'));
@@ -241,7 +255,7 @@ function updateQuickSlots(): void {
   get('quick-consumables').hidden = phase !== 'RUNNING';
   for (let i = 0; i < 2; i++) {
     const button = get<HTMLButtonElement>(`quick-${i}`), id = session.profile?.loadouts.pudge.quick[i];
-    button.textContent = id ? `${i + 1} · ${getConsumableDefinition(id).name} (${session.profile!.consumables[id]})` : `${i + 1} · пусто`;
+    button.textContent = id && session.catalog ? `${i + 1} · ${getConsumableDefinition(id, session.catalog).name} (${session.profile!.consumables[id]})` : `${i + 1} · пусто`;
     button.disabled = !id || !session.profile?.consumables[id] || blocked() || phase !== 'RUNNING';
   }
 }
@@ -259,6 +273,11 @@ function updateScreen(): void {
   get('error-message').hidden = !errorMessage; get('error-message').textContent = errorMessage;
   get('recover-operation').hidden = !session.pending; get<HTMLButtonElement>('recover-operation').disabled = busy || Boolean(batchPromise);
   get('reload-profile').hidden = !errorMessage || Boolean(session.pending); get<HTMLButtonElement>('reload-profile').disabled = busy || Boolean(batchPromise);
+  const preview = phase === 'GALLERY' && Boolean(session.profile) && !session.run;
+  get('balance-preview-status').hidden = !preview;
+  get('balance-preview-status').textContent = session.previewState === 'error' ? session.previewError : session.previewState === 'loading' ? 'Загружаем действующую версию баланса для предпросмотра…' : session.balance ? `Предпросмотр баланса ${session.balance.revision}. При старте сервер закрепит действующую версию.` : 'Предпросмотр баланса ещё не загружен.';
+  get('reload-balance-preview').hidden = !preview; get<HTMLButtonElement>('reload-balance-preview').disabled = session.previewState === 'loading' || blocked();
+  get('reload-balance-preview').textContent = session.previewState === 'error' ? 'Повторить загрузку предпросмотра баланса' : 'Обновить предпросмотр баланса';
   get('takeover').hidden = !liveReadOnly(); get<HTMLButtonElement>('takeover').disabled = blocked() || connection?.state !== 'online';
   get('account-status').hidden = !session.profile; get('account-status').textContent = session.profile ? `Аккаунт: ${session.profile.accountId.slice(0,8)} · ${liveReadOnly() ? 'ПРОСМОТР' : 'серверное сохранение'}` : '';
   get('control-hint').hidden = !['GALLERY','RUNNING','PAUSED'].includes(phase);
@@ -383,6 +402,7 @@ try {
   pauseButton.addEventListener('click', () => { void pause('Ты остановил забег.'); });
   get('login-form').addEventListener('submit', event => { void authenticate(event as SubmitEvent); });
   get('reload-profile').addEventListener('click', () => { void restoreProfile(); });
+  get('reload-balance-preview').addEventListener('click', refreshBalancePreview);
   get('recover-operation').addEventListener('click', () => { void recoverOperation(); });
   get('takeover').addEventListener('click', () => {
     const runId = session.run?.runId; if (runId) void transact('takeover_run', { runId }).then(ok => { if (ok) { journal.clear(); input.clear(); pauseReason = 'Управление передано сюда. Продолжи забег явно.'; updateScreen(); } });

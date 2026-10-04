@@ -28,28 +28,31 @@ function fixture() {
 }
 
 describe('paired R2 combat catalog', () => {
-  it('accepts the agreed rules and rejects version, timing and hit threshold changes', () => {
-    expect(validateCatalog(fixture())).toBe(DEFAULT_CONFIG);
+  it('accepts server numeric tuning without a client rebuild while enforcing protocol', () => {
+    expect(validateCatalog(fixture())).toEqual(DEFAULT_CONFIG);
     const version = fixture(); version.rulesVersion = 'r1'; expect(() => validateCatalog(version)).toThrow();
-    const hits = fixture(); hits.enemies[2].requiredHits = 2; expect(() => validateCatalog(hits)).toThrow();
-    const speed = fixture(); speed.weapons[0].projectileSpeed = 9; expect(() => validateCatalog(speed)).toThrow();
-    const hook = fixture(); hook.rules.hookCooldown = 1; expect(() => validateCatalog(hook)).toThrow();
+    const hits = fixture(); hits.enemies[2].requiredHits = 5; expect(validateCatalog(hits).bossRequiredHits).toBe(5);
+    const speed = fixture(); speed.weapons.forEach(w=>{w.projectileSpeed=9;}); expect(validateCatalog(speed).projectileSpeed).toBe(9);
+    const hook = fixture(); hook.rules.hookCooldown = 1; expect(validateCatalog(hook).hookCooldown).toBe(1);
+    const bad = fixture(); bad.rules.heroSpeed = NaN; expect(()=>validateCatalog(bad)).toThrow();
   });
   it('rejects malformed content, references, duplicates and unimplemented modifiers', () => {
     for (const value of [null, {}, [], { ...fixture(), enemies: null }]) expect(() => validateCatalog(value)).toThrow();
     const ref = fixture(); ref.enemies[1].weaponCode = 'missing'; expect(() => validateCatalog(ref)).toThrow();
     const duplicate = fixture(); duplicate.enemies[2].code = 'strong'; expect(() => validateCatalog(duplicate)).toThrow();
     const modifier = { ...fixture(), modifiers: ['auto-aim'] }; expect(() => validateCatalog(modifier)).toThrow();
+    const unsupported = fixture(); unsupported.enemies[0].requiredHits = 2; expect(() => validateCatalog(unsupported)).toThrow();
+    const split = fixture(); split.weapons[0].projectileSpeed = 9; expect(() => validateCatalog(split)).toThrow();
   });
   it('loads fresh rules and refuses an unavailable endpoint before a run', async () => {
     let init: RequestInit | undefined;
     const fetcher = async (_url: unknown, options?: RequestInit) => { init = options; return Response.json(fixture()); };
-    expect(await loadCatalog(fetcher as typeof fetch)).toBe(DEFAULT_CONFIG);
+    expect(await loadCatalog(fetcher as typeof fetch)).toEqual(DEFAULT_CONFIG);
     expect(init?.cache).toBe('no-store'); expect(init?.signal).toBeInstanceOf(AbortSignal);
     await expect(loadCatalog((async () => new Response('', { status: 503 })) as typeof fetch)).rejects.toThrow('недоступен');
   });
   it.skipIf(!process.env.BACKEND_CATALOG_PATH)('agrees with the actual paired backend artifact', () => {
     const catalog = JSON.parse(readFileSync(process.env.BACKEND_CATALOG_PATH!, 'utf8'));
-    expect(validateCatalog(catalog)).toBe(DEFAULT_CONFIG);
+    expect(validateCatalog(catalog)).toEqual(DEFAULT_CONFIG);
   });
 });

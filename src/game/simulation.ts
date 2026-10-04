@@ -90,6 +90,7 @@ export interface RunState {
 export interface SimulationOptions {
   config?: Partial<SimulationConfig>;
   shopZone?: Partial<ShopZoneConfig>;
+  runtimeBalance?: SimulationRuntimeBalance;
   initialEnemies?: Array<Point & { id?: string; kind?: EnemyKind; requiredHits?: number; hitsRemaining?: number; shooting?: Shooting | null }>;
   initialProjectiles?: Projectile[];
 }
@@ -102,8 +103,21 @@ export interface EquipmentModifiers {
 export interface CombatEffects {
   slowRemaining: number; slowedEnemyIds: string[]; slowedProjectileIds: string[]; collectorKillsRemaining: number;
 }
+export interface SimulationRuntimeBalance {
+  shopMinDistance: number; shopMaxDistance: number; shopRightProbability: number;
+  shooterChanceStart: number; shooterChanceMax: number; shooterChanceRampSeconds: number;
+  slowDurationSeconds: number; slowSpeedMultiplier: number; collectorKills: number; collectorGoldMultiplierMilli: number;
+}
+export function validateRuntimeBalance(value: SimulationRuntimeBalance): Readonly<SimulationRuntimeBalance> {
+  const bounds = {shopMinDistance:[1,100000],shopMaxDistance:[1,100000],shopRightProbability:[0,1],shooterChanceStart:[0,1],shooterChanceMax:[0,1],shooterChanceRampSeconds:[0.01,100000],slowDurationSeconds:[0.1,30],slowSpeedMultiplier:[0.1,1],collectorKills:[1,100],collectorGoldMultiplierMilli:[1000,2000]};
+  if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).length !== Object.keys(bounds).length) throw new SimulationRuleError('invalid_runtime_balance');
+  for (const [key, [min,max]] of Object.entries(bounds)) { const n=value[key as keyof SimulationRuntimeBalance]; if(typeof n!=='number'||!Number.isFinite(n)||n<min!||n>max!) throw new SimulationRuleError('invalid_runtime_balance'); }
+  if(value.shopMinDistance>value.shopMaxDistance||value.shooterChanceStart>value.shooterChanceMax||!Number.isInteger(value.collectorKills)||!Number.isInteger(value.collectorGoldMultiplierMilli))throw new SimulationRuleError('invalid_runtime_balance');
+  return Object.freeze({...value});
+}
 export interface SimulationSnapshot {
-  version: 'r34.1'; state: RunState; config: SimulationConfig; shopZone: ShopZoneConfig; equipment: EquipmentModifiers;
+  runtimeBalance?: SimulationRuntimeBalance;
+  version: 'r34.1' | 'r34.2'; state: RunState; config: SimulationConfig; shopZone: ShopZoneConfig; equipment: EquipmentModifiers;
   randomState: number; counters: { enemy: number; cast: number; projectile: number; shop: number };
   generator: { spawnDistanceRemaining: number; bossAt: number; shopDistanceRemaining: number };
 }
@@ -195,6 +209,7 @@ export class RunSimulation {
   readonly state: RunState;
   readonly config: Readonly<SimulationConfig>;
   readonly shopZone: Readonly<ShopZoneConfig>;
+  readonly runtimeBalance: Readonly<SimulationRuntimeBalance> | undefined;
   private equipment: Readonly<EquipmentModifiers>;
   private randomState: number;
   private enemySequence = 0;
@@ -231,13 +246,14 @@ export class RunSimulation {
       throw new Error('Invalid simulation timing or capacity');
     }
     this.config = Object.freeze(config);
+    this.runtimeBalance = options.runtimeBalance === undefined ? undefined : validateRuntimeBalance(options.runtimeBalance);
     this.shopZone = Object.freeze({ ...DEFAULT_SHOP_ZONE, ...options.shopZone });
     if (Object.keys(this.shopZone).length !== 2 || Object.values(this.shopZone).some(n => !Number.isFinite(n) || n <= 0 || n > 10)) throw new Error('Invalid shop zone');
     this.equipment = validateEquipment({ rangeMultiplier: 1, outboundSpeedMultiplier: 1, returnSpeedMultiplier: 1, cooldown: config.hookCooldown, lateralSpeedMultiplier: 1, pierceTargets: 1, returnHitTargets: 0, goldMultiplierMilli: 1000 });
     this.randomState = seed >>> 0;
     this.spawnDistanceRemaining = this.nextSpawnDelay() * this.streamSpeed;
     this.bossAt = config.bossFirstSeconds;
-    this.shopDistanceRemaining = this.randomInterval(config.shopMinInterval, config.shopMaxInterval) * this.streamSpeed;
+    this.shopDistanceRemaining = this.nextShopDistance();
     this.state = {
       runId, seed, phase: 'running', tick: 0, time: 0, distance: 0,
       hero: { x: 0, z: 0 }, enemies: [], projectiles: [], shopCandidates: [], usedShopIds: [], activeShopId: null, effects: emptyEffects(), hook: null, cooldownRemaining: 0,
@@ -331,9 +347,9 @@ export class RunSimulation {
     if (this.state.phase !== 'running') throw new SimulationRuleError('consumable_unavailable');
     if (definitionId === 'collector_vial') {
       if (this.state.effects.collectorKillsRemaining > 0) throw new SimulationRuleError('effect_active');
-      this.state.effects.collectorKillsRemaining = 10;
+      this.state.effects.collectorKillsRemaining = this.runtimeBalance?.collectorKills ?? 10;
     } else {
-      this.state.effects.slowRemaining = 3;
+      this.state.effects.slowRemaining = this.runtimeBalance?.slowDurationSeconds ?? 3;
       this.state.effects.slowedEnemyIds = this.state.enemies.filter(enemy => enemy.status === 'alive').map(enemy => enemy.id);
       this.state.effects.slowedProjectileIds = this.state.projectiles.map(projectile => projectile.id);
     }
@@ -385,7 +401,7 @@ export class RunSimulation {
 
   exportSnapshot(): SimulationSnapshot {
     return structuredClone({
-      version: 'r34.1', state: this.state, config: this.config, shopZone: this.shopZone, equipment: this.equipment,
+      version: this.runtimeBalance === undefined ? 'r34.1' : 'r34.2', ...(this.runtimeBalance === undefined ? {} : {runtimeBalance:this.runtimeBalance}), state: this.state, config: this.config, shopZone: this.shopZone, equipment: this.equipment,
       randomState: this.randomState,
       counters: { enemy: this.enemySequence, cast: this.castSequence, projectile: this.projectileSequence, shop: this.shopSequence },
       generator: { spawnDistanceRemaining: this.spawnDistanceRemaining, bossAt: this.bossAt, shopDistanceRemaining: this.shopDistanceRemaining },
@@ -394,7 +410,7 @@ export class RunSimulation {
 
   static restore(value: unknown): RunSimulation {
     const snapshot = validateSnapshot(value);
-    const simulation = new RunSimulation(snapshot.state.runId, snapshot.state.seed, { config: snapshot.config, shopZone: snapshot.shopZone });
+    const simulation = new RunSimulation(snapshot.state.runId, snapshot.state.seed, { config: snapshot.config, shopZone: snapshot.shopZone, ...(snapshot.runtimeBalance === undefined ? {} : {runtimeBalance:snapshot.runtimeBalance}) });
     Object.assign(simulation.state, structuredClone(snapshot.state));
     simulation.equipment = validateEquipment(snapshot.equipment);
     if (simulation.state.hook) {
@@ -559,7 +575,7 @@ export class RunSimulation {
         hook.capturedEnemyId ??= enemy.id;
         hook.capturedEnemyIds.push(enemy.id);
         state.kills[enemy.kind] += 1;
-        goldMultiplierMilli = hook.config.goldMultiplierMilli * (state.effects.collectorKillsRemaining > 0 ? 1.5 : 1);
+        goldMultiplierMilli = Number(BigInt(hook.config.goldMultiplierMilli) * BigInt(state.effects.collectorKillsRemaining > 0 ? this.runtimeBalance?.collectorGoldMultiplierMilli ?? 1500 : 1000) / 1000n);
         if (state.effects.collectorKillsRemaining > 0) state.effects.collectorKillsRemaining -= 1;
       }
       // Pierce continues after a surviving boss too. Every target stays in the
@@ -577,12 +593,12 @@ export class RunSimulation {
     else if (event.kind === 'shotRelease') this.releaseShot(event.id);
     else if (event.kind === 'shop') {
       const candidate: ShopCandidate = {
-        id: `${state.runId}:shop:${++this.shopSequence}`, x: this.random() < 0.5 ? -this.config.lateralLimit : this.config.lateralLimit,
+        id: `${state.runId}:shop:${++this.shopSequence}`, x: this.random() < (this.runtimeBalance ? 1 - this.runtimeBalance.shopRightProbability : 0.5) ? -this.config.lateralLimit : this.config.lateralLimit,
         z: state.hero.z + this.config.spawnDistance, at: state.time,
       };
       state.shopCandidates.push(candidate);
       state.events.push({ type: 'shopCandidate', at: state.time });
-      this.shopDistanceRemaining = this.randomInterval(this.config.shopMinInterval, this.config.shopMaxInterval) * this.streamSpeed;
+      this.shopDistanceRemaining = this.nextShopDistance();
     } else if (event.kind === 'effectExpired') {
       state.effects.slowRemaining = 0; state.effects.slowedEnemyIds = []; state.effects.slowedProjectileIds = [];
     } else if (event.kind === 'range' && hook) hook.phase = 'returning';
@@ -610,15 +626,17 @@ export class RunSimulation {
 
   private enemySpeed(enemy: Enemy): number {
     const base = enemy.kind === 'boss' ? this.config.bossEnemySpeed : this.config.enemySpeed;
-    return base * (this.state.effects.slowRemaining > 0 && this.state.effects.slowedEnemyIds.includes(enemy.id) ? 0.65 : 1);
+    return base * (this.state.effects.slowRemaining > 0 && this.state.effects.slowedEnemyIds.includes(enemy.id) ? this.runtimeBalance?.slowSpeedMultiplier ?? 0.65 : 1);
   }
   private projectileVelocity(projectile: Projectile): Point {
-    const factor = this.state.effects.slowRemaining > 0 && this.state.effects.slowedProjectileIds.includes(projectile.id) ? 0.65 : 1;
+    const factor = this.state.effects.slowRemaining > 0 && this.state.effects.slowedProjectileIds.includes(projectile.id) ? this.runtimeBalance?.slowSpeedMultiplier ?? 0.65 : 1;
     return { x: projectile.velocity.x * factor, z: projectile.velocity.z * factor };
   }
 
   // Production stream milestones are metres of forward progress. A stationary
   // fixture uses active seconds only to retain R1's isolated capacity tests.
+  private nextShopDistance(): number { return this.runtimeBalance ? this.randomInterval(this.runtimeBalance.shopMinDistance,this.runtimeBalance.shopMaxDistance) : this.randomInterval(this.config.shopMinInterval,this.config.shopMaxInterval)*this.streamSpeed; }
+
   private get streamSpeed(): number { return this.config.heroSpeed > EPSILON ? this.config.heroSpeed : 1; }
 
   private shotDirections(enemy: Enemy, telegraphSeconds = 0): Point[] {
@@ -675,7 +693,7 @@ export class RunSimulation {
     const bossDue = state.time + EPSILON >= this.bossAt && totalKills >= config.bossMinKills;
     const kind: EnemyKind = bossDue && !alive.some((enemy) => enemy.kind === 'boss') && config.maxBosses > 0 ? 'boss' :
       state.time >= config.shooterUnlockSeconds && alive.filter((enemy) => enemy.kind === 'strong').length < config.maxShooters &&
-      this.random() < Math.min(0.45, 0.2 + Math.max(0, state.time - config.shooterUnlockSeconds) / 1080) ? 'strong' : 'normal';
+      this.random() < Math.min(this.runtimeBalance?.shooterChanceMax ?? 0.45, (this.runtimeBalance?.shooterChanceStart ?? 0.2) + Math.max(0, state.time - config.shooterUnlockSeconds) / (this.runtimeBalance?.shooterChanceRampSeconds ?? 1080)) ? 'strong' : 'normal';
     const enemy = this.makeEnemy((this.random() * 2 - 1) * config.lateralLimit, state.hero.z + config.spawnDistance, undefined, kind);
     if (this.assessSpawn(enemy).accepted) {
       state.enemies.push(enemy);
@@ -820,7 +838,8 @@ function validateSnapshot(value: unknown): SimulationSnapshot {
   const point = (v: unknown) => { const p = object(v); number(p.x, -1e12); number(p.z, -1e12); };
   const oneOf = (v: unknown, values: readonly unknown[]) => { if (!values.includes(v)) fail(); };
   const root = object(value);
-  if (root.version !== 'r34.1') throw new SimulationRuleError('snapshot_version_mismatch');
+  if (!['r34.1','r34.2'].includes(root.version as string)) throw new SimulationRuleError('snapshot_version_mismatch');
+  if ((root.version === 'r34.2') !== (root.runtimeBalance !== undefined)) fail();
   const cfg = object(root.config);
   if (Object.keys(cfg).length !== Object.keys(DEFAULT_CONFIG).length) fail();
   for (const [key, base] of Object.entries(DEFAULT_CONFIG)) {
@@ -848,8 +867,9 @@ function validateSnapshot(value: unknown): SimulationSnapshot {
   if (state.phase !== 'shop' && state.activeShopId !== null) fail();
   oneOf(state.deathReason, [null, 'contact', 'breach', 'projectile', 'abandoned']);
   if ((state.phase === 'gameOver') !== (state.deathReason !== null)) fail();
-  const effects = object(state.effects); number(effects.slowRemaining, 0, 3); ids(effects.slowedEnemyIds); ids(effects.slowedProjectileIds);
-  number(effects.collectorKillsRemaining, 0, 10, true);
+  const runtime = root.runtimeBalance === undefined ? undefined : validateRuntimeBalance(root.runtimeBalance as SimulationRuntimeBalance);
+  const effects = object(state.effects); number(effects.slowRemaining, 0, runtime?.slowDurationSeconds ?? 3); ids(effects.slowedEnemyIds); ids(effects.slowedProjectileIds);
+  number(effects.collectorKillsRemaining, 0, runtime?.collectorKills ?? 10, true);
   const enemies = list(state.enemies, config.maxEnemies + 3); ids(enemies.map(v => object(v).id));
   for (const v of enemies) {
     const enemy = object(v); point(enemy); string(enemy.id); oneOf(enemy.kind, ['normal', 'strong', 'boss']);
@@ -893,7 +913,7 @@ function validateSnapshot(value: unknown): SimulationSnapshot {
     number(event.at, 0, time + EPSILON);
     for (const key of ['castId', 'enemyId', 'projectileId', 'shopId', 'definitionId']) if (event[key] !== undefined) string(event[key]);
     if (event.lethal !== undefined && typeof event.lethal !== 'boolean') fail();
-    if (event.goldMultiplierMilli !== undefined) number(event.goldMultiplierMilli, 1000, 6000);
+    if (event.goldMultiplierMilli !== undefined) number(event.goldMultiplierMilli, 1000, 8000, true);
   }
   if (state.phase === 'gameOver' && (effects.slowRemaining !== 0 || effects.collectorKillsRemaining !== 0)) fail();
   return structuredClone(root) as unknown as SimulationSnapshot;
