@@ -1,6 +1,8 @@
-import { RULES, type ActionResult, type Block, type Cell, type Input, type Snapshot, type Space, type Target } from './contracts.js';
+import { RULES, rulesFor, compatibleContent, type ContentVersion, type ActionResult, type Block, type Cell, type Input, type Snapshot, type Space, type Target } from './contracts.js';
 import worldDefinition from '../public/content/r1-map-1.json' with { type: 'json' };
 import houseDefinition from '../public/content/r1-house-1.json' with { type: 'json' };
+import tutorialWorld from '../public/content/r1-map-2.json' with { type: 'json' };
+import tutorialHouse from '../public/content/r1-house-2.json' with { type: 'json' };
 
 const EPS = 1e-7;
 const stationary: Input = { left: false, right: false, jump: false };
@@ -8,13 +10,16 @@ const key = (cell: Cell) => `${cell.space}:${cell.x}:${cell.y}`;
 const originalKey = (x: number, y: number) => `original:${x}:${y}`;
 
 /** Logical map. Z, piston animation and all drawing are deliberately outside the simulation. */
-export function initialBlocks(): Block[] {
-  return structuredClone([...worldDefinition.blocks, ...houseDefinition.blocks]) as Block[];
+export function initialBlocks(version: ContentVersion = 'r1-map-1'): Block[] {
+  const world = version === 'r1-map-2' ? tutorialWorld : worldDefinition;
+  const house = version === 'r1-map-2' ? tutorialHouse : houseDefinition;
+  return structuredClone([...world.blocks, ...house.blocks]) as Block[];
 }
 
-const baseline = initialBlocks();
-const baselineById = new Map(baseline.map(block => [block.id, block]));
-const originalCount = baseline.filter(block => block.originalId !== null).length;
+const baselines = new Map((['r1-map-1', 'r1-map-2'] as const).map(version => {
+  const blocks = initialBlocks(version);
+  return [version, {blocks, byId: new Map(blocks.map(block => [block.id, block])), originalCount: blocks.filter(block => block.originalId !== null).length}];
+}));
 
 export function randomId(): string {
   if (globalThis.crypto.randomUUID) return globalThis.crypto.randomUUID();
@@ -25,13 +30,15 @@ export function randomId(): string {
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
-export function createInitial(id = randomId()): Snapshot {
+export function createInitial(id = randomId(), contentVersion: ContentVersion = 'r1-map-1'): Snapshot {
+  const rulesVersion = contentVersion === 'r1-map-2' ? 'r1-rules-2' : 'r1-rules-1';
+  const RULES = rulesFor({rulesVersion});
   return {
-    schemaVersion: 1, contentVersion: 'r1-map-1', rulesVersion: 'r1-rules-1', runId: id,
+    schemaVersion: 1, contentVersion, rulesVersion, runId: id,
     tick: 0, outcome: 'playing', reason: null,
     house: { x: 2, y: RULES.houseY, heartHp: 100, motion: 'moving', supportTimer: RULES.supportGrace },
     player: { x: 6, y: RULES.houseY + .5, vx: 0, vy: 0, hp: 3, support: { space: 'house', x: 4, y: 0, blockId: originalKey(4, 0) }, jumpHeld: false },
-    inventory: { wood: 0 }, blocks: initialBlocks(), nextBlockId: 1,
+    inventory: { wood: 0 }, blocks: initialBlocks(contentVersion), nextBlockId: 1,
   };
 }
 
@@ -70,6 +77,7 @@ function rayBox(ax: number, ay: number, bx: number, by: number, cx: number, cy: 
 }
 
 function reachable(s: Snapshot, cell: Cell, targetId: string | null): ActionResult {
+  const RULES = rulesFor(s);
   if (!validCell(cell)) return fail('Клетка вне маршрута');
   const position = worldPosition(s, cell), ay = s.player.y + RULES.playerHeight / 2;
   if (Math.hypot(position.x - s.player.x, position.y - ay) > RULES.reach + EPS) return fail('Слишком далеко');
@@ -82,6 +90,7 @@ function reachable(s: Snapshot, cell: Cell, targetId: string | null): ActionResu
 }
 
 export function canTake(s: Snapshot, target: Target): ActionResult {
+  const RULES = rulesFor(s);
   if (s.outcome !== 'playing') return fail('Забег завершён');
   const block = resolveBlock(s, target);
   if (!target.blockId || block?.id !== target.blockId) return fail('Выбранный блок изменился');
@@ -92,6 +101,7 @@ export function canTake(s: Snapshot, target: Target): ActionResult {
 }
 
 export function take(s: Snapshot, target: Target): ActionResult {
+  const RULES = rulesFor(s);
   const result = canTake(s, target);
   if (!result.ok || !result.block) return result;
   s.blocks.splice(s.blocks.findIndex(block => block.id === result.block!.id), 1);
@@ -104,6 +114,7 @@ export function take(s: Snapshot, target: Target): ActionResult {
 }
 
 function overlapsPlayer(s: Snapshot, x: number, y: number): boolean {
+  const RULES = rulesFor(s);
   return x + .5 > s.player.x - RULES.playerWidth / 2 + EPS && x - .5 < s.player.x + RULES.playerWidth / 2 - EPS &&
     y + .5 > s.player.y + EPS && y - .5 < s.player.y + RULES.playerHeight - EPS;
 }
@@ -170,6 +181,7 @@ function chassisClear(s: Snapshot, atX: number): boolean {
 }
 
 function supportExists(s: Snapshot): boolean {
+  const RULES = rulesFor(s);
   const support = s.player.support;
   if (!support) return false;
   const block = resolveBlock(s, support);
@@ -179,6 +191,7 @@ function supportExists(s: Snapshot): boolean {
 }
 
 function movePlayerX(s: Snapshot, amount: number): void {
+  const RULES = rulesFor(s);
   if (Math.abs(amount) < EPS) return;
   const p = s.player, half = RULES.playerWidth / 2, next = p.x + amount;
   let allowed = next;
@@ -193,6 +206,7 @@ function movePlayerX(s: Snapshot, amount: number): void {
 }
 
 function movePlayerY(s: Snapshot, amount: number): void {
+  const RULES = rulesFor(s);
   const p = s.player, next = p.y + amount, half = RULES.playerWidth / 2;
   let allowed = next;
   let landed: Block | undefined;
@@ -215,8 +229,11 @@ function movePlayerY(s: Snapshot, amount: number): void {
 
 /** Exactly one simulation tick. Render loops may call it repeatedly, never with wall-clock gaps. */
 export function step(s: Snapshot, input: Input = stationary, dt = 1 / RULES.tickRate): void {
+  const RULES = rulesFor(s);
   if (s.outcome !== 'playing') return;
   if (!Number.isFinite(dt) || Math.abs(dt - 1 / RULES.tickRate) > EPS) throw new Error('step expects exactly one fixed tick');
+  // First transfer is untimed; the durable placed counter prevents re-locking on resume.
+  if (s.contentVersion === 'r1-map-2' && s.nextBlockId === 1) return;
   const p = s.player, h = s.house;
   if (!supportExists(s)) p.support = null;
   const wasHouseSupported = p.support?.space === 'house';
@@ -263,7 +280,8 @@ export function step(s: Snapshot, input: Input = stationary, dt = 1 / RULES.tick
 }
 
 export function retainedFraction(s: Snapshot): number {
-  return s.blocks.filter(block => block.originalId !== null && baselineById.get(block.originalId)?.id === block.id).length / originalCount;
+  const {byId, originalCount} = baselines.get(s.contentVersion)!;
+  return s.blocks.filter(block => block.originalId !== null && byId.get(block.originalId)?.id === block.id).length / originalCount;
 }
 
 export function snapshot(s: Snapshot): Snapshot { return structuredClone(s); }
@@ -292,7 +310,9 @@ function enumValue<T extends string>(value: unknown, values: readonly T[], name:
 export function restore(raw: unknown): Snapshot {
   const r = object(raw, 'snapshot');
   exactKeys(r, ['schemaVersion', 'contentVersion', 'rulesVersion', 'runId', 'tick', 'outcome', 'reason', 'house', 'player', 'inventory', 'blocks', 'nextBlockId'], 'snapshot');
-  if (r.schemaVersion !== 1 || r.contentVersion !== 'r1-map-1' || r.rulesVersion !== 'r1-rules-1') throw new Error('Unsupported snapshot/content/rules version');
+  if (r.schemaVersion !== 1 || !compatibleContent(r.contentVersion, r.rulesVersion)) throw new Error('Unsupported snapshot/content/rules version');
+  const RULES = rulesFor(r as unknown as Snapshot);
+  const {blocks: baseline, byId: baselineById, originalCount} = baselines.get(r.contentVersion as ContentVersion)!;
   string(r.runId, 'runId', 96); number(r.tick, 'tick', 0, 10_000_000, true);
   enumValue(r.outcome, ['playing', 'won', 'lost'], 'outcome');
   if (r.reason !== null) string(r.reason, 'reason', 300);

@@ -5,3 +5,7 @@
 @media(max-height:600px){.menu-actions{margin-top:10px}.menu-actions button{min-height:48px}.panel label{margin:8px 0}#auth-copy{font-size:12px}.link-actions{margin-top:6px;gap:4px}#instructions{display:none}}
 @media(max-width:420px){.panel{padding:22px 18px}.menu-actions{grid-template-columns:1fr}.menu-actions .primary{grid-column:auto}.brand strong{font-size:19px}.panel h1{font-size:27px}}
 body:not([data-screen="game"]) #hud,body:not([data-screen="game"]) #objective,body:not([data-screen="game"]) #bottom,body:not([data-screen="game"]) #save-status{visibility:hidden}
+
+#tutorial-hint{position:absolute;top:145px;left:24px;width:min(360px,calc(100% - 48px));padding:10px 14px;border:1px solid #bbef85;background:#142f3bf2;border-radius:8px;pointer-events:none}#tutorial-progress{font-size:10px;letter-spacing:1px;color:#bbef85}#tutorial-detail{font-size:12px;line-height:1.4;margin:5px 0 0}#tutorial-marker{position:absolute;transform:translateX(-50%);background:#c2f68b;color:#163329;padding:5px 9px;font-size:11px;font-weight:900;border:2px solid #163329;border-radius:5px;pointer-events:auto;touch-action:none}#tutorial-marker[data-action="place"]{background:#8ce7fa}
+@media(max-height:600px){#tutorial-hint{top:105px;left:18px;width:min(310px,calc(100% - 36px));padding:7px 10px}#tutorial-detail{font-size:10px}#tutorial-marker{font-size:10px;padding:3px 7px}}
+body:not([data-screen="game"]) #tutorial-hint,body:not([data-screen="game"]) #tutorial-marker{visibility:hidden}

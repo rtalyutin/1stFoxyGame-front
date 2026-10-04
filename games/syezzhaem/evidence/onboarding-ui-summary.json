@@ -1,0 +1,91 @@
+{
+  "current": {
+    "manifest_version": 1,
+    "build_id": "r1-intro-001",
+    "entry_url": "/games/syezzhaem/releases/r1-intro-001/",
+    "api_version": "v1",
+    "content_version": "r1-map-2",
+    "rules_version": "r1-rules-2",
+    "snapshot_schema_version": 1,
+    "level_id": "house-bridge-portal-intro",
+    "manifest_sha256": "4c6febd8e943f643d409f7fb3319b0f74c6195f748db3770c83f295adc23244f"
+  },
+  "before": "921d6154edd3052bf974336794c2c823489d3854070309f126177f8204367fe7",
+  "after": "921d6154edd3052bf974336794c2c823489d3854070309f126177f8204367fe7",
+  "sourceStable": true,
+  "statuses": [
+    {
+      "id": "desktop label take selects highlighted actual cell",
+      "status": "PASS"
+    },
+    {
+      "id": "desktop label place selects highlighted actual bridge cell",
+      "status": "PASS"
+    },
+    {
+      "id": "desktop keyboard marker activation takes current guide cell",
+      "status": "PASS"
+    },
+    {
+      "id": "desktop RMB marker activation places current real bridge cell",
+      "status": "PASS"
+    },
+    {
+      "id": "touch label take cancel and pause commit no action",
+      "status": "PASS"
+    },
+    {
+      "id": "touch label take selects highlighted actual cell",
+      "status": "PASS"
+    },
+    {
+      "id": "touch label place cancel and pause commit no action",
+      "status": "PASS"
+    },
+    {
+      "id": "touch label place selects highlighted actual bridge cell",
+      "status": "PASS"
+    },
+    {
+      "id": "D01 desktop untimed start + visible safe wall highlight",
+      "status": "PASS"
+    },
+    {
+      "id": "D02 wrong floor click retains support and inventory",
+      "status": "PASS"
+    },
+    {
+      "id": "D03 real mouse wall take + durable save + reload correct placement step",
+      "status": "PASS"
+    },
+    {
+      "id": "D04 real mouse highlighted bridge cells complete two-cell bridge",
+      "status": "PASS"
+    },
+    {
+      "id": "T01 landscape touch visible safe wall, cancel preserves state",
+      "status": "PASS"
+    },
+    {
+      "id": "T02 pause during held touch then release causes no take",
+      "status": "PASS"
+    },
+    {
+      "id": "T03 touch wrong floor does not remove support",
+      "status": "PASS"
+    },
+    {
+      "id": "T04 actual touch highlighted wall and real bridge cells complete bridge",
+      "status": "PASS"
+    },
+    {
+      "id": "C01 legacy immutable assets match original bytes + old snapshots validate old rules",
+      "status": "PASS"
+    },
+    {
+      "id": "C02 native old run + launcher selects immutable old client with legacy map/rules/speed",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

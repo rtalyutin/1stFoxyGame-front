@@ -1,16 +1,6 @@
 {
   "source_archive_sha256": "6bf0f5aa1c8aa3c263fd805f7377aed93b1610f467ca22b5e2c926c20cc056d4",
   "source_digest": "8095c799e1f372eac80eff638bc7db6b9a585acd56ae2fde48b759eaa2e2e284",
-  "shared_files": {
-    "src/contracts.ts": "fcfaf95ba0e5eefcc1e139114d5247561c3fdf58af4fb4be30cf7af33aa5d471",
-    "src/core.ts": "655124f90ec7780551640dd7e2b9b5bc4f6420f91e10460e46b35e06c174831e",
-    "src/snapshot-v1.ts": "c0829e92d041980b5807ac56207dbd856ec1cdc43849a5c9692e7a1f208414d5",
-    "src/r1-contracts.ts": "666d63e22362c0dc43636ff91590f5b8df9e2dbfbf5cd08628ee90feab302dba",
-    "public/content/r1-house-1.json": "0ae321054f7619da6a10ef288bb4b343adc9f7cb338e8b143fd347f4e3114e74",
-    "public/content/r1-map-1.json": "a3759042dedc8a5ba61f3012863c7f45d8be461fc662a8e4483936c9a3f122aa",
-    "public/content/r1-rules-1.json": "ba5d8218ac9ee5f19ce2e27b3c30d7e0834c6380e35e789d119fe34dd11d85b3",
-    "public/content/r1-wood-1.json": "ba7ffbece0303128c9cc59ae23203863ae5d7e0bb30eaec3372e59c811e86360"
-  },
   "original_qa": {
     "node_tests_pass": 74,
     "browser_scenarios_pass": 14,
@@ -26,5 +16,37 @@
     "tests/core.case.ts": "tests/core.test.ts",
     "tests/outbox.case.ts": "tests/outbox.test.ts",
     "tests/snapshot-v1.case.ts": "tests/snapshot-v1.test.ts"
+  },
+  "original_shared_files": {
+    "src/contracts.ts": "fcfaf95ba0e5eefcc1e139114d5247561c3fdf58af4fb4be30cf7af33aa5d471",
+    "src/core.ts": "655124f90ec7780551640dd7e2b9b5bc4f6420f91e10460e46b35e06c174831e",
+    "src/snapshot-v1.ts": "c0829e92d041980b5807ac56207dbd856ec1cdc43849a5c9692e7a1f208414d5",
+    "src/r1-contracts.ts": "666d63e22362c0dc43636ff91590f5b8df9e2dbfbf5cd08628ee90feab302dba",
+    "public/content/r1-house-1.json": "0ae321054f7619da6a10ef288bb4b343adc9f7cb338e8b143fd347f4e3114e74",
+    "public/content/r1-map-1.json": "a3759042dedc8a5ba61f3012863c7f45d8be461fc662a8e4483936c9a3f122aa",
+    "public/content/r1-rules-1.json": "ba5d8218ac9ee5f19ce2e27b3c30d7e0834c6380e35e789d119fe34dd11d85b3",
+    "public/content/r1-wood-1.json": "ba7ffbece0303128c9cc59ae23203863ae5d7e0bb30eaec3372e59c811e86360"
+  },
+  "shared_files": {
+    "src/contracts.ts": "de88a821d075fb261335d90411333b7570fcce3da88903a17987b7e29d533e92",
+    "src/core.ts": "1d5431cea284328d8fe4ab3846c858eca06258b2327d9a44fdfb792ad93cb678",
+    "src/snapshot-v1.ts": "697e416d477945e390bb98059cc0cc139597d4fbab4d663b945cf5ee55230a1f",
+    "src/r1-contracts.ts": "666d63e22362c0dc43636ff91590f5b8df9e2dbfbf5cd08628ee90feab302dba",
+    "public/content/r1-house-1.json": "0ae321054f7619da6a10ef288bb4b343adc9f7cb338e8b143fd347f4e3114e74",
+    "public/content/r1-map-1.json": "a3759042dedc8a5ba61f3012863c7f45d8be461fc662a8e4483936c9a3f122aa",
+    "public/content/r1-rules-1.json": "ba5d8218ac9ee5f19ce2e27b3c30d7e0834c6380e35e789d119fe34dd11d85b3",
+    "public/content/r1-wood-1.json": "ba7ffbece0303128c9cc59ae23203863ae5d7e0bb30eaec3372e59c811e86360",
+    "public/content/r1-house-2.json": "95e72d81cb959fb06d2c084fff428d3eb688764ba193509d7625a10c3d327f3a",
+    "public/content/r1-map-2.json": "a87f9c95cdf6b5f44d9c944c4d80230604d2d1a5838f7fbad4979a9a79ac25a2",
+    "public/content/r1-rules-2.json": "deb29d11b7efb57f859ce32d4abe1dfa65a9602195f618d415ea926f7dab2b45"
+  },
+  "current_change": {
+    "feature": "guided-first-bridge",
+    "contract_revision": 1,
+    "baseline_repo_commit": "78c2f3da79650fdc34e8adea110cb4fc75b1ee37",
+    "content_version": "r1-map-2",
+    "rules_version": "r1-rules-2",
+    "level_id": "house-bridge-portal-intro",
+    "build_id": "r1-intro-001"
   }
 }

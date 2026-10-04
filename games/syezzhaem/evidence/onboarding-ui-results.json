@@ -1,0 +1,1531 @@
+{
+  "current": {
+    "manifest_version": 1,
+    "build_id": "r1-intro-001",
+    "entry_url": "/games/syezzhaem/releases/r1-intro-001/",
+    "api_version": "v1",
+    "content_version": "r1-map-2",
+    "rules_version": "r1-rules-2",
+    "snapshot_schema_version": 1,
+    "level_id": "house-bridge-portal-intro",
+    "manifest_sha256": "4c6febd8e943f643d409f7fb3319b0f74c6195f748db3770c83f295adc23244f"
+  },
+  "legacy": {
+    "manifest_version": 1,
+    "build_id": "r1-local-001",
+    "entry_url": "/games/syezzhaem/releases/r1-local-001/",
+    "api_version": "v1",
+    "content_version": "r1-map-1",
+    "rules_version": "r1-rules-1",
+    "snapshot_schema_version": 1,
+    "level_id": "house-bridge-portal",
+    "manifest_sha256": "207378e8c8043e0f4b20e3566fec5b16320aa40df23ce1006a9b66d3fd831f83"
+  },
+  "before": "921d6154edd3052bf974336794c2c823489d3854070309f126177f8204367fe7",
+  "results": [
+    {
+      "id": "desktop label take selects highlighted actual cell",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:06.019Z",
+      "details": {
+        "xy": {
+          "x": 582.8125,
+          "y": 378.578125
+        },
+        "guide": {
+          "phase": "place",
+          "target": {
+            "space": "world",
+            "x": 9,
+            "y": 0,
+            "blockId": null
+          },
+          "action": "place",
+          "filled": 0,
+          "title": "Поставь блок в отмеченную клетку · мост 0/2",
+          "instruction": "Выбран режим «СТРОИТЬ». Нажми на отметку и отпусти. ПКМ тоже ставит блок."
+        }
+      }
+    },
+    {
+      "id": "desktop label place selects highlighted actual bridge cell",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:07.592Z",
+      "details": {
+        "xy": {
+          "x": 584.328125,
+          "y": 582.890625
+        },
+        "guide": {
+          "phase": "take",
+          "target": {
+            "space": "house",
+            "x": 7,
+            "y": 2,
+            "blockId": "original:7:2"
+          },
+          "action": "take",
+          "filled": 1,
+          "title": "Ещё один блок — и мост готов.",
+          "instruction": "Нажми на зелёный блок стены. Пол под персонажем оставь на месте."
+        }
+      }
+    },
+    {
+      "id": "desktop keyboard marker activation takes current guide cell",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:09.269Z",
+      "details": {
+        "inventory": {
+          "wood": 1
+        },
+        "guide": {
+          "phase": "wait",
+          "target": {
+            "space": "world",
+            "x": 10,
+            "y": 0,
+            "blockId": null
+          },
+          "action": "place",
+          "filled": 1,
+          "title": "Дом подъезжает к следующей клетке.",
+          "instruction": "Подожди на полу дома. Как только клетка станет доступна, появится подсказка «Поставь»."
+        }
+      }
+    },
+    {
+      "id": "desktop RMB marker activation places current real bridge cell",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:10.287Z",
+      "details": {
+        "inventory": {
+          "wood": 0
+        },
+        "guide": {
+          "phase": "ride",
+          "target": null,
+          "action": "take",
+          "filled": 2,
+          "title": "Мост готов! Дом едет к порталу.",
+          "instruction": "Оставайся на полу дома. A / D или кнопки слева — идти; пробел или ↥ — прыгать."
+        },
+        "pointers": [
+          {
+            "type": "pointerdown",
+            "pointerType": "mouse",
+            "target": "new-game",
+            "x": 516,
+            "y": 423.25,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "mouse",
+            "target": "new-game",
+            "x": 516,
+            "y": 423.25,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "mouse",
+            "target": "resume",
+            "x": 599.780029296875,
+            "y": 506.6000061035156,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "mouse",
+            "target": "resume",
+            "x": 599.780029296875,
+            "y": 506.6000061035156,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "mouse",
+            "target": "tutorial-marker",
+            "x": 582.8125,
+            "y": 378.578125,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "mouse",
+            "target": "tutorial-marker",
+            "x": 582.8125,
+            "y": 378.578125,
+            "trusted": true
+          },
+          {
+            "type": "lostpointercapture",
+            "pointerType": "mouse",
+            "target": "tutorial-marker",
+            "x": 582.8125,
+            "y": 378.578125,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "mouse",
+            "target": "tutorial-marker",
+            "x": 584.328125,
+            "y": 582.890625,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "mouse",
+            "target": "tutorial-marker",
+            "x": 584.328125,
+            "y": 582.890625,
+            "trusted": true
+          },
+          {
+            "type": "lostpointercapture",
+            "pointerType": "mouse",
+            "target": "tutorial-marker",
+            "x": 584.328125,
+            "y": 582.890625,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "mouse",
+            "target": "tutorial-marker",
+            "x": 549.5599975585938,
+            "y": 582.8900146484375,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "mouse",
+            "target": "tutorial-marker",
+            "x": 549.5599975585938,
+            "y": 582.8900146484375,
+            "trusted": true
+          },
+          {
+            "type": "lostpointercapture",
+            "pointerType": "mouse",
+            "target": "tutorial-marker",
+            "x": 549.5599975585938,
+            "y": 582.8900146484375,
+            "trusted": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "touch label take cancel and pause commit no action",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:15.852Z",
+      "details": {
+        "action": "take",
+        "xy": {
+          "x": 389.78125,
+          "y": 166.890625
+        },
+        "unchanged": true
+      }
+    },
+    {
+      "id": "touch label take selects highlighted actual cell",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:16.467Z",
+      "details": {
+        "xy": {
+          "x": 391.671875,
+          "y": 166.890625
+        },
+        "guide": {
+          "phase": "place",
+          "target": {
+            "space": "world",
+            "x": 9,
+            "y": 0,
+            "blockId": null
+          },
+          "action": "place",
+          "filled": 0,
+          "title": "Поставь блок в отмеченную клетку · мост 0/2",
+          "instruction": "Выбран режим «СТРОИТЬ». Нажми на отметку и отпусти. ПКМ тоже ставит блок."
+        }
+      }
+    },
+    {
+      "id": "touch label place cancel and pause commit no action",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:16.861Z",
+      "details": {
+        "action": "place",
+        "xy": {
+          "x": 391.703125,
+          "y": 278.09375
+        },
+        "unchanged": true
+      }
+    },
+    {
+      "id": "touch label place selects highlighted actual bridge cell",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:17.486Z",
+      "details": {
+        "xy": {
+          "x": 391.703125,
+          "y": 278.09375
+        },
+        "guide": {
+          "phase": "take",
+          "target": {
+            "space": "house",
+            "x": 7,
+            "y": 2,
+            "blockId": "original:7:2"
+          },
+          "action": "take",
+          "filled": 1,
+          "title": "Ещё один блок — и мост готов.",
+          "instruction": "Нажми на зелёный блок стены. Пол под персонажем оставь на месте."
+        }
+      }
+    },
+    {
+      "id": "D01 desktop untimed start + visible safe wall highlight",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:18.905Z",
+      "details": {
+        "environment": {
+          "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+          "viewport": {
+            "w": 1280,
+            "h": 800
+          },
+          "dpr": 1,
+          "canvas": {
+            "cssW": 1280,
+            "cssH": 800,
+            "bufferW": 1280,
+            "bufferH": 800
+          },
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "maxTextureSize": 8192,
+          "maxRenderbufferSize": 8192,
+          "maxViewportDims": [
+            8192,
+            8192
+          ]
+        },
+        "guide": {
+          "phase": "take",
+          "target": {
+            "space": "house",
+            "x": 7,
+            "y": 1,
+            "blockId": "original:7:1"
+          },
+          "action": "take",
+          "filled": 0,
+          "title": "1. Возьми подсвеченный блок стены.",
+          "instruction": "Дом ждёт. Нажми на зелёный блок и отпусти — он попадёт в рюкзак."
+        },
+        "identicalAfterMs": 1200
+      }
+    },
+    {
+      "id": "D02 wrong floor click retains support and inventory",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:20.579Z",
+      "details": {
+        "phase": "take",
+        "target": {
+          "space": "house",
+          "x": 7,
+          "y": 1,
+          "blockId": "original:7:1"
+        },
+        "action": "take",
+        "filled": 0,
+        "title": "1. Возьми подсвеченный блок стены.",
+        "instruction": "Дом ждёт. Нажми на зелёный блок и отпусти — он попадёт в рюкзак."
+      }
+    },
+    {
+      "id": "D03 real mouse wall take + durable save + reload correct placement step",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:21.369Z",
+      "details": {
+        "xy": {
+          "x": 584.3475952148438,
+          "y": 408.08722125053407
+        },
+        "runId": "66b71064-a743-4933-bcd0-03c407b2c8b9",
+        "revision": 1,
+        "guide": {
+          "phase": "place",
+          "target": {
+            "space": "world",
+            "x": 9,
+            "y": 0,
+            "blockId": null
+          },
+          "action": "place",
+          "filled": 0,
+          "title": "Поставь блок в отмеченную клетку · мост 0/2",
+          "instruction": "Выбран режим «СТРОИТЬ». Нажми на отметку и отпусти. ПКМ тоже ставит блок."
+        }
+      }
+    },
+    {
+      "id": "D04 real mouse highlighted bridge cells complete two-cell bridge",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:23.583Z",
+      "details": {
+        "clicks": [
+          {
+            "x": 583.8170471191406,
+            "y": 612.3961888408661
+          },
+          {
+            "x": 589.6617514801021,
+            "y": 339.9842320537567
+          },
+          {
+            "x": 586.591796875,
+            "y": 612.3961888408661
+          }
+        ],
+        "state": {
+          "schemaVersion": 1,
+          "contentVersion": "r1-map-2",
+          "rulesVersion": "r1-rules-2",
+          "runId": "66b71064-a743-4933-bcd0-03c407b2c8b9",
+          "tick": 151,
+          "outcome": "playing",
+          "reason": null,
+          "house": {
+            "x": 3.132499999999976,
+            "y": 2,
+            "heartHp": 100,
+            "motion": "moving",
+            "supportTimer": 4
+          },
+          "player": {
+            "x": 7.132500000000043,
+            "y": 2.5,
+            "vx": 0,
+            "vy": 0,
+            "hp": 3,
+            "support": {
+              "space": "house",
+              "x": 4,
+              "y": 0,
+              "blockId": "original:4:0"
+            },
+            "jumpHeld": false
+          },
+          "inventory": {
+            "wood": 0
+          },
+          "blocks": [
+            {
+              "space": "world",
+              "x": -10,
+              "y": 0,
+              "id": "terrain:-10",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": -9,
+              "y": 0,
+              "id": "terrain:-9",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": -8,
+              "y": 0,
+              "id": "terrain:-8",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": -7,
+              "y": 0,
+              "id": "terrain:-7",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": -6,
+              "y": 0,
+              "id": "terrain:-6",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": -5,
+              "y": 0,
+              "id": "terrain:-5",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": -4,
+              "y": 0,
+              "id": "terrain:-4",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": -3,
+              "y": 0,
+              "id": "terrain:-3",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": -2,
+              "y": 0,
+              "id": "terrain:-2",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": -1,
+              "y": 0,
+              "id": "terrain:-1",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 0,
+              "y": 0,
+              "id": "terrain:0",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 1,
+              "y": 0,
+              "id": "terrain:1",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 2,
+              "y": 0,
+              "id": "terrain:2",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 3,
+              "y": 0,
+              "id": "terrain:3",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 4,
+              "y": 0,
+              "id": "terrain:4",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 5,
+              "y": 0,
+              "id": "terrain:5",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 6,
+              "y": 0,
+              "id": "terrain:6",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 7,
+              "y": 0,
+              "id": "terrain:7",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 8,
+              "y": 0,
+              "id": "terrain:8",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 11,
+              "y": 0,
+              "id": "terrain:11",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 12,
+              "y": 0,
+              "id": "terrain:12",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 13,
+              "y": 0,
+              "id": "terrain:13",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 14,
+              "y": 0,
+              "id": "terrain:14",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 15,
+              "y": 0,
+              "id": "terrain:15",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 16,
+              "y": 0,
+              "id": "terrain:16",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 17,
+              "y": 0,
+              "id": "terrain:17",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 18,
+              "y": 0,
+              "id": "terrain:18",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 19,
+              "y": 0,
+              "id": "terrain:19",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 20,
+              "y": 0,
+              "id": "terrain:20",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 21,
+              "y": 0,
+              "id": "terrain:21",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 22,
+              "y": 0,
+              "id": "terrain:22",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 23,
+              "y": 0,
+              "id": "terrain:23",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 24,
+              "y": 0,
+              "id": "terrain:24",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 25,
+              "y": 0,
+              "id": "terrain:25",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 26,
+              "y": 0,
+              "id": "terrain:26",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 27,
+              "y": 0,
+              "id": "terrain:27",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 28,
+              "y": 0,
+              "id": "terrain:28",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 29,
+              "y": 0,
+              "id": "terrain:29",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 30,
+              "y": 0,
+              "id": "terrain:30",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 31,
+              "y": 0,
+              "id": "terrain:31",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 32,
+              "y": 0,
+              "id": "terrain:32",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 33,
+              "y": 0,
+              "id": "terrain:33",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 34,
+              "y": 0,
+              "id": "terrain:34",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 35,
+              "y": 0,
+              "id": "terrain:35",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 36,
+              "y": 0,
+              "id": "terrain:36",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 37,
+              "y": 0,
+              "id": "terrain:37",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 38,
+              "y": 0,
+              "id": "terrain:38",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 39,
+              "y": 0,
+              "id": "terrain:39",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "world",
+              "x": 40,
+              "y": 0,
+              "id": "terrain:40",
+              "material": "wood",
+              "originalId": null,
+              "portable": false
+            },
+            {
+              "space": "house",
+              "x": 0,
+              "y": 0,
+              "id": "original:0:0",
+              "material": "wood",
+              "originalId": "original:0:0",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 0,
+              "y": 5,
+              "id": "original:0:5",
+              "material": "wood",
+              "originalId": "original:0:5",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 1,
+              "y": 0,
+              "id": "original:1:0",
+              "material": "wood",
+              "originalId": "original:1:0",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 1,
+              "y": 5,
+              "id": "original:1:5",
+              "material": "wood",
+              "originalId": "original:1:5",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 2,
+              "y": 0,
+              "id": "original:2:0",
+              "material": "wood",
+              "originalId": "original:2:0",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 2,
+              "y": 5,
+              "id": "original:2:5",
+              "material": "wood",
+              "originalId": "original:2:5",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 3,
+              "y": 0,
+              "id": "original:3:0",
+              "material": "wood",
+              "originalId": "original:3:0",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 3,
+              "y": 5,
+              "id": "original:3:5",
+              "material": "wood",
+              "originalId": "original:3:5",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 4,
+              "y": 0,
+              "id": "original:4:0",
+              "material": "wood",
+              "originalId": "original:4:0",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 4,
+              "y": 5,
+              "id": "original:4:5",
+              "material": "wood",
+              "originalId": "original:4:5",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 5,
+              "y": 5,
+              "id": "original:5:5",
+              "material": "wood",
+              "originalId": "original:5:5",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 6,
+              "y": 5,
+              "id": "original:6:5",
+              "material": "wood",
+              "originalId": "original:6:5",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 7,
+              "y": 5,
+              "id": "original:7:5",
+              "material": "wood",
+              "originalId": "original:7:5",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 0,
+              "y": 1,
+              "id": "original:0:1",
+              "material": "wood",
+              "originalId": "original:0:1",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 0,
+              "y": 2,
+              "id": "original:0:2",
+              "material": "wood",
+              "originalId": "original:0:2",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 0,
+              "y": 3,
+              "id": "original:0:3",
+              "material": "wood",
+              "originalId": "original:0:3",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 7,
+              "y": 3,
+              "id": "original:7:3",
+              "material": "wood",
+              "originalId": "original:7:3",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 0,
+              "y": 4,
+              "id": "original:0:4",
+              "material": "wood",
+              "originalId": "original:0:4",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 7,
+              "y": 4,
+              "id": "original:7:4",
+              "material": "wood",
+              "originalId": "original:7:4",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 1,
+              "y": 3,
+              "id": "original:1:3",
+              "material": "wood",
+              "originalId": "original:1:3",
+              "portable": true
+            },
+            {
+              "space": "house",
+              "x": 2,
+              "y": 3,
+              "id": "original:2:3",
+              "material": "wood",
+              "originalId": "original:2:3",
+              "portable": true
+            },
+            {
+              "space": "world",
+              "x": 9,
+              "y": 0,
+              "id": "placed:da5caf80-d724-421e-9100-840bfe1aff13",
+              "material": "wood",
+              "originalId": null,
+              "portable": true
+            },
+            {
+              "space": "world",
+              "x": 10,
+              "y": 0,
+              "id": "placed:1647d996-3ebc-41c7-b722-45e1ab2effa0",
+              "material": "wood",
+              "originalId": null,
+              "portable": true
+            }
+          ],
+          "nextBlockId": 3
+        },
+        "stats": {
+          "samples": 148,
+          "p50": 16.700000000000273,
+          "p95": 50,
+          "meshes": 179,
+          "drawCallsLastFrame": 166
+        }
+      }
+    },
+    {
+      "id": "T01 landscape touch visible safe wall, cancel preserves state",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:28.802Z",
+      "details": {
+        "environment": {
+          "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+          "viewport": {
+            "w": 844,
+            "h": 390
+          },
+          "dpr": 1,
+          "canvas": {
+            "cssW": 844,
+            "cssH": 390,
+            "bufferW": 844,
+            "bufferH": 390
+          },
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "maxTextureSize": 8192,
+          "maxRenderbufferSize": 8192,
+          "maxViewportDims": [
+            8192,
+            8192
+          ]
+        },
+        "xy": {
+          "x": 390.4458465576172,
+          "y": 199.4018433856964
+        },
+        "pointers": [
+          {
+            "type": "pointerdown",
+            "pointerType": "mouse",
+            "target": "new-game",
+            "x": 295,
+            "y": 253.27999877929688,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "mouse",
+            "target": "new-game",
+            "x": 295,
+            "y": 253.27999877929688,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "mouse",
+            "target": "resume",
+            "x": 381.7799987792969,
+            "y": 231.63999938964844,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "mouse",
+            "target": "resume",
+            "x": 381.7799987792969,
+            "y": 231.63999938964844,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 390.44586181640625,
+            "y": 199.40184020996094,
+            "trusted": true
+          },
+          {
+            "type": "pointercancel",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 390.44586181640625,
+            "y": 199.40184020996094,
+            "trusted": true
+          },
+          {
+            "type": "lostpointercapture",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 390.44586181640625,
+            "y": 199.40184020996094,
+            "trusted": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "T02 pause during held touch then release causes no take",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:29.170Z",
+      "details": {
+        "pointers": [
+          {
+            "type": "pointerdown",
+            "pointerType": "mouse",
+            "target": "new-game",
+            "x": 295,
+            "y": 253.27999877929688,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "mouse",
+            "target": "new-game",
+            "x": 295,
+            "y": 253.27999877929688,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "mouse",
+            "target": "resume",
+            "x": 381.7799987792969,
+            "y": 231.63999938964844,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "mouse",
+            "target": "resume",
+            "x": 381.7799987792969,
+            "y": 231.63999938964844,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 390.44586181640625,
+            "y": 199.40184020996094,
+            "trusted": true
+          },
+          {
+            "type": "pointercancel",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 390.44586181640625,
+            "y": 199.40184020996094,
+            "trusted": true
+          },
+          {
+            "type": "lostpointercapture",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 390.44586181640625,
+            "y": 199.40184020996094,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 391.4747009277344,
+            "y": 199.40184020996094,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 391.4747009277344,
+            "y": 199.40184020996094,
+            "trusted": true
+          },
+          {
+            "type": "lostpointercapture",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 391.4747009277344,
+            "y": 199.40184020996094,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "touch",
+            "target": "resume",
+            "x": 381.7799987792969,
+            "y": 231.63999938964844,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "touch",
+            "target": "resume",
+            "x": 381.7799987792969,
+            "y": 231.63999938964844,
+            "trusted": true
+          },
+          {
+            "type": "lostpointercapture",
+            "pointerType": "touch",
+            "target": "resume",
+            "x": 381.7799987792969,
+            "y": 231.63999938964844,
+            "trusted": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "T03 touch wrong floor does not remove support",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:29.755Z",
+      "details": {
+        "phase": "take",
+        "target": {
+          "space": "house",
+          "x": 7,
+          "y": 1,
+          "blockId": "original:7:1"
+        },
+        "action": "take",
+        "filled": 0,
+        "title": "1. Возьми подсвеченный блок стены.",
+        "instruction": "Дом ждёт. Нажми на зелёный блок и отпусти — он попадёт в рюкзак."
+      }
+    },
+    {
+      "id": "T04 actual touch highlighted wall and real bridge cells complete bridge",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:30.108Z",
+      "details": {
+        "actions": [
+          {
+            "x": 391.70795822143555,
+            "y": 199.4018433856964
+          },
+          {
+            "x": 391.10470962524414,
+            "y": 310.60640652656554
+          },
+          {
+            "x": 393.5044650936126,
+            "y": 162.33365567207338
+          },
+          {
+            "x": 399.47067070007324,
+            "y": 310.60640652656554
+          }
+        ],
+        "pointers": [
+          {
+            "type": "pointerdown",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 391.1047058105469,
+            "y": 310.6064147949219,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 391.1047058105469,
+            "y": 310.6064147949219,
+            "trusted": true
+          },
+          {
+            "type": "lostpointercapture",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 391.1047058105469,
+            "y": 310.6064147949219,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 393.50445556640625,
+            "y": 162.33364868164062,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 393.50445556640625,
+            "y": 162.33364868164062,
+            "trusted": true
+          },
+          {
+            "type": "lostpointercapture",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 393.50445556640625,
+            "y": 162.33364868164062,
+            "trusted": true
+          },
+          {
+            "type": "pointerdown",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 399.4706726074219,
+            "y": 310.6064147949219,
+            "trusted": true
+          },
+          {
+            "type": "pointerup",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 399.4706726074219,
+            "y": 310.6064147949219,
+            "trusted": true
+          },
+          {
+            "type": "lostpointercapture",
+            "pointerType": "touch",
+            "target": "scene",
+            "x": 399.4706726074219,
+            "y": 310.6064147949219,
+            "trusted": true
+          }
+        ],
+        "stats": {
+          "samples": 171,
+          "p50": 16.699999999999818,
+          "p95": 16.700000000000273,
+          "meshes": 179,
+          "drawCallsLastFrame": 176
+        }
+      }
+    },
+    {
+      "id": "C01 legacy immutable assets match original bytes + old snapshots validate old rules",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:34.281Z",
+      "details": {
+        "checks": [
+          {
+            "folder": "front",
+            "file": "r1-map-1",
+            "sha256": "a3759042dedc8a5ba61f3012863c7f45d8be461fc662a8e4483936c9a3f122aa"
+          },
+          {
+            "folder": "back",
+            "file": "r1-map-1",
+            "sha256": "a3759042dedc8a5ba61f3012863c7f45d8be461fc662a8e4483936c9a3f122aa"
+          },
+          {
+            "folder": "front",
+            "file": "r1-house-1",
+            "sha256": "0ae321054f7619da6a10ef288bb4b343adc9f7cb338e8b143fd347f4e3114e74"
+          },
+          {
+            "folder": "back",
+            "file": "r1-house-1",
+            "sha256": "0ae321054f7619da6a10ef288bb4b343adc9f7cb338e8b143fd347f4e3114e74"
+          },
+          {
+            "folder": "front",
+            "file": "r1-rules-1",
+            "sha256": "ba5d8218ac9ee5f19ce2e27b3c30d7e0834c6380e35e789d119fe34dd11d85b3"
+          },
+          {
+            "folder": "back",
+            "file": "r1-rules-1",
+            "sha256": "ba5d8218ac9ee5f19ce2e27b3c30d7e0834c6380e35e789d119fe34dd11d85b3"
+          },
+          {
+            "folder": "front",
+            "file": "r1-wood-1",
+            "sha256": "ba7ffbece0303128c9cc59ae23203863ae5d7e0bb30eaec3372e59c811e86360"
+          },
+          {
+            "folder": "back",
+            "file": "r1-wood-1",
+            "sha256": "ba7ffbece0303128c9cc59ae23203863ae5d7e0bb30eaec3372e59c811e86360"
+          }
+        ],
+        "snapshot": {
+          "schema_version": 1,
+          "client_build_id": "r1-local-001",
+          "content_version": "r1-map-1",
+          "rules_version": "r1-rules-1",
+          "level_id": "house-bridge-portal",
+          "run_id": "a1ba16c7-9fb1-4f62-9e53-e9a119340def",
+          "sim_tick": 60,
+          "rng_state": 1,
+          "outcome": "playing",
+          "reason": null,
+          "player": {
+            "x": 6.649999999999995,
+            "y": 2.5,
+            "vx": 0,
+            "vy": 0,
+            "hp": 3,
+            "support": {
+              "coordinate_space": "house",
+              "x": 4,
+              "y": 0,
+              "block_id": "original:4:0"
+            },
+            "held_actor_key": null,
+            "timers": {}
+          },
+          "house": {
+            "x": 2.649999999999995,
+            "y": 2,
+            "core_hp": 100,
+            "movement_state": "moving",
+            "support_loss_ticks": 90
+          },
+          "house_cells": [],
+          "world_cells": [],
+          "inventory": {
+            "wood": 0
+          },
+          "actors": [],
+          "lava": null,
+          "counters": {
+            "distance": 0.649999999999995,
+            "placed_sequence": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "C02 native old run + launcher selects immutable old client with legacy map/rules/speed",
+      "status": "PASS",
+      "started": "2026-10-04T20:23:34.913Z",
+      "details": {
+        "runId": "3791f04b-b828-4f9b-b3c2-9b7e2b8b66bd",
+        "status": 200,
+        "tick": 62,
+        "x": 2.6716666666666615,
+        "rules": "r1-rules-1"
+      }
+    }
+  ],
+  "errors": [],
+  "after": "921d6154edd3052bf974336794c2c823489d3854070309f126177f8204367fe7",
+  "raw_results_sha256": "dadfb18ef5380f48838eda208a3b80163e4f3ebfa2963c6608b60941e3189ac2",
+  "extraction": "Scenario observations retained verbatim; repeated network trace omitted. Original QA trace and screenshots remain in the isolated QA workspace."
+}

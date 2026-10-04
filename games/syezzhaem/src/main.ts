@@ -1,8 +1,9 @@
 import './style.css';
-import {BUILD_ID,RULES,type Snapshot,type Input,type Target} from './contracts';
+import {BUILD_ID,RULES,rulesFor,type Snapshot,type Input,type Target} from './contracts';
 import {createInitial,step,snapshot,restore,take,place,retainedFraction,randomId} from './core';
 import {GameView} from './view';
-import {BUILD_CONTEXT,toSnapshotV1,fromSnapshotV1,type SnapshotV1} from './snapshot-v1';
+import {tutorialGuide,tutorialAction} from './tutorial';
+import {CURRENT_BUILD_CONTEXT as BUILD_CONTEXT,toSnapshotV1,fromSnapshotV1,type SnapshotV1} from './snapshot-v1';
 import type {RunDto} from './r1-contracts';
 import {read,write,writeMany,remove,probeStorage,mutate,list} from './storage';
 import {auth,getUser,rpc,CloudError,type SessionUser} from './cloud';
@@ -11,13 +12,14 @@ import {Outbox,fromServer,browserStore,runKey,resumeMetadata,type DurableRun} fr
 const $=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
 const canvas=$<HTMLCanvasElement>('scene'),input:Input={left:false,right:false,jump:false},keys=new Set<string>();
 const moves=new Map<number,keyof Input>(),gestures=new Map<number,{mode:'take'|'place';target:Target|null;x:number;y:number}>();
+const markerGestures=new Map<number,{action:'take'|'place';target:Target}>();
 let state:Snapshot=createInitial(),view:GameView,paused=true,mode:'take'|'place'='take',target:Target|null=null,targetMode:'take'|'place'=mode,lastFrame=0,accumulator=0,lastSaveTick=-1;
 let localFailure=false,ready=false,busy=false,toastTimer=0,screen='boot',user:SessionUser|null=null,active:RunDto|null=null,profile:any=null,queue:Outbox|null=null,conflictRun:RunDto|null=null,authMode='login',authExpired=false,historyCursor:unknown=null;
-let saveQueue=Promise.resolve(),frameTimes:number[]=[];let localReplay=false,terminalView=false;
+let saveQueue=Promise.resolve(),frameTimes:number[]=[];let localReplay=false,terminalView=false;let guidePhase='';
 const callbackURL=()=>`${location.origin}${location.pathname}`;
 function notify(message:string){$('toast').textContent=message;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=window.setTimeout(()=>$('toast').classList.remove('show'),3500);}
 function show(next:string){screen=next;document.body.dataset.screen=next;$('overlay').hidden=false;for(const panel of document.querySelectorAll<HTMLElement>('#overlay > section'))panel.hidden=panel.id!==`${next}-panel`;if(next!=='game'){paused=true;resetInput();}$('portrait').hidden=next!=='game'||!portrait();}
-function resetInput(){keys.clear();moves.clear();gestures.clear();input.left=input.right=input.jump=false;state.player.jumpHeld=false;target=null;document.querySelectorAll('.pressed').forEach(b=>b.classList.remove('pressed'));accumulator=0;lastFrame=0;}
+function resetInput(){keys.clear();moves.clear();gestures.clear();markerGestures.clear();input.left=input.right=input.jump=false;state.player.jumpHeld=false;target=null;document.querySelectorAll('.pressed').forEach(b=>b.classList.remove('pressed'));accumulator=0;lastFrame=0;}
 function syncInput(){const held=new Set(moves.values());input.left=held.has('left')||keys.has('KeyA')||keys.has('ArrowLeft');input.right=held.has('right')||keys.has('KeyD')||keys.has('ArrowRight');input.jump=held.has('jump')||keys.has('Space');document.querySelectorAll<HTMLButtonElement>('[data-move]').forEach(b=>b.classList.toggle('pressed',input[b.dataset.move as keyof Input]));}
 function panel(title:string,text:string,label='ПРОДОЛЖИТЬ →'){$('panel-title').textContent=title;$('panel-text').textContent=text;$('resume').textContent=label;}
 function pause(title='Дом подождёт.',text='Снимок хранит положение дома, игрока и опору. Продолжение — по твоей команде.'){
@@ -57,7 +59,7 @@ function queueEvent(type:string,value?:unknown){
 function bindQueue(record:DurableRun){const owner=record.owner_id;queue?.hold();const next=new Outbox(owner,record.run_id,browserStore,(operation,body)=>scopedRpc(owner,operation,body),(type,value)=>{if(queue===next&&user?.id===owner)queueEvent(type,value);});queue=next;queue.hold();}
 function checkBuild(checkpoint:SnapshotV1){if(checkpoint.client_build_id!==BUILD_CONTEXT.client_build_id||checkpoint.content_version!==BUILD_CONTEXT.content_version||checkpoint.rules_version!==BUILD_CONTEXT.rules_version)throw new CloudError('CONTENT_INCOMPATIBLE','Сохранение требует другой сборки. Открой launcher для продолжения.');}
 async function adopt(record:DurableRun,title='Дом ждал тебя.'){
-  localReplay=false;terminalView=record.terminal_ack;const requestedUrl=new URL(location.href);requestedUrl.searchParams.set('resume',record.run_id);history.replaceState(null,'',requestedUrl);$('abandon').hidden=false;$('retry-sync').textContent='Повторить сохранение';checkBuild(record.snapshot);$('save-status').textContent=`Серверная revision ${record.revision} · копия на устройстве`;state=fromSnapshotV1(record.snapshot);bindQueue(record);lastSaveTick=state.tick;localFailure=false;ensureView();show('game');paused=true;resetInput();panel(title,`Сохранено ${Math.floor(state.tick/60)} с. Продолжение запустится только по твоей команде.`);$('instructions').hidden=true;
+  localReplay=false;terminalView=record.terminal_ack;const requestedUrl=new URL(location.href);requestedUrl.searchParams.set('resume',record.run_id);history.replaceState(null,'',requestedUrl);$('abandon').hidden=false;$('retry-sync').textContent='Повторить сохранение';checkBuild(record.snapshot);$('save-status').textContent=`Серверная revision ${record.revision} · копия на устройстве`;state=fromSnapshotV1(record.snapshot);guidePhase='';syncTutorialMode();bindQueue(record);lastSaveTick=state.tick;localFailure=false;ensureView();show('game');paused=true;resetInput();panel(title,`Сохранено ${Math.floor(state.tick/60)} с. Продолжение запустится только по твоей команде.`);$('instructions').hidden=true;
   if(record.conflict){await showConflict();return;}
   if(terminalView){$('abandon').hidden=true;state.outcome==='playing'?panel('Забег оставлен.','Это завершённый серверный забег. Он открыт только для просмотра.','В МЕНЮ →'):renderOutcome();$('resume').textContent='В МЕНЮ →';$('cloud-status').textContent='Результат подтверждён сервером. История не изменится.';return;}
   if(state.outcome!=='playing'){renderOutcome();queue?.allow();void queue?.flush();}else{$('cloud-status').textContent=record.inflight||record.pending?'Очередь на устройстве. После продолжения повторим сохранённый запрос.':`Серверная revision ${record.revision}.`;$('resume').textContent=authExpired?'ПРОДОЛЖИТЬ И СИНХРОНИЗИРОВАТЬ →':'ПРОДОЛЖИТЬ →';}
@@ -74,7 +76,7 @@ async function newRun(){
     }
     if(pending.owner_id!==owner)throw new Error('Аккаунт запроса не совпадает');
     const run=await scopedRpc<RunDto>(owner,'run_start_v1',pending.body),record=fromServer(owner,run);
-    await writeMany([[runKey(owner,run.run_id),record],[`resume:${owner}`,resumeMetadata(record)]],[key]);active=run;await adopt(record,'Стены становятся дорогой.');$('instructions').hidden=false;panel('Стены становятся дорогой.','Разбери правую стену и край пола. Соедини пятью блоками два берега — и дом поедет дальше.','ПОЕХАЛИ →');
+    await writeMany([[runKey(owner,run.run_id),record],[`resume:${owner}`,resumeMetadata(record)]],[key]);active=run;await adopt(record,'Первый мост — вместе.');$('instructions').hidden=false;panel('Первый мост — вместе.','Сначала возьми зелёный блок стены, затем поставь его в голубую клетку. Дом будет ждать первого переноса. Мосту нужны всего два блока.','НАЧАТЬ →');
   }catch(error){const e=error as Error&{code?:string};if(e.code==='GPU_UNAVAILABLE'){fatal(e.message);return;}if(e.code==='CLIENT_UPDATE_REQUIRED'){if(user)await remove(`start:${user.id}`);notify(e.message);location.assign('/games/syezzhaem/?new=1');return;}if(e.code==='AUTH_REQUIRED'){showAuth('login',e.message);return;}if(e.code==='ACTIVE_RUN_EXISTS'){if(user)await remove(`start:${user.id}`);await menu();return;}if(e.code==='VALIDATION_FAILED'||e.code==='CONTENT_INCOMPATIBLE'){if(user)await remove(`start:${user.id}`);}show('menu');$('menu-status').textContent=e.message+' Новый старт не подтверждён. Повтор кнопки повторит тот же request_id.';}finally{busy=false;}
 }
 async function continueRun(){
@@ -89,15 +91,32 @@ async function continueRun(){
 }
 function renderOutcome(){paused=true;resetInput();show('game');$('instructions').hidden=true;const kept=Math.round(retainedFraction(state)*100),won=state.outcome==='won';panel(won?'Дом добрался!':'Забег окончен.',won?`Сохранность дома ${kept}%. Счёт: 1000 за портал + ${Math.floor(400*retainedFraction(state))} за дом + ${Math.max(0,300-Math.floor(state.tick/60))} за время.`:(state.reason??'Дом потерял опору.')+' Счёт: 0.',localReplay?'В МЕНЮ →':'ЕЩЁ РАЗ →');}
 function outcome(){renderOutcome();void saveLocal();}
-function hud(){$('wood').textContent=String(state.inventory.wood);$('distance').textContent=`${Math.max(0,Math.ceil(RULES.portalX-(state.house.x+3)))} м`;$('heart-fill').style.width=`${state.house.heartHp}%`;$('objective').textContent=state.house.motion==='unsupported'?`Опора потеряна! Восстанови за ${state.house.supportTimer.toFixed(1)} с`:state.house.motion==='gap'?'Дом ждёт мост. Поставь дерево в следующую клетку пропасти.':'Разбери часть дома. Построй мост. Доедь до портала.';const caption=$('target-caption');if(target){const p=view.project(target);caption.textContent=`${targetMode==='take'?'ВЗЯТЬ':'ПОСТАВИТЬ'} · ${target.space==='house'?'ДОМ':'МИР'}`;caption.style.display='block';caption.style.left=`${Math.max(8,Math.min(innerWidth-160,p.x-55))}px`;caption.style.top=`${Math.max(90,p.y-48)}px`;}else caption.style.display='none';}
-function frame(time:number){if(lastFrame){const elapsed=Math.min((time-lastFrame)/1000,.1);if(!paused){accumulator+=elapsed;frameTimes.push(time-lastFrame);if(frameTimes.length>3600)frameTimes.shift();}}lastFrame=time;if(!paused){let steps=0;while(accumulator>=1/RULES.tickRate&&steps<6){step(state,input);accumulator-=1/RULES.tickRate;steps++;if(state.outcome!=='playing'){outcome();break;}}if(state.tick-lastSaveTick>=300){lastSaveTick=state.tick;void saveLocal();}}if(view){view.render(state,target,targetMode);hud();}requestAnimationFrame(frame);}
+function selectMode(next:'take'|'place'){
+  mode=next;target=null;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',(b as HTMLElement).dataset.mode===mode));
+}
+function syncTutorialMode(){
+  const guide=tutorialGuide(state),phase=guide?.phase??'';
+  if(phase!==guidePhase){guidePhase=phase;if(guide&&guide.phase!=='ride')selectMode(guide.action);}
+}
+function hud(){
+  const rules=rulesFor(state),guide=tutorialGuide(state);
+  $('wood').textContent=String(state.inventory.wood);$('distance').textContent=`${Math.max(0,Math.ceil(rules.portalX-(state.house.x+3)))} м`;$('heart-fill').style.width=`${state.house.heartHp}%`;
+  const objective=state.house.motion==='unsupported'?`Опора потеряна! Восстанови за ${state.house.supportTimer.toFixed(1)} с`:guide?.title??(state.house.motion==='gap'?'Дом ждёт мост. Поставь дерево в следующую клетку пропасти.':'Разбери часть дома. Построй мост. Доедь до портала.');
+  if($('objective').textContent!==objective)$('objective').textContent=objective;
+  const tutorial=$('tutorial-hint');tutorial.hidden=paused||!guide;
+  if(guide){if($('tutorial-detail').textContent!==guide.instruction)$('tutorial-detail').textContent=guide.instruction;$('tutorial-progress').textContent=`ПЕРВЫЙ МОСТ · ${guide.filled}/2`;}
+  const mark=$('tutorial-marker');mark.hidden=paused||!guide?.target;
+  if(guide?.target){const p=view.project(guide.target);mark.textContent=guide.action==='take'?'↓ ВЗЯТЬ':guide.phase==='wait'?'↓ СКОРО':'↓ ПОСТАВИТЬ';$<HTMLButtonElement>('tutorial-marker').disabled=guide.phase==='wait';mark.setAttribute('aria-label',guide.action==='take'?'Взять отмеченный блок стены':'Поставить блок в отмеченную клетку моста');mark.dataset.action=guide.action;mark.style.left=`${Math.max(75,Math.min(innerWidth-75,p.x))}px`;mark.style.top=`${Math.max(110,p.y-43)}px`;}
+  const caption=$('target-caption');if(target){const p=view.project(target);caption.textContent=`${targetMode==='take'?'ВЗЯТЬ':'ПОСТАВИТЬ'} · ${target.space==='house'?'ДОМ':'МИР'}`;caption.style.display='block';caption.style.left=`${Math.max(8,Math.min(innerWidth-160,p.x-55))}px`;caption.style.top=`${Math.max(90,p.y-48)}px`;}else caption.style.display='none';
+}
+function frame(time:number){if(lastFrame){const elapsed=Math.min((time-lastFrame)/1000,.1);if(!paused){accumulator+=elapsed;frameTimes.push(time-lastFrame);if(frameTimes.length>3600)frameTimes.shift();}}lastFrame=time;if(!paused){let steps=0;while(accumulator>=1/RULES.tickRate&&steps<6){step(state,input);accumulator-=1/RULES.tickRate;steps++;if(state.outcome!=='playing'){outcome();break;}}if(state.tick-lastSaveTick>=300){lastSaveTick=state.tick;void saveLocal();}}if(view){syncTutorialMode();const guide=tutorialGuide(state);view.render(state,target,targetMode,!paused&&guide?.target?{target:guide.target,mode:guide.action}:undefined);hud();}requestAnimationFrame(frame);}
 function ensureView(){if(view)return;const probe=document.createElement('canvas').getContext('webgl2');if(!probe)throw new CloudError('GPU_UNAVAILABLE','Браузер не создаёт WebGL2. Проверь аппаратное ускорение.');probe.getExtension('WEBGL_lose_context')?.loseContext();try{view=new GameView(canvas);}catch(error){throw new CloudError('GPU_UNAVAILABLE',`Не удалось создать игровой мир: ${(error as Error).message}`);}view.engine.setHardwareScalingLevel(profile?.quality==='low'?Math.max(1,devicePixelRatio):Math.max(1,devicePixelRatio/1.5));canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();pause('Отображение потеряло GPU-контекст.','Забег остановлен, снимок сохраняется. После восстановления нажми «Продолжить».');});canvas.addEventListener('webglcontextrestored',()=>{paused=true;resetInput();view.scene.dispose();view.engine.dispose();(view as unknown)=undefined;ensureView();panel('Отображение восстановлено.','Игровой мир сохранён. Нажми «Продолжить».');});}
 function coords(e:PointerEvent){const rect=canvas.getBoundingClientRect();return{x:e.clientX-rect.left,y:e.clientY-rect.top};}
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
 canvas.addEventListener('pointerdown',e=>{
   if(paused||!ready||e.button>2)return;
   e.preventDefault();canvas.setPointerCapture(e.pointerId);
-  const action=e.pointerType==='mouse'?(e.button===2?'place':'take'):mode;
+  const action=e.pointerType==='mouse'?(e.button===2?'place':mode):mode;
   const {x,y}=coords(e);const selected=view.pick(x,y,state,action,e.pointerType!=='mouse');
   gestures.set(e.pointerId,{mode:action,target:selected,x,y});target=selected;targetMode=action;
 });
@@ -116,10 +135,33 @@ canvas.addEventListener('pointerup',e=>{
   const outside=e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom;
   const onControl=document.elementFromPoint(e.clientX,e.clientY)?.closest('button');
   if(!paused&&!outside&&!onControl&&gesture?.target){
-    const result=(gesture.mode==='take'?take:place)(state,gesture.target);
-    if(!result.ok)notify(result.reason);else{notify(gesture.mode==='take'?'Блок дома → дерево в рюкзаке':'Дерево → новый блок');void saveLocal();}
+    applyAction(gesture.mode,gesture.target);
   }
   target=null;
+});
+function applyAction(action:'take'|'place',selected:Target){
+  if(paused||!ready)return;
+  const result=tutorialAction(state,action,selected);
+  if(!result.ok)notify(result.reason);else{notify(action==='take'?'Блок стены в рюкзаке. Теперь поставь его на мост.':'Блок стал дорогой для дома.');syncTutorialMode();void saveLocal();}
+}
+const marker=$<HTMLButtonElement>('tutorial-marker');
+marker.addEventListener('contextmenu',e=>e.preventDefault());
+marker.addEventListener('pointerdown',e=>{
+  const guide=tutorialGuide(state);
+  if(paused||!ready||!guide?.target||guide.phase==='wait'||(e.button!==0&&!(e.button===2&&guide.action==='place')))return;
+  e.preventDefault();marker.setPointerCapture(e.pointerId);markerGestures.set(e.pointerId,{action:guide.action,target:{...guide.target}});
+});
+marker.addEventListener('pointerup',e=>{
+  const gesture=markerGestures.get(e.pointerId);markerGestures.delete(e.pointerId);
+  const rect=marker.getBoundingClientRect();
+  if(gesture&&e.clientX>=rect.left&&e.clientX<=rect.right&&e.clientY>=rect.top&&e.clientY<=rect.bottom)applyAction(gesture.action,gesture.target);
+});
+for(const event of ['pointercancel','lostpointercapture'])marker.addEventListener(event,e=>markerGestures.delete((e as PointerEvent).pointerId));
+// Keyboard activation is semantic HTML; pointer commands execute once on release.
+marker.addEventListener('click',e=>{
+  if(e.detail!==0)return;
+  const guide=tutorialGuide(state);
+  if(guide?.target&&guide.phase!=='wait')applyAction(guide.action,guide.target);
 });
 canvas.addEventListener('pointercancel',cancelPointer);
 canvas.addEventListener('lostpointercapture',e=>{if(gestures.has(e.pointerId))cancelPointer(e);});
@@ -129,7 +171,7 @@ document.querySelectorAll<HTMLButtonElement>('[data-move]').forEach(button=>{
   for(const event of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(event,e=>{moves.delete((e as PointerEvent).pointerId);syncInput();});
 });
 document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach(button=>button.addEventListener('click',()=>{
-  mode=button.dataset.mode as typeof mode;target=null;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',(b as HTMLElement).dataset.mode===mode));
+  selectMode(button.dataset.mode as typeof mode);
 }));
 window.addEventListener('keydown',e=>{
   if(screen!=='game'||(e.target as HTMLElement)?.closest('input,textarea,select'))return;
@@ -219,7 +261,7 @@ $('build-label').textContent=BUILD_ID;$('fatal-retry').addEventListener('click',
 window.addEventListener('online',()=>{if(queue&&user&&!authExpired&&!localFailure&&screen!=='auth')void queue.flush();});
 async function boot(){
   ready=true;requestAnimationFrame(frame);
-  if(new URLSearchParams(location.search).has('test')){(window as any).__r1={state:()=>snapshot(state),input:()=>({...input}),paused:()=>paused,screen:()=>screen,user:()=>user?.id??null,project:(cell:any)=>view.project(cell),setState:(s:unknown)=>{state=restore(s);resetInput();},pause,resume,saveLocal,newRun,continueRun,menu,outbox:()=>queue?.record(),record:()=>queue?.record(),flush:()=>queue?.flush(),target:()=>target?{...target}:null,toSnapshotV1,stats:()=>{const sorted=[...frameTimes].sort((a,b)=>a-b);return{samples:sorted.length,p50:sorted[Math.floor(sorted.length*.5)],p95:sorted[Math.floor(sorted.length*.95)],meshes:view?.scene.meshes.length,drawCallsLastFrame:view?.drawCallsLastFrame};}};}
+  if(new URLSearchParams(location.search).has('test')){(window as any).__r1={state:()=>snapshot(state),input:()=>({...input}),paused:()=>paused,screen:()=>screen,user:()=>user?.id??null,project:(cell:any)=>view.project(cell),setState:(s:unknown)=>{state=restore(s);resetInput();},pause,resume,saveLocal,newRun,continueRun,menu,outbox:()=>queue?.record(),record:()=>queue?.record(),flush:()=>queue?.flush(),target:()=>target?{...target}:null,guide:()=>tutorialGuide(state),toSnapshotV1,stats:()=>{const sorted=[...frameTimes].sort((a,b)=>a-b);return{samples:sorted.length,p50:sorted[Math.floor(sorted.length*.5)],p95:sorted[Math.floor(sorted.length*.95)],meshes:view?.scene.meshes.length,drawCallsLastFrame:view?.drawCallsLastFrame};}};}
   try{const query=new URLSearchParams(location.search);if(query.get('token')){showAuth('password');return;}user=await getUser();if(user?.emailVerified)await menu();else showAuth('login',query.has('error')?'Ссылка не подтверждена или истекла. Запроси новое письмо.':'');}catch(error){showAuth('login',(error as Error).message);}
 }
 void boot();

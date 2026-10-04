@@ -1,0 +1,447 @@
+{
+  "version": "r1-map-2",
+  "blocks": [
+    {
+      "space": "world",
+      "x": -10,
+      "y": 0,
+      "id": "terrain:-10",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": -9,
+      "y": 0,
+      "id": "terrain:-9",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": -8,
+      "y": 0,
+      "id": "terrain:-8",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": -7,
+      "y": 0,
+      "id": "terrain:-7",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": -6,
+      "y": 0,
+      "id": "terrain:-6",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": -5,
+      "y": 0,
+      "id": "terrain:-5",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": -4,
+      "y": 0,
+      "id": "terrain:-4",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": -3,
+      "y": 0,
+      "id": "terrain:-3",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": -2,
+      "y": 0,
+      "id": "terrain:-2",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": -1,
+      "y": 0,
+      "id": "terrain:-1",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 0,
+      "y": 0,
+      "id": "terrain:0",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 1,
+      "y": 0,
+      "id": "terrain:1",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 2,
+      "y": 0,
+      "id": "terrain:2",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 3,
+      "y": 0,
+      "id": "terrain:3",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 4,
+      "y": 0,
+      "id": "terrain:4",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 5,
+      "y": 0,
+      "id": "terrain:5",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 6,
+      "y": 0,
+      "id": "terrain:6",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 7,
+      "y": 0,
+      "id": "terrain:7",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 8,
+      "y": 0,
+      "id": "terrain:8",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 11,
+      "y": 0,
+      "id": "terrain:11",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 12,
+      "y": 0,
+      "id": "terrain:12",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 13,
+      "y": 0,
+      "id": "terrain:13",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 14,
+      "y": 0,
+      "id": "terrain:14",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 15,
+      "y": 0,
+      "id": "terrain:15",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 16,
+      "y": 0,
+      "id": "terrain:16",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 17,
+      "y": 0,
+      "id": "terrain:17",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 18,
+      "y": 0,
+      "id": "terrain:18",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 19,
+      "y": 0,
+      "id": "terrain:19",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 20,
+      "y": 0,
+      "id": "terrain:20",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 21,
+      "y": 0,
+      "id": "terrain:21",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 22,
+      "y": 0,
+      "id": "terrain:22",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 23,
+      "y": 0,
+      "id": "terrain:23",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 24,
+      "y": 0,
+      "id": "terrain:24",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 25,
+      "y": 0,
+      "id": "terrain:25",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 26,
+      "y": 0,
+      "id": "terrain:26",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 27,
+      "y": 0,
+      "id": "terrain:27",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 28,
+      "y": 0,
+      "id": "terrain:28",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 29,
+      "y": 0,
+      "id": "terrain:29",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 30,
+      "y": 0,
+      "id": "terrain:30",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 31,
+      "y": 0,
+      "id": "terrain:31",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 32,
+      "y": 0,
+      "id": "terrain:32",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 33,
+      "y": 0,
+      "id": "terrain:33",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 34,
+      "y": 0,
+      "id": "terrain:34",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 35,
+      "y": 0,
+      "id": "terrain:35",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 36,
+      "y": 0,
+      "id": "terrain:36",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 37,
+      "y": 0,
+      "id": "terrain:37",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 38,
+      "y": 0,
+      "id": "terrain:38",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 39,
+      "y": 0,
+      "id": "terrain:39",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    },
+    {
+      "space": "world",
+      "x": 40,
+      "y": 0,
+      "id": "terrain:40",
+      "material": "wood",
+      "originalId": null,
+      "portable": false
+    }
+  ],
+  "portal_x": 25
+}

@@ -12,7 +12,7 @@ import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import '@babylonjs/core/Rendering/edgesRenderer';
 import '@babylonjs/core/Culling/ray';
-import { RULES, type Snapshot, type Target, type Cell } from './contracts';
+import { RULES, rulesFor, type Snapshot, type Target, type Cell } from './contracts';
 import { worldPosition, targetAt, canTake, canPlace } from './core';
 
 export class GameView {
@@ -21,7 +21,7 @@ export class GameView {
   private mats: Record<string,StandardMaterial> = {};
   private character: TransformNode; private legs: Mesh[] = [];
   private chassis: TransformNode; private pistons: Mesh[] = [];
-  private heart: Mesh; private ghost: Mesh;
+  private heart: Mesh; private ghost: Mesh; private hint: Mesh; private portal: TransformNode; private gapDepth!: Mesh;
   private state?: Snapshot;
   private follow = 10;
   drawCallsLastFrame = 0;
@@ -38,7 +38,7 @@ export class GameView {
     this.camera.setTarget(new Vector3(10,3,0));
     const hemi=new HemisphericLight('sky',new Vector3(0,1,-.5),this.scene);hemi.intensity=1.15;
     const sun=new DirectionalLight('sun',new Vector3(-.4,-1,.4),this.scene);sun.intensity=.55;
-    const palette: Record<string,string>={wood:'#c78e53',newWood:'#d4a366',ground:'#72996c',earth:'#536e5f',rock:'#557b77',trunk:'#758f6c',leaf:'#86ad79',metal:'#365a64',piston:'#a2b9af',heart:'#f88b63',skin:'#e6b889',shirt:'#294a64',boots:'#243c4c',pack:'#b7df78',portal:'#b892f4',portalDark:'#675285',ghost:'#bce97d',sky:'#b2cfbe'};
+    const palette: Record<string,string>={wood:'#c78e53',newWood:'#d4a366',ground:'#72996c',earth:'#536e5f',rock:'#557b77',trunk:'#758f6c',leaf:'#86ad79',metal:'#365a64',piston:'#a2b9af',heart:'#f88b63',skin:'#e6b889',shirt:'#294a64',boots:'#243c4c',pack:'#b7df78',portal:'#b892f4',portalDark:'#675285',ghost:'#bce97d',guide:'#bce97d',sky:'#b2cfbe'};
     for(const [key,color] of Object.entries(palette)){const m=new StandardMaterial(key,this.scene);m.diffuseColor=Color3.FromHexString(color);m.specularColor=new Color3(.05,.05,.05);this.mats[key]=m;}
     this.mats.heart.emissiveColor=Color3.FromHexString('#723c1c');
     this.mats.portal.emissiveColor=Color3.FromHexString('#513b78');
@@ -61,7 +61,8 @@ export class GameView {
     this.box('eye',.07,.07,.025,-.12,1.2,-1.06,'boots',this.character);
     this.ghost=this.box('target',1.02,1.02,1.34,0,0,0,'ghost');
     this.ghost.enableEdgesRendering();this.ghost.edgesWidth=3;this.ghost.edgesColor=new Color4(.7,1,.4,1);this.ghost.setEnabled(false);
-    this.decorate();this.resize();
+    this.hint=this.box('tutorial-target',1.06,1.06,1.4,0,0,0,'guide');this.hint.enableEdgesRendering();this.hint.edgesWidth=4;this.mats.guide.alpha=.15;this.mats.guide.disableDepthWrite=true;this.hint.setEnabled(false);
+    this.portal=new TransformNode('portal-decoration',this.scene);this.decorate();this.resize();
   }
   private box(name:string,w:number,h:number,d:number,x:number,y:number,z:number,mat:string,parent?:TransformNode):Mesh{
     const m=CreateBox(name,{width:w,height:h,depth:d},this.scene);m.position.set(x,y,z);m.material=this.mats[mat];m.isPickable=false;if(parent)m.parent=parent;return m;
@@ -78,13 +79,13 @@ export class GameView {
       this.box('leaves',2.3,1.4,1.9,x,3,5,'leaf');
       this.box('leaves',1.6,1.1,1.5,x+.2,3.9,5,'leaf');
     }
-    this.box('portal-frame',.65,5,1,RULES.portalX+1,2.2,1,'portalDark');
-    this.box('portal-frame',.65,5,1,RULES.portalX-1,2.2,1,'portalDark');
-    this.box('portal-frame',2.7,.65,1,RULES.portalX,4.7,1,'portalDark');
-    const glow=this.box('portal',1.5,4,.12,RULES.portalX,2.2,1,'portal');(glow.material as StandardMaterial).alpha=.65;
+    this.box('portal-frame',.65,5,1,1,2.2,1,'portalDark',this.portal);
+    this.box('portal-frame',.65,5,1,-1,2.2,1,'portalDark',this.portal);
+    this.box('portal-frame',2.7,.65,1,0,4.7,1,'portalDark',this.portal);
+    const glow=this.box('portal',1.5,4,.12,0,2.2,1,'portal',this.portal);(glow.material as StandardMaterial).alpha=.65;
     this.box('far-ground',65,.7,7,12,-.7,6,'earth');
     // Dark bed of the gap makes the missing road legible.
-    this.box('gap-depth',5.1,1.4,3,14,-2.8,0,'metal');
+    this.gapDepth=this.box('gap-depth',5.1,1.4,3,14,-2.8,0,'metal');
   }
   resize(){
     this.engine.resize();const aspect=this.canvas.clientWidth/this.canvas.clientHeight;
@@ -92,8 +93,8 @@ export class GameView {
     this.camera.orthoTop=height/2;this.camera.orthoBottom=-height/2;
     this.camera.orthoLeft=-height*aspect/2;this.camera.orthoRight=height*aspect/2;
   }
-  render(s:Snapshot,target:Target|null,mode:'take'|'place'){
-    this.state=s;
+  render(s:Snapshot,target:Target|null,mode:'take'|'place',guide?:{target:Target;mode:'take'|'place'}){
+    this.state=s;const rules=rulesFor(s);this.portal.position.x=rules.portalX;this.gapDepth.position.x=(rules.gapStart+rules.gapEnd)/2;this.gapDepth.scaling.x=(rules.gapEnd-rules.gapStart+1.1)/5.1;
     const present=new Set(s.blocks.map(b=>b.id));
     for(const [id,mesh] of this.meshes)if(!present.has(id)){mesh.dispose();this.meshes.delete(id);}
     for(const b of s.blocks){
@@ -123,6 +124,7 @@ export class GameView {
       const col=valid?(target.space==='house'?new Color3(.6,1,.4):new Color3(.4,.9,1)):new Color3(1,.35,.3);
       this.mats.ghost.diffuseColor=col;this.ghost.edgesColor=new Color4(col.r,col.g,col.b,1);
     }else this.ghost.setEnabled(false);
+    if(guide){const p=worldPosition(s,guide.target);this.hint.position.set(p.x,p.y,-.04);this.hint.setEnabled(true);const col=guide.mode==='take'?new Color3(.65,1,.32):new Color3(.32,.9,1);this.mats.guide.diffuseColor=col;this.hint.edgesColor=new Color4(col.r,col.g,col.b,1);}else this.hint.setEnabled(false);
     this.engine.beginFrame();
     const before=this.engine._drawCalls.current;
     this.scene.render();

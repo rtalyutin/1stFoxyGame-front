@@ -1,4 +1,4 @@
-import { BUILD_ID, RULES, type Snapshot, type Space } from './contracts.js';
+import { BUILD_ID, RULES, rulesFor, compatibleContent, type ContentVersion, type Snapshot, type Space } from './contracts.js';
 import { createInitial, initialBlocks, restore, retainedFraction } from './core.js';
 
 export interface BuildContext {
@@ -6,6 +6,9 @@ export interface BuildContext {
 }
 export const BUILD_CONTEXT: Readonly<BuildContext> = Object.freeze({
   client_build_id: BUILD_ID, content_version: 'r1-map-1', rules_version: 'r1-rules-1', level_id: 'house-bridge-portal',
+});
+export const CURRENT_BUILD_CONTEXT: Readonly<BuildContext> = Object.freeze({
+  client_build_id: BUILD_ID, content_version: 'r1-map-2', rules_version: 'r1-rules-2', level_id: 'house-bridge-portal-intro',
 });
 export interface CellOverride {
   x: number; y: number; operation: 'remove' | 'put'; base_block_id: string | null;
@@ -39,16 +42,18 @@ function int(value: unknown, min: number, max: number, path: string): number {
 function context(value: unknown): BuildContext {
   const r = object(value, 'snapshot');
   if (typeof r.client_build_id !== 'string' || !/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,95}$/.test(r.client_build_id)) throw new Error('client_build_id: invalid build');
-  if (r.content_version !== BUILD_CONTEXT.content_version || r.rules_version !== BUILD_CONTEXT.rules_version || r.level_id !== BUILD_CONTEXT.level_id) throw new Error('content_version: incompatible content/rules/level');
+  if (!compatibleContent(r.content_version, r.rules_version) || r.level_id !== (r.content_version === 'r1-map-2' ? CURRENT_BUILD_CONTEXT.level_id : BUILD_CONTEXT.level_id)) throw new Error('content_version: incompatible content/rules/level');
   return { client_build_id: r.client_build_id, content_version: r.content_version as string, rules_version: r.rules_version as string, level_id: r.level_id as string };
 }
 
 /** Encode only deviations; a removed base cell remains a tombstone even after rebuilding. */
-export function toSnapshotV1(state: Snapshot, build: BuildContext = BUILD_CONTEXT): SnapshotV1 {
-  const s = restore(state);
+export function toSnapshotV1(state: Snapshot, build?: BuildContext): SnapshotV1 {
+  const s = restore(state), RULES = rulesFor(s);
+  build ??= s.contentVersion === 'r1-map-2' ? CURRENT_BUILD_CONTEXT : BUILD_CONTEXT;
   context(build);
+  if (s.contentVersion !== build.content_version || s.rulesVersion !== build.rules_version) throw new Error('content_version: state/build mismatch');
   if (!uuid.test(s.runId)) throw new Error('run_id: expected UUID');
-  const baseline = initialBlocks();
+  const baseline = initialBlocks(s.contentVersion);
   const diff = (space: Space): CellOverride[] => {
     const cells: CellOverride[] = [];
     for (const b of baseline.filter(b => b.space === space)) {
@@ -74,7 +79,7 @@ export function toSnapshotV1(state: Snapshot, build: BuildContext = BUILD_CONTEX
 /** Validate transport, apply overrides to this immutable version, then validate the whole world. */
 export function fromSnapshotV1(raw: unknown): Snapshot {
   const r = exact(raw, ['schema_version','client_build_id','content_version','rules_version','level_id','run_id','sim_tick','rng_state','outcome','reason','player','house','house_cells','world_cells','inventory','actors','lava','counters'], 'snapshot');
-  const c = context(r);
+  const c = context(r), RULES = rulesFor({rulesVersion: c.rules_version as Snapshot['rulesVersion']});
   if (r.schema_version !== 1 || typeof r.run_id !== 'string' || !uuid.test(r.run_id)) throw new Error('schema_version/run_id: invalid');
   int(r.rng_state, 1, 1, 'rng_state');
   if (!Array.isArray(r.actors) || r.actors.length || r.lava !== null) throw new Error('actors/lava: unsupported R1 state');
@@ -85,8 +90,8 @@ export function fromSnapshotV1(raw: unknown): Snapshot {
   int(h.support_loss_ticks, 0, Math.round(RULES.supportGrace * RULES.tickRate), 'house.support_loss_ticks');
   const counts = exact(r.counters, ['distance','placed_sequence'], 'counters');
   if (typeof h.x !== 'number' || counts.distance !== h.x - 2) throw new Error('counters.distance: inconsistent house position');
-  const blocks = initialBlocks();
-  const baseline = initialBlocks();
+  const blocks = initialBlocks(c.content_version as ContentVersion);
+  const baseline = initialBlocks(c.content_version as ContentVersion);
   for (const space of ['house','world'] as const) {
     const cells = r[`${space}_cells`];
     if (!Array.isArray(cells) || cells.length > 650) throw new Error(`${space}_cells: invalid list`);
@@ -129,7 +134,7 @@ export function validateSnapshotV1(raw: unknown, expected?: BuildContext): Snaps
   return toSnapshotV1(s, c);
 }
 export function createSnapshotV1(runId: string, build: BuildContext = BUILD_CONTEXT): SnapshotV1 {
-  return toSnapshotV1(createInitial(runId), build);
+  return toSnapshotV1(createInitial(runId, context(build).content_version as ContentVersion), build);
 }
 export function scoreSnapshot(raw: SnapshotV1): { outcome: 'playing' | 'won' | 'lost'; score: number; elapsed_seconds: number; retained_fraction: number; distance: number; cat_saved: false; chest_saved: false } {
   const s = fromSnapshotV1(raw), fraction = retainedFraction(s), elapsed = s.tick / RULES.tickRate;

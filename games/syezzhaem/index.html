@@ -12,6 +12,8 @@
     </header>
     <div id="objective" role="status">Разбери часть дома. Построй мост. Доедь до портала.</div>
     <div id="target-caption" aria-live="polite"></div>
+    <aside id="tutorial-hint" hidden><strong id="tutorial-progress"></strong><p id="tutorial-detail"></p></aside>
+    <button id="tutorial-marker" type="button" hidden></button>
     <footer id="bottom">
       <div id="movement">
         <button data-move="left" aria-label="Идти влево">◀</button>
@@ -47,14 +49,14 @@
       </section>
       <section id="game-panel" class="panel" hidden>
         <div class="eyebrow">ДОМ В ДВИЖЕНИИ</div><h1 id="panel-title">Дом подождёт.</h1><p id="panel-text"></p>
-        <div id="instructions"><p><b>ПК</b> A / D — ходить · пробел — прыгать<br>ЛКМ — взять · ПКМ — поставить · Esc — пауза</p><p><b>Телефон</b> Горизонтально. Слева — движение, справа — режим. Коснись клетки и отпусти, чтобы выполнить действие.</p><p class="note">Возьми правую стену и край пола. Поставь пять блоков дерева через пропасть.</p></div>
+        <div id="instructions"><p><b>ПК</b> A / D — ходить · пробел — прыгать<br>ЛКМ — выбранный режим · ПКМ — поставить · Esc — пауза</p><p><b>Телефон</b> Горизонтально. Слева — движение, справа — режим. Коснись клетки и отпусти, чтобы выполнить действие.</p><p class="note">Следуй отметкам: стена → рюкзак → мост. Дом ждёт первого блока, а пол под тобой останется целым.</p></div>
         <p id="cloud-status" role="status"></p>
         <div class="actions"><button id="resume" class="primary">ПРОДОЛЖИТЬ →</button><button id="to-menu" class="secondary">В меню</button></div>
         <div class="link-actions"><button id="retry-sync">Повторить сохранение</button><button id="abandon">Отказаться от забега</button><button id="fresh-version">Открыть свежую версию</button></div>
       </section>
       <section id="conflict-panel" class="panel" hidden><div class="eyebrow">ДВА УСТРОЙСТВА · ДВА МИРА</div><h1>Какой дом продолжим?</h1><p id="conflict-text"></p><div class="menu-actions"><button id="conflict-server" class="primary">Загрузить серверный</button><button id="conflict-keep" class="secondary">Оставить локальную копию</button><button id="conflict-local" class="secondary">Заменить серверный локальным…</button></div><p id="conflict-status" role="status"></p></section>
       <section id="history-panel" class="panel" hidden><div class="eyebrow">ЛИЧНЫЕ РЕЗУЛЬТАТЫ</div><h1>История домов</h1><div id="history-list"></div><p id="history-status" role="status"></p><div class="actions"><button id="history-more" class="secondary" hidden>Ещё</button><button data-menu class="primary">В меню</button></div></section>
-      <section id="tutorial-panel" class="panel" hidden><div class="eyebrow">СТЕНЫ СТАНОВЯТСЯ ДОРОГОЙ</div><h1>Дом — запас дерева.</h1><p>Дом сам едет к порталу. Разбери правую стену и край пола: оттуда удобно строить мост. Пятью блоками соедини два берега.</p><p><b>ПК</b> A / D или стрелки — идти, пробел — прыгать, ЛКМ — взять, ПКМ — поставить, Esc — пауза.</p><p><b>Телефон</b> Поверни горизонтально. Слева движение, справа режим. Коснись клетки и отпусти: одна команда. Двумя пальцами можно идти и строить одновременно.</p><p>Не разбирай пол под собой. Береги опору дома: если она пропадёт, сердце продержится 1,5 секунды.</p><button data-menu class="primary">В меню</button></section>
+      <section id="tutorial-panel" class="panel" hidden><div class="eyebrow">СТЕНЫ СТАНОВЯТСЯ ДОРОГОЙ</div><h1>Дом — запас дерева.</h1><p>Первый мост строим вместе. Нажми «Новый забег»: возьми зелёный блок стены, затем нажми на голубую клетку моста. Дом ждёт первого переноса. Ещё один блок — и путь к порталу открыт.</p><p><b>ПК</b> A / D или стрелки — идти, пробел — прыгать, ЛКМ — действие выбранного режима, ПКМ — поставить, Esc — пауза.</p><p><b>Телефон</b> Поверни горизонтально. Слева движение, справа режим. Коснись клетки и отпусти: одна команда. Двумя пальцами можно идти и строить одновременно.</p><p>Пол под персонажем — твоя опора. В учебном маршруте мосту нужны два блока, а запас сердца без опоры — 4 секунды. Сохранённые старые забеги продолжаются по своим прежним правилам.</p><button data-menu class="primary">В меню</button></section>
       <section id="settings-panel" class="panel" hidden><div class="eyebrow">НАСТРОЙКИ АККАУНТА</div><h1>Твой темп</h1><form id="settings-form"><label>Ник <input id="setting-name" maxlength="40" autocomplete="nickname"></label><label>Графика <select id="setting-quality"><option value="low">Low</option><option value="medium">Medium</option></select></label><label class="check"><input id="setting-sound" type="checkbox"> Звук</label><p class="note">В R1 звуков нет. Настройка сохранится для следующих релизов.</p><p id="settings-status" role="status"></p><div class="actions"><button class="primary">Сохранить</button><button type="button" data-menu class="secondary">В меню</button></div></form></section>
     </div>
     <div id="portrait" class="overlay" hidden><section class="panel compact"><div class="rotate-icon">↻</div><h2>Поверни телефон</h2><p>Для игры нужно горизонтальное положение. Забег на паузе.</p></section></div>

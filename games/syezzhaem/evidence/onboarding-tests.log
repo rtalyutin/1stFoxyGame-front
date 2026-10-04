@@ -1,0 +1,46 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> syezzhaem-r1-front@1.0.0 test
+> node --import tsx --test tests/*.case.ts
+
+✔ initial snapshot round-trips and original blocks have stable unique identity (4.993991ms)
+✔ AT-01: a moving house block is transferred once and placed bridge stays in world space (33.051508ms)
+✔ AT-02: full inventory and invalid placement preserve all state (1.229519ms)
+✔ AT-03 partial: house stops before unsupported gap then whole R1 route is playable (36.36713ms)
+✔ AT-04 partial: removed chassis support has a recoverable countdown, distinct from floor removal (12.898429ms)
+✔ AT-16 movement partial: airborne velocity, platform carry and support countdown restore exactly (19.74538ms)
+✔ AT-26: repairing same floor cell preserves new ID and support, never original score (1.363788ms)
+✔ AT-28: bound target follows house-local cell and safely fails after deletion/replacement (1.0051ms)
+✔ snapshot validation rejects type, identity, reference, cell and conservation violations atomically (4.012423ms)
+✔ G-09: interaction ray cannot pass through the supporting floor (0.688526ms)
+✔ G-07/AT-02: placement cannot enter chassis, but removed house floor can be repaired (2.478578ms)
+✔ G-03: fixed obstacle blocks moving house, including a floating block above chassis (12.080916ms)
+✔ valid flight off the fixed map still saves and restores terminal position (2.287927ms)
+✔ fixed tick does not simulate wall-clock suspension and terminal outcome stays fixed (0.691338ms)
+✔ unknown checkpoint ACK survives reconstruction and retains immutable body/key before newer pending (3.608949ms)
+✔ terminal finish replaces pending checkpoint, survives dropped ACK and cannot be overwritten by autosave (1.259155ms)
+✔ promotion failure never sends; retry resumes the unchanged pending snapshot (0.630611ms)
+✔ ACK local transaction failure keeps immutable inflight even though server committed (1.030588ms)
+✔ conflict stops automatic sends; explicitly chosen local copy uses fresh CAS/key (1.404806ms)
+✔ holding an owner queue prevents requests; another owner cannot capture its record (0.388013ms)
+✔ two same-origin outboxes cannot promote two different requests for one durable pending (0.731517ms)
+✔ explicit server B selection ignores local pending A and preserves A body/build (5.729988ms)
+✔ explicit local A selection retains its pending request although server active B differs (2.072415ms)
+✔ selected own terminal run is loaded explicitly rather than active other run (3.093682ms)
+✔ unavailable requested run never falls back to a different active or foreign local copy (7.116117ms)
+✔ initial transport has no overrides, immutable content reconstructed and input cleared (12.746661ms)
+✔ removed wall persists as tombstone; rebuilt cell gets UUID without original identity (5.724576ms)
+✔ flight preserves velocities and support-loss ticks; restored simulation stays deterministic (16.813762ms)
+✔ reject malformed overrides, unsupported features, minted material and wrong pinned build (4.677794ms)
+✔ terminal score is derived from surviving original IDs and ticks; loss score zero (5.109317ms)
+✔ first real wall-to-bridge transfer is untimed, safe, and survives a fresh snapshot load (18.80548ms)
+✔ two guided blocks form a fixed bridge and carry the idle novice safely to the portal (382.807145ms)
+✔ legacy content keeps its movement and 90-tick timer; mixed versions and relabeling are rejected (6.782081ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 619.928859

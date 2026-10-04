@@ -27,7 +27,7 @@ def atomic_json(path,value):
         if temp.exists():temp.unlink()
 def descriptor(m,raw):
     if set(m)!=set(FIELDS)|{'files'} or m['manifest_version']!=1 or m['snapshot_schema_version']!=1 or not BUILD.fullmatch(str(m['build_id'])):raise ValueError('Invalid release manifest')
-    if m['entry_url']!=PREFIX+'releases/'+m['build_id']+'/' or m['api_version']!='v1' or m['content_version']!='r1-map-1' or m['rules_version']!='r1-rules-1' or m['level_id']!='house-bridge-portal':raise ValueError('Unsupported release contract')
+    if m['entry_url']!=PREFIX+'releases/'+m['build_id']+'/' or m['api_version']!='v1' or (m['content_version'],m['rules_version'],m['level_id']) not in [('r1-map-1','r1-rules-1','house-bridge-portal'),('r1-map-2','r1-rules-2','house-bridge-portal-intro')]:raise ValueError('Unsupported release contract')
     if not isinstance(m['files'],dict) or not 1<=len(m['files'])<=5000 or 'index.html' not in m['files']:raise ValueError('Missing release entry')
     for n,v in m['files'].items():
         safe(n)
