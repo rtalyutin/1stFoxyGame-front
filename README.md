@@ -52,3 +52,8 @@ npm run build
 - `src/style.css` и `index.html` — русскоязычный HTML HUD.
 
 Текущий стек закреплён в lockfile: TypeScript, Babylon.js, Vite и Vitest. Android/ПК-оболочки не входят в R1.
+
+## СЪЕЗЖАЕМ! — R1
+
+Соответствующая часть второй игры находится в [games/syezzhaem](games/syezzhaem/README.md). Это отдельный Node.js-проект; команды и контейнер первой игры в корне сохраняются. Размещение кода в репозитории не устанавливает игру на VPS.
+

@@ -1,0 +1,18 @@
+{
+  "tickRate": 60,
+  "houseSpeed": 0.65,
+  "moveSpeed": 4.4,
+  "jumpSpeed": 7.8,
+  "gravity": 20,
+  "reach": 6,
+  "inventoryCap": 12,
+  "supportGrace": 1.5,
+  "playerWidth": 0.58,
+  "playerHeight": 1.35,
+  "houseWidth": 8,
+  "houseHeight": 6,
+  "houseY": 2,
+  "gapStart": 12,
+  "gapEnd": 16,
+  "portalX": 25
+}

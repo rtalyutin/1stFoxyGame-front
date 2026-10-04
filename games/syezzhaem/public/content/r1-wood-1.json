@@ -1,0 +1,16 @@
+{
+  "version": "r1-wood-1",
+  "kind": "procedural-material",
+  "base_color": "#c78e53",
+  "placed_color": "#d4a366",
+  "grain": {
+    "width": 0.82,
+    "height": 0.022,
+    "depth": 0.02,
+    "vertical_offsets": [
+      -0.19,
+      0.19
+    ]
+  },
+  "license": "project-original"
+}
