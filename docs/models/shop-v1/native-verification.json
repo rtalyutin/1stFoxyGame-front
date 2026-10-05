@@ -1,0 +1,33 @@
+{
+  "pass": true,
+  "triangles": 15456,
+  "assetMeshes": 5,
+  "staticMerchant": true,
+  "bounds": [
+    [
+      -2.765880584716797,
+      -1.7720000743865967,
+      0.004999999888241291
+    ],
+    [
+      2.765880584716797,
+      2.6549646854400635,
+      3.4050002098083496
+    ]
+  ],
+  "lampCenter": [
+    -0.489987313747406,
+    -1.3053710460662842,
+    2.1967966556549072
+  ],
+  "sourceNativeSha256": "a2261fe81e524d4972a6a18c00b7b75cf7971778760180162c488c25bd7b3c30",
+  "materials": [
+    "RF_Shop_Gold_Entrance_PBR",
+    "RF_Radiant_Staff_PBR",
+    "RF_Radiant_Canopy_PBR",
+    "RF_Radiant_Merchant_PBR",
+    "RF_Shop_Green_Lantern_PBR"
+  ],
+  "source": "Local Dota shopkeeper + Radiant shop; native PBR/tint/bakes/rings authored here",
+  "gameExport": "not_started"
+}

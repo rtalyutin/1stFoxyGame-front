@@ -7,15 +7,17 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import '@babylonjs/core/Meshes/instancedMesh';
 import '@babylonjs/loaders/glTF/2.0/glTFLoader';
 
-export const MODEL_NAMES = ['pudge', 'creep_basic', 'hook', 'chain', 'road', 'shoulder_0', 'shoulder_1', 'shoulder_2', 'tree', 'bush', 'rock', 'grass'] as const;
+export const MODEL_NAMES = ['pudge', 'creep_basic', 'hook', 'chain', 'road', 'shoulder_0', 'shoulder_1', 'shoulder_2', 'tree', 'bush', 'rock', 'grass', 'shop'] as const;
 export type ModelName = typeof MODEL_NAMES[number];
 export function modelPath(name: ModelName): string {
+  if (name === 'shop') return 'models/r3/shop.glb';
   const environment = name === 'road' || name === 'rock' || name === 'grass' || name.startsWith('shoulder_');
   return `models/${environment ? 'environment/road-v1' : 'r1'}/${name}.glb`;
 }
 const CONTRACT: Partial<Record<ModelName, { root: string; sockets: string[]; clips: string[] }>> = {
   pudge: { root: 'hero_root', sockets: ['socket_hook_hand', 'socket_weapon', 'socket_head', 'socket_body', 'socket_feet'], clips: ['idle', 'run', 'strafe_left', 'strafe_right', 'hook_cast', 'hook_hold', 'hook_return_empty', 'hook_return_capture', 'death'] },
   creep_basic: { root: 'enemy_root', sockets: ['socket_creep_capture'], clips: ['run', 'hit', 'death_capture'] },
+  shop: { root: 'shop_root', sockets: ['socket_shop_entry', 'socket_shop_focus'], clips: [] },
   hook: { root: 'hook_root', sockets: ['socket_chain_hook', 'socket_target_hook'], clips: [] },
 };
 

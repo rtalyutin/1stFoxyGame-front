@@ -6,7 +6,7 @@
   "contract": "docs/models/r3-r4/contract.md",
   "sha256": {
     "pudge_r3.glb": "d7b5087be5b1b0c9a3cd3dc52eb29e6494a13351bacdf571ef5d203096b56436",
-    "shop.glb": "f8ad027223c0c7be6236518014033b93468e4c3a19792e5783d9a480b88d6dcf",
+    "shop.glb": "c2ea7fbea53e49b304ec5d2c4adab44824e8349e251b811e6b2229f1747fdd2c",
     "loot_gold.glb": "184ecbf331744515383e043a463339ffbbdda42e8c6a445b705d164882a741a5",
     "loot_steel.glb": "14adb681b3afe0a99a6df9507f2dbc8540315c5a8cba2eb6ea4311be98b3c30d",
     "loot_ember.glb": "de5b99f71da0a8bfd2c8df742164cd7faaa33871921c648ca37148b5cddd5fc8",
@@ -109,8 +109,8 @@
       "kind": "shop",
       "level": null,
       "file": "public/models/r3/shop.glb",
-      "source": "assets/models/r3/shop.blend",
-      "native": "assets/models/native/r3/shop-client.blend",
+      "source": "assets/models/native/shop-v1/Runner-Forge-Shop-v1.blend",
+      "native": "assets/models/native/shop-v1/Runner-Forge-Shop-v1.blend",
       "root": "shop_root",
       "root_TRS": {
         "translation": [
@@ -130,21 +130,21 @@
           1
         ]
       },
-      "bytes": 77372,
-      "sha256": "f8ad027223c0c7be6236518014033b93468e4c3a19792e5783d9a480b88d6dcf",
-      "triangles": 686,
-      "material_primitives": 10,
-      "embedded_images": 4,
+      "bytes": 4651548,
+      "sha256": "c2ea7fbea53e49b304ec5d2c4adab44824e8349e251b811e6b2229f1747fdd2c",
+      "triangles": 15456,
+      "material_primitives": 6,
+      "embedded_images": 13,
       "bounds_glTF_xyz": [
         [
-          -1.9600000381469727,
-          0.0,
-          -1.274999976158142
+          -2.7658806,
+          0.005,
+          -2.6549647
         ],
         [
-          1.9600000381469727,
-          2.799999952316284,
-          1.4320000410079956
+          2.7658806,
+          3.4050002,
+          1.7720001
         ]
       ],
       "clips": [],
@@ -152,8 +152,15 @@
         "socket_shop_entry",
         "socket_shop_focus"
       ],
-      "source_sha256": "43cea78c2bb85622ee77563d2a81bf116861ea807cd9875faf586268ca8a6cd8",
-      "native_sha256": "6be4c60f53164ca7e36bff4b2e3953d1b045b20068c9c1083e8381819e4db2a2"
+      "source_sha256": "3215829a95e290cd6fede83c698419808b262df012a69adee6e3408817e10b71",
+      "native_sha256": "3215829a95e290cd6fede83c698419808b262df012a69adee6e3408817e10b71",
+      "provenance": "Local Valve Dota Radiant shop/shopkeeper; native teal PBR bakes, glow and entrance adaptation authored for Runner Forge",
+      "staticMerchant": true,
+      "entry_local": [
+        0,
+        0,
+        2.3
+      ]
     },
     {
       "graphic_id": "loot_gold",

@@ -15,6 +15,7 @@ import { Plane } from '@babylonjs/core/Maths/math.plane';
 import '@babylonjs/core/Culling/ray';
 import type { Point, RunSimulation, RunState } from '../game/simulation';
 import { ModelLibrary, type ModelActor } from './models';
+import { ShopView } from './shops';
 import { PresentationTimeline } from './timeline';
 import { toScenePoint, toCombatAim } from './coordinates';
 import { ThreatView } from './threats';
@@ -41,6 +42,7 @@ export class WorldView {
   private resizeObserver: ResizeObserver;
   private loadPromise: Promise<void> | null = null;
   private threats: ThreatView;
+  private shops: ShopView | null = null;
 
   constructor(private canvas: HTMLCanvasElement) {
     this.engine = new Engine(canvas, true, { stencil: true, preserveDrawingBuffer: false }, true);
@@ -93,6 +95,7 @@ export class WorldView {
   private async installAssets(): Promise<void> {
     const library = await ModelLibrary.load(this.scene);
     this.library = library;
+    this.shops = new ShopView(library);
     try {
       this.hero = library.create('pudge', 'hero');
       this.hook = library.create('hook', 'hook');
@@ -163,6 +166,13 @@ export class WorldView {
     const distance = state?.hero.z ?? 0;
     this.lastDistance = distance;
     const heroX = -(state?.hero.x ?? 0);
+    const portrait = this.engine.getRenderHeight() > this.engine.getRenderWidth();
+    const closestShop = Math.min(Infinity, ...(state?.shopCandidates ?? []).map(shop => Math.abs(shop.z - distance)));
+    // On narrow screens, reveal the stall as the hero approaches its entrance.
+    const shopFraming = Math.max(0, Math.min(1, (16 - closestShop) / 8));
+    const cameraX = portrait ? heroX * .75 * shopFraming : 0;
+    this.camera.position.x += (cameraX - this.camera.position.x) * .12;
+    this.camera.setTarget(new Vector3(this.camera.position.x, 0, portrait ? 13 : 10));
     if (this.hero && this.hook) {
       this.hero.root.position.set(heroX, 0, 0);
       if (state) {
@@ -177,6 +187,7 @@ export class WorldView {
       this.scenery.forEach((section, index) => {
         section.position.z = ((index * 12 - distance + 24) % 108 + 108) % 108 - 24;
       });
+      this.shops?.render(state, distance);
       const hook = state?.hook;
       this.hook.root.setEnabled(Boolean(hook));
       let capturePoint: Vector3 | null = null;
@@ -248,6 +259,7 @@ export class WorldView {
 
   private clearAssets(): void {
     this.threats.clear();
+    this.shops?.clear(); this.shops = null;
     for (const actor of [this.hero, this.hook, ...this.links, ...this.staticActors, ...this.enemies.values()]) actor?.dispose();
     for (const section of this.scenery) section.dispose();
     this.library?.dispose(); this.library = null; this.hero = null; this.hook = null;
