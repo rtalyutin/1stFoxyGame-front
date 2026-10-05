@@ -178,7 +178,7 @@ export class WorldView {
       if (state) {
         this.timeline.observe(state);
         const pose = this.timeline.hero(state, delta);
-        this.hero.pose(pose.clip, pose.seconds, pose.loop);
+        this.hero.pose(pose.clip, pose.seconds, pose.loop, state.time + (pose.clip === 'death' ? pose.seconds : 0));
       } else {
         this.timeline.reset();
         this.gallerySeconds += Math.min(delta, 0.1);

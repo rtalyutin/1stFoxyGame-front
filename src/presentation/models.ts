@@ -2,8 +2,9 @@ import { LoadAssetContainerAsync } from '@babylonjs/core/Loading/sceneLoader';
 import type { AssetContainer, InstantiatedEntries } from '@babylonjs/core/assetContainer';
 import type { Scene } from '@babylonjs/core/scene';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
+import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import type { AnimationGroup } from '@babylonjs/core/Animations/animationGroup';
-import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import { Matrix, Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import '@babylonjs/core/Meshes/instancedMesh';
 import '@babylonjs/loaders/glTF/2.0/glTFLoader';
 
@@ -43,6 +44,14 @@ export class ModelActor {
   private active: AnimationGroup | null = null;
   private nodes = new Map<string, TransformNode>();
   private clips = new Map<string, AnimationGroup>();
+  private transitionClock: number | null = null;
+  private transitionStart = 0;
+  private supportLift = 0;
+  private transitionOriginLift = 0;
+  private supportNode: TransformNode | null = null;
+  private transitionPose: Array<{ node: TransformNode; position: Vector3; rotation: Quaternion; scale: Vector3 }> | null = null;
+  private sampledPose: { clip: string; seconds: number; loop: boolean; clock?: number } | null = null;
+  private sampledWorld = Matrix.Identity();
 
   constructor(readonly entries: InstantiatedEntries, name: string, scene: Scene) {
     this.root = new TransformNode(name, scene);
@@ -53,12 +62,31 @@ export class ModelActor {
       }
     }
     for (const group of entries.animationGroups) this.clips.set(group.name.slice(name.length + 1), group);
+    this.supportNode = this.nodes.get('RF_Pudge_Rig') ?? null;
   }
 
-  pose(clip: string, seconds: number, loop = true): void {
+  pose(clip: string, seconds: number, loop = true, transitionClock?: number): void {
+    // Paused simulation clocks must also pause the CPU skinning floor check.
+    const sampled = this.sampledPose;
+    if (sampled && sampled.clip === clip && sampled.seconds === seconds && sampled.loop === loop &&
+      sampled.clock === transitionClock && this.root.computeWorldMatrix(true).equals(this.sampledWorld)) return;
+    const previousLift = this.supportLift;
+    if (this.supportNode) this.supportNode.position.y -= previousLift;
+    this.supportLift = 0;
     const group = this.clips.get(clip);
     if (!group) throw new Error(`Missing animation ${clip}`);
+    const canBlend = transitionClock !== undefined && this.transitionClock !== null && transitionClock >= this.transitionClock;
+    if (!canBlend) this.transitionPose = null;
     if (this.active !== group) {
+      // Capture the currently displayed pose before stop() resets the old clip.
+      // The caller supplies a simulation clock, so pause/SHOP freeze the blend.
+      if (canBlend && this.active) {
+        const nodes = new Set(group.targetedAnimations.map(animation => animation.target));
+        this.transitionPose = [...nodes].filter((node): node is TransformNode => node instanceof TransformNode && node.rotationQuaternion !== null)
+          .map(node => ({ node, position: node.position.clone(), rotation: node.rotationQuaternion!.clone(), scale: node.scaling.clone() }));
+        this.transitionStart = transitionClock!;
+        this.transitionOriginLift = previousLift;
+      }
       this.active?.stop();
       group.start(loop);
       group.pause();
@@ -68,6 +96,37 @@ export class ModelActor {
     const duration = (group.to - group.from) / fps;
     const elapsed = loop && duration > 0 ? Math.max(0, seconds) % duration : Math.max(0, Math.min(duration, seconds));
     group.goToFrame(group.from + elapsed * fps);
+    if (this.transitionPose && transitionClock !== undefined) {
+      const progress = Math.max(0, Math.min(1, (transitionClock - this.transitionStart) / .12));
+      const amount = progress * progress * (3 - 2 * progress);
+      for (const pose of this.transitionPose) {
+        Vector3.LerpToRef(pose.position, pose.node.position, amount, pose.node.position);
+        Quaternion.SlerpToRef(pose.rotation, pose.node.rotationQuaternion!, amount, pose.node.rotationQuaternion!);
+        Vector3.LerpToRef(pose.scale, pose.node.scaling, amount, pose.node.scaling);
+      }
+      if (progress >= 1) this.transitionPose = null;
+      else if (this.supportNode) {
+        // Bone interpolation can put a sole below the ground even when both
+        // source poses are grounded. Check only during the short transition.
+        this.supportLift = this.transitionOriginLift * (1 - amount);
+        this.supportNode.position.y += this.supportLift;
+        for (const node of this.root.getDescendants()) if (node instanceof TransformNode) node.computeWorldMatrix(true);
+        for (const skeleton of this.entries.skeletons) skeleton.prepare(true);
+        let floor = Infinity;
+        for (const mesh of this.root.getChildMeshes()) {
+          if (!(mesh instanceof Mesh) || !mesh.skeleton) continue;
+          const positions = mesh.getPositionData(true)!;
+          const world = mesh.computeWorldMatrix(true).m;
+          for (let i = 0; i < positions.length; i += 3) floor = Math.min(floor, positions[i] * world[1] + positions[i + 1] * world[5] + positions[i + 2] * world[9] + world[13]);
+        }
+        const extra = Math.max(0, this.root.position.y + .001 - floor);
+        this.supportNode.position.y += extra;
+        this.supportLift += extra;
+      }
+    }
+    this.transitionClock = transitionClock ?? null;
+    this.sampledPose = { clip, seconds, loop, clock: transitionClock };
+    this.sampledWorld.copyFrom(this.root.computeWorldMatrix(true));
   }
 
   socket(name: string): Vector3 {
@@ -91,7 +150,7 @@ export class ModelActor {
     return true;
   }
 
-  dispose(): void { this.entries.dispose(); this.root.dispose(); }
+  dispose(): void { this.transitionPose = null; this.sampledPose = null; this.entries.dispose(); this.root.dispose(); }
 }
 
 export class ModelLibrary {

@@ -1,0 +1,1280 @@
+{
+  "status": "LOCAL_BABYLON_RUNTIME_PASS",
+  "date": "2026-10-05",
+  "formApproved": true,
+  "humanRuntimeApproval": true,
+  "mainPublished": false,
+  "serverDeployed": false,
+  "desktop": {
+    "mode": "model",
+    "clip": "idle",
+    "seconds": 0,
+    "playing": false,
+    "phase": "model",
+    "ready": true,
+    "fps": 144.09221901811046,
+    "width": 1280,
+    "height": 720,
+    "triangles": 16568,
+    "meshes": [
+      {
+        "name": "hero:RF_Pudge_back",
+        "material": "RF_Hero_back_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_back_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_back_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_back_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_back_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_belt",
+        "material": "RF_Hero_belt_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_belt_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_belt_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_belt_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_belt_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_bracer",
+        "material": "RF_Hero_bracer_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_bracer_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_bracer_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_bracer_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_bracer_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_hair",
+        "material": "RF_Hero_hair_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_hair_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_hair_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_hair_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_hair_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_leftarm",
+        "material": "RF_Hero_leftarm_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_leftarm_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftarm_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftarm_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftarm_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_leftweapon",
+        "material": "RF_Hero_leftweapon_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_leftweapon_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftweapon_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftweapon_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftweapon_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_pudge",
+        "material": "RF_Hero_pudge_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_pudge_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_pudge_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_pudge_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_pudge_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      }
+    ],
+    "hand": [
+      -1.0123076438903809,
+      1.4528313875198364,
+      -0.2768222689628601
+    ],
+    "switches": [],
+    "maxChainError": 0,
+    "maxCaptureError": 0
+  },
+  "staticClips": [
+    {
+      "clip": "run",
+      "seconds": 0.5,
+      "ready": true
+    },
+    {
+      "clip": "strafe_left",
+      "seconds": 0.5,
+      "ready": true
+    },
+    {
+      "clip": "strafe_right",
+      "seconds": 0.5,
+      "ready": true
+    },
+    {
+      "clip": "hook_cast",
+      "seconds": 0.4,
+      "ready": true
+    },
+    {
+      "clip": "hook_hold",
+      "seconds": 0.5,
+      "ready": true
+    },
+    {
+      "clip": "hook_return_empty",
+      "seconds": 0.5,
+      "ready": true
+    },
+    {
+      "clip": "hook_return_capture",
+      "seconds": 0.5,
+      "ready": true
+    },
+    {
+      "clip": "death",
+      "seconds": 1,
+      "ready": true
+    }
+  ],
+  "combat": [
+    {
+      "distance": 4,
+      "kills": {
+        "normal": 1,
+        "strong": 0,
+        "boss": 0
+      },
+      "switches": [
+        {
+          "from": "run",
+          "to": "hook_cast",
+          "time": 0.03333333333333333,
+          "handJump": 0
+        },
+        {
+          "from": "hook_cast",
+          "to": "hook_return_capture",
+          "time": 0.09999999999999999,
+          "handJump": 0
+        },
+        {
+          "from": "hook_return_capture",
+          "to": "run",
+          "time": 0.16666666666666666,
+          "handJump": 0
+        }
+      ],
+      "maxChainError": 5.555147936688395e-8,
+      "maxCaptureError": 1.4600096599955427e-7
+    },
+    {
+      "distance": 25,
+      "kills": {
+        "normal": 1,
+        "strong": 0,
+        "boss": 0
+      },
+      "switches": [
+        {
+          "from": "run",
+          "to": "hook_cast",
+          "time": 0.016666666666666666,
+          "handJump": 0
+        },
+        {
+          "from": "hook_cast",
+          "to": "hook_return_capture",
+          "time": 0.6833333333333338,
+          "handJump": 0
+        },
+        {
+          "from": "hook_return_capture",
+          "to": "run",
+          "time": 1.1500000000000008,
+          "handJump": 0
+        }
+      ],
+      "maxChainError": 1.2243579195342021e-7,
+      "maxCaptureError": 1.194832129369258e-7
+    },
+    {
+      "distance": 30,
+      "kills": {
+        "normal": 0,
+        "strong": 0,
+        "boss": 0
+      },
+      "switches": [
+        {
+          "from": "run",
+          "to": "hook_cast",
+          "time": 0.016666666666666666,
+          "handJump": 0
+        },
+        {
+          "from": "hook_cast",
+          "to": "hook_hold",
+          "time": 0.8000000000000008,
+          "handJump": 0
+        },
+        {
+          "from": "hook_hold",
+          "to": "hook_return_empty",
+          "time": 0.8666666666666677,
+          "handJump": 0
+        },
+        {
+          "from": "hook_return_empty",
+          "to": "run",
+          "time": 1.4666666666666663,
+          "handJump": 0
+        }
+      ],
+      "maxChainError": 1.2243579195342021e-7,
+      "maxCaptureError": 0
+    }
+  ],
+  "pause": {
+    "before": {
+      "mode": "target-25",
+      "clip": "hook_return_capture",
+      "seconds": 0.7833333333333341,
+      "playing": false,
+      "phase": "paused",
+      "ready": true,
+      "fps": 144.09221901811165,
+      "width": 1280,
+      "height": 720,
+      "triangles": 16568,
+      "meshes": [
+        {
+          "name": "hero:RF_Pudge_back",
+          "material": "RF_Hero_back_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_back_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_back_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_back_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_back_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_belt",
+          "material": "RF_Hero_belt_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_belt_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_belt_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_belt_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_belt_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_bracer",
+          "material": "RF_Hero_bracer_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_bracer_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_bracer_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_bracer_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_bracer_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_hair",
+          "material": "RF_Hero_hair_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_hair_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_hair_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_hair_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_hair_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_leftarm",
+          "material": "RF_Hero_leftarm_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_leftarm_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftarm_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftarm_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftarm_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_leftweapon",
+          "material": "RF_Hero_leftweapon_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_leftweapon_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftweapon_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftweapon_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftweapon_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_pudge",
+          "material": "RF_Hero_pudge_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_pudge_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_pudge_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_pudge_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_pudge_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        }
+      ],
+      "hand": [
+        -0.20058508217334747,
+        2.0549604892730713,
+        1.3669401407241821
+      ],
+      "kills": {
+        "normal": 1,
+        "strong": 0,
+        "boss": 0
+      },
+      "switches": [
+        {
+          "from": "run",
+          "to": "hook_cast",
+          "time": 0.016666666666666666,
+          "handJump": 0
+        },
+        {
+          "from": "hook_cast",
+          "to": "hook_return_capture",
+          "time": 0.6833333333333338,
+          "handJump": 0
+        }
+      ],
+      "maxChainError": 1.2243579195342021e-7,
+      "maxCaptureError": 5.967045576479983e-8,
+      "hookPhase": "returning"
+    },
+    "after": {
+      "mode": "target-25",
+      "clip": "hook_return_capture",
+      "seconds": 0.7833333333333341,
+      "playing": false,
+      "phase": "paused",
+      "ready": true,
+      "fps": 143.9539347470601,
+      "width": 1280,
+      "height": 720,
+      "triangles": 16568,
+      "meshes": [
+        {
+          "name": "hero:RF_Pudge_back",
+          "material": "RF_Hero_back_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_back_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_back_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_back_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_back_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_belt",
+          "material": "RF_Hero_belt_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_belt_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_belt_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_belt_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_belt_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_bracer",
+          "material": "RF_Hero_bracer_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_bracer_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_bracer_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_bracer_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_bracer_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_hair",
+          "material": "RF_Hero_hair_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_hair_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_hair_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_hair_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_hair_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_leftarm",
+          "material": "RF_Hero_leftarm_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_leftarm_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftarm_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftarm_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftarm_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_leftweapon",
+          "material": "RF_Hero_leftweapon_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_leftweapon_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftweapon_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftweapon_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_leftweapon_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        },
+        {
+          "name": "hero:RF_Pudge_pudge",
+          "material": "RF_Hero_pudge_PBR",
+          "textures": [
+            {
+              "name": "RF_Hero_pudge_PBR (Base Color)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_pudge_PBR (Occlusion)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_pudge_PBR (Metallic Roughness)",
+              "ready": true
+            },
+            {
+              "name": "RF_Hero_pudge_PBR (Normal)",
+              "ready": true
+            }
+          ]
+        }
+      ],
+      "hand": [
+        -0.20058508217334747,
+        2.0549604892730713,
+        1.3669401407241821
+      ],
+      "kills": {
+        "normal": 1,
+        "strong": 0,
+        "boss": 0
+      },
+      "switches": [
+        {
+          "from": "run",
+          "to": "hook_cast",
+          "time": 0.016666666666666666,
+          "handJump": 0
+        },
+        {
+          "from": "hook_cast",
+          "to": "hook_return_capture",
+          "time": 0.6833333333333338,
+          "handJump": 0
+        }
+      ],
+      "maxChainError": 1.2243579195342021e-7,
+      "maxCaptureError": 5.967045576479983e-8,
+      "hookPhase": "returning"
+    }
+  },
+  "portrait": {
+    "mode": "target-25",
+    "clip": "hook_return_capture",
+    "seconds": 0.7833333333333341,
+    "playing": false,
+    "phase": "paused",
+    "ready": true,
+    "fps": 138.76040702861553,
+    "width": 390,
+    "height": 844,
+    "triangles": 16568,
+    "meshes": [
+      {
+        "name": "hero:RF_Pudge_back",
+        "material": "RF_Hero_back_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_back_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_back_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_back_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_back_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_belt",
+        "material": "RF_Hero_belt_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_belt_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_belt_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_belt_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_belt_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_bracer",
+        "material": "RF_Hero_bracer_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_bracer_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_bracer_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_bracer_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_bracer_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_hair",
+        "material": "RF_Hero_hair_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_hair_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_hair_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_hair_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_hair_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_leftarm",
+        "material": "RF_Hero_leftarm_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_leftarm_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftarm_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftarm_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftarm_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_leftweapon",
+        "material": "RF_Hero_leftweapon_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_leftweapon_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftweapon_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftweapon_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_leftweapon_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      {
+        "name": "hero:RF_Pudge_pudge",
+        "material": "RF_Hero_pudge_PBR",
+        "textures": [
+          {
+            "name": "RF_Hero_pudge_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_pudge_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_pudge_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Hero_pudge_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      }
+    ],
+    "hand": [
+      -0.20058508217334747,
+      2.0549604892730713,
+      1.3669401407241821
+    ],
+    "kills": {
+      "normal": 1,
+      "strong": 0,
+      "boss": 0
+    },
+    "switches": [
+      {
+        "from": "run",
+        "to": "hook_cast",
+        "time": 0.016666666666666666,
+        "handJump": 0
+      },
+      {
+        "from": "hook_cast",
+        "to": "hook_return_capture",
+        "time": 0.6833333333333338,
+        "handJump": 0
+      }
+    ],
+    "maxChainError": 1.2243579195342021e-7,
+    "maxCaptureError": 5.967045576479983e-8,
+    "hookPhase": "returning"
+  },
+  "stress": {
+    "state": {
+      "mode": "stress",
+      "phase": "running",
+      "time": 5.599999999999985,
+      "enemies": [
+        {
+          "id": "stress-0",
+          "kind": "normal",
+          "status": "alive",
+          "hitsRemaining": 1
+        },
+        {
+          "id": "stress-1",
+          "kind": "normal",
+          "status": "alive",
+          "hitsRemaining": 1
+        },
+        {
+          "id": "stress-2",
+          "kind": "normal",
+          "status": "alive",
+          "hitsRemaining": 1
+        },
+        {
+          "id": "stress-3",
+          "kind": "normal",
+          "status": "alive",
+          "hitsRemaining": 1
+        },
+        {
+          "id": "stress-4",
+          "kind": "normal",
+          "status": "alive",
+          "hitsRemaining": 1
+        },
+        {
+          "id": "stress-5",
+          "kind": "normal",
+          "status": "alive",
+          "hitsRemaining": 1
+        },
+        {
+          "id": "stress-6",
+          "kind": "normal",
+          "status": "alive",
+          "hitsRemaining": 1
+        },
+        {
+          "id": "stress-7",
+          "kind": "normal",
+          "status": "alive",
+          "hitsRemaining": 1
+        },
+        {
+          "id": "stress-8",
+          "kind": "strong",
+          "status": "alive",
+          "hitsRemaining": 1
+        },
+        {
+          "id": "stress-9",
+          "kind": "strong",
+          "status": "alive",
+          "hitsRemaining": 1
+        },
+        {
+          "id": "stress-10",
+          "kind": "boss",
+          "status": "alive",
+          "hitsRemaining": 3
+        }
+      ],
+      "ready": true,
+      "fps": 143.95393474705966,
+      "meshCount": 729,
+      "materials": 30,
+      "textures": 18,
+      "creepMeshes": [
+        {
+          "name": "stress-0:RF_Wood_Creep_Blade",
+          "enabled": true,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-0:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-1:RF_Wood_Creep_Blade",
+          "enabled": true,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-1:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-2:RF_Wood_Creep_Blade",
+          "enabled": true,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-2:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-3:RF_Wood_Creep_Blade",
+          "enabled": true,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-3:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-4:RF_Wood_Creep_Blade",
+          "enabled": true,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-4:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-5:RF_Wood_Creep_Blade",
+          "enabled": true,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-5:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-6:RF_Wood_Creep_Blade",
+          "enabled": true,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-6:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-7:RF_Wood_Creep_Blade",
+          "enabled": true,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-7:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-8:RF_Wood_Creep_Blade",
+          "enabled": false,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-8:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-9:RF_Wood_Creep_Blade",
+          "enabled": false,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-9:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-10:RF_Wood_Creep_Blade",
+          "enabled": false,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "stress-10:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        }
+      ],
+      "creepMaterial": {
+        "name": "RF_Wood_Creep_PBR",
+        "type": "PBRMaterial",
+        "textures": [
+          {
+            "name": "RF_Wood_Creep_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Emissive)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      "sockets": [
+        {
+          "name": "stress-10:socket_creep_capture",
+          "position": [
+            -0.1746642291545868,
+            1.5533015727996826,
+            22.933547973632812
+          ]
+        },
+        {
+          "name": "stress-9:socket_creep_capture",
+          "position": [
+            2.5941431522369385,
+            0.9413949251174927,
+            22.959726333618164
+          ]
+        },
+        {
+          "name": "stress-8:socket_creep_capture",
+          "position": [
+            -2.805856943130493,
+            0.9413949251174927,
+            17.959726333618164
+          ]
+        },
+        {
+          "name": "stress-0:socket_creep_capture",
+          "position": [
+            2.5941431522369385,
+            0.9413949251174927,
+            7.959726333618164
+          ]
+        },
+        {
+          "name": "stress-1:socket_creep_capture",
+          "position": [
+            -0.10585711151361465,
+            0.9413949251174927,
+            7.959726333618164
+          ]
+        },
+        {
+          "name": "stress-2:socket_creep_capture",
+          "position": [
+            -2.805856943130493,
+            0.9413949251174927,
+            7.959726333618164
+          ]
+        },
+        {
+          "name": "stress-3:socket_creep_capture",
+          "position": [
+            2.5941431522369385,
+            0.9413949251174927,
+            12.959726333618164
+          ]
+        },
+        {
+          "name": "stress-4:socket_creep_capture",
+          "position": [
+            -0.10585711151361465,
+            0.9413949251174927,
+            12.959726333618164
+          ]
+        },
+        {
+          "name": "stress-5:socket_creep_capture",
+          "position": [
+            -2.805856943130493,
+            0.9413949251174927,
+            12.959726333618164
+          ]
+        },
+        {
+          "name": "stress-6:socket_creep_capture",
+          "position": [
+            2.5941431522369385,
+            0.9413949251174927,
+            17.959726333618164
+          ]
+        },
+        {
+          "name": "stress-7:socket_creep_capture",
+          "position": [
+            -0.10585711151361465,
+            0.9413949251174927,
+            17.959726333618164
+          ]
+        }
+      ],
+      "hook": [
+        0.4199999272823334,
+        0,
+        0.6200000643730164
+      ],
+      "kills": {
+        "normal": 0,
+        "strong": 0,
+        "boss": 0
+      },
+      "events": []
+    },
+    "seconds": 5.0065,
+    "frames": 722,
+    "fpsMin": 142.18009478673068,
+    "fpsMax": 145.98540145985487,
+    "fpsMean": 144.00428203545187
+  },
+  "performanceScope": "Local PC, 1280x720, two WebGL preview tabs active; not a physical phone benchmark"
+}

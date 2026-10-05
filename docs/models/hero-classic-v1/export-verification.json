@@ -1,0 +1,49 @@
+{
+  "status": "EXPORTED_CONTRACT_PASS",
+  "formApproval": {
+    "message": "утверждаю",
+    "date": "2026-10-05"
+  },
+  "nativeSha256": "471a81bd761e987267c7b93ab079f8ca84e365f23ce1132a250220d3d78ad2cf",
+  "output": "C:\\Users\\rt\\Documents\\New project 4\\runner-forge-hero-v1\\pudge.glb",
+  "sha256": "306a5c72afed601d096a02b4c179accd76d9aa8e6843405b33f1804f7c200cbe",
+  "bytes": 7706740,
+  "meshTriangles": {
+    "models\\heroes\\pudge\\back.vmdl_c.back_model": 683,
+    "models\\heroes\\pudge\\belt.vmdl_c.belt_model": 380,
+    "models\\heroes\\pudge\\bracer.vmdl_c.bracer_model": 172,
+    "models\\heroes\\pudge\\hair.vmdl_c.hair_model": 558,
+    "models\\heroes\\pudge\\leftarm.vmdl_c.leftarm_model": 1131,
+    "models\\heroes\\pudge\\leftweapon.vmdl_c.leftweapon_model": 204,
+    "models\\heroes\\pudge\\pudge.vmdl_c.pudge_model": 13440
+  },
+  "skinJoints": 46,
+  "materialCount": 7,
+  "images": 21,
+  "samplingFps": 240,
+  "animationDurations": {
+    "idle": 2,
+    "run": 1,
+    "strafe_left": 1,
+    "strafe_right": 1,
+    "hook_cast": 0.8,
+    "hook_hold": 1,
+    "hook_return_empty": 1,
+    "hook_return_capture": 1,
+    "death": 1
+  },
+  "animationChannels": {
+    "idle": 138,
+    "run": 138,
+    "strafe_left": 138,
+    "strafe_right": 138,
+    "hook_cast": 138,
+    "hook_hold": 138,
+    "hook_return_empty": 138,
+    "hook_return_capture": 138,
+    "death": 138
+  },
+  "runtimeVerified": true,
+  "published": false,
+  "humanRuntimeApproved": true
+}

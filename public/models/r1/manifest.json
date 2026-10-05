@@ -7,7 +7,7 @@
     "creep_basic.glb": "6e021f016179bbd090d01707cfd17c3c1afa402df3edfe300a3e3d5fa79d0f40",
     "grass.glb": "dd91579e541fa51c47b6fb731394946e90a1574de93277912a79ef9a137b7f6b",
     "hook.glb": "77e3c87baecfbeada86dc988c7565c7fb45bc77c900e4dd0354f8f09c13757a3",
-    "pudge.glb": "e2702a5e1fa47c1e99519809914d997e5b50edfa89b108a6ccf2e9ba37744dd7",
+    "pudge.glb": "306a5c72afed601d096a02b4c179accd76d9aa8e6843405b33f1804f7c200cbe",
     "road.glb": "d40476e49edc4c25ea89d56a45b82d140a2fb346054408845f8cc99a669c52c9",
     "rock.glb": "41a5564bbfe862dab67e6b4eb750889c80bd8550609c375a417150d423c1b525",
     "shoulder.glb": "5758353e0fa8f9929146ca0b397f0d65d10d81632f3fa88795e5bd8d17dd11d7",
@@ -23,6 +23,16 @@
       "skinJoints": 40,
       "material": "RF_Wood_Creep_PBR",
       "note": "Source geometry and painted albedo are Valve assets; preparation does not assert external distribution rights."
+    },
+    "pudge.glb": {
+      "revision": "classic-v1",
+      "source": "Valve classic Pudge from installed Dota 2, matching approved reference",
+      "native": "Runner-Forge-Hero-v1.blend",
+      "formApproved": "2026-10-05",
+      "triangles": 16568,
+      "skinJoints": 46,
+      "materials": 7,
+      "note": "Source geometry and painted albedo are Valve assets; assembled, refined and adapted in Blender for Runner Forge."
     }
   }
 }
