@@ -1,0 +1,77 @@
+{
+  "status": "EXPORTED_CONTRACT_PASS",
+  "formApproval": {
+    "message": "\u0443\u0442\u0432\u0432\u0435\u0440\u0436\u0434\u0430\u044e",
+    "date": "2026-10-05"
+  },
+  "nativeSha256": "f68b329f375bb6179749cba9902ce9b5157198debd5493c5412f5df148749edb",
+  "output": "public/models/r1/creep_basic.glb",
+  "bytes": 2919824,
+  "sha256": "6e021f016179bbd090d01707cfd17c3c1afa402df3edfe300a3e3d5fa79d0f40",
+  "meshTriangles": {
+    "models\\creeps\\lane_creeps\\creep_radiant_melee\\radiant_melee.vmdl_c.radiant_melee_model.001": 98,
+    "models\\creeps\\lane_creeps\\creep_radiant_melee\\radiant_melee.vmdl_c.radiant_melee_model": 2761
+  },
+  "skinJoints": 40,
+  "samplingFps": 240,
+  "nativeFps": 30,
+  "animationChannels": {
+    "run": 120,
+    "hit": 120,
+    "death_capture": 120
+  },
+  "animationDurations": {
+    "run": 0.8,
+    "hit": 0.6,
+    "death_capture": 1
+  },
+  "material": {
+    "doubleSided": true,
+    "emissiveFactor": [
+      0.30000001192092896,
+      0.30000001192092896,
+      0.30000001192092896
+    ],
+    "emissiveTexture": {
+      "index": 0
+    },
+    "name": "RF_Wood_Creep_PBR",
+    "normalTexture": {
+      "index": 1
+    },
+    "occlusionTexture": {
+      "index": 2
+    },
+    "pbrMetallicRoughness": {
+      "baseColorTexture": {
+        "index": 3
+      },
+      "metallicRoughnessTexture": {
+        "index": 2
+      }
+    }
+  },
+  "images": [
+    {
+      "bufferView": 7,
+      "mimeType": "image/png",
+      "name": "RF_Wood_Emissive"
+    },
+    {
+      "bufferView": 8,
+      "mimeType": "image/png",
+      "name": "RF_Wood_Normal"
+    },
+    {
+      "bufferView": 9,
+      "mimeType": "image/png",
+      "name": "RF_Wood_ORM"
+    },
+    {
+      "bufferView": 10,
+      "mimeType": "image/png",
+      "name": "RF_Wood_BaseColor"
+    }
+  ],
+  "runtimeVerified": false
+}

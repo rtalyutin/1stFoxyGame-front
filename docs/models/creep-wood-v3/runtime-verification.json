@@ -1,0 +1,757 @@
+{
+  "status": "LOCAL_RUNTIME_PASS",
+  "date": "2026-10-05",
+  "url": "http://127.0.0.1:5176/creep-preview.html",
+  "renderer": "Babylon 9.29.0 WebGL",
+  "formApproval": {
+    "message": "утвверждаю",
+    "date": "2026-10-05"
+  },
+  "captureProbe": {
+    "syntheticScenario": true,
+    "snapshot": {
+      "mode": "capture",
+      "phase": "running",
+      "time": 0.85,
+      "enemies": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "status": "captured",
+          "hitsRemaining": 1
+        }
+      ],
+      "ready": true,
+      "fps": 144.0230436890499,
+      "meshCount": 689,
+      "materials": 34,
+      "textures": 8,
+      "creepMeshes": [
+        {
+          "name": "normal:RF_Wood_Creep_Blade",
+          "enabled": true,
+          "triangles": 98,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        },
+        {
+          "name": "normal:RF_Wood_Creep_Body",
+          "enabled": true,
+          "triangles": 2761,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR"
+        }
+      ],
+      "creepMaterial": {
+        "name": "RF_Wood_Creep_PBR",
+        "type": "PBRMaterial",
+        "textures": [
+          {
+            "name": "RF_Wood_Creep_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Emissive)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Normal)",
+            "ready": true
+          }
+        ]
+      },
+      "sockets": [
+        {
+          "name": "normal:socket_creep_capture",
+          "position": [
+            -1.3613216331975764e-8,
+            0.949999988079071,
+            8
+          ]
+        }
+      ],
+      "hook": [
+        0,
+        0.949999988079071,
+        8
+      ],
+      "kills": {
+        "normal": 0,
+        "strong": 0,
+        "boss": 0
+      },
+      "hookPhase": "returning",
+      "events": [
+        {
+          "type": "hit",
+          "at": 0,
+          "enemyId": "normal"
+        }
+      ]
+    },
+    "socketErrorMetres": 1.3613216331975764e-8
+  },
+  "realCombat": {
+    "mode": "closeup",
+    "phase": "running",
+    "time": 23.316666666666624,
+    "enemies": [],
+    "ready": true,
+    "fps": 144.2307692307683,
+    "meshCount": 686,
+    "materials": 34,
+    "textures": 7,
+    "creepMeshes": [],
+    "creepMaterial": null,
+    "sockets": [],
+    "hook": [
+      -0.8624966144561768,
+      1.2481039762496948,
+      0.5092553496360779
+    ],
+    "kills": {
+      "normal": 1,
+      "strong": 0,
+      "boss": 0
+    },
+    "events": []
+  },
+  "impactProbe": {
+    "mode": "impact",
+    "phase": "running",
+    "time": 0.3,
+    "enemies": [
+      {
+        "id": "normal",
+        "kind": "normal",
+        "status": "alive",
+        "hitsRemaining": 1
+      }
+    ],
+    "ready": true,
+    "fps": 144.02304368389798,
+    "meshCount": 689,
+    "materials": 34,
+    "textures": 8,
+    "creepMeshes": [
+      {
+        "name": "normal:RF_Wood_Creep_Blade",
+        "enabled": true,
+        "triangles": 98,
+        "material": "PBRMaterial",
+        "materialName": "RF_Wood_Creep_PBR"
+      },
+      {
+        "name": "normal:RF_Wood_Creep_Body",
+        "enabled": true,
+        "triangles": 2761,
+        "material": "PBRMaterial",
+        "materialName": "RF_Wood_Creep_PBR"
+      }
+    ],
+    "creepMaterial": {
+      "name": "RF_Wood_Creep_PBR",
+      "type": "PBRMaterial",
+      "textures": [
+        {
+          "name": "RF_Wood_Creep_PBR (Base Color)",
+          "ready": true
+        },
+        {
+          "name": "RF_Wood_Creep_PBR (Occlusion)",
+          "ready": true
+        },
+        {
+          "name": "RF_Wood_Creep_PBR (Emissive)",
+          "ready": true
+        },
+        {
+          "name": "RF_Wood_Creep_PBR (Metallic Roughness)",
+          "ready": true
+        },
+        {
+          "name": "RF_Wood_Creep_PBR (Normal)",
+          "ready": true
+        }
+      ]
+    },
+    "sockets": [
+      {
+        "name": "normal:socket_creep_capture",
+        "position": [
+          -0.14123301208019257,
+          0.9838998913764954,
+          10.795280456542969
+        ]
+      }
+    ],
+    "hook": [
+      -0.8624966144561768,
+      1.2481039762496948,
+      0.5092553496360779
+    ],
+    "kills": {
+      "normal": 0,
+      "strong": 0,
+      "boss": 0
+    },
+    "events": [
+      {
+        "type": "hit",
+        "at": 0,
+        "enemyId": "normal"
+      }
+    ]
+  },
+  "animatedStress": {
+    "durationMs": 2502.8000000044703,
+    "frames": 361,
+    "maxFps": 147.92899407957827,
+    "meanFps": 144.048944109842,
+    "minFps": 140.5810684171005,
+    "snapshot": {
+      "creepMaterial": {
+        "name": "RF_Wood_Creep_PBR",
+        "textures": [
+          {
+            "name": "RF_Wood_Creep_PBR (Base Color)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Occlusion)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Emissive)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Metallic Roughness)",
+            "ready": true
+          },
+          {
+            "name": "RF_Wood_Creep_PBR (Normal)",
+            "ready": true
+          }
+        ],
+        "type": "PBRMaterial"
+      },
+      "creepMeshes": [
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-0:RF_Wood_Creep_Blade",
+          "triangles": 98
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-0:RF_Wood_Creep_Body",
+          "triangles": 2761
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-1:RF_Wood_Creep_Blade",
+          "triangles": 98
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-1:RF_Wood_Creep_Body",
+          "triangles": 2761
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-2:RF_Wood_Creep_Blade",
+          "triangles": 98
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-2:RF_Wood_Creep_Body",
+          "triangles": 2761
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-3:RF_Wood_Creep_Blade",
+          "triangles": 98
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-3:RF_Wood_Creep_Body",
+          "triangles": 2761
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-4:RF_Wood_Creep_Blade",
+          "triangles": 98
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-4:RF_Wood_Creep_Body",
+          "triangles": 2761
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-5:RF_Wood_Creep_Blade",
+          "triangles": 98
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-5:RF_Wood_Creep_Body",
+          "triangles": 2761
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-6:RF_Wood_Creep_Blade",
+          "triangles": 98
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-6:RF_Wood_Creep_Body",
+          "triangles": 2761
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-7:RF_Wood_Creep_Blade",
+          "triangles": 98
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-7:RF_Wood_Creep_Body",
+          "triangles": 2761
+        },
+        {
+          "enabled": false,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-8:RF_Wood_Creep_Blade",
+          "triangles": 98
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-8:RF_Wood_Creep_Body",
+          "triangles": 2761
+        },
+        {
+          "enabled": false,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-9:RF_Wood_Creep_Blade",
+          "triangles": 98
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-9:RF_Wood_Creep_Body",
+          "triangles": 2761
+        },
+        {
+          "enabled": false,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-10:RF_Wood_Creep_Blade",
+          "triangles": 98
+        },
+        {
+          "enabled": true,
+          "material": "PBRMaterial",
+          "materialName": "RF_Wood_Creep_PBR",
+          "name": "stress-10:RF_Wood_Creep_Body",
+          "triangles": 2761
+        }
+      ],
+      "enemies": [
+        {
+          "hitsRemaining": 1,
+          "id": "stress-0",
+          "kind": "normal",
+          "status": "alive"
+        },
+        {
+          "hitsRemaining": 1,
+          "id": "stress-1",
+          "kind": "normal",
+          "status": "alive"
+        },
+        {
+          "hitsRemaining": 1,
+          "id": "stress-2",
+          "kind": "normal",
+          "status": "alive"
+        },
+        {
+          "hitsRemaining": 1,
+          "id": "stress-3",
+          "kind": "normal",
+          "status": "alive"
+        },
+        {
+          "hitsRemaining": 1,
+          "id": "stress-4",
+          "kind": "normal",
+          "status": "alive"
+        },
+        {
+          "hitsRemaining": 1,
+          "id": "stress-5",
+          "kind": "normal",
+          "status": "alive"
+        },
+        {
+          "hitsRemaining": 1,
+          "id": "stress-6",
+          "kind": "normal",
+          "status": "alive"
+        },
+        {
+          "hitsRemaining": 1,
+          "id": "stress-7",
+          "kind": "normal",
+          "status": "alive"
+        },
+        {
+          "hitsRemaining": 1,
+          "id": "stress-8",
+          "kind": "strong",
+          "status": "alive"
+        },
+        {
+          "hitsRemaining": 1,
+          "id": "stress-9",
+          "kind": "strong",
+          "status": "alive"
+        },
+        {
+          "hitsRemaining": 3,
+          "id": "stress-10",
+          "kind": "boss",
+          "status": "alive"
+        }
+      ],
+      "events": [],
+      "fps": 143.88489208632993,
+      "hook": [
+        -0.8624966144561768,
+        1.2481039762496948,
+        0.5092553496360779
+      ],
+      "kills": {
+        "boss": 0,
+        "normal": 0,
+        "strong": 0
+      },
+      "materials": 34,
+      "meshCount": 733,
+      "mode": "stress",
+      "phase": "running",
+      "ready": true,
+      "sockets": [
+        {
+          "name": "stress-0:socket_creep_capture",
+          "position": [
+            2.5981154441833496,
+            0.9463233351707458,
+            7.954067707061768
+          ]
+        },
+        {
+          "name": "stress-1:socket_creep_capture",
+          "position": [
+            -0.1018843725323677,
+            0.9463233351707458,
+            7.954067707061768
+          ]
+        },
+        {
+          "name": "stress-2:socket_creep_capture",
+          "position": [
+            -2.801884651184082,
+            0.9463233351707458,
+            7.954067707061768
+          ]
+        },
+        {
+          "name": "stress-3:socket_creep_capture",
+          "position": [
+            2.5981154441833496,
+            0.9463233351707458,
+            12.954068183898926
+          ]
+        },
+        {
+          "name": "stress-4:socket_creep_capture",
+          "position": [
+            -0.1018843725323677,
+            0.9463233351707458,
+            12.954068183898926
+          ]
+        },
+        {
+          "name": "stress-5:socket_creep_capture",
+          "position": [
+            -2.801884651184082,
+            0.9463233351707458,
+            12.954068183898926
+          ]
+        },
+        {
+          "name": "stress-6:socket_creep_capture",
+          "position": [
+            2.5981154441833496,
+            0.9463233351707458,
+            17.954069137573242
+          ]
+        },
+        {
+          "name": "stress-7:socket_creep_capture",
+          "position": [
+            -0.1018843725323677,
+            0.9463233351707458,
+            17.954069137573242
+          ]
+        },
+        {
+          "name": "stress-8:socket_creep_capture",
+          "position": [
+            -2.801884651184082,
+            0.9463233351707458,
+            17.954069137573242
+          ]
+        },
+        {
+          "name": "stress-9:socket_creep_capture",
+          "position": [
+            2.5981154441833496,
+            0.9463233351707458,
+            22.95406913757324
+          ]
+        },
+        {
+          "name": "stress-10:socket_creep_capture",
+          "position": [
+            -0.1681092083454132,
+            1.5614335536956787,
+            22.924213409423828
+          ]
+        }
+      ],
+      "textures": 18,
+      "time": 22.416666666666675
+    },
+    "viewport": {
+      "dpr": 1,
+      "height": 720,
+      "width": 1280
+    }
+  },
+  "pause": {
+    "before": 22.450000000000006,
+    "after": 22.450000000000006
+  },
+  "portrait": {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "screenshot": "wood-runtime-portrait.png",
+    "result": "Visually inspected: controls and all 11 actors fit; viewport emulation, not a phone hardware test"
+  },
+  "gameplay": {
+    "mode": "run",
+    "phase": "gameOver",
+    "time": 16.006872614551074,
+    "enemies": [
+      {
+        "id": "wood-review-8:enemy:00000001",
+        "kind": "normal",
+        "status": "alive",
+        "hitsRemaining": 1
+      },
+      {
+        "id": "wood-review-8:enemy:00000002",
+        "kind": "normal",
+        "status": "alive",
+        "hitsRemaining": 1
+      },
+      {
+        "id": "wood-review-8:enemy:00000003",
+        "kind": "normal",
+        "status": "alive",
+        "hitsRemaining": 1
+      }
+    ],
+    "ready": true,
+    "fps": 139.53488372093048,
+    "meshCount": 695,
+    "materials": 34,
+    "textures": 10,
+    "creepMeshes": [
+      {
+        "name": "wood-review-8:enemy:00000001:RF_Wood_Creep_Blade",
+        "enabled": true,
+        "triangles": 98,
+        "material": "PBRMaterial",
+        "materialName": "RF_Wood_Creep_PBR"
+      },
+      {
+        "name": "wood-review-8:enemy:00000001:RF_Wood_Creep_Body",
+        "enabled": true,
+        "triangles": 2761,
+        "material": "PBRMaterial",
+        "materialName": "RF_Wood_Creep_PBR"
+      },
+      {
+        "name": "wood-review-8:enemy:00000002:RF_Wood_Creep_Blade",
+        "enabled": true,
+        "triangles": 98,
+        "material": "PBRMaterial",
+        "materialName": "RF_Wood_Creep_PBR"
+      },
+      {
+        "name": "wood-review-8:enemy:00000002:RF_Wood_Creep_Body",
+        "enabled": true,
+        "triangles": 2761,
+        "material": "PBRMaterial",
+        "materialName": "RF_Wood_Creep_PBR"
+      },
+      {
+        "name": "wood-review-8:enemy:00000003:RF_Wood_Creep_Blade",
+        "enabled": true,
+        "triangles": 98,
+        "material": "PBRMaterial",
+        "materialName": "RF_Wood_Creep_PBR"
+      },
+      {
+        "name": "wood-review-8:enemy:00000003:RF_Wood_Creep_Body",
+        "enabled": true,
+        "triangles": 2761,
+        "material": "PBRMaterial",
+        "materialName": "RF_Wood_Creep_PBR"
+      }
+    ],
+    "creepMaterial": {
+      "name": "RF_Wood_Creep_PBR",
+      "type": "PBRMaterial",
+      "textures": [
+        {
+          "name": "RF_Wood_Creep_PBR (Base Color)",
+          "ready": true
+        },
+        {
+          "name": "RF_Wood_Creep_PBR (Occlusion)",
+          "ready": true
+        },
+        {
+          "name": "RF_Wood_Creep_PBR (Emissive)",
+          "ready": true
+        },
+        {
+          "name": "RF_Wood_Creep_PBR (Metallic Roughness)",
+          "ready": true
+        },
+        {
+          "name": "RF_Wood_Creep_PBR (Normal)",
+          "ready": true
+        }
+      ]
+    },
+    "sockets": [
+      {
+        "name": "wood-review-8:enemy:00000001:socket_creep_capture",
+        "position": [
+          2.4164412021636963,
+          0.9410238265991211,
+          -1.0426257848739624
+        ]
+      },
+      {
+        "name": "wood-review-8:enemy:00000002:socket_creep_capture",
+        "position": [
+          1.4388428926467896,
+          0.9410238265991211,
+          8.0335054397583
+        ]
+      },
+      {
+        "name": "wood-review-8:enemy:00000003:socket_creep_capture",
+        "position": [
+          0.21272462606430054,
+          0.9410238265991211,
+          17.827802658081055
+        ]
+      }
+    ],
+    "hook": [
+      -0.8624966144561768,
+      1.2481039762496948,
+      0.5092553496360779
+    ],
+    "kills": {
+      "normal": 0,
+      "strong": 0,
+      "boss": 0
+    },
+    "events": [
+      {
+        "type": "gameOver",
+        "at": 16.006872614551074,
+        "reason": "breach",
+        "enemyId": "wood-review-8:enemy:00000001"
+      }
+    ]
+  },
+  "consoleWarningsAndErrors": [],
+  "automated": {
+    "filesPassed": 15,
+    "testsPassed": 132,
+    "testsSkipped": 1,
+    "typecheck": "PASS",
+    "build": "PASS",
+    "poseSamples": 1155,
+    "samplingHz": 480
+  },
+  "nativeSha256": "f68b329f375bb6179749cba9902ce9b5157198debd5493c5412f5df148749edb",
+  "glbSha256": "6e021f016179bbd090d01707cfd17c3c1afa402df3edfe300a3e3d5fa79d0f40",
+  "published": false,
+  "deployed": false
+}

@@ -1,5 +1,6 @@
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
+import { PBRMaterial } from '@babylonjs/core/Materials/PBR/pbrMaterial';
 import { Color3 } from '@babylonjs/core/Maths/math.color';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
@@ -9,14 +10,14 @@ import type { RunState } from '../game/simulation';
 import type { ModelActor } from './models';
 import { toScenePoint } from './coordinates';
 
-type Signals = { root: TransformNode; marks: Mesh[]; warnings: Mesh[]; muzzle: Mesh };
+type Signals = { root: TransformNode; weaponRoot: TransformNode; marks: Mesh[]; warnings: Mesh[]; muzzle: Mesh };
 
 /** Bounded technical R2 attachments. Visuals never change combat colliders. */
 export class ThreatView {
   private enemies = new Map<string, Signals>();
   private bullets = new Map<string, Mesh>();
   private warning: StandardMaterial;
-  private metal: StandardMaterial;
+  private metal: PBRMaterial;
   private marker: StandardMaterial;
   private bullet: StandardMaterial;
 
@@ -29,7 +30,9 @@ export class ThreatView {
       return result;
     };
     this.warning = material('shot-warning', '#efbe4e', '#7c5418');
-    this.metal = material('enemy-weapon', '#29353a', '#080b0d');
+    this.metal = new PBRMaterial('enemy-weapon', scene);
+    this.metal.albedoColor = Color3.FromHexString('#29353a');
+    this.metal.metallic = .65; this.metal.roughness = .48;
     this.marker = material('boss-marks', '#fff2c2', '#8f652c');
     this.bullet = material('enemy-projectile', '#ff6e34', '#db3811');
   }
@@ -37,10 +40,18 @@ export class ThreatView {
   private create(id: string, boss: boolean, requiredHits: number, actor: ModelActor): Signals {
     const root = new TransformNode(`threat-${id}`, this.scene);
     root.parent = actor.root;
-    const weapon = MeshBuilder.CreateBox(`weapon-${id}`, { width: .32, height: .32, depth: 1.35 }, this.scene);
-    weapon.parent = root; weapon.position.set(.65, 1, .35); weapon.material = this.metal;
+    const weaponRoot = new TransformNode(`weapon-mount-${id}`, this.scene);
+    const mounted = actor.attachToNode(weaponRoot, 'weapon1_0');
+    if (!mounted) weaponRoot.parent = root;
+    // Wood rig weapon-local +X follows the approved blade, with the grip at 0.
+    // Its static enemy_root scale converts these source units to metres.
+    const weapon = MeshBuilder.CreateBox(`weapon-${id}`, mounted ? { width: 1.9, height: .45, depth: .5 } : { width: .32, height: .32, depth: 1.35 }, this.scene);
+    weapon.parent = weaponRoot; weapon.position.set(mounted ? .4 : .65, mounted ? 0 : 1, mounted ? 0 : .35); weapon.material = this.metal;
     const muzzle = MeshBuilder.CreateCylinder(`muzzle-${id}`, { diameterTop: 0, diameterBottom: .65, height: .45, tessellation: 3 }, this.scene);
-    muzzle.parent = root; muzzle.position.set(.65, 1, 1.2); muzzle.rotation.x = Math.PI / 2; muzzle.material = this.warning;
+    muzzle.parent = weaponRoot;
+    muzzle.position.set(mounted ? 1.5 : .65, mounted ? 0 : 1, mounted ? 0 : 1.2);
+    if (mounted) muzzle.rotation.z = -Math.PI / 2; else muzzle.rotation.x = Math.PI / 2;
+    muzzle.material = this.warning;
     const marks: Mesh[] = [];
     if (boss) for (let i = 0; i < requiredHits; i++) {
       const mark = MeshBuilder.CreateTorus(`boss-hit-${id}-${i}`, { diameter: .4, thickness: .12, tessellation: 4 }, this.scene);
@@ -53,7 +64,7 @@ export class ThreatView {
       stripe.material = this.warning; stripe.setEnabled(false); warnings.push(stripe);
     }
     for (const mesh of [weapon, muzzle, ...marks, ...warnings]) mesh.isPickable = false;
-    return { root, marks, warnings, muzzle };
+    return { root, weaponRoot, marks, warnings, muzzle };
   }
 
   render(state: RunState | undefined, distance: number, actors: ReadonlyMap<string, ModelActor>): void {
@@ -85,7 +96,7 @@ export class ThreatView {
       });
     }
     for (const [id, signals] of this.enemies) if (!present.has(id)) {
-      signals.root.dispose(); signals.warnings.forEach(mesh => mesh.dispose()); this.enemies.delete(id);
+      signals.weaponRoot.dispose(); signals.root.dispose(); signals.warnings.forEach(mesh => mesh.dispose()); this.enemies.delete(id);
     }
     const flying = new Set<string>();
     for (const projectile of state?.projectiles ?? []) {
@@ -104,7 +115,7 @@ export class ThreatView {
 
   clear(): void {
     for (const signals of this.enemies.values()) {
-      signals.root.dispose(); signals.warnings.forEach(mesh => mesh.dispose());
+      signals.weaponRoot.dispose(); signals.root.dispose(); signals.warnings.forEach(mesh => mesh.dispose());
     }
     this.enemies.clear();
     for (const mesh of this.bullets.values()) mesh.dispose();

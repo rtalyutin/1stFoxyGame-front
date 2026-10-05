@@ -77,6 +77,18 @@ export class ModelActor {
     return node.getAbsolutePosition().clone();
   }
 
+  /** Optional authoring parts can be hidden without altering a shared material. */
+  setPartEnabled(name: string, enabled: boolean): void {
+    this.nodes.get(name)?.setEnabled(enabled);
+  }
+
+  attachToNode(part: TransformNode, name: string): boolean {
+    const node = this.nodes.get(name);
+    if (!node) return false;
+    part.parent = node;
+    return true;
+  }
+
   dispose(): void { this.entries.dispose(); this.root.dispose(); }
 }
 

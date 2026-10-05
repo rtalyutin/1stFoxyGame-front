@@ -200,6 +200,7 @@ export class WorldView {
         let actor = this.enemies.get(enemy.id);
         if (!actor) {
           actor = this.library!.create('creep_basic', enemy.id);
+          actor.setPartEnabled('RF_Wood_Creep_Blade', enemy.kind === 'normal');
           if (enemy.kind === 'boss') actor.root.scaling.setAll(1.65);
           this.enemies.set(enemy.id, actor);
         }
