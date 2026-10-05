@@ -3,13 +3,14 @@ import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { validateCatalog, validateManifest } from './src/catalog.ts';
+import { catalogSource } from './scripts/catalog-source.mjs';
 
 const root=fileURLToPath(new URL('.',import.meta.url));
 const release=process.env.HUB_BUILD_ID;
 if(release&&!/^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$/.test(release))throw new Error('Unsafe HUB_BUILD_ID');
 const base=release?`/hub/releases/${release}/`:'/hub/';
 const escape=(s:string)=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
-const games=validateCatalog(JSON.parse(readFileSync(resolve(root,'games.json'),'utf8')));
+const games=validateCatalog(JSON.parse(catalogSource(root).bytes.toString('utf8')));
 const config=JSON.parse(readFileSync(resolve(root,'config.json'),'utf8'));
 if(!['url','event'].includes(config.entryMode)||config.hero!=='common-fox')throw new Error('Invalid entry configuration');
 for(const game of games) {

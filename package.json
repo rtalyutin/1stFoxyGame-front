@@ -18,7 +18,7 @@
     "hub:dev": "vite --config hub/vite.config.ts",
     "hub:typecheck": "tsc --noEmit -p hub/tsconfig.json",
     "hub:test": "vitest run hub/tests",
-    "hub:build": "npm run hub:typecheck && node hub/scripts/build.mjs",
+    "hub:build": "node --test hub/tests/activation.node.mjs && npm run hub:typecheck && node hub/scripts/build.mjs",
     "hub:test:browser": "node hub/scripts/browser-tests.mjs"
   },
   "dependencies": {
