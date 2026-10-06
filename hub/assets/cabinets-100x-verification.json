@@ -1,0 +1,36 @@
+{
+  "status": "PASS_EXPORTED_NATIVE_GEOMETRY_AND_RUNTIME_CONTRACT",
+  "nativeApproval": "USER_2026-10-06_PUBLISH_MAIN_AND_UPDATE_STANDS",
+  "models": [
+    {
+      "id": "runner-forge",
+      "triangles": 151600,
+      "baselineTriangles": 1516,
+      "ratio": 100,
+      "nodes": 123,
+      "namesHierarchyTransformsPreserved": true,
+      "bytes": 870040,
+      "sha256": "38897be73fef43d9a7387603a1b9998ec77ea78150519825b5c1d3b24f951741"
+    },
+    {
+      "id": "last-throne",
+      "triangles": 125600,
+      "baselineTriangles": 1256,
+      "ratio": 100,
+      "nodes": 99,
+      "namesHierarchyTransformsPreserved": true,
+      "bytes": 656128,
+      "sha256": "a4d94eaa3ea007632a5de4bfb91f237ed07ec30915193996777613e2ff3136b0"
+    },
+    {
+      "id": "syezzhaem",
+      "triangles": 136000,
+      "baselineTriangles": 1360,
+      "ratio": 100,
+      "nodes": 97,
+      "namesHierarchyTransformsPreserved": true,
+      "bytes": 758004,
+      "sha256": "97002445d256b812e625d9280ad3b8ff0683af3948506ad7be83a21b3011bf8f"
+    }
+  ]
+}

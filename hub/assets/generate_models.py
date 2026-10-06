@@ -282,5 +282,9 @@ def hero():
     m.save()
 
 if __name__ == '__main__':
-    runner(); throne(); moving(); hero()
+    if (Path(__file__).resolve().parent/'FoxyGames-Cabinets-100x.blend').exists():
+        hero()
+        print('Detailed cabinets retained; regenerate with Blender export_cabinets_100x.py')
+    else:
+        runner(); throne(); moving(); hero()
     for p in OUT.glob('*.glb'): print(p.name, p.stat().st_size)

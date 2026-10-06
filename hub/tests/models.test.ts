@@ -14,6 +14,9 @@ it.each(['runner-forge','last-throne','syezzhaem'])('imports actual %s GLB and r
   expect(root).toBeTruthy();const world=new LivingWorld(container,root,manifest);
   for(const name of manifest.anchors)expect(world.node(name)).toBeTruthy();
   expect(container.meshes.length).toBeGreaterThan(30);
+  // Count imported instances, including each miniature world, rather than only shared geometry buffers.
+  const triangles=container.meshes.reduce((sum,mesh)=>sum+mesh.getTotalIndices()/3,0);
+  expect(triangles).toBe({'runner-forge':151600,'last-throne':125600,'syezzhaem':136000}[id]);
   const actor=world.node(manifest.behavior==='forge'?'npc_runner':manifest.behavior==='throne'?'knight_0':'cat');
   actor.computeWorldMatrix(true);const before=actor.getWorldMatrix().m[0];world.update(.1);world.update(3.4);actor.computeWorldMatrix(true);
   expect(actor.rotationQuaternion).toBe(null);expect(actor.getWorldMatrix().m[0]).not.toBe(before);

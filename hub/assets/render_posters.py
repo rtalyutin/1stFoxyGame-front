@@ -17,7 +17,7 @@ def render(name):
     binary=data[28+length:]; faces=[]
     def values(idx):
         a=gltf['accessors'][idx]; v=gltf['bufferViews'][a['bufferView']]
-        n={'SCALAR':1,'VEC3':3,'VEC4':4}[a['type']]; fmt='f' if a['componentType']==5126 else 'H'
+        n={'SCALAR':1,'VEC3':3,'VEC4':4}[a['type']]; fmt={5126:'f',5123:'H',5125:'I'}[a['componentType']]
         seq=struct.unpack_from('<'+fmt*(a['count']*n),binary,v.get('byteOffset',0)+a.get('byteOffset',0))
         return [seq[i:i+n] for i in range(0,len(seq),n)]
     def walk(idx,parents):
