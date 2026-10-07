@@ -1,0 +1,68 @@
+#shop-world{position:fixed;inset:0;width:100%;height:100%;z-index:1;touch-action:none}
+#shop-world[hidden]{display:none!important}
+#workshop-world{position:fixed;inset:0;width:100%;height:100%;z-index:1;touch-action:none}
+#workshop-world[hidden]{display:none!important}
+body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) #overlay{background:transparent;align-items:flex-start;justify-content:flex-end;padding:88px 24px 20px;pointer-events:none}
+body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) #menu{pointer-events:auto;margin:0;width:390px;max-width:calc(100vw - 32px);height:calc(100dvh - 108px);max-height:calc(100dvh - 108px);display:flex;flex-direction:column;overflow:hidden;background:#101c19ed;padding:20px;text-align:left}
+body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) #profile-panel{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) #screen-title{font-size:30px;line-height:1.1;margin:8px 0}
+body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) #primary,body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) #secondary,body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) #open-workshop{flex-shrink:0;font-size:12px;padding:12px;margin-top:10px}
+body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) #slice-note{display:none}
+body[data-phase='GAME_OVER'] #results{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;margin:8px 0 0}
+@media(max-width:799px){
+ body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) #world{height:61dvh}
+ body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) #overlay{padding:0 10px 10px;align-items:flex-end}
+ body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) #menu{width:100%;max-width:100%;height:calc(39dvh - 10px);max-height:calc(39dvh - 10px);padding:12px}
+ body:is([data-phase='GALLERY'],[data-phase='GAME_OVER']) :is(#eyebrow,#screen-title,#screen-description,#instructions,#control-hint,#profile-stats,#account-status){display:none}
+ body[data-phase='GAME_OVER'] #profile-panel{display:none}
+ body[data-phase='GALLERY'] #profile-panel{margin:0}
+ body[data-phase='GALLERY'] #profile-panel>h2{display:none}
+ #gallery-controls{margin:0}
+}
+body[data-phase='SHOP'] #overlay{background:transparent;align-items:flex-start;justify-content:flex-end;padding:88px 24px 20px;pointer-events:none}
+body[data-phase='SHOP'] #menu{pointer-events:auto;margin:0;width:370px;max-width:calc(100vw - 32px);height:calc(100dvh - 108px);max-height:calc(100dvh - 108px);display:flex;flex-direction:column;overflow:hidden;background:#101c19ed;border:1px solid #d6b47155;padding:20px;backdrop-filter:blur(8px)}
+body[data-phase='SHOP'] #screen-title{font-size:28px;line-height:1.1;letter-spacing:0;margin:8px 0}
+body[data-phase='SHOP'] #screen-title span{font-size:12px;letter-spacing:0;line-height:1.5}
+body[data-phase='SHOP'] #screen-description,body[data-phase='SHOP'] #profile-stats{display:none}
+body[data-phase='SHOP'] #profile-panel{margin:8px 0;border:0;padding:0;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+body[data-phase='SHOP'] #profile-panel>h2{font-size:13px;margin:10px 0}
+body[data-phase='SHOP'] #wallet{font-size:12px;line-height:1.6}
+body[data-phase='SHOP'] #equipment-panel,body[data-phase='SHOP'] #craft-panel{display:none}
+body[data-phase='SHOP'] #primary{position:static;flex-shrink:0;margin-top:12px;font-size:12px;padding:12px}
+body[data-phase='SHOP'] #open-workshop{flex-shrink:0;font-size:12px;padding:12px;margin-top:10px}
+body[data-phase='SHOP'] #menu>.control-hint,body[data-phase='SHOP'] #slice-note{display:none}
+#shop-3d-controls{font-size:12px;line-height:1.55}
+#shop-3d-controls h3{font-size:16px;margin:14px 0 8px;color:#f1d08d}
+#shop-3d-controls p{margin:8px 0;line-height:1.55}
+#shop-3d-controls .secondary{font-size:11px;padding:10px;min-height:42px;margin:4px 0}
+.shop-tabs,.shop-choices{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.shop-tabs .secondary{flex:1;min-width:68px}
+.shop-choices .secondary{flex:1 1 120px}
+#shop-3d-controls [aria-pressed='true']{border-color:#dfb777;background:#765429;color:#fff0d3}
+#shop-3d-controls button:focus-visible{outline:2px solid #ffd68c;outline-offset:3px}
+.shop-preview-status{color:#ffe0a4;border-left:2px solid #d9ad66;padding-left:8px}
+@media(max-width:799px){
+  #shop-world{height:61dvh}
+  body[data-phase='SHOP'] #overlay{padding:0 10px 10px;align-items:flex-end}
+  body[data-phase='SHOP'] #menu{width:100%;max-width:100%;height:calc(39dvh - 10px);max-height:calc(39dvh - 10px);box-sizing:border-box;padding:12px 14px}
+  body[data-phase='SHOP'] #eyebrow,body[data-phase='SHOP'] #screen-title,body[data-phase='SHOP'] #account-status,body[data-phase='SHOP'] #profile-panel>h2{display:none}
+  body[data-phase='SHOP'] #primary{padding:10px;margin-top:8px}
+  .shop-tabs{margin:4px 0}.shop-preview-status{margin:4px 0}
+}
+body[data-phase='WORKSHOP'] #overlay{background:transparent;align-items:flex-start;justify-content:flex-end;padding:20px 24px;pointer-events:none}
+body[data-phase='WORKSHOP'] #menu{pointer-events:auto;margin:0;width:420px;max-width:calc(100vw - 32px);height:calc(100dvh - 128px);max-height:calc(100dvh - 128px);display:flex;flex-direction:column;overflow:hidden;background:#101c19ed;border:1px solid #d6b47155;padding:16px}
+body[data-phase='WORKSHOP'] #screen-title{font-size:28px;margin:8px 0;letter-spacing:0}
+body[data-phase='WORKSHOP'] #screen-title span,body[data-phase='WORKSHOP'] #screen-description,body[data-phase='WORKSHOP'] #eyebrow,body[data-phase='WORKSHOP'] #slice-note,body[data-phase='WORKSHOP'] #menu>.control-hint{display:none}
+body[data-phase='WORKSHOP'] #workshop-panel{flex:1;min-height:0;margin:0;display:flex;flex-direction:column;overflow:hidden}
+body[data-phase='WORKSHOP'] #workshop-controls{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+body[data-phase='WORKSHOP'] #workshop-refresh,body[data-phase='WORKSHOP'] #workshop-return{flex-shrink:0;font-size:12px;margin-top:8px;min-height:42px;padding:10px}
+body[data-phase='WORKSHOP'] .workshop-totals{flex-shrink:0;padding:8px 0 10px;gap:12px}
+body[data-phase='WORKSHOP'] .workshop-totals strong{font-size:18px}
+body[data-phase='WORKSHOP'] .workshop-production[data-selected='true']{border-left:2px solid #dfb777;padding-left:8px;background:#76542933}
+@media(max-width:799px){
+  #workshop-world{height:61dvh}
+  body[data-phase='WORKSHOP'] #overlay{top:0;padding:0 10px 10px;align-items:flex-end}
+  body[data-phase='WORKSHOP'] #menu{width:100%;max-width:100%;height:calc(39dvh - 10px);max-height:calc(39dvh - 10px);padding:10px 14px}
+  body[data-phase='WORKSHOP'] #screen-title{display:none}
+  body[data-phase='WORKSHOP'] .workshop-totals span{font-size:8px;letter-spacing:0}
+}

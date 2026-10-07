@@ -15,15 +15,25 @@ const equip = (profile: Profile, definitionId: ItemDefinitionId, level: number, 
   profile.loadouts.pudge[slot] = id;
 };
 
-describe('R3/R4 equipment domain', () => {
-  it('ships the source catalog fingerprint without R5/R6 activation', () => {
+describe('R3/R4/R5 equipment domain', () => {
+  it('ships the paired source catalog with the R5 debt clock', () => {
     expect(createHash('sha256').update(JSON.stringify(EQUIPMENT_CATALOG)).digest('hex'))
-      .toBe('c0aab130be6d478075649ab37934fde7b91b55e061c861182bb1aec256bf6ddd');
+      .toBe('3fe4c539150ab93104033fbf34994b424e0c44d2b490234b8e1e6e532b5eb8ba');
     expect(EQUIPMENT_CATALOG.items.map((item) => item.id)).toEqual([
       'fast_reel', 'long_link', 'piercing_tooth', 'return_sickle',
-      'conductor_cuffs', 'side_step_boots', 'trophy_counter',
+      'conductor_cuffs', 'side_step_boots', 'trophy_counter', 'debt_clock',
     ]);
     expect(EQUIPMENT_CATALOG.consumables.map((item) => item.id)).toEqual(['slow_dust', 'collector_vial']);
+  });
+  it('keeps old saved catalogs valid when a profile owns the new clock', () => {
+    const old = structuredClone(EQUIPMENT_CATALOG); old.items = old.items.filter(item => item.id !== 'debt_clock');
+    const profile = createEmptyProfile(accountId); equip(profile,'debt_clock',1,'talisman');
+    expect(validateCatalog(old).items).toHaveLength(7); expect(validateProfile(profile,old)).toEqual(profile);
+    expect(computeModifiers(profile,old)).toEqual(BASE_MODIFIERS);
+    expect(recipeCost('debt_clock')).toEqual({goldMilli:'450000',components:{steel:0,ember:3,core:1}});
+    expect(() => recipeCost('debt_clock',1)).toThrow('no further level');
+    const missing = structuredClone(EQUIPMENT_CATALOG); missing.items = missing.items.filter(item => item.id !== 'fast_reel');
+    expect(() => validateCatalog(missing)).toThrow('Missing base equipment');
   });
 
   it('creates a completely empty permanent profile', () => {

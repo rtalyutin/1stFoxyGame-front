@@ -7,7 +7,7 @@ import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import type { Scene } from '@babylonjs/core/scene';
 import type { RunState } from '../game/simulation';
-import type { ModelActor } from './models';
+import type { ModelActor,ModelLibrary,ModelName } from './models';
 import { toScenePoint } from './coordinates';
 
 type Signals = { root: TransformNode; weaponRoot: TransformNode; marks: Mesh[]; warnings: Mesh[]; muzzle: Mesh };
@@ -20,6 +20,8 @@ export class ThreatView {
   private metal: PBRMaterial;
   private marker: StandardMaterial;
   private bullet: StandardMaterial;
+  private library:ModelLibrary|null=null;
+  private native=new Map<Mesh,ModelActor>();
 
   constructor(private scene: Scene) {
     const material = (name: string, color: string, light: string) => {
@@ -36,20 +38,31 @@ export class ThreatView {
     this.marker = material('boss-marks', '#fff2c2', '#8f652c');
     this.bullet = material('enemy-projectile', '#ff6e34', '#db3811');
   }
+  installLibrary(library:ModelLibrary):void{this.library=library;}
+  private model(mesh:Mesh,name:ModelName,size:Vector3):void{
+    if(!this.library)return;
+    const actor=this.library.create(name,'native-'+mesh.name),bounds=actor.root.getHierarchyBoundingVectors(),extent=bounds.max.subtract(bounds.min);
+    actor.root.scaling.set(size.x/Math.max(extent.x,.001),size.y/Math.max(extent.y,.001),size.z/Math.max(extent.z,.001));
+    actor.root.position.copyFrom(bounds.min.add(bounds.max).scale(-.5).multiply(actor.root.scaling));actor.root.parent=mesh;
+    mesh.isVisible=false;this.native.set(mesh,actor);
+  }
 
   private create(id: string, boss: boolean, requiredHits: number, actor: ModelActor): Signals {
     const root = new TransformNode(`threat-${id}`, this.scene);
     root.parent = actor.root;
     const weaponRoot = new TransformNode(`weapon-mount-${id}`, this.scene);
-    const mounted = actor.attachToNode(weaponRoot, 'weapon1_0');
+    const native = actor.attachToNode(weaponRoot, 'socket_projectile');
+    const mounted = native || actor.attachToNode(weaponRoot, 'weapon1_0');
     if (!mounted) weaponRoot.parent = root;
     // Wood rig weapon-local +X follows the approved blade, with the grip at 0.
     // Its static enemy_root scale converts these source units to metres.
     const weapon = MeshBuilder.CreateBox(`weapon-${id}`, mounted ? { width: 1.9, height: .45, depth: .5 } : { width: .32, height: .32, depth: 1.35 }, this.scene);
     weapon.parent = weaponRoot; weapon.position.set(mounted ? .4 : .65, mounted ? 0 : 1, mounted ? 0 : .35); weapon.material = this.metal;
+    weapon.setEnabled(!native);
     const muzzle = MeshBuilder.CreateCylinder(`muzzle-${id}`, { diameterTop: 0, diameterBottom: .65, height: .45, tessellation: 3 }, this.scene);
     muzzle.parent = weaponRoot;
     muzzle.position.set(mounted ? 1.5 : .65, mounted ? 0 : 1, mounted ? 0 : 1.2);
+    if(native)muzzle.position.set(0,0,0);
     if (mounted) muzzle.rotation.z = -Math.PI / 2; else muzzle.rotation.x = Math.PI / 2;
     muzzle.material = this.warning;
     const marks: Mesh[] = [];
@@ -57,11 +70,13 @@ export class ThreatView {
       const mark = MeshBuilder.CreateTorus(`boss-hit-${id}-${i}`, { diameter: .4, thickness: .12, tessellation: 4 }, this.scene);
       mark.parent = root; mark.position.set((i - (requiredHits - 1) / 2) * .55, 2.5, 0); mark.rotation.x = Math.PI / 2;
       mark.billboardMode = Mesh.BILLBOARDMODE_ALL; mark.material = this.marker; marks.push(mark);
+      this.model(mark,'hit_marker',new Vector3(.4,.03,.4));
     }
     const warnings: Mesh[] = [];
     for (let i = 0; i < (boss ? 3 : 1); i++) {
       const stripe = MeshBuilder.CreateBox(`shot-path-${id}-${i}`, { width: .13, height: .04, depth: 1 }, this.scene);
       stripe.material = this.warning; stripe.setEnabled(false); warnings.push(stripe);
+      this.model(stripe,'aim_strip',new Vector3(.13,.04,1));
     }
     for (const mesh of [weapon, muzzle, ...marks, ...warnings]) mesh.isPickable = false;
     return { root, weaponRoot, marks, warnings, muzzle };
@@ -96,6 +111,7 @@ export class ThreatView {
       });
     }
     for (const [id, signals] of this.enemies) if (!present.has(id)) {
+      for(const mesh of [...signals.marks,...signals.warnings]){this.native.get(mesh)?.dispose();this.native.delete(mesh);}
       signals.weaponRoot.dispose(); signals.root.dispose(); signals.warnings.forEach(mesh => mesh.dispose()); this.enemies.delete(id);
     }
     const flying = new Set<string>();
@@ -105,15 +121,17 @@ export class ThreatView {
       if (!mesh) {
         mesh = MeshBuilder.CreateSphere(`bullet-${projectile.id}`, { diameter: projectile.radius * 2, segments: 6 }, this.scene);
         mesh.material = this.bullet; mesh.isPickable = false; this.bullets.set(projectile.id, mesh);
+        this.model(mesh,'enemy_projectile',new Vector3(projectile.radius*2,projectile.radius*2,projectile.radius*2));
       }
       mesh.position.copyFrom(toScenePoint(projectile, distance, .8));
       mesh.scaling.z = 1.7;
       mesh.rotation.y = Math.atan2(-projectile.velocity.x, projectile.velocity.z);
     }
-    for (const [id, mesh] of this.bullets) if (!flying.has(id)) { mesh.dispose(); this.bullets.delete(id); }
+    for (const [id, mesh] of this.bullets) if (!flying.has(id)) { this.native.get(mesh)?.dispose();this.native.delete(mesh);mesh.dispose(); this.bullets.delete(id); }
   }
 
   clear(): void {
+    for(const actor of this.native.values())actor.dispose();this.native.clear();
     for (const signals of this.enemies.values()) {
       signals.weaponRoot.dispose(); signals.root.dispose(); signals.warnings.forEach(mesh => mesh.dispose());
     }

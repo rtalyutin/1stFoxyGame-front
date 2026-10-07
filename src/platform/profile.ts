@@ -1,9 +1,11 @@
 import type { Command } from '../game/simulation';
-import { validateCatalog as validateDomainCatalog, validateProfile as validateDomainProfile, validateRecipe } from '../game/equipment';
+import { validateCatalog as validateDomainCatalog, validateProfile as validateDomainProfile, validateRecipe,validateConfirmedRewards } from '../game/equipment';
 import type { EquipmentCatalog, Operation, OperationResult, Profile, RunView } from '../game/equipment';
 import { ApiError, GameApi, TransportError } from './api';
 import { validateBalanceDocument, validatePinnedBalance } from './balance';
 import type { BalanceDocument, PinnedBalance } from './balance';
+import { validateWorkshopView } from './workshop';
+import type { WorkshopView } from './workshop';
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const KEY = 'foxy-r34-client';
@@ -89,9 +91,13 @@ export function goldText(milli: string): string {
   return `${n / 1000n}${fraction ? `,${fraction}` : ''}`;
 }
 export class ProfileSession {
+  onCommitted:((result:OperationResult,type:Operation['type'])=>void)|null=null;
   profile: Profile | null = null;
   run: RunView | null = null;
   balance: BalanceDocument | null = null;
+  workshop: WorkshopView | null = null;
+  private workshopEpoch = 0;
+  private workshopRequest: Promise<void> | null = null;
   previewState: 'idle' | 'loading' | 'ready' | 'error' = 'idle';
   previewError = '';
   private previewRequest: Promise<void> | null = null;
@@ -113,6 +119,7 @@ export class ProfileSession {
   async load(): Promise<void> {
     await this.identity.ready;
     this.invalidatePreview();
+    this.invalidateWorkshop();
     const [profile, balance, run] = await Promise.all([this.api.call<Profile>('/profile'), this.api.call<BalanceDocument>('/balance'), this.api.call<RunView | null>(`/run?clientId=${this.clientId}`)]);
     this.acceptProfile(profile); this.balance = validateBalanceDocument(balance); this.previewState = 'ready'; this.run = validateRunView(run);
     if (this.pending && this.pendingAccountId !== this.profile!.accountId) this.clearPending();
@@ -120,6 +127,18 @@ export class ProfileSession {
   }
   private invalidatePreview(): void {
     this.balanceEpoch++; this.previewRequest = null; this.balance = null; this.previewState = 'idle'; this.previewError = '';
+  }
+  private invalidateWorkshop(): void { this.workshopEpoch++; this.workshopRequest = null; this.workshop = null; }
+  /** This read cannot settle money or replace an uncertain operation. */
+  refreshWorkshop(): Promise<void> {
+    if (!this.profile) return Promise.resolve();
+    if (this.workshopRequest) return this.workshopRequest;
+    const epoch = ++this.workshopEpoch, accountId = this.profile.accountId, revision = this.profile.revision;
+    const request = this.api.call('/workshop').then(value => {
+      if (epoch !== this.workshopEpoch || this.profile?.accountId !== accountId || this.profile.revision !== revision) return;
+      this.workshop = validateWorkshopView(value);
+    }).finally(() => { if (epoch === this.workshopEpoch) this.workshopRequest = null; });
+    this.workshopRequest = request; return request;
   }
   /** A preview read cannot undo or retry a committed game operation. */
   refreshBalancePreview(): Promise<void> {
@@ -147,12 +166,19 @@ export class ProfileSession {
     if (!result || result.status !== 'committed' || !this.pending || result.operationId !== this.pending.operationId) throw new ApiError('CORRUPT_OPERATION', 'Ответ операции повреждён. Повторно проверим её результат.', 503);
     // Replayed historic results cannot roll a newly loaded profile/run back.
     if (result.profile.accountId !== this.pendingAccountId) throw new ApiError('CORRUPT_OPERATION', 'Ответ операции принадлежит другому аккаунту.', 503);
+    const workshop = result.workshop === undefined ? null : validateWorkshopView(result.workshop);
+    if(result.visualRewards!==undefined)try{validateConfirmedRewards(result.visualRewards);}catch{throw new ApiError('CORRUPT_OPERATION','Квитанция награды повреждена. Повторно проверим результат.',503);}
+    const type=this.pending.type;
+    let current=false;
     if (this.acceptProfile(result.profile)) {
+      current=true;
       const run = validateRunView(result.run);
       if (this.run?.runId !== run?.runId) this.invalidatePreview();
       this.run = run;
+      this.invalidateWorkshop(); this.workshop = workshop;
     }
     this.clearPending();
+    if(current)this.onCommitted?.(result,type);
     return result;
   }
   async operate(type: Operation['type'], payload: Operation['payload']): Promise<OperationResult> {
@@ -198,7 +224,7 @@ export class ProfileSession {
     try { return await this.lookupOrRetry(); } finally { this.requestPending = false; }
   }
   private clearPending(): void { this.pending = null; this.pendingAccountId = null; try { this.storage?.removeItem(PENDING_KEY); } catch { /* optional command cache */ } }
-  clearIdentity(): void { this.profile = null; this.run = null; this.invalidatePreview(); }
+  clearIdentity(): void { this.profile = null; this.run = null; this.invalidatePreview(); this.invalidateWorkshop(); }
 }
 /** Every fixed frame is journaled. In-flight frames remain recoverable on errors. */
 export class FrameJournal {

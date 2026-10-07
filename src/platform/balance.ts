@@ -3,6 +3,8 @@ import { RunSimulation } from '../game/simulation';
 import type { EquipmentCatalog, EquipmentModifiers } from '../game/equipment';
 import { parseGoldMilli, validateCatalog as validateEquipmentCatalog } from '../game/equipment';
 import { ApiError, GameApi, TransportError } from './api';
+import { validateForgeConfig } from './workshop';
+import type { ForgeConfig } from './workshop';
 
 export const BALANCE_SCHEMA = 'runner-balance.1' as const;
 export type BalanceValue = number | boolean | string;
@@ -15,7 +17,7 @@ export interface RuntimeBalance {
 export interface CompiledBalance {
   config: SimulationConfig; shopZone: ShopZoneConfig; equipment: EquipmentCatalog;
   rewards: { version: 'r34.1'; components: { id: 'steel' | 'ember' | 'core'; label: string }[]; rewards: { kind: 'normal' | 'strong' | 'boss'; baseGoldMilli: string; commonDrops: number; coreDrops: number; steelProbability: number }[] };
-  baseModifiers: EquipmentModifiers; runtime?: RuntimeBalance;
+  baseModifiers: EquipmentModifiers; runtime?: RuntimeBalance; forge?: ForgeConfig;
 }
 export interface PinnedBalance { schemaVersion: typeof BALANCE_SCHEMA; revision: string; compiled: CompiledBalance; }
 export interface BalanceDocument extends PinnedBalance { values: Record<string, BalanceValue>; parameters: readonly BalanceParameter[]; }
@@ -52,6 +54,8 @@ export function validatePinnedBalance(value: unknown): PinnedBalance {
     const runtime = numericRecord(compiled.runtime);
     for (const key of ['shopMinDistance','shopMaxDistance','shopRightProbability','shooterChanceStart','shooterChanceMax','shooterChanceRampSeconds','slowDurationSeconds','slowSpeedMultiplier','collectorKills','collectorGoldMultiplierMilli']) if (typeof runtime[key] !== 'number') fail();
   } else if (b.revision !== 'legacy-r34.1') fail();
+  // Old saved snapshots predate the workshop. A present forge section must be complete.
+  if (compiled.forge !== undefined) { try { validateForgeConfig(compiled.forge); } catch { fail(); } }
   try {
     const typed = compiled as unknown as CompiledBalance;
     new RunSimulation('balance-response-check', 1, { config:typed.config, shopZone:typed.shopZone, runtimeBalance:typed.runtime }).setEquipment(typed.baseModifiers);
@@ -60,7 +64,13 @@ export function validatePinnedBalance(value: unknown): PinnedBalance {
 }
 export function parameterError(parameter: BalanceParameter, value: unknown): string | null {
   if (parameter.type === 'boolean') return typeof value === 'boolean' ? null : 'Выбери включено или выключено.';
-  if (parameter.type === 'goldMilli') { try { parseGoldMilli(value); return null; } catch { return 'Нужно целое число тысячных золота от 0 до 9223372036854775807.'; } }
+  if (parameter.type === 'goldMilli') {
+    try {
+      const amount = parseGoldMilli(value);
+      if (/^forge\.productions\.[a-z]+\.baseCostGoldMilli$/.test(parameter.key) && amount % 1000n) return 'Базовая цена постройки задаётся в целом золоте: кратно 1000 тысячных.';
+      return null;
+    } catch { return 'Нужно целое число тысячных золота от 0 до 9223372036854775807.'; }
+  }
   if (typeof value !== 'number' || !Number.isFinite(value)) return 'Введи число.';
   if (parameter.type === 'integer' && !Number.isSafeInteger(value)) return 'Нужно целое число.';
   if (parameter.min !== undefined && value < parameter.min) return `Минимум: ${parameter.min}.`;

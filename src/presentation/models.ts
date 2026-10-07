@@ -7,10 +7,15 @@ import type { AnimationGroup } from '@babylonjs/core/Animations/animationGroup';
 import { Matrix, Quaternion, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import '@babylonjs/core/Meshes/instancedMesh';
 import '@babylonjs/loaders/glTF/2.0/glTFLoader';
+import {assetBytes} from './asset-bytes';
 
-export const MODEL_NAMES = ['pudge', 'creep_basic', 'hook', 'chain', 'road', 'shoulder_0', 'shoulder_1', 'shoulder_2', 'tree', 'bush', 'rock', 'grass', 'shop'] as const;
+export const MODEL_NAMES = ['pudge', 'creep_basic', 'enemy_shooter', 'enemy_boss', 'hook', 'hook_long_link','hook_piercing_tooth','hook_return_sickle', 'chain', 'road', 'shoulder_0', 'shoulder_1', 'shoulder_2', 'tree', 'bush', 'rock', 'grass', 'shop','loot_gold','loot_steel','loot_ember','loot_core','enemy_projectile','warning_ring','hit_marker','aim_strip'] as const;
 export type ModelName = typeof MODEL_NAMES[number];
 export function modelPath(name: ModelName): string {
+  if (name === 'pudge') return 'models/runner-3d/pudge-equipment.glb';
+  if(name.startsWith('hook_'))return `models/r4/${name==='hook_long_link'?'long_link_1':name.slice(5)}.glb`;
+  if(name.startsWith('loot_'))return `models/r3/${name}.glb`;
+  if (['enemy_shooter','enemy_boss','enemy_projectile','warning_ring','hit_marker','aim_strip'].includes(name)) return `models/r2/${name}.glb`;
   if (name === 'shop') return 'models/r3/shop.glb';
   const environment = name === 'road' || name === 'rock' || name === 'grass' || name.startsWith('shoulder_');
   return `models/${environment ? 'environment/road-v1' : 'r1'}/${name}.glb`;
@@ -18,12 +23,14 @@ export function modelPath(name: ModelName): string {
 const CONTRACT: Partial<Record<ModelName, { root: string; sockets: string[]; clips: string[] }>> = {
   pudge: { root: 'hero_root', sockets: ['socket_hook_hand', 'socket_weapon', 'socket_head', 'socket_body', 'socket_feet'], clips: ['idle', 'run', 'strafe_left', 'strafe_right', 'hook_cast', 'hook_hold', 'hook_return_empty', 'hook_return_capture', 'death'] },
   creep_basic: { root: 'enemy_root', sockets: ['socket_creep_capture'], clips: ['run', 'hit', 'death_capture'] },
+  enemy_shooter: { root: 'enemy_root', sockets: ['socket_creep_capture','socket_projectile','socket_weapon'], clips: ['idle','run','shoot_prepare','shoot','hit','death_capture'] },
+  enemy_boss: { root: 'enemy_root', sockets: ['socket_creep_capture','socket_projectile','socket_weapon'], clips: ['idle','run','shoot_prepare','shoot','hit_recover','break_free','death','death_capture'] },
   shop: { root: 'shop_root', sockets: ['socket_shop_entry', 'socket_shop_focus'], clips: [] },
   hook: { root: 'hook_root', sockets: ['socket_chain_hook', 'socket_target_hook'], clips: [] },
 };
 
 export function validateModel(name: ModelName, container: AssetContainer): void {
-  const contract = CONTRACT[name] ?? { root: `${name}_root`, sockets: [], clips: [] };
+  const contract = CONTRACT[name] ?? (name.startsWith('hook_')?CONTRACT.hook!:{ root: `${name}_root`, sockets: [], clips: [] });
   const nodes = new Set([...container.transformNodes, ...container.meshes].map(node => node.name));
   const clips = new Set(container.animationGroups.map(group => group.name));
   for (const node of [contract.root, ...contract.sockets]) if (!nodes.has(node)) throw new Error(`${name}: missing ${node}`);
@@ -43,6 +50,7 @@ export class ModelActor {
   readonly root: TransformNode;
   private active: AnimationGroup | null = null;
   private nodes = new Map<string, TransformNode>();
+  private parts = new Map<string, TransformNode[]>();
   private clips = new Map<string, AnimationGroup>();
   private transitionClock: number | null = null;
   private transitionStart = 0;
@@ -58,7 +66,14 @@ export class ModelActor {
     for (const root of entries.rootNodes) {
       root.parent = this.root;
       for (const node of [root, ...root.getDescendants()]) {
-        if (node instanceof TransformNode) this.nodes.set(node.name.slice(name.length + 1), node);
+        if (node instanceof TransformNode) {
+          // Multi-material glTF meshes have a named parent and primitive children
+          // with the same name. Keep the parent so toggling a part hides all of it.
+          const key = node.name.slice(name.length + 1);
+          if (!this.nodes.has(key)) this.nodes.set(key, node);
+          const parts = this.parts.get(key) ?? [];
+          parts.push(node); this.parts.set(key, parts);
+        }
       }
     }
     for (const group of entries.animationGroups) this.clips.set(group.name.slice(name.length + 1), group);
@@ -114,7 +129,7 @@ export class ModelActor {
         for (const skeleton of this.entries.skeletons) skeleton.prepare(true);
         let floor = Infinity;
         for (const mesh of this.root.getChildMeshes()) {
-          if (!(mesh instanceof Mesh) || !mesh.skeleton) continue;
+          if (!(mesh instanceof Mesh) || !mesh.skeleton || !mesh.isEnabled() || !mesh.isVisible) continue;
           const positions = mesh.getPositionData(true)!;
           const world = mesh.computeWorldMatrix(true).m;
           for (let i = 0; i < positions.length; i += 3) floor = Math.min(floor, positions[i] * world[1] + positions[i + 1] * world[5] + positions[i + 2] * world[9] + world[13]);
@@ -129,6 +144,12 @@ export class ModelActor {
     this.sampledWorld.copyFrom(this.root.computeWorldMatrix(true));
   }
 
+  clipDuration(name: string): number {
+    const group = this.clips.get(name);
+    if (!group) throw new Error(`Missing animation ${name}`);
+    return (group.to - group.from) / group.targetedAnimations[0].animation.framePerSecond;
+  }
+
   socket(name: string): Vector3 {
     // Recompute parents too: sockets are read after explicitly sampling the rig.
     this.root.computeWorldMatrix(true);
@@ -140,7 +161,9 @@ export class ModelActor {
 
   /** Optional authoring parts can be hidden without altering a shared material. */
   setPartEnabled(name: string, enabled: boolean): void {
-    this.nodes.get(name)?.setEnabled(enabled);
+    // Loader skin adapters can also duplicate a named transform. Toggle every
+    // matching branch, including the branch owning the rendered primitives.
+    for (const node of this.parts.get(name) ?? []) node.setEnabled(enabled);
   }
 
   attachToNode(part: TransformNode, name: string): boolean {
@@ -158,9 +181,7 @@ export class ModelLibrary {
 
   static async load(scene: Scene): Promise<ModelLibrary> {
     const results = await Promise.allSettled(MODEL_NAMES.map(async name => {
-      const response = await fetch(`${import.meta.env.BASE_URL}${modelPath(name)}`, { signal: AbortSignal.timeout(15000) });
-      if (!response.ok) throw new Error(`${name}: HTTP ${response.status}`);
-      return [name, await importModel(name, new Uint8Array(await response.arrayBuffer()), scene)] as const;
+      return [name, await importModel(name, await assetBytes(modelPath(name)), scene)] as const;
     }));
     const containers = new Map<ModelName, AssetContainer>();
     for (const result of results) if (result.status === 'fulfilled') containers.set(...result.value);
@@ -174,7 +195,7 @@ export class ModelLibrary {
 
   create(name: ModelName, id: string): ModelActor {
     const entries = this.containers.get(name)!.instantiateModelsToScene(n => `${id}:${n}`, false, {
-      doNotInstantiate: name === 'pudge' || name === 'creep_basic',
+      doNotInstantiate: name === 'pudge' || name === 'creep_basic' || name === 'enemy_shooter' || name === 'enemy_boss',
     });
     return new ModelActor(entries, id, this.scene);
   }

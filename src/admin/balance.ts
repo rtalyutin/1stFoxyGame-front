@@ -40,7 +40,7 @@ function renderFields(): void {
   for (const parameter of editor.document!.parameters) { const entries = groups.get(parameter.group) ?? []; entries.push(parameter); groups.set(parameter.group, entries); }
   const ordered = [...groups].sort(([a],[b]) => a === 'Магазин' ? -1 : b === 'Магазин' ? 1 : 0);
   for (const [group, parameters] of ordered) {
-    const section = make('details', undefined, 'balance-group'); section.open = group === 'Магазин';
+    const section = make('details', undefined, 'balance-group'); section.open = group === 'Магазин' || parameters.some(p => p.key === 'forge.offlineCapSeconds');
     section.append(make('summary', `${group} · ${parameters.length}`));
     const rows = make('div', undefined, 'balance-rows');
     for (const [index, p] of parameters.entries()) {
@@ -65,7 +65,7 @@ function renderFields(): void {
       };
       input.addEventListener('input', () => {
         editor.draft[p.key] = p.type === 'boolean' ? input.checked : p.type === 'goldMilli' ? input.value : input.value.trim() === '' ? NaN : Number(input.value);
-        describe(); message = `Редактируется версия ${editor.document!.revision}. Изменения начнут действовать со следующего забега.`; update();
+        describe(); message = `Редактируется версия ${editor.document!.revision}. После публикации мастерская применит настройки сразу, бой — со следующего забега. Прошедшее время производства сохраняет прежние ставки.`; update();
       });
       inputs.set(p.key,input); describe(); control.append(input,detail,hint); row.append(label,control); rows.append(row);
     }
@@ -78,7 +78,7 @@ async function load(): Promise<void> {
   try {
     if (!authenticated) { await api.session(); authenticated = true; }
     await editor.load(); login.hidden = true; form.hidden = false; renderFields();
-    message = `Действующая версия: ${editor.document!.revision}. Для начатых забегов правила закреплены.`;
+    message = `Действующая версия: ${editor.document!.revision}. Бой закреплён за начатым забегом; мастерская использует действующие настройки.`;
   } catch (error) { handle(error); }
   finally { uiBusy = false; update(); }
 }
@@ -94,7 +94,7 @@ form.addEventListener('submit', event => {
   event.preventDefault(); if (save.disabled) return;
   const request = editor.save(); update();
   void request.then(() => {
-    renderFields(); message = `Сохранено. Версия ${editor.document!.revision} действует для новых забегов. Начатые и сохранённые забеги продолжаются по прежним правилам.`;
+    renderFields(); message = `Опубликовано. Мастерская применяет версию ${editor.document!.revision} сразу; прошедшее время рассчитано по прежним ставкам. Боевые правила и эффект часов закрепляются со следующего забега.`;
   }).catch(handle).finally(update);
 });
 get('balance-reload').addEventListener('click', () => { void load(); });

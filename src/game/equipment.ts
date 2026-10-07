@@ -1,11 +1,12 @@
 import type { Command, SimulationSnapshot } from './simulation';
 import type { PinnedBalance } from '../platform/balance';
+import type { ProductionId, WorkshopView } from '../platform/workshop';
 
 export type GoldMilli = string;
 export type Slot = 'weapon' | 'body' | 'legs' | 'talisman';
 export type HeroId = 'pudge';
 export type ComponentId = 'steel' | 'ember' | 'core';
-export type ItemDefinitionId = 'fast_reel' | 'long_link' | 'piercing_tooth' | 'return_sickle' | 'conductor_cuffs' | 'side_step_boots' | 'trophy_counter';
+export type ItemDefinitionId = 'fast_reel' | 'long_link' | 'piercing_tooth' | 'return_sickle' | 'conductor_cuffs' | 'side_step_boots' | 'trophy_counter' | 'debt_clock';
 export type ConsumableId = 'slow_dust' | 'collector_vial';
 export type Components = Record<ComponentId, number>;
 export interface Recipe { goldMilli: GoldMilli; components: Components; }
@@ -47,9 +48,14 @@ export type OperationAction =
   | { type: 'upgrade'; payload: { itemId: string } }
   | { type: 'equip'; payload: { slot: Slot; itemId: string | null } }
   | { type: 'quick_slots'; payload: { slots: [ConsumableId | null, ConsumableId | null] } }
-  | { type: 'consume'; payload: RunOwnership & { definitionId: ConsumableId } };
+  | { type: 'consume'; payload: RunOwnership & { definitionId: ConsumableId } }
+  | { type: 'forge_settle'; payload: Record<string, never> }
+  | { type: 'forge_tap'; payload: { balanceRevision: string } }
+  | { type: 'forge_buy'; payload: { productionId: ProductionId; balanceRevision: string } }
+  | { type: 'forge_upgrade'; payload: { upgrade: 'tap' | 'organization'; balanceRevision: string } };
 export type Operation = { operationId: string; expectedRevision: number; clientId: string } & OperationAction;
-export interface OperationResult { operationId: string; status: 'committed'; profile: Profile; run: RunView | null; replayed: boolean; }
+export interface ConfirmedReward {enemyId:string;kind:'normal'|'strong'|'boss';at:number;goldMilli:GoldMilli;components:Components;clockGoldMilli?:GoldMilli;clockSeconds?:number;}
+export interface OperationResult { operationId: string; status: 'committed'; profile: Profile; run: RunView | null; replayed: boolean; workshop?: WorkshopView; visualRewards?:ConfirmedReward[]; }
 
 /** Exact wallet limits align with PostgreSQL signed bigint / component integer columns. */
 export const GOLD_MAX_MILLI = '9223372036854775807';
@@ -69,6 +75,7 @@ const ITEM_RULES = {
   conductor_cuffs: { slot: 'body', hero: 'all', levels: 3, keys: ['outboundSpeedMultiplier'] },
   side_step_boots: { slot: 'legs', hero: 'all', levels: 3, keys: ['lateralSpeedMultiplier'] },
   trophy_counter: { slot: 'talisman', hero: 'all', levels: 3, keys: ['goldMultiplierMilli'] },
+  debt_clock: { slot: 'talisman', hero: 'all', levels: 1, keys: [] },
 } as const;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 function object(input: unknown, keys: readonly string[]): asserts input is Record<string, unknown> {
@@ -94,6 +101,16 @@ export function parseGoldMilli(input: unknown): bigint {
   if (value > BigInt(GOLD_MAX_MILLI)) throw new Error('Gold overflow');
   return value;
 }
+export function validateConfirmedRewards(input:unknown):ConfirmedReward[]{
+  if(!Array.isArray(input)||input.length>10000)throw new Error('Invalid visual reward receipts');
+  for(const reward of input){
+    if(!reward||typeof reward!=='object'||typeof reward.enemyId!=='string'||reward.enemyId.length<1||reward.enemyId.length>256||!['normal','strong','boss'].includes(reward.kind)||!Number.isFinite(reward.at)||reward.at<0)throw new Error('Invalid reward identity');
+    parseGoldMilli(reward.goldMilli);validateComponents(reward.components);
+    if(reward.clockGoldMilli!==undefined){parseGoldMilli(reward.clockGoldMilli);if(!Number.isSafeInteger(reward.clockSeconds)||reward.clockSeconds<1)throw new Error('Invalid clock receipt');}
+    else if(reward.clockSeconds!==undefined)throw new Error('Incomplete clock receipt');
+  }
+  return structuredClone(input);
+}
 export function addGoldMilli(a: GoldMilli, b: GoldMilli): GoldMilli {
   const sum = parseGoldMilli(a) + parseGoldMilli(b);
   if (sum > BigInt(GOLD_MAX_MILLI)) throw new Error('Gold overflow');
@@ -113,7 +130,7 @@ export function validateRecipe(input: unknown): Recipe {
 export function validateCatalog(input: unknown): EquipmentCatalog {
   object(input, ['version', 'items', 'consumables']);
   if (input.version !== 'r34.1') throw new Error('Unsupported equipment version');
-  if (!Array.isArray(input.items) || input.items.length !== 7) throw new Error('R34 requires seven active items');
+  if (!Array.isArray(input.items) || input.items.length !== 7 && input.items.length !== 8) throw new Error('R34/R5 requires seven base items and an optional debt clock');
   const seen = new Set<string>();
   for (const item of input.items) {
     object(item, ['id', 'name', 'slot', 'hero', 'levels']);
@@ -137,6 +154,7 @@ export function validateCatalog(input: unknown): EquipmentCatalog {
       }
     }
   }
+  if (seen.size === 7 && seen.has('debt_clock')) throw new Error('Missing base equipment item');
   if (!Array.isArray(input.consumables) || input.consumables.length !== 2) throw new Error('R34 requires two consumables');
   const consumables = new Set<string>();
   for (const consumable of input.consumables) {
@@ -208,7 +226,7 @@ export function validateProfile(input: unknown, catalog: EquipmentCatalog = EQUI
   for (const item of input.items) {
     object(item, ['id', 'definitionId', 'level']); id(item.id);
     if (instances.has(item.id)) throw new Error('Duplicate item instance');
-    const definition = getItemDefinition(item.definitionId as string, catalog);
+    const definition = item.definitionId === 'debt_clock' && !catalog.items.some(d => d.id === 'debt_clock') ? getItemDefinition('debt_clock') : getItemDefinition(item.definitionId as string, catalog);
     if (!definition.levels.some((level) => level.level === item.level)) throw new Error('Invalid owned item level');
     instances.set(item.id, item as unknown as ItemInstance);
   }
@@ -218,7 +236,7 @@ export function validateProfile(input: unknown, catalog: EquipmentCatalog = EQUI
     if (instanceId === null) continue;
     id(instanceId);
     const instance = instances.get(instanceId);
-    if (!instance || getItemDefinition(instance.definitionId, catalog).slot !== slot) throw new Error('Unowned/incompatible equipped item');
+    if (!instance || (instance.definitionId === 'debt_clock' && !catalog.items.some(d => d.id === 'debt_clock') ? getItemDefinition('debt_clock') : getItemDefinition(instance.definitionId, catalog)).slot !== slot) throw new Error('Unowned/incompatible equipped item');
   }
   const quick = input.loadouts.pudge.quick;
   if (!Array.isArray(quick) || quick.length !== 2 || quick.some((entry) => entry !== null && !CONSUMABLE_IDS.includes(entry as ConsumableId))) throw new Error('Invalid quick slots');
@@ -236,6 +254,7 @@ export function computeModifiers(profile: Profile, catalog: EquipmentCatalog = E
     const instanceId = profile.loadouts.pudge[slot];
     if (instanceId === null) continue;
     const instance = profile.items.find((candidate) => candidate.id === instanceId)!;
+    if (instance.definitionId === 'debt_clock' && !catalog.items.some(item => item.id === 'debt_clock')) continue;
     const level = getItemDefinition(instance.definitionId, catalog).levels.find((candidate) => candidate.level === instance.level)!;
     const effect = level.modifiers;
     rangeMultiplier *= effect.rangeMultiplier ?? 1;
@@ -522,6 +541,26 @@ export const EQUIPMENT_CATALOG: EquipmentCatalog = freezeCatalog(validateCatalog
           "modifiers": {
             "goldMultiplierMilli": 1400
           }
+        }
+      ]
+    },
+    {
+      "id": "debt_clock",
+      "name": "Часы должника",
+      "slot": "talisman",
+      "hero": "all",
+      "levels": [
+        {
+          "level": 1,
+          "recipe": {
+            "goldMilli": "450000",
+            "components": {
+              "steel": 0,
+              "ember": 3,
+              "core": 1
+            }
+          },
+          "modifiers": {}
         }
       ]
     }
