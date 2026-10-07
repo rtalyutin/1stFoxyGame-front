@@ -9,26 +9,34 @@ import { catalogSource } from '../scripts/catalog-source.mjs';
 
 const hash = value => createHash('sha256').update(value).digest('hex');
 const original = JSON.parse(await readFile(new URL('../games.json', import.meta.url), 'utf8'));
-function fixture(change = {}, {recomputeETag = false} = {}) {
+function fixture(change = {}, {recomputeETag = false, camera = false} = {}) {
+  const clientId = camera ? 'r3-content-002' : 'r3-001';
   const versions = { frontend:'r3-web-test', backend:'r3-api-test', core:'r3-core-1', content:'r3-content-1', metadataSchema:'r3-meta-1', saveFormat:4, api:1 };
+  if (camera) versions.backend = 'r3-api-7b084f31d98e7e6f';
   const page = '<script src="./assets/game.js"></script>', script = 'console.log("play")';
-  const manifest = { releaseId:'r3-001', sourceHash:'source', clientEntry:'web/index.html', versions,
+  const manifest = { releaseId:clientId, sourceHash:'source', clientEntry:'web/index.html', versions,
     files:{ 'web/index.html':hash(page), 'web/assets/game.js':hash(script) } };
   const bytes = JSON.stringify(manifest);
   const content = {contentVersion:'r3-content-1',metadataSchemaVersion:'r3-meta-1'};
   const body = {
     '/td/':'fetch("/td/current.json")',
-    '/td/current.json':{ releaseId:'r3-001',clientEntry:'web/index.html',manifestUrl:'/td/releases/r3-001/manifest.json',versions },
-    '/td/releases/r3-001/manifest.json':bytes,
+    '/td/current.json':{ releaseId:clientId,clientEntry:'web/index.html',manifestUrl:`/td/releases/${clientId}/manifest.json`,versions },
+    [`/td/releases/${clientId}/manifest.json`]:bytes,
     '/td/api/v1/ready':{ ready:true,releaseId:'r3-001' },
-    '/td/api/v1/bootstrap?clientReleaseId=r3-001':{clientReleaseId:'r3-001',apiReleaseId:'r3-001',versions,
-      capabilities:{battle:true,profiles:true,cloudSaves:true},contentUrl:'/td/api/v1/content?clientReleaseId=r3-001'},
-    '/td/api/v1/content?clientReleaseId=r3-001':content,
-    '/td/releases/r3-001/web/index.html':page, '/td/releases/r3-001/web/assets/game.js':script,
+    [`/td/api/v1/bootstrap?clientReleaseId=${clientId}`]:{clientReleaseId:clientId,apiReleaseId:'r3-001',versions,
+      capabilities:{battle:true,profiles:true,cloudSaves:true},contentUrl:`/td/api/v1/content?clientReleaseId=${clientId}`},
+    [`/td/api/v1/content?clientReleaseId=${clientId}`]:content,
+    [`/td/releases/${clientId}/web/index.html`]:page, [`/td/releases/${clientId}/web/assets/game.js`]:script,
   };
+  const apiBytes = JSON.stringify({ ...manifest, releaseId:'r3-001', versions:{...versions,frontend:'r3-web-old'}, compatibleClientReleases:['r3-001','r3-content-002'] });
+  if (camera) {
+    body['/td/releases/r3-001/manifest.json'] = apiBytes;
+    body['/td/api/v1/version'] = { releaseId:'r3-001', versions:{...versions,frontend:'r3-web-old'} };
+  }
   Object.assign(body, change);
   const requests=[];
-  return { expected:{releaseId:'r3-001',sourceHash:'source',manifestSha256:hash(bytes),projectionHash:hash(JSON.stringify(content))}, requests,
+  return { expected:{releaseId:clientId,sourceHash:'source',manifestSha256:hash(bytes),projectionHash:hash(JSON.stringify(content)),
+    ...(camera ? {apiReleaseId:'r3-001',apiManifestSha256:hash(apiBytes),backend:versions.backend} : {})}, requests,
     fetchImpl:async (url, options) => {
       assert.equal(options.redirect,'error'); assert.equal(options.cache,'no-store'); assert.ok(options.signal);
       const u = new URL(url); assert.equal(u.origin,'https://games.test'); const path = u.pathname + u.search; requests.push(path);
@@ -41,6 +49,24 @@ function fixture(change = {}, {recomputeETag = false} = {}) {
 test('ready deployment checks launcher, API, content and every client byte',async()=>{
   const f=fixture(), result=await probeDeployment('https://games.test',f.expected,f.fetchImpl);
   assert.equal(result.filesChecked,2); assert.ok(f.requests.includes('/td/releases/r3-001/web/assets/game.js'));
+});
+test('camera client002 is ready on the exact retained API001 and both immutable identities are checked',async()=>{
+  const f=fixture({}, {camera:true}), result=await probeDeployment('https://games.test',f.expected,f.fetchImpl);
+  assert.equal(result.releaseId,'r3-content-002'); assert.equal(result.filesChecked,2);
+  assert.ok(f.requests.includes('/td/releases/r3-001/manifest.json'));
+  assert.ok(f.requests.includes('/td/api/v1/version'));
+});
+test('camera activation refuses a different live API or backend and altered API001 manifest',async()=>{
+  for(const change of [
+    {'/td/api/v1/ready':{ready:true,releaseId:'r3-content-002'}},
+    {'/td/api/v1/version':{releaseId:'r3-001',versions:{backend:'r3-api-other'}}},
+    {'/td/releases/r3-001/manifest.json':'{}'},
+    {'/td/api/v1/bootstrap?clientReleaseId=r3-content-002':{clientReleaseId:'r3-content-002',apiReleaseId:'r3-content-002'}},
+  ]) {
+    const f=fixture(change,{camera:true}); await assert.rejects(probeDeployment('https://games.test',f.expected,f.fetchImpl));
+  }
+  const f=fixture({}, {camera:true});
+  await assert.rejects(probeDeployment('https://games.test',{...f.expected,apiReleaseId:'r3-other'},f.fetchImpl),/Unsupported/);
 });
 test('requires an explicit HTTPS origin and rejects credentials and unrelated paths',()=>{
   for(const origin of ['http://games.test','https://user:secret@games.test','https://games.test/hub/','https://games.test/?x=1']) assert.throws(()=>httpsOrigin(origin));

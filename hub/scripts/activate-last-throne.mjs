@@ -11,6 +11,8 @@ export const R2 = Object.freeze({
   projectionHash: 'f4cb8ef36a5e12d1c6e83902bff2227425cff313dbcf529f6a195360ccbbe9ed',
 });
 export const R3 = Object.freeze({ releaseId: 'r3-001', sourceHash: '2233389d406901529b55b5cf7c9ecfef7b1c5726c12cbf0b0495bae7349bfadb', manifestSha256: 'defab06551d52e9cc71c0a6d56c769e9030e51649756cecfba659a70c5acfc63', projectionHash: '6709321a18dadc7249bac548b848f4460557940faea9b056372e041913b5a7b5' });
+export const R3_CAMERA = Object.freeze({ releaseId: 'r3-content-002', apiReleaseId: 'r3-001', apiManifestSha256: R3.manifestSha256,
+  backend: 'r3-api-7b084f31d98e7e6f', sourceHash: '0dfe1bcaef0f7d94e05d5f50495bcfb0f84227b8f93b113b38cf5bdf0c732c83', manifestSha256: '7d65186b3f8522585dc4ef17aa91c84a46994e63f57f656720a970916b50852a', projectionHash: R3.projectionHash });
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 const canonical = value => JSON.stringify(sort(value));
 function sort(value) {
@@ -46,8 +48,11 @@ async function json(origin, path, fetchImpl) {
 
 // Probe is read-only. Every launcher dependency and all immutable client bytes
 // must work before the catalog can advertise the game.
-export async function probeDeployment(input, expected = R3, fetchImpl = fetch) {
+export async function probeDeployment(input, expected = R3_CAMERA, fetchImpl = fetch) {
   const origin = httpsOrigin(input), prefix = `/td/releases/${expected.releaseId}/`;
+  const apiReleaseId = expected.apiReleaseId ?? expected.releaseId;
+  const split = apiReleaseId !== expected.releaseId;
+  requireCondition(!split || (expected.releaseId === 'r3-content-002' && apiReleaseId === 'r3-001'), 'Unsupported client/API identity split');
   const launcher = await resource(origin, '/td/', fetchImpl);
   requireCondition(launcher.bytes.includes(Buffer.from('/td/current.json')), 'TD launcher is missing');
   const current = (await json(origin, '/td/current.json', fetchImpl)).value;
@@ -59,10 +64,21 @@ export async function probeDeployment(input, expected = R3, fetchImpl = fetch) {
   requireCondition(manifest.releaseId === expected.releaseId && manifest.sourceHash === expected.sourceHash
     && manifest.clientEntry === current.clientEntry, 'Release identity differs');
   requireCondition(canonical(current.versions) === canonical(manifest.versions), 'Launcher versions differ');
+  if (split) {
+    const apiManifestResponse = await json(origin, '/td/releases/r3-001/manifest.json', fetchImpl);
+    requireCondition(sha256(apiManifestResponse.bytes) === expected.apiManifestSha256, 'Pinned API manifest hash differs');
+    const apiManifest = apiManifestResponse.value, v = manifest.versions;
+    requireCondition(apiManifest.releaseId === 'r3-001' && apiManifest.compatibleClientReleases?.includes(expected.releaseId)
+      && apiManifest.versions?.backend === expected.backend && v.backend === expected.backend
+      && v.core === 'r3-core-1' && v.content === 'r3-content-1' && v.metadataSchema === 'r3-meta-1' && v.saveFormat === 4 && v.api === 1,
+      'Camera client/API backend or compatibility differs');
+    const version = (await json(origin, '/td/api/v1/version', fetchImpl)).value;
+    requireCondition(version.releaseId === apiReleaseId && version.versions?.backend === expected.backend, 'Live API/backend differs');
+  }
   const ready = (await json(origin, '/td/api/v1/ready', fetchImpl)).value;
-  requireCondition(ready.ready === true && ready.releaseId === expected.releaseId, 'Selected API is not ready');
+  requireCondition(ready.ready === true && ready.releaseId === apiReleaseId, 'Selected API is not ready');
   const bootstrap = (await json(origin, `/td/api/v1/bootstrap?clientReleaseId=${expected.releaseId}`, fetchImpl)).value;
-  requireCondition(bootstrap.clientReleaseId === expected.releaseId && bootstrap.apiReleaseId === expected.releaseId
+  requireCondition(bootstrap.clientReleaseId === expected.releaseId && bootstrap.apiReleaseId === apiReleaseId
     && canonical(bootstrap.versions) === canonical(manifest.versions), 'Bootstrap versions differ');
   requireCondition(['battle', 'profiles', 'cloudSaves'].every(k => bootstrap.capabilities?.[k] === true), 'Gameplay capabilities are unavailable');
   requireCondition(bootstrap.contentUrl === `/td/api/v1/content?clientReleaseId=${expected.releaseId}`, 'Content route differs');
@@ -94,7 +110,7 @@ export function activatedCatalog(input) {
   return validateCatalog(catalog);
 }
 
-export async function activate({ origin, out, catalogPath = fileURLToPath(new URL('../games.json', import.meta.url)), expected = R3, fetchImpl = fetch }) {
+export async function activate({ origin, out, catalogPath = fileURLToPath(new URL('../games.json', import.meta.url)), expected = R3_CAMERA, fetchImpl = fetch }) {
   const source = resolve(catalogPath), destination = resolve(out);
   requireCondition(destination !== source, 'Do not overwrite the default catalog');
   const catalog = activatedCatalog(JSON.parse(await readFile(source, 'utf8')));
