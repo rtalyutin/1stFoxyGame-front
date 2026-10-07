@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="ru">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#142a35"><title>СЪЕЗЖАЕМ! — R1</title></head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#142a35"><title>СЪЕЗЖАЕМ! — R2</title></head>
 <body>
   <main id="game">
     <canvas tabindex="0" id="scene" aria-label="Игровой мир. Дом движется к порталу"></canvas>
     <header id="hud">
-      <div class="brand"><strong>СЪЕЗЖАЕМ<span>!</span></strong><small>R1 · дом на серверном аккаунте</small></div>
-      <div class="heart"><small>СЕРДЦЕ</small><div class="bar"><i id="heart-fill"></i></div></div>
+      <div class="brand"><strong>СЪЕЗЖАЕМ<span>!</span></strong><small>R2 · спасаем весь дом</small></div>
+      <div class="vitals"><small>ИГРОК</small><strong id="player-hp">♥♥♥</strong></div><div class="heart"><small>СЕРДЦЕ</small><div class="bar"><i id="heart-fill"></i></div></div>
       <div class="route"><small>ДО ПОРТАЛА</small><strong id="distance">20 м</strong></div>
-      <button id="pause" class="square" aria-label="Пауза">Ⅱ</button>
+      <div class="vitals lava-distance"><small>ОТРЫВ ЛАВЫ</small><strong id="lava-distance">20 м</strong></div><div class="vitals elapsed"><small>ВРЕМЯ</small><strong id="elapsed">0:00</strong></div><button id="pause" class="square" aria-label="Пауза">Ⅱ</button>
     </header>
     <div id="objective" role="status">Разбери часть дома. Построй мост. Доедь до портала.</div>
-    <div id="target-caption" aria-live="polite"></div>
+    <div id="target-caption" aria-live="polite"></div><div id="hazard-labels" aria-hidden="true"></div><div id="item-status" role="status"></div>
     <aside id="tutorial-hint" hidden><strong id="tutorial-progress"></strong><p id="tutorial-detail"></p></aside>
     <button id="tutorial-marker" type="button" hidden></button>
     <footer id="bottom">
@@ -20,8 +20,8 @@
         <button data-move="right" aria-label="Идти вправо">▶</button>
         <button data-move="jump" aria-label="Прыжок">↥</button>
       </div>
-      <div class="inventory"><span class="wood-icon"></span><div><strong id="wood">0</strong><small>/ 12 · ДЕРЕВО</small></div></div>
-      <div id="mode"><button data-mode="take" class="active">ВЗЯТЬ</button><button data-mode="place">СТРОИТЬ</button></div>
+      <div class="inventory" aria-label="Материалы, общая вместимость 12"><button data-material="wood" class="selected" aria-label="Дерево, клавиша 1" aria-pressed="true"><span class="material-chip wood"></span><strong id="wood">0</strong><small>ДЕРЕВО</small></button><button data-material="stone" aria-label="Камень, клавиша 2" aria-pressed="false"><span class="material-chip stone"></span><strong id="stone">0</strong><small>КАМЕНЬ</small></button><button data-material="slime" aria-label="Слизь, клавиша 3" aria-pressed="false"><span class="material-chip slime"></span><strong id="slime">0</strong><small>СЛИЗЬ</small></button><span id="inventory-total">0 / 12</span></div>
+      <div id="mode"><button data-mode="take" class="active">ВЗЯТЬ</button><button data-mode="place">СТРОИТЬ</button><button data-mode="item" id="item-action">ПРЕДМЕТ</button></div>
     </footer>
     <div id="save-status" role="status">Сохранение на устройстве</div>
     <div id="toast" role="status"></div>
@@ -41,23 +41,23 @@
         <div class="link-actions"><button id="auth-register">Создать аккаунт</button><button id="auth-reset">Забыли пароль?</button><button id="auth-login" hidden>Ко входу</button><button id="auth-verify" hidden>Повторить письмо</button><button id="auth-refresh" hidden>Я подтвердил адрес</button></div>
       </section>
       <section id="menu-panel" class="panel" hidden>
-        <div class="eyebrow">ОДИН ДОМ. ОДНА ПРОПАСТЬ.</div><h1>Стены становятся дорогой.</h1>
+        <div class="eyebrow">ДОМ. ДОРОГА. ПОГОНЯ.</div><h1>Стены становятся дорогой.</h1>
         <p>Разбирай дом на ходу, строй мост и довези сердце до портала.</p>
         <p id="menu-account" class="note"></p><p id="menu-status" role="status"></p>
         <div class="menu-actions"><button id="continue" class="primary">ПРОДОЛЖИТЬ →</button><button id="new-game" class="secondary">Новый забег</button><button id="tutorial" class="secondary">Как играть</button><button id="history" class="secondary">Личные результаты</button><button id="settings" class="secondary">Настройки</button><button id="logout" class="secondary">Выйти из аккаунта</button><button id="menu-version" class="secondary">Открыть подходящую версию</button></div>
-        <p class="note">R1 · один материал, один маршрут. Лава, моб и кот появятся в R2.</p><span id="build-label"></span>
+        <p class="note">R2 · три материала, лава, взрывающийся моб, кот и сундук.</p><span id="build-label"></span>
       </section>
       <section id="game-panel" class="panel" hidden>
         <div class="eyebrow">ДОМ В ДВИЖЕНИИ</div><h1 id="panel-title">Дом подождёт.</h1><p id="panel-text"></p>
-        <div id="instructions"><p><b>ПК</b> A / D — ходить · пробел — прыгать<br>ЛКМ — выбранный режим · ПКМ — поставить · Esc — пауза</p><p><b>Телефон</b> Горизонтально. Слева — движение, справа — режим. Коснись клетки и отпусти, чтобы выполнить действие.</p><p class="note">Следуй отметкам: стена → рюкзак → мост. Дом ждёт первого блока, а пол под тобой останется целым.</p></div>
+        <div id="instructions"><p><b>ПК</b> A / D — ходить · пробел — прыгать<br>ЛКМ — выбранный режим · ПКМ — поставить · 1/2/3 — материал<br>E — кот / сундук · Esc — пауза</p><p><b>Телефон</b> Горизонтально. Слева — движение, справа — режим. Коснись клетки и отпусти, чтобы выполнить действие.</p><p class="note">Следуй отметкам: стена → рюкзак → мост. Дом ждёт первого блока, а пол под тобой останется целым.</p></div>
         <p id="cloud-status" role="status"></p>
         <div class="actions"><button id="resume" class="primary">ПРОДОЛЖИТЬ →</button><button id="to-menu" class="secondary">В меню</button></div>
         <div class="link-actions"><button id="retry-sync">Повторить сохранение</button><button id="abandon">Отказаться от забега</button><button id="fresh-version">Открыть свежую версию</button></div>
       </section>
       <section id="conflict-panel" class="panel" hidden><div class="eyebrow">ДВА УСТРОЙСТВА · ДВА МИРА</div><h1>Какой дом продолжим?</h1><p id="conflict-text"></p><div class="menu-actions"><button id="conflict-server" class="primary">Загрузить серверный</button><button id="conflict-keep" class="secondary">Оставить локальную копию</button><button id="conflict-local" class="secondary">Заменить серверный локальным…</button></div><p id="conflict-status" role="status"></p></section>
       <section id="history-panel" class="panel" hidden><div class="eyebrow">ЛИЧНЫЕ РЕЗУЛЬТАТЫ</div><h1>История домов</h1><div id="history-list"></div><p id="history-status" role="status"></p><div class="actions"><button id="history-more" class="secondary" hidden>Ещё</button><button data-menu class="primary">В меню</button></div></section>
-      <section id="tutorial-panel" class="panel" hidden><div class="eyebrow">СТЕНЫ СТАНОВЯТСЯ ДОРОГОЙ</div><h1>Дом — запас дерева.</h1><p>Первый мост строим вместе. Нажми «Новый забег»: возьми зелёный блок стены, затем нажми на голубую клетку моста. Дом ждёт первого переноса. Ещё один блок — и путь к порталу открыт.</p><p><b>ПК</b> A / D или стрелки — идти, пробел — прыгать, ЛКМ — действие выбранного режима, ПКМ — поставить, Esc — пауза.</p><p><b>Телефон</b> Поверни горизонтально. Слева движение, справа режим. Коснись клетки и отпусти: одна команда. Двумя пальцами можно идти и строить одновременно.</p><p>Пол под персонажем — твоя опора. В учебном маршруте мосту нужны два блока, а запас сердца без опоры — 4 секунды. Сохранённые старые забеги продолжаются по своим прежним правилам.</p><button data-menu class="primary">В меню</button></section>
-      <section id="settings-panel" class="panel" hidden><div class="eyebrow">НАСТРОЙКИ АККАУНТА</div><h1>Твой темп</h1><form id="settings-form"><label>Ник <input id="setting-name" maxlength="40" autocomplete="nickname"></label><label>Графика <select id="setting-quality"><option value="low">Low</option><option value="medium">Medium</option></select></label><label class="check"><input id="setting-sound" type="checkbox"> Звук</label><p class="note">В R1 звуков нет. Настройка сохранится для следующих релизов.</p><p id="settings-status" role="status"></p><div class="actions"><button class="primary">Сохранить</button><button type="button" data-menu class="secondary">В меню</button></div></form></section>
+      <section id="tutorial-panel" class="panel" hidden><div class="eyebrow">СТЕНЫ СТАНОВЯТСЯ ДОРОГОЙ</div><h1>Дом — запас материалов.</h1><p>Первый мост строим вместе. Нажми «Новый забег»: возьми зелёный блок стены, затем нажми на голубую клетку моста. До двух настоящих переносов время стоит. Первый мост готов — начинается весь маршрут.</p><p><b>ПК</b> A / D или стрелки — идти, пробел — прыгать, ЛКМ — действие выбранного режима, ПКМ — поставить, 1/2/3 — материал, E — поднять или поставить кота/сундук, Esc — пауза.</p><p><b>Телефон</b> Поверни горизонтально. Слева движение, справа режим. Коснись клетки и отпусти: одна команда. Двумя пальцами можно идти и строить одновременно.</p><p>Пол под персонажем — твоя опора. Первый мост строим без спешки: лава и время ждут двух настоящих блоков. Затем лава догоняет дом, а сердце без опоры выдержит 1,5 секунды. Камень не горит; слизь подбрасывает. Сохранённые старые забеги продолжаются по своим прежним правилам.</p><button id="tutorial-repeat" class="secondary">Повторить подсказки первого моста</button><button data-menu class="primary">В меню</button></section>
+      <section id="settings-panel" class="panel" hidden><div class="eyebrow">НАСТРОЙКИ АККАУНТА</div><h1>Твой темп</h1><form id="settings-form"><label>Ник <input id="setting-name" maxlength="40" autocomplete="nickname"></label><label>Графика <select id="setting-quality"><option value="low">Low</option><option value="medium">Medium</option></select></label><label class="check"><input id="setting-sound" type="checkbox"> Звук</label><label class="check"><input id="setting-hints" type="checkbox"> Подсказки первого моста</label><p class="note">Звук предупреждает об отсчёте моба. Запускается после нажатия в игре, если браузер разрешает.</p><p id="settings-status" role="status"></p><div class="actions"><button class="primary">Сохранить</button><button type="button" data-menu class="secondary">В меню</button></div></form></section>
     </div>
     <div id="portrait" class="overlay" hidden><section class="panel compact"><div class="rotate-icon">↻</div><h2>Поверни телефон</h2><p>Для игры нужно горизонтальное положение. Забег на паузе.</p></section></div>
     <div id="fatal" class="overlay" hidden><section class="panel"><h2>Не удалось открыть игру</h2><p id="fatal-message"></p><button id="fatal-retry" class="primary">Повторить</button></section></div>

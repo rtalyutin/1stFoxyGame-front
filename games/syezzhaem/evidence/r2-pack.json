@@ -1,0 +1,8 @@
+{
+  "build": "r2-route-001",
+  "manifest_sha256": "86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9",
+  "archive_sha256": "85eaae0a7bf3c7d0be6c4f75edc5aca1363f3e9037cb9360607cdb95417cf7a8",
+  "archive_bytes": 438629,
+  "files_including_manifest": 71,
+  "status": "Exact file set and every SHA256 verified by packer; no remote activation"
+}

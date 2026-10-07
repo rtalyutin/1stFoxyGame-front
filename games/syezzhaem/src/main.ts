@@ -1,9 +1,10 @@
 import './style.css';
-import {BUILD_ID,RULES,rulesFor,type Snapshot,type Input,type Target} from './contracts';
-import {createInitial,step,snapshot,restore,take,place,retainedFraction,randomId} from './core';
-import {GameView} from './view';
+import {BUILD_ID,RULES,rulesFor,type Snapshot,type Input,type Target,type Material} from './contracts';
+import {createInitial,step,snapshot,restore,take,place,retainedFraction,randomId,pickActor,putActor,resolveBlock} from './core';
+import {GameView,type ViewMode,type ItemTarget} from './view';
+import {MobCue} from './mob-cue';
 import {tutorialGuide,tutorialAction} from './tutorial';
-import {CURRENT_BUILD_CONTEXT as BUILD_CONTEXT,toSnapshotV1,fromSnapshotV1,type SnapshotV1} from './snapshot-v1';
+import {CURRENT_BUILD_CONTEXT as BUILD_CONTEXT,toSnapshotV1,fromSnapshotV1,scoreSnapshot,type SnapshotV1} from './snapshot-v1';
 import type {RunDto} from './r1-contracts';
 import {read,write,writeMany,remove,probeStorage,mutate,list} from './storage';
 import {auth,getUser,rpc,CloudError,type SessionUser} from './cloud';
@@ -11,15 +12,17 @@ import {chooseResume} from './resume';
 import {Outbox,fromServer,browserStore,runKey,resumeMetadata,type DurableRun} from './outbox';
 const $=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
 const canvas=$<HTMLCanvasElement>('scene'),input:Input={left:false,right:false,jump:false},keys=new Set<string>();
-const moves=new Map<number,keyof Input>(),gestures=new Map<number,{mode:'take'|'place';target:Target|null;x:number;y:number}>();
-const markerGestures=new Map<number,{action:'take'|'place';target:Target}>();
-let state:Snapshot=createInitial(),view:GameView,paused=true,mode:'take'|'place'='take',target:Target|null=null,targetMode:'take'|'place'=mode,lastFrame=0,accumulator=0,lastSaveTick=-1;
+const moves=new Map<number,keyof Input>(),gestures=new Map<number,{mode:ViewMode;target:Target|null;itemTarget:ItemTarget|null;material:Material;x:number;y:number}>();
+const markerGestures=new Map<number,{action:'take'|'place';target:Target;material:Material}>();
+let state:Snapshot=createInitial(),view:GameView,paused=true,mode:ViewMode='take',target:Target|null=null,targetMode:ViewMode=mode,lastFrame=0,accumulator=0,lastSaveTick=-1;
 let localFailure=false,ready=false,busy=false,toastTimer=0,screen='boot',user:SessionUser|null=null,active:RunDto|null=null,profile:any=null,queue:Outbox|null=null,conflictRun:RunDto|null=null,authMode='login',authExpired=false,historyCursor:unknown=null;
 let saveQueue=Promise.resolve(),frameTimes:number[]=[];let localReplay=false,terminalView=false;let guidePhase='';
+let material:Material='wood',itemTarget:ItemTarget|null=null,localCommandNumber=0;const mobCue=new MobCue();const hazardNodes=new Map<string,HTMLElement>();
+const hintsEnabled=()=>profile?.controls_hint_seen!==true;
 const callbackURL=()=>`${location.origin}${location.pathname}`;
 function notify(message:string){$('toast').textContent=message;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=window.setTimeout(()=>$('toast').classList.remove('show'),3500);}
 function show(next:string){screen=next;document.body.dataset.screen=next;$('overlay').hidden=false;for(const panel of document.querySelectorAll<HTMLElement>('#overlay > section'))panel.hidden=panel.id!==`${next}-panel`;if(next!=='game'){paused=true;resetInput();}$('portrait').hidden=next!=='game'||!portrait();}
-function resetInput(){keys.clear();moves.clear();gestures.clear();markerGestures.clear();input.left=input.right=input.jump=false;state.player.jumpHeld=false;target=null;document.querySelectorAll('.pressed').forEach(b=>b.classList.remove('pressed'));accumulator=0;lastFrame=0;}
+function resetInput(){mobCue.silence();itemTarget=null;keys.clear();moves.clear();gestures.clear();markerGestures.clear();input.left=input.right=input.jump=false;state.player.jumpHeld=false;target=null;document.querySelectorAll('.pressed').forEach(b=>b.classList.remove('pressed'));accumulator=0;lastFrame=0;}
 function syncInput(){const held=new Set(moves.values());input.left=held.has('left')||keys.has('KeyA')||keys.has('ArrowLeft');input.right=held.has('right')||keys.has('KeyD')||keys.has('ArrowRight');input.jump=held.has('jump')||keys.has('Space');document.querySelectorAll<HTMLButtonElement>('[data-move]').forEach(b=>b.classList.toggle('pressed',input[b.dataset.move as keyof Input]));}
 function panel(title:string,text:string,label='ПРОДОЛЖИТЬ →'){$('panel-title').textContent=title;$('panel-text').textContent=text;$('resume').textContent=label;}
 function pause(title='Дом подождёт.',text='Снимок хранит положение дома, игрока и опору. Продолжение — по твоей команде.'){
@@ -76,7 +79,7 @@ async function newRun(){
     }
     if(pending.owner_id!==owner)throw new Error('Аккаунт запроса не совпадает');
     const run=await scopedRpc<RunDto>(owner,'run_start_v1',pending.body),record=fromServer(owner,run);
-    await writeMany([[runKey(owner,run.run_id),record],[`resume:${owner}`,resumeMetadata(record)]],[key]);active=run;await adopt(record,'Первый мост — вместе.');$('instructions').hidden=false;panel('Первый мост — вместе.','Сначала возьми зелёный блок стены, затем поставь его в голубую клетку. Дом будет ждать первого переноса. Мосту нужны всего два блока.','НАЧАТЬ →');
+    await writeMany([[runKey(owner,run.run_id),record],[`resume:${owner}`,resumeMetadata(record)]],[key]);active=run;await adopt(record,'Первый мост — вместе.');$('instructions').hidden=false;panel('Первый мост — вместе.','Первый мост строим без спешки: возьми два блока стены и поставь их на отмеченные клетки. Затем начнётся 120-метровый маршрут, лава и опасности.','НАЧАТЬ →');
   }catch(error){const e=error as Error&{code?:string};if(e.code==='GPU_UNAVAILABLE'){fatal(e.message);return;}if(e.code==='CLIENT_UPDATE_REQUIRED'){if(user)await remove(`start:${user.id}`);notify(e.message);location.assign('/games/syezzhaem/?new=1');return;}if(e.code==='AUTH_REQUIRED'){showAuth('login',e.message);return;}if(e.code==='ACTIVE_RUN_EXISTS'){if(user)await remove(`start:${user.id}`);await menu();return;}if(e.code==='VALIDATION_FAILED'||e.code==='CONTENT_INCOMPATIBLE'){if(user)await remove(`start:${user.id}`);}show('menu');$('menu-status').textContent=e.message+' Новый старт не подтверждён. Повтор кнопки повторит тот же request_id.';}finally{busy=false;}
 }
 async function continueRun(){
@@ -89,78 +92,94 @@ async function continueRun(){
     show('menu');$('menu-status').textContent='Сохранённых забегов пока нет. Начни новый.';
   }catch(error){handleError(error,'menu-status');}finally{busy=false;}
 }
-function renderOutcome(){paused=true;resetInput();show('game');$('instructions').hidden=true;const kept=Math.round(retainedFraction(state)*100),won=state.outcome==='won';panel(won?'Дом добрался!':'Забег окончен.',won?`Сохранность дома ${kept}%. Счёт: 1000 за портал + ${Math.floor(400*retainedFraction(state))} за дом + ${Math.max(0,300-Math.floor(state.tick/60))} за время.`:(state.reason??'Дом потерял опору.')+' Счёт: 0.',localReplay?'В МЕНЮ →':'ЕЩЁ РАЗ →');}
+function renderOutcome(){paused=true;resetInput();show('game');$('instructions').hidden=true;const result=scoreSnapshot(toSnapshotV1(state,BUILD_CONTEXT)),kept=Math.round(retainedFraction(state)*100),won=state.outcome==='won';panel(won?'Дом добрался!':'Забег окончен.',won?`Сохранность дома ${kept}%. Счёт ${result.score}: 1000 за портал + ${result.cat_saved?300:0} за кота + ${result.chest_saved?300:0} за сундук + ${Math.floor(400*retainedFraction(state))} за дом + ${Math.max(0,300-Math.floor(state.tick/60))} за время.`:(state.reason??'Дом потерял опору.')+` Счёт: 0. Пройдено ${Math.floor(result.distance)} м.`,localReplay?'В МЕНЮ →':'ЕЩЁ РАЗ →');}
 function outcome(){renderOutcome();void saveLocal();}
-function selectMode(next:'take'|'place'){
-  mode=next;target=null;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',(b as HTMLElement).dataset.mode===mode));
+function selectMode(next:ViewMode){
+  mode=next;target=null;itemTarget=null;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',(b as HTMLElement).dataset.mode===mode));
 }
+function selectMaterial(next:Material){material=next;target=null;for(const button of document.querySelectorAll<HTMLButtonElement>('[data-material]')){const active=button.dataset.material===next;button.classList.toggle('selected',active);button.setAttribute('aria-pressed',String(active));}}
 function syncTutorialMode(){
-  const guide=tutorialGuide(state),phase=guide?.phase??'';
-  if(phase!==guidePhase){guidePhase=phase;if(guide&&guide.phase!=='ride')selectMode(guide.action);}
+  const guide=tutorialGuide(state,hintsEnabled()),phase=guide?.phase??'';
+  if(phase!==guidePhase){guidePhase=phase;if(guide&&guide.phase!=='ride'){selectMode(guide.action);selectMaterial('wood');}}
 }
 function hud(){
-  const rules=rulesFor(state),guide=tutorialGuide(state);
-  $('wood').textContent=String(state.inventory.wood);$('distance').textContent=`${Math.max(0,Math.ceil(rules.portalX-(state.house.x+3)))} м`;$('heart-fill').style.width=`${state.house.heartHp}%`;
-  const objective=state.house.motion==='unsupported'?`Опора потеряна! Восстанови за ${state.house.supportTimer.toFixed(1)} с`:guide?.title??(state.house.motion==='gap'?'Дом ждёт мост. Поставь дерево в следующую клетку пропасти.':'Разбери часть дома. Построй мост. Доедь до портала.');
+  const rules=rulesFor(state),guide=tutorialGuide(state,hintsEnabled());
+  for(const kind of ['wood','stone','slime'] as const)$(kind).textContent=String(state.inventory[kind]??0);$('inventory-total').textContent=`${state.inventory.wood+(state.inventory.stone??0)+(state.inventory.slime??0)} / 12`;
+  $('player-hp').textContent='♥'.repeat(Math.max(0,state.player.hp))+'♡'.repeat(Math.max(0,3-state.player.hp));$('lava-distance').textContent=state.lava?`${Math.max(0,Math.floor(state.house.x+.5-state.lava.x))} м`:'—';const seconds=Math.floor(state.tick/60);$('elapsed').textContent=`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`;
+  const held=state.actors?.find(a=>a.actorKey===state.player.heldActorKey),savedKind=(kind:'cat'|'chest')=>{const actor=state.actors?.find(a=>a.kind===kind);return !actor?'—':actor.state==='destroyed'?'потерян':actor.state==='held'?'в руках':actor.support?.space==='house'?'в доме':'снаружи';};$('item-status').textContent=held?`${held.kind==='cat'?'Кот':'Сундук'} в руках · сначала поставь на опору`:`Кот: ${savedKind('cat')} · Сундук: ${savedKind('chest')}`;$('item-action').textContent=held?'ПОСТАВИТЬ':'ПРЕДМЕТ';
+  $('distance').textContent=`${Math.max(0,Math.ceil(rules.portalX-(state.house.x+3)))} м`;$('heart-fill').style.width=`${state.house.heartHp}%`;
+  const objective=state.house.motion==='unsupported'?`Опора потеряна! Восстанови за ${state.house.supportTimer.toFixed(1)} с`:guide?.title??(state.house.motion==='gap'?'Дом ждёт мост. Лава продолжает приближаться.':'Разбери часть дома. Построй мост. Доедь до портала.');
   if($('objective').textContent!==objective)$('objective').textContent=objective;
   const tutorial=$('tutorial-hint');tutorial.hidden=paused||!guide;
   if(guide){if($('tutorial-detail').textContent!==guide.instruction)$('tutorial-detail').textContent=guide.instruction;$('tutorial-progress').textContent=`ПЕРВЫЙ МОСТ · ${guide.filled}/2`;}
   const mark=$('tutorial-marker');mark.hidden=paused||!guide?.target;
   if(guide?.target){const p=view.project(guide.target);mark.textContent=guide.action==='take'?'↓ ВЗЯТЬ':guide.phase==='wait'?'↓ СКОРО':'↓ ПОСТАВИТЬ';$<HTMLButtonElement>('tutorial-marker').disabled=guide.phase==='wait';mark.setAttribute('aria-label',guide.action==='take'?'Взять отмеченный блок стены':'Поставить блок в отмеченную клетку моста');mark.dataset.action=guide.action;mark.style.left=`${Math.max(75,Math.min(innerWidth-75,p.x))}px`;mark.style.top=`${Math.max(110,p.y-43)}px`;}
-  const caption=$('target-caption');if(target){const p=view.project(target);caption.textContent=`${targetMode==='take'?'ВЗЯТЬ':'ПОСТАВИТЬ'} · ${target.space==='house'?'ДОМ':'МИР'}`;caption.style.display='block';caption.style.left=`${Math.max(8,Math.min(innerWidth-160,p.x-55))}px`;caption.style.top=`${Math.max(90,p.y-48)}px`;}else caption.style.display='none';
+  renderHazards();
+  const caption=$('target-caption'),itemSelection=itemTarget;if(itemSelection){const item='actorKey'in itemSelection?state.actors?.find(a=>a.actorKey===itemSelection.actorKey):null;const p=item?view.projectPoint(item.x,item.y+.7):'cell'in itemSelection?view.project(itemSelection.cell):null;if(p){caption.textContent=item?`E · ПОДНЯТЬ ${item.kind==='cat'?'КОТА':'СУНДУК'}`:'E · ПОСТАВИТЬ НА ОПОРУ';caption.style.display='block';caption.style.left=`${Math.max(8,Math.min(innerWidth-180,p.x-70))}px`;caption.style.top=`${Math.max(90,p.y-45)}px`;}}else if(target){const p=view.project(target);caption.textContent=`${targetMode==='take'?'ВЗЯТЬ':'ПОСТАВИТЬ'} · ${target.space==='house'?'ДОМ':'МИР'}`;caption.style.display='block';caption.style.left=`${Math.max(8,Math.min(innerWidth-160,p.x-55))}px`;caption.style.top=`${Math.max(90,p.y-48)}px`;}else caption.style.display='none';
 }
-function frame(time:number){if(lastFrame){const elapsed=Math.min((time-lastFrame)/1000,.1);if(!paused){accumulator+=elapsed;frameTimes.push(time-lastFrame);if(frameTimes.length>3600)frameTimes.shift();}}lastFrame=time;if(!paused){let steps=0;while(accumulator>=1/RULES.tickRate&&steps<6){step(state,input);accumulator-=1/RULES.tickRate;steps++;if(state.outcome!=='playing'){outcome();break;}}if(state.tick-lastSaveTick>=300){lastSaveTick=state.tick;void saveLocal();}}if(view){syncTutorialMode();const guide=tutorialGuide(state);view.render(state,target,targetMode,!paused&&guide?.target?{target:guide.target,mode:guide.action}:undefined);hud();}requestAnimationFrame(frame);}
+function renderHazards(){
+  const desired=new Map<string,{text:string;x:number;y:number;mob:boolean}>();
+  for(const block of state.blocks)if((block.burnTicks??0)>0){const p=view.project(block);if(p.x>0&&p.x<innerWidth&&p.y>0&&p.y<innerHeight)desired.set('fire:'+block.id,{text:`ОГОНЬ ${(block.burnTicks!/60).toFixed(1)} с`,x:p.x,y:p.y-12,mob:false});}
+  for(const actor of state.actors??[])if(actor.kind==='mob'&&actor.state==='armed'){const p=view.projectPoint(actor.x,actor.y+1.5);if(p.x>0&&p.x<innerWidth&&p.y>0&&p.y<innerHeight)desired.set('mob:'+actor.actorKey,{text:`ВЗРЫВ ${(actor.fuseTicks/60).toFixed(1)} с`,x:p.x,y:p.y-9,mob:true});}
+  for(const[key,node]of hazardNodes)if(!desired.has(key)){node.remove();hazardNodes.delete(key);}
+  const hudRects=desired.size?[...$('hud').children,$('objective')].map(n=>({brand:n.classList.contains('brand'),rect:n.getBoundingClientRect()})):[];
+  for(const[key,value]of desired){let node=hazardNodes.get(key);if(!node){node=document.createElement('span');node.className='hazard-label'+(value.mob?' mob':'');node.dataset.entity=key;hazardNodes.set(key,node);$('hazard-labels').append(node);}let{x,y}=value;
+    // A timer remains tied to its own entity, while labels avoid the readable HUD text.
+    for(const{brand,rect}of hudRects)if(x+45>rect.left&&x-45<rect.right&&y>rect.top&&y-20<rect.bottom){if(brand)x=rect.right+50;else y=rect.bottom+24;}
+    node.textContent=value.text;node.style.left=`${Math.max(48,Math.min(innerWidth-48,x))}px`;node.style.top=`${Math.max(24,Math.min(innerHeight-100,y))}px`;}
+}
+function frame(time:number){if(lastFrame){const elapsed=Math.min((time-lastFrame)/1000,.1);if(!paused){accumulator+=elapsed;frameTimes.push(time-lastFrame);if(frameTimes.length>3600)frameTimes.shift();}}lastFrame=time;if(!paused){let steps=0;while(accumulator>=1/RULES.tickRate&&steps<6){step(state,input);accumulator-=1/RULES.tickRate;steps++;if(state.outcome!=='playing'){outcome();break;}}if(state.tick-lastSaveTick>=300){lastSaveTick=state.tick;void saveLocal();}}if(view){syncTutorialMode();const guide=tutorialGuide(state,hintsEnabled());view.render(state,target,targetMode,!paused&&guide?.target?{target:guide.target,mode:guide.action}:undefined,material,itemTarget);mobCue.update(state.runId,(state.actors??[]).filter(a=>a.kind==='mob'&&a.state==='armed').map(a=>({key:a.actorKey,fuseTicks:a.fuseTicks})),profile?.sound_enabled!==false,profile?.sound_volume??.7,paused);hud();}requestAnimationFrame(frame);}
 function ensureView(){if(view)return;const probe=document.createElement('canvas').getContext('webgl2');if(!probe)throw new CloudError('GPU_UNAVAILABLE','Браузер не создаёт WebGL2. Проверь аппаратное ускорение.');probe.getExtension('WEBGL_lose_context')?.loseContext();try{view=new GameView(canvas);}catch(error){throw new CloudError('GPU_UNAVAILABLE',`Не удалось создать игровой мир: ${(error as Error).message}`);}view.engine.setHardwareScalingLevel(profile?.quality==='low'?Math.max(1,devicePixelRatio):Math.max(1,devicePixelRatio/1.5));canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();pause('Отображение потеряло GPU-контекст.','Забег остановлен, снимок сохраняется. После восстановления нажми «Продолжить».');});canvas.addEventListener('webglcontextrestored',()=>{paused=true;resetInput();view.scene.dispose();view.engine.dispose();(view as unknown)=undefined;ensureView();panel('Отображение восстановлено.','Игровой мир сохранён. Нажми «Продолжить».');});}
 function coords(e:PointerEvent){const rect=canvas.getBoundingClientRect();return{x:e.clientX-rect.left,y:e.clientY-rect.top};}
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
 canvas.addEventListener('pointerdown',e=>{
-  if(paused||!ready||e.button>2)return;
-  e.preventDefault();canvas.setPointerCapture(e.pointerId);
-  const action=e.pointerType==='mouse'?(e.button===2?'place':mode):mode;
-  const {x,y}=coords(e);const selected=view.pick(x,y,state,action,e.pointerType!=='mouse');
-  gestures.set(e.pointerId,{mode:action,target:selected,x,y});target=selected;targetMode=action;
+  if(paused||!ready||e.button>2)return;e.preventDefault();canvas.setPointerCapture(e.pointerId);
+  const action:ViewMode=e.pointerType==='mouse'?(e.button===2?'place':mode):mode,{x,y}=coords(e);
+  const selected=action==='item'?null:view.pick(x,y,state,action,e.pointerType!=='mouse',material),selectedItem=action==='item'?view.pickItem(x,y,state,e.pointerType!=='mouse'):null;
+  gestures.set(e.pointerId,{mode:action,target:selected,itemTarget:selectedItem,material,x,y});target=selected;targetMode=action;itemTarget=selectedItem;
 });
 canvas.addEventListener('pointermove',e=>{
-  if(paused)return;const {x,y}=coords(e),gesture=gestures.get(e.pointerId);
+  if(paused)return;const{x,y}=coords(e),gesture=gestures.get(e.pointerId);
   if(gesture){
-    // Motion of the house cannot retarget an unmoved finger. Only drag changes selection.
-    if(Math.hypot(x-gesture.x,y-gesture.y)<4)return;
-    gesture.x=x;gesture.y=y;gesture.target=view.pick(x,y,state,gesture.mode,e.pointerType!=='mouse');target=gesture.target;targetMode=gesture.mode;
-  }else if(e.pointerType==='mouse'){target=view.pick(x,y,state,mode);targetMode=mode;}
+    if(Math.hypot(x-gesture.x,y-gesture.y)<4)return;gesture.x=x;gesture.y=y;
+    if(gesture.mode==='item'){gesture.itemTarget=view.pickItem(x,y,state,e.pointerType!=='mouse');itemTarget=gesture.itemTarget;target=null;}
+    else{gesture.target=view.pick(x,y,state,gesture.mode,e.pointerType!=='mouse',gesture.material);target=gesture.target;targetMode=gesture.mode;itemTarget=null;}
+  }else if(e.pointerType==='mouse'){target=mode==='item'?null:view.pick(x,y,state,mode,false,material);itemTarget=view.pickItem(x,y,state);targetMode=mode;}
 });
-function cancelPointer(e:PointerEvent){gestures.delete(e.pointerId);moves.delete(e.pointerId);syncInput();target=null;}
+function cancelPointer(e:PointerEvent){gestures.delete(e.pointerId);moves.delete(e.pointerId);syncInput();target=null;itemTarget=null;}
 canvas.addEventListener('pointerup',e=>{
-  const gesture=gestures.get(e.pointerId);gestures.delete(e.pointerId);
-  const rect=canvas.getBoundingClientRect();
-  const outside=e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom;
-  const onControl=document.elementFromPoint(e.clientX,e.clientY)?.closest('button');
-  if(!paused&&!outside&&!onControl&&gesture?.target){
-    applyAction(gesture.mode,gesture.target);
-  }
-  target=null;
+  const gesture=gestures.get(e.pointerId);gestures.delete(e.pointerId);const rect=canvas.getBoundingClientRect(),outside=e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom,onControl=document.elementFromPoint(e.clientX,e.clientY)?.closest('button');
+  if(!paused&&!outside&&!onControl&&gesture){if(gesture.mode==='item'&&gesture.itemTarget)applyItemAction(gesture.itemTarget);else if(gesture.mode!=='item'&&gesture.target)applyAction(gesture.mode,gesture.target,gesture.material);}
+  target=null;itemTarget=null;
 });
-function applyAction(action:'take'|'place',selected:Target){
+function applyItemAction(selected:ItemTarget){
+  if(paused||!ready)return;localCommandNumber++;
+  if('cell'in selected&&(state.player.heldActorKey!==selected.heldActorKey||resolveBlock(state,selected.cell)?.id!==selected.cell.blockId)){notify('Предмет или его опора изменились. Выбери цель снова.');return;}
+  const result='actorKey'in selected?pickActor(state,selected.actorKey):putActor(state,selected.cell);
+  if(!result.ok)notify(result.reason);else{notify('actorKey'in selected?'Предмет в руках. Строить можно после постановки.':'Предмет стоит на опоре.');void saveLocal();}
+}
+function applyAction(action:'take'|'place',selected:Target,chosenMaterial:Material=material){
   if(paused||!ready)return;
-  const result=tutorialAction(state,action,selected);
+  localCommandNumber++;const result=tutorialAction(state,action,selected,chosenMaterial,hintsEnabled());
   if(!result.ok)notify(result.reason);else{notify(action==='take'?'Блок стены в рюкзаке. Теперь поставь его на мост.':'Блок стал дорогой для дома.');syncTutorialMode();void saveLocal();}
 }
 const marker=$<HTMLButtonElement>('tutorial-marker');
 marker.addEventListener('contextmenu',e=>e.preventDefault());
 marker.addEventListener('pointerdown',e=>{
-  const guide=tutorialGuide(state);
+  const guide=tutorialGuide(state,hintsEnabled());
   if(paused||!ready||!guide?.target||guide.phase==='wait'||(e.button!==0&&!(e.button===2&&guide.action==='place')))return;
-  e.preventDefault();marker.setPointerCapture(e.pointerId);markerGestures.set(e.pointerId,{action:guide.action,target:{...guide.target}});
+  e.preventDefault();marker.setPointerCapture(e.pointerId);markerGestures.set(e.pointerId,{action:guide.action,target:{...guide.target},material});
 });
 marker.addEventListener('pointerup',e=>{
   const gesture=markerGestures.get(e.pointerId);markerGestures.delete(e.pointerId);
   const rect=marker.getBoundingClientRect();
-  if(gesture&&e.clientX>=rect.left&&e.clientX<=rect.right&&e.clientY>=rect.top&&e.clientY<=rect.bottom)applyAction(gesture.action,gesture.target);
+  if(gesture&&e.clientX>=rect.left&&e.clientX<=rect.right&&e.clientY>=rect.top&&e.clientY<=rect.bottom)applyAction(gesture.action,gesture.target,gesture.material);
 });
 for(const event of ['pointercancel','lostpointercapture'])marker.addEventListener(event,e=>markerGestures.delete((e as PointerEvent).pointerId));
 // Keyboard activation is semantic HTML; pointer commands execute once on release.
 marker.addEventListener('click',e=>{
   if(e.detail!==0)return;
-  const guide=tutorialGuide(state);
+  const guide=tutorialGuide(state,hintsEnabled());
   if(guide?.target&&guide.phase!=='wait')applyAction(guide.action,guide.target);
 });
 canvas.addEventListener('pointercancel',cancelPointer);
@@ -176,9 +195,10 @@ document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach(button=>butt
 window.addEventListener('keydown',e=>{
   if(screen!=='game'||(e.target as HTMLElement)?.closest('input,textarea,select'))return;
   if(e.code==='Escape'){e.preventDefault();screen==='game'?(paused?resume():pause()):undefined;return;}
-  if((e.target as HTMLElement)?.closest('button,a'))return;
-  if(['KeyA','KeyD','ArrowLeft','ArrowRight','Space'].includes(e.code)){e.preventDefault();if(!paused){keys.add(e.code);syncInput();}}
-  if(['Digit1','Digit2','Digit3'].includes(e.code))notify('В R1 один материал — дерево');
+  // Space still activates a focused semantic button; other game keys work after a HUD tap.
+  if(['KeyA','KeyD','ArrowLeft','ArrowRight','Space'].includes(e.code)&&!(e.code==='Space'&&(e.target as HTMLElement)?.closest('button,a'))){e.preventDefault();if(!paused){keys.add(e.code);syncInput();}}
+  if(['Digit1','Digit2','Digit3'].includes(e.code)){e.preventDefault();selectMaterial((['wood','stone','slime'] as const)[Number(e.code.at(-1))-1]);}
+  if(e.code==='KeyE'&&!e.repeat&&!paused&&itemTarget){e.preventDefault();applyItemAction(itemTarget);itemTarget=null;}
 });
 window.addEventListener('keyup',e=>{keys.delete(e.code);syncInput();});
 window.addEventListener('blur',()=>{if(ready&&!paused)pause();else resetInput();});
@@ -239,9 +259,9 @@ async function replayCopy(copy:DurableRun){
   try{checkBuild(copy.snapshot);queue?.hold();queue=null;localReplay=true;terminalView=false;state=fromSnapshotV1(copy.snapshot);ensureView();show('game');paused=true;resetInput();$('abandon').hidden=true;$('retry-sync').textContent='Сохранить локальную копию';$('instructions').hidden=true;panel('Копия конфликтного дома.','Это локальный повтор. Серверные забег и история не изменяются.',state.outcome==='playing'?'ИГРАТЬ ЛОКАЛЬНО →':'В МЕНЮ →');$('cloud-status').textContent='Локальная копия этого аккаунта. Серверные команды отключены.';}
   catch(error){handleError(error,'history-status');}
 }
-function settings(){show('settings');$<HTMLInputElement>('setting-name').value=profile?.display_name??'';$<HTMLInputElement>('setting-sound').checked=profile?.sound_enabled??false;$<HTMLSelectElement>('setting-quality').value=profile?.quality??'low';$('settings-status').textContent='';}
+function settings(){show('settings');$<HTMLInputElement>('setting-hints').checked=hintsEnabled();$<HTMLInputElement>('setting-name').value=profile?.display_name??'';$<HTMLInputElement>('setting-sound').checked=profile?.sound_enabled??false;$<HTMLSelectElement>('setting-quality').value=profile?.quality??'low';$('settings-status').textContent='';}
 async function settingsSave(e:Event){
-  e.preventDefault();if(!user||busy)return;busy=true;try{const key=`profile-pending:${user.id}`;let body=await read<any>(key);if(!body){body={request_id:randomId(),expected_revision:profile.revision,settings:{display_name:$<HTMLInputElement>('setting-name').value.trim(),sound_enabled:$<HTMLInputElement>('setting-sound').checked,quality:$<HTMLSelectElement>('setting-quality').value}};body=await mutate<any>(key,current=>current??body);}profile=await scopedRpc<any>(user.id,'profile_update_v1',body);await remove(key);if(view)view.engine.setHardwareScalingLevel(profile.quality==='low'?Math.max(1,devicePixelRatio):Math.max(1,devicePixelRatio/1.5));$('settings-status').textContent='Настройки подтверждены сервером.';}
+  e.preventDefault();if(!user||busy)return;busy=true;try{const key=`profile-pending:${user.id}`;let body=await read<any>(key);if(!body){body={request_id:randomId(),expected_revision:profile.revision,settings:{display_name:$<HTMLInputElement>('setting-name').value.trim(),sound_enabled:$<HTMLInputElement>('setting-sound').checked,quality:$<HTMLSelectElement>('setting-quality').value,controls_hint_seen:!$<HTMLInputElement>('setting-hints').checked}};body=await mutate<any>(key,current=>current??body);}profile=await scopedRpc<any>(user.id,'profile_update_v1',body);await remove(key);if(view)view.engine.setHardwareScalingLevel(profile.quality==='low'?Math.max(1,devicePixelRatio):Math.max(1,devicePixelRatio/1.5));$('settings-status').textContent='Настройки подтверждены сервером.';}
   catch(error){if((error as CloudError).code==='REVISION_CONFLICT'&&user){await remove(`profile-pending:${user.id}`);const result=await scopedRpc<any>(user.id,'bootstrap_v1',{client_build:BUILD_ID});profile=result.profile;$('settings-status').textContent='Настройки изменились на другом устройстве. Проверь поля и снова нажми «Сохранить» для замены по новой revision.';}else handleError(error,'settings-status');}finally{busy=false;}
 }
 async function logout(){
@@ -251,6 +271,13 @@ async function logout(){
 async function abandon(){
   if(!queue||!user)return;if(!confirm('Отказаться от этого активного забега? Серверная история останется, активный слот освободится.'))return;paused=true;resetInput();try{await saveLocal();if(localFailure)return;await queue.abandon();queue.allow();await queue.flush();const row=await queue.record();if(row?.terminal_ack)await menu();else $('cloud-status').textContent='Отказ записан на устройстве. Новый забег ждёт его ACK.';}catch(error){storageFailed(error);}
 }
+for(const button of document.querySelectorAll<HTMLButtonElement>('[data-material]'))button.addEventListener('click',()=>selectMaterial(button.dataset.material as Material));
+canvas.addEventListener('wheel',e=>{if(paused)return;e.preventDefault();const order:Material[]=['wood','stone','slime'];selectMaterial(order[(order.indexOf(material)+(e.deltaY>0?1:2))%3]);},{passive:false});
+// The browser may reject sound; a visual fuse remains the authoritative cue.
+document.addEventListener('pointerdown',e=>{if(e.isTrusted&&profile?.sound_enabled!==false&&(screen==='game')&&(!paused||(e.target as HTMLElement)?.closest('#resume')))void mobCue.unlock();});
+document.addEventListener('keydown',e=>{if(e.isTrusted&&profile?.sound_enabled!==false&&screen==='game'&&!(e.target as HTMLElement)?.closest('input,textarea,select'))void mobCue.unlock();});
+window.addEventListener('pagehide',()=>mobCue.dispose());
+$('tutorial-repeat').addEventListener('click',()=>{settings();$<HTMLInputElement>('setting-hints').checked=true;$('settings-status').textContent='Подсказки включатся после сохранения. Готовый мост и прогресс не сбрасываются.';});
 $('pause').addEventListener('click',()=>pause());$('resume').addEventListener('click',()=>void resume());$('to-menu').addEventListener('click',()=>{void saveLocal().then(()=>{if(!localFailure)void menu();});});$('new-game').addEventListener('click',()=>void newRun());$('continue').addEventListener('click',()=>void continueRun());
 $('tutorial').addEventListener('click',()=>show('tutorial'));$('menu-version').addEventListener('click',()=>location.assign('/games/syezzhaem/'));
 $('history').addEventListener('click',()=>void historyPage());$('history-more').addEventListener('click',()=>void historyPage(true));$('settings').addEventListener('click',settings);$('logout').addEventListener('click',()=>void logout());document.querySelectorAll('[data-menu]').forEach(button=>button.addEventListener('click',()=>void menu()));
@@ -261,7 +288,7 @@ $('build-label').textContent=BUILD_ID;$('fatal-retry').addEventListener('click',
 window.addEventListener('online',()=>{if(queue&&user&&!authExpired&&!localFailure&&screen!=='auth')void queue.flush();});
 async function boot(){
   ready=true;requestAnimationFrame(frame);
-  if(new URLSearchParams(location.search).has('test')){(window as any).__r1={state:()=>snapshot(state),input:()=>({...input}),paused:()=>paused,screen:()=>screen,user:()=>user?.id??null,project:(cell:any)=>view.project(cell),setState:(s:unknown)=>{state=restore(s);resetInput();},pause,resume,saveLocal,newRun,continueRun,menu,outbox:()=>queue?.record(),record:()=>queue?.record(),flush:()=>queue?.flush(),target:()=>target?{...target}:null,guide:()=>tutorialGuide(state),toSnapshotV1,stats:()=>{const sorted=[...frameTimes].sort((a,b)=>a-b);return{samples:sorted.length,p50:sorted[Math.floor(sorted.length*.5)],p95:sorted[Math.floor(sorted.length*.95)],meshes:view?.scene.meshes.length,drawCallsLastFrame:view?.drawCallsLastFrame};}};}
+  if(new URLSearchParams(location.search).has('test')){(window as any).__r1={state:()=>snapshot(state),input:()=>({...input}),paused:()=>paused,screen:()=>screen,user:()=>user?.id??null,project:(cell:any)=>view.project(cell),setState:(s:unknown)=>{state=restore(s);resetInput();},pause,resume,saveLocal,newRun,continueRun,menu,outbox:()=>queue?.record(),record:()=>queue?.record(),flush:()=>queue?.flush(),target:()=>target?{...target}:null,itemTarget:()=>itemTarget?structuredClone(itemTarget):null,material:()=>material,commands:()=>localCommandNumber,audio:()=>mobCue.stats(),projectActor:(key:string)=>{const a=state.actors?.find(a=>a.actorKey===key);return a?view.projectPoint(a.x,a.y+.3):null;},guide:()=>tutorialGuide(state,hintsEnabled()),toSnapshotV1,stats:()=>{const sorted=[...frameTimes].sort((a,b)=>a-b);return{samples:sorted.length,p50:sorted[Math.floor(sorted.length*.5)],p95:sorted[Math.floor(sorted.length*.95)],meshes:view?.scene.meshes.length,drawCallsLastFrame:view?.drawCallsLastFrame};}};}
   try{const query=new URLSearchParams(location.search);if(query.get('token')){showAuth('password');return;}user=await getUser();if(user?.emailVerified)await menu();else showAuth('login',query.has('error')?'Ссылка не подтверждена или истекла. Запроси новое письмо.':'');}catch(error){showAuth('login',(error as Error).message);}
 }
 void boot();

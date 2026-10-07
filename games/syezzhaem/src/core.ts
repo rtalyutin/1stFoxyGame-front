@@ -1,8 +1,12 @@
-import { RULES, rulesFor, compatibleContent, type ContentVersion, type ActionResult, type Block, type Cell, type Input, type Snapshot, type Space, type Target } from './contracts.js';
+import { RULES, R2_RULES, MATERIALS, isR2, rulesFor, compatibleContent, type ContentVersion, type ActionResult, type Block, type Cell, type Input, type Snapshot, type Space, type Target, type Material, type Actor, type Inventory, type Support } from './contracts.js';
 import worldDefinition from '../public/content/r1-map-1.json' with { type: 'json' };
 import houseDefinition from '../public/content/r1-house-1.json' with { type: 'json' };
 import tutorialWorld from '../public/content/r1-map-2.json' with { type: 'json' };
 import tutorialHouse from '../public/content/r1-house-2.json' with { type: 'json' };
+
+import routeWorld from '../public/content/r2-map-1.json' with { type: 'json' };
+import routeHouse from '../public/content/r2-house-1.json' with { type: 'json' };
+import routeActors from '../public/content/r2-actors-1.json' with { type: 'json' };
 
 const EPS = 1e-7;
 const stationary: Input = { left: false, right: false, jump: false };
@@ -11,12 +15,12 @@ const originalKey = (x: number, y: number) => `original:${x}:${y}`;
 
 /** Logical map. Z, piston animation and all drawing are deliberately outside the simulation. */
 export function initialBlocks(version: ContentVersion = 'r1-map-1'): Block[] {
-  const world = version === 'r1-map-2' ? tutorialWorld : worldDefinition;
-  const house = version === 'r1-map-2' ? tutorialHouse : houseDefinition;
+  const world = version === 'r2-map-1' ? routeWorld : version === 'r1-map-2' ? tutorialWorld : worldDefinition;
+  const house = version === 'r2-map-1' ? routeHouse : version === 'r1-map-2' ? tutorialHouse : houseDefinition;
   return structuredClone([...world.blocks, ...house.blocks]) as Block[];
 }
 
-const baselines = new Map((['r1-map-1', 'r1-map-2'] as const).map(version => {
+const baselines = new Map((['r1-map-1', 'r1-map-2', 'r2-map-1'] as const).map(version => {
   const blocks = initialBlocks(version);
   return [version, {blocks, byId: new Map(blocks.map(block => [block.id, block])), originalCount: blocks.filter(block => block.originalId !== null).length}];
 }));
@@ -31,15 +35,22 @@ export function randomId(): string {
 }
 
 export function createInitial(id = randomId(), contentVersion: ContentVersion = 'r1-map-1'): Snapshot {
-  const rulesVersion = contentVersion === 'r1-map-2' ? 'r1-rules-2' : 'r1-rules-1';
+  const rulesVersion = contentVersion === 'r2-map-1' ? 'r2-rules-1' : contentVersion === 'r1-map-2' ? 'r1-rules-2' : 'r1-rules-1';
   const RULES = rulesFor({rulesVersion});
-  return {
+  const state: Snapshot = {
     schemaVersion: 1, contentVersion, rulesVersion, runId: id,
     tick: 0, outcome: 'playing', reason: null,
     house: { x: 2, y: RULES.houseY, heartHp: 100, motion: 'moving', supportTimer: RULES.supportGrace },
     player: { x: 6, y: RULES.houseY + .5, vx: 0, vy: 0, hp: 3, support: { space: 'house', x: 4, y: 0, blockId: originalKey(4, 0) }, jumpHeld: false },
     inventory: { wood: 0 }, blocks: initialBlocks(contentVersion), nextBlockId: 1,
   };
+  if (contentVersion === 'r2-map-1') {
+    state.player.x = 6.6; state.player.heldActorKey = null; state.player.actionCooldownTicks = 0;
+    state.inventory = {wood: 0, stone: 0, slime: 0}; state.actors = initialActors();
+    state.lava = {x: state.house.x + 1 - R2_RULES.lavaLead, playerDamageTicks: 0, coreDamageTicks: 0};
+    state.tutorialPlacements = 0; state.destroyedMaterials = {wood: 0, stone: 0, slime: 0};
+  }
+  return state;
 }
 
 export function resolveBlock(s: Snapshot, cell: Cell): Block | undefined {
@@ -58,10 +69,10 @@ export function targetAt(s: Snapshot, space: Space, x: number, y: number): Targe
 }
 
 function fail(reason: string): ActionResult { return { ok: false, reason }; }
-function validCell(cell: Cell): boolean {
+function validCell(cell: Cell, s?: Snapshot): boolean {
   if (!Number.isInteger(cell.x) || !Number.isInteger(cell.y)) return false;
   if (cell.space === 'house') return cell.x >= 0 && cell.x < RULES.houseWidth && cell.y >= 0 && cell.y < RULES.houseHeight;
-  return cell.space === 'world' && cell.x >= -10 && cell.x <= 40 && cell.y >= 0 && cell.y <= 12;
+  return cell.space === 'world' && cell.x >= -10 && cell.x <= (s && isR2(s) ? 140 : 40) && cell.y >= 0 && cell.y <= 12;
 }
 
 // Slab intersection rejects blockers strictly between player and selected cell.
@@ -78,7 +89,7 @@ function rayBox(ax: number, ay: number, bx: number, by: number, cx: number, cy: 
 
 function reachable(s: Snapshot, cell: Cell, targetId: string | null): ActionResult {
   const RULES = rulesFor(s);
-  if (!validCell(cell)) return fail('Клетка вне маршрута');
+  if (!validCell(cell, s)) return fail('Клетка вне маршрута');
   const position = worldPosition(s, cell), ay = s.player.y + RULES.playerHeight / 2;
   if (Math.hypot(position.x - s.player.x, position.y - ay) > RULES.reach + EPS) return fail('Слишком далеко');
   for (const block of s.blocks) {
@@ -95,7 +106,8 @@ export function canTake(s: Snapshot, target: Target): ActionResult {
   const block = resolveBlock(s, target);
   if (!target.blockId || block?.id !== target.blockId) return fail('Выбранный блок изменился');
   if (!block.portable) return fail('Этот блок нельзя разобрать');
-  if (s.inventory.wood >= RULES.inventoryCap) return fail('Инвентарь заполнен');
+  if (isR2(s) && actionBlocked(s)) return fail('Подождите следующий шаг');
+  if (inventoryTotal(s.inventory) >= RULES.inventoryCap) return fail('Инвентарь заполнен');
   const reach = reachable(s, target, block.id);
   return reach.ok ? { ok: true, block } : reach;
 }
@@ -105,7 +117,8 @@ export function take(s: Snapshot, target: Target): ActionResult {
   const result = canTake(s, target);
   if (!result.ok || !result.block) return result;
   s.blocks.splice(s.blocks.findIndex(block => block.id === result.block!.id), 1);
-  s.inventory.wood++;
+  s.inventory[result.block.material] = (s.inventory[result.block.material] ?? 0) + 1;
+  if (isR2(s)) { clearActorSupport(s, result.block.id); setActionDelay(s); }
   if (s.player.support?.blockId === result.block.id) {
     if (s.player.support.space === 'house' && s.house.motion === 'moving') s.player.vx += RULES.houseSpeed;
     s.player.support = null;
@@ -125,13 +138,17 @@ export function overlapsChassis(s: Snapshot, x: number, y: number): boolean {
     y + .5 > s.house.y - 1 + EPS && y - .5 < s.house.y - .5 - EPS;
 }
 
-export function canPlace(s: Snapshot, target: Target): ActionResult {
+export function canPlace(s: Snapshot, target: Target, material: Material = 'wood'): ActionResult {
   if (s.outcome !== 'playing') return fail('Забег завершён');
   if (target.blockId !== null || resolveBlock(s, target)) return fail('Клетка занята или выбор изменился');
-  if (s.inventory.wood <= 0) return fail('Нужно разобрать блок дома');
+  if (!isR2(s) && material !== 'wood') return fail('Материал недоступен в этой версии');
+  if (isR2(s) && s.player.heldActorKey) return fail('Сначала поставьте переносимый предмет');
+  if (isR2(s) && actionBlocked(s)) return fail('Подождите следующий шаг');
+  if ((s.inventory[material] ?? 0) <= 0) return fail('Нужно разобрать блок этого материала');
   const reach = reachable(s, target, null);
   if (!reach.ok) return reach;
   const p = worldPosition(s, target);
+  if (isR2(s) && s.actors!.some(actor => actor.hp > 0 && actor.state !== 'held' && overlapsActorCell(actor, p.x, p.y))) return fail('Здесь находится предмет или моб');
   if (overlapsPlayer(s, p.x, p.y)) return fail('Здесь стоит персонаж');
   if (overlapsChassis(s, p.x, p.y)) return fail('Здесь находится шасси дома');
   // The two logical grids cannot create overlapping solids while the house is here.
@@ -145,12 +162,17 @@ export function canPlace(s: Snapshot, target: Target): ActionResult {
   return { ok: true };
 }
 
-export function place(s: Snapshot, target: Target): ActionResult {
-  const result = canPlace(s, target);
+export function place(s: Snapshot, target: Target, material: Material = 'wood'): ActionResult {
+  const result = canPlace(s, target, material);
   if (!result.ok) return result;
-  const block: Block = { space: target.space, x: target.x, y: target.y, id: `placed:${randomId()}`, material: 'wood', originalId: null, portable: true };
+  const block: Block = { space: target.space, x: target.x, y: target.y, id: `placed:${randomId()}`, material, originalId: null, portable: true };
+  if (isR2(s)) { block.durability = MATERIALS[material].durability; block.burnTicks = 0; }
   s.nextBlockId++;
-  s.blocks.push(block); s.inventory.wood--;
+  s.blocks.push(block); s.inventory[material] = (s.inventory[material] ?? 0) - 1;
+  if (isR2(s)) {
+    if ((s.tutorialPlacements ?? 0) < 2) s.tutorialPlacements = Math.max(s.tutorialPlacements!, routeWorld.tutorial_cells.filter(cell => resolveBlock(s, {space: 'world', ...cell})?.portable).length);
+    setActionDelay(s);
+  }
   return { ok: true, block };
 }
 
@@ -205,6 +227,21 @@ function movePlayerX(s: Snapshot, amount: number): void {
   p.x = allowed;
 }
 
+/** Landing is spatial: transport may reorder overrides, so array position cannot decide support. */
+function preferLanding(s: Snapshot, x: number, width: number, candidate: Block, current: Block): boolean {
+  const a = worldPosition(s, candidate), b = worldPosition(s, current);
+  if (Math.abs(a.y - b.y) > EPS) return a.y > b.y;
+  const overlap = (center: number) => Math.min(x + width / 2, center + .5) - Math.max(x - width / 2, center - .5);
+  const difference = overlap(a.x) - overlap(b.x);
+  if (Math.abs(difference) > EPS) return difference > 0;
+  const distanceDifference = Math.abs(a.x - x) - Math.abs(b.x - x);
+  if (Math.abs(distanceDifference) > EPS) return distanceDifference < 0;
+  if (candidate.space !== current.space) return candidate.space < current.space;
+  if (candidate.x !== current.x) return candidate.x < current.x;
+  if (candidate.y !== current.y) return candidate.y < current.y;
+  return candidate.id < current.id;
+}
+
 function movePlayerY(s: Snapshot, amount: number): void {
   const RULES = rulesFor(s);
   const p = s.player, next = p.y + amount, half = RULES.playerWidth / 2;
@@ -214,7 +251,7 @@ function movePlayerY(s: Snapshot, amount: number): void {
     const b = worldPosition(s, block);
     if (p.x + half <= b.x - .5 + EPS || p.x - half >= b.x + .5 - EPS) continue;
     if (amount <= 0 && p.y >= b.y + .5 - EPS && next <= b.y + .5 && b.y + .5 > allowed - EPS) {
-      allowed = b.y + .5; landed = block;
+      if (!isR2(s) || !landed || preferLanding(s, p.x, RULES.playerWidth, block, landed)) { allowed = b.y + .5; landed = block; }
     }
     if (amount > 0 && p.y + RULES.playerHeight <= b.y - .5 + EPS && next + RULES.playerHeight > b.y - .5) {
       allowed = Math.min(allowed, b.y - .5 - RULES.playerHeight);
@@ -222,6 +259,8 @@ function movePlayerY(s: Snapshot, amount: number): void {
   }
   p.y = allowed;
   if (landed) {
+    if (isR2(s) && landed.material === 'slime') { p.vy = R2_RULES.slimeBounceSpeed; p.support = null; return; }
+    if (isR2(s) && p.vy < -12) p.hp = Math.max(0, p.hp - 1);
     p.vy = 0;
     p.support = { space: landed.space, x: landed.x, y: landed.y, blockId: landed.id };
   } else if (Math.abs(allowed - next) > EPS) p.vy = 0;
@@ -232,6 +271,8 @@ export function step(s: Snapshot, input: Input = stationary, dt = 1 / RULES.tick
   const RULES = rulesFor(s);
   if (s.outcome !== 'playing') return;
   if (!Number.isFinite(dt) || Math.abs(dt - 1 / RULES.tickRate) > EPS) throw new Error('step expects exactly one fixed tick');
+  if (isR2(s) && s.tutorialPlacements! < 2) return;
+  if (isR2(s)) s.player.actionCooldownTicks = Math.max(0, s.player.actionCooldownTicks! - 1);
   // First transfer is untimed; the durable placed counter prevents re-locking on resume.
   if (s.contentVersion === 'r1-map-2' && s.nextBlockId === 1) return;
   const p = s.player, h = s.house;
@@ -240,7 +281,7 @@ export function step(s: Snapshot, input: Input = stationary, dt = 1 / RULES.tick
   const previousX = h.x;
   const currentGround = houseSupported(s);
   if (!currentGround) {
-    h.motion = 'unsupported'; h.supportTimer = Math.max(0, h.supportTimer - dt);
+    h.motion = 'unsupported'; h.supportTimer = isR2(s) ? Math.max(0, Math.round(h.supportTimer * RULES.tickRate) - 1) / RULES.tickRate : Math.max(0, h.supportTimer - dt);
   } else {
     h.supportTimer = RULES.supportGrace;
     const destination = Math.min(RULES.portalX - 3, h.x + RULES.houseSpeed * dt);
@@ -270,10 +311,11 @@ export function step(s: Snapshot, input: Input = stationary, dt = 1 / RULES.tick
   if (!p.support) { p.vy -= RULES.gravity * dt; movePlayerY(s, p.vy * dt); }
   else p.vy = 0;
   s.tick++;
+  const damageReason = isR2(s) ? tickR2(s, houseDelta) : undefined;
   if (p.y < -4) p.hp = 0;
   if (h.supportTimer <= 0) h.heartHp = 0;
   if (p.hp <= 0 || h.heartHp <= 0) {
-    s.outcome = 'lost'; s.reason = p.hp <= 0 ? 'Персонаж упал в пропасть' : 'Дом потерял опору';
+    s.outcome = 'lost'; s.reason = !isR2(s) ? (p.hp <= 0 ? 'Персонаж упал в пропасть' : 'Дом потерял опору') : p.hp <= 0 ? (p.y < -4 ? 'Персонаж упал в пропасть' : damageReason?.player ?? 'Игрок погиб от удара при падении') : h.supportTimer <= 0 ? 'Дом потерял опору' : damageReason?.core ?? 'Сердце дома разрушено';
   } else if (h.x + 3 >= RULES.portalX - EPS && p.support?.space === 'house') {
     s.outcome = 'won'; s.reason = 'Дом добрался до портала'; h.motion = 'portal';
   }
@@ -309,6 +351,7 @@ function enumValue<T extends string>(value: unknown, values: readonly T[], name:
 /** Fail before exposing a partial state. The server uses this same versioned domain contract. */
 export function restore(raw: unknown): Snapshot {
   const r = object(raw, 'snapshot');
+  if (r.contentVersion === 'r2-map-1') return restoreR2(raw);
   exactKeys(r, ['schemaVersion', 'contentVersion', 'rulesVersion', 'runId', 'tick', 'outcome', 'reason', 'house', 'player', 'inventory', 'blocks', 'nextBlockId'], 'snapshot');
   if (r.schemaVersion !== 1 || !compatibleContent(r.contentVersion, r.rulesVersion)) throw new Error('Unsupported snapshot/content/rules version');
   const RULES = rulesFor(r as unknown as Snapshot);
@@ -361,6 +404,289 @@ export function restore(raw: unknown): Snapshot {
     if (!supportExists(s) || p.vy !== 0) throw new Error('Support reference or supported position is invalid');
   }
   if (s.outcome === 'won' && !(s.house.x + 3 >= RULES.portalX - EPS && s.player.hp > 0 && s.house.heartHp > 0 && s.player.support?.space === 'house')) throw new Error('Victory predicate does not match snapshot');
+  if (s.outcome === 'lost' && s.player.hp > 0 && s.house.heartHp > 0) throw new Error('Loss predicate does not match snapshot');
+  if (s.outcome === 'playing' && (s.player.hp <= 0 || s.house.heartHp <= 0)) throw new Error('Dead run cannot remain playing');
+  return s;
+}
+
+export function initialActors(): Actor[] { return structuredClone(routeActors.actors) as Actor[]; }
+export function inventoryTotal(inventory: Inventory): number { return inventory.wood + (inventory.stone ?? 0) + (inventory.slime ?? 0); }
+function actionBlocked(s: Snapshot): boolean { return s.tutorialPlacements === 2 && (s.player.actionCooldownTicks ?? 0) > 0; }
+function setActionDelay(s: Snapshot): void { s.player.actionCooldownTicks = s.tutorialPlacements === 2 ? R2_RULES.actionDelayTicks : 0; }
+export function actorPosition(_s: Snapshot, actor: Actor): {x: number; y: number} { return {x: actor.x, y: actor.y}; }
+export function actorDimensions(actor: Actor): {width: number; height: number} { return actor.kind === 'mob' ? {width: .7, height: 1.2} : actor.kind === 'cat' ? {width: .65, height: .75} : {width: .8, height: .7}; }
+function overlapsActorCell(actor: Actor, x: number, y: number): boolean {
+  const {width, height} = actorDimensions(actor);
+  return x + .5 > actor.x - width / 2 + EPS && x - .5 < actor.x + width / 2 - EPS && y + .5 > actor.y + EPS && y - .5 < actor.y + height - EPS;
+}
+function actorReach(s: Snapshot, x: number, y: number): ActionResult {
+  const sourceY = s.player.y + rulesFor(s).playerHeight / 2;
+  if (Math.hypot(x - s.player.x, y - sourceY) > rulesFor(s).reach + EPS) return fail('Слишком далеко');
+  if (s.blocks.some(block => { const p = worldPosition(s, block); return rayBox(s.player.x, sourceY, x, y, p.x, p.y); })) return fail('Между вами другой блок');
+  return {ok: true};
+}
+export function canPickActor(s: Snapshot, actorKey: string): ActionResult {
+  if (!isR2(s) || s.outcome !== 'playing') return fail('Предмет недоступен');
+  if (s.player.heldActorKey) return fail('Можно нести только один предмет');
+  if (actionBlocked(s)) return fail('Подождите следующий шаг');
+  const actor = s.actors!.find(item => item.actorKey === actorKey);
+  if (!actor || actor.kind === 'mob' || actor.hp <= 0 || !['idle', 'falling'].includes(actor.state)) return fail('Этот предмет нельзя поднять');
+  const reach = actorReach(s, actor.x, actor.y + actorDimensions(actor).height / 2);
+  return reach.ok ? {ok: true, actor} : reach;
+}
+export function pickActor(s: Snapshot, actorKey: string): ActionResult {
+  const result = canPickActor(s, actorKey);
+  if (!result.ok || !result.actor) return result;
+  result.actor.state = 'held'; result.actor.support = null; result.actor.vx = 0; result.actor.vy = 0;
+  s.player.heldActorKey = result.actor.actorKey; syncHeldActor(s); setActionDelay(s);
+  return result;
+}
+export function canPutActor(s: Snapshot, target: Cell): ActionResult {
+  if (!isR2(s) || s.outcome !== 'playing' || !s.player.heldActorKey) return fail('В руках нет предмета');
+  if (actionBlocked(s)) return fail('Подождите следующий шаг');
+  const actor = s.actors!.find(item => item.actorKey === s.player.heldActorKey)!;
+  const block = resolveBlock(s, target);
+  if (!block || !validCell(target, s) || ('blockId' in target && (target as Target).blockId !== block.id)) return fail('Нужен свободный верх существующего блока');
+  const p = worldPosition(s, block), y = p.y + .5, dimensions = actorDimensions(actor);
+  const reach = actorReach(s, p.x, y + dimensions.height / 2);
+  if (!reach.ok) return reach;
+  const overlaps = (x: number, bottom: number, width: number, height: number) => p.x + dimensions.width / 2 > x - width / 2 + EPS && p.x - dimensions.width / 2 < x + width / 2 - EPS && y + dimensions.height > bottom + EPS && y < bottom + height - EPS;
+  if (overlaps(s.player.x, s.player.y, rulesFor(s).playerWidth, rulesFor(s).playerHeight)) return fail('Здесь стоит персонаж');
+  for (const other of s.actors!) {
+    if (other.actorKey === actor.actorKey || other.hp <= 0 || other.state === 'held') continue;
+    const d = actorDimensions(other);
+    if (overlaps(other.x, other.y, d.width, d.height)) return fail('Здесь находится другой предмет');
+  }
+  for (const solid of s.blocks) { const position = worldPosition(s, solid); if (overlaps(position.x, position.y - .5, 1, 1)) return fail('Место для предмета занято'); }
+  if (y < s.house.y - .5 - EPS && p.x + dimensions.width / 2 > s.house.x + .5 && p.x - dimensions.width / 2 < s.house.x + 6.5 && y + dimensions.height > s.house.y - 1) return fail('Здесь находится шасси дома');
+  return {ok: true, actor};
+}
+export function putActor(s: Snapshot, target: Cell): ActionResult {
+  const result = canPutActor(s, target);
+  if (!result.ok || !result.actor) return result;
+  const block = resolveBlock(s, target)!, p = worldPosition(s, block), actor = result.actor;
+  actor.x = p.x; actor.y = p.y + .5; actor.vx = 0; actor.vy = 0; actor.state = 'idle';
+  actor.support = {space: block.space, x: block.x, y: block.y, blockId: block.id};
+  s.player.heldActorKey = null; setActionDelay(s); return result;
+}
+function syncHeldActor(s: Snapshot): void {
+  const actor = s.actors?.find(item => item.actorKey === s.player.heldActorKey);
+  if (!actor) return;
+  actor.x = s.player.x; actor.y = s.player.y + .65; actor.vx = s.player.vx; actor.vy = s.player.vy;
+}
+function clearActorSupport(s: Snapshot, blockId: string): void {
+  for (const actor of s.actors ?? []) if (actor.support?.blockId === blockId) {
+    if (actor.support.space === 'house' && s.house.motion === 'moving') actor.vx += rulesFor(s).houseSpeed;
+    actor.support = null; if (actor.kind !== 'mob' && actor.hp > 0) actor.state = 'falling';
+  }
+}
+function destroyBlock(s: Snapshot, block: Block): void {
+  const index = s.blocks.findIndex(item => item.id === block.id);
+  if (index < 0) return;
+  s.blocks.splice(index, 1);
+  if (block.portable) s.destroyedMaterials![block.material]++;
+  if (s.player.support?.blockId === block.id) {
+    if (s.player.support.space === 'house' && s.house.motion === 'moving') s.player.vx += rulesFor(s).houseSpeed;
+    s.player.support = null;
+  }
+  clearActorSupport(s, block.id);
+}
+export function damageBlock(s: Snapshot, blockId: string, damage = 1): void {
+  if (!isR2(s) || !Number.isInteger(damage) || damage <= 0) return;
+  const block = s.blocks.find(item => item.id === blockId);
+  if (!block) return;
+  block.durability = Math.max(0, block.durability! - damage);
+  if (block.durability === 0) destroyBlock(s, block);
+}
+function destroyActor(s: Snapshot, actor: Actor): void {
+  actor.hp = 0; actor.state = actor.kind === 'mob' ? 'removed' : 'destroyed'; actor.support = null; actor.vx = 0; actor.vy = 0; actor.fuseTicks = 0;
+  if (s.player.heldActorKey === actor.actorKey) s.player.heldActorKey = null;
+}
+function validActorSupport(s: Snapshot, actor: Actor): boolean {
+  if (!actor.support) return false;
+  const block = resolveBlock(s, actor.support);
+  if (block?.id !== actor.support.blockId) return false;
+  const p = worldPosition(s, block);
+  return Math.abs(actor.y - p.y - .5) < .025 && Math.abs(actor.x - p.x) < .5 + actorDimensions(actor).width / 2 - EPS;
+}
+function moveActorX(s: Snapshot, actor: Actor, amount: number): boolean {
+  const d = actorDimensions(actor), next = actor.x + amount;
+  let allowed = next;
+  for (const block of s.blocks) {
+    const b = worldPosition(s, block);
+    if (actor.y >= b.y + .5 - EPS || actor.y + d.height <= b.y - .5 + EPS) continue;
+    if (amount > 0 && actor.x + d.width / 2 <= b.x - .5 + EPS && next + d.width / 2 > b.x - .5) allowed = Math.min(allowed, b.x - .5 - d.width / 2);
+    if (amount < 0 && actor.x - d.width / 2 >= b.x + .5 - EPS && next - d.width / 2 < b.x + .5) allowed = Math.max(allowed, b.x + .5 + d.width / 2);
+  }
+  actor.x = allowed;
+  if (Math.abs(allowed - next) > EPS) { actor.vx = 0; return false; }
+  return true;
+}
+function moveActorY(s: Snapshot, actor: Actor, amount: number): void {
+  const d = actorDimensions(actor), next = actor.y + amount;
+  let allowed = next, landed: Block | undefined;
+  for (const block of s.blocks) {
+    const b = worldPosition(s, block);
+    if (actor.x + d.width / 2 <= b.x - .5 + EPS || actor.x - d.width / 2 >= b.x + .5 - EPS) continue;
+    if (amount <= 0 && actor.y >= b.y + .5 - EPS && next <= b.y + .5 && b.y + .5 > allowed - EPS && (!landed || preferLanding(s, actor.x, d.width, block, landed))) { allowed = b.y + .5; landed = block; }
+    if (amount > 0 && actor.y + d.height <= b.y - .5 + EPS && next + d.height > b.y - .5) allowed = Math.min(allowed, b.y - .5 - d.height);
+  }
+  actor.y = allowed;
+  if (landed) { actor.vy = 0; actor.support = {space: landed.space, x: landed.x, y: landed.y, blockId: landed.id}; if (actor.kind !== 'mob') actor.state = 'idle'; }
+  else if (Math.abs(allowed - next) > EPS) actor.vy = 0;
+}
+function explode(s: Snapshot, mob: Actor): void {
+  if (mob.explosionApplied) return;
+  mob.explosionApplied = true; mob.state = 'exploded'; mob.hp = 0; mob.fuseTicks = 0; mob.vx = 0; mob.vy = 0; mob.support = null;
+  const centerY = mob.y + actorDimensions(mob).height / 2, radius = R2_RULES.mobBlastRadius;
+  const near = (x: number, y: number) => Math.hypot(x - mob.x, y - centerY) <= radius + EPS;
+  if (near(s.player.x, s.player.y + rulesFor(s).playerHeight / 2)) s.player.hp = Math.max(0, s.player.hp - 1);
+  if (near(s.house.x + 3, s.house.y - .75)) s.house.heartHp = Math.max(0, s.house.heartHp - 30);
+  for (const block of [...s.blocks]) { const p = worldPosition(s, block); if (near(p.x, p.y)) damageBlock(s, block.id); }
+  for (const actor of s.actors!) if (actor.actorKey !== mob.actorKey && actor.hp > 0 && near(actor.x, actor.y + actorDimensions(actor).height / 2)) destroyActor(s, actor);
+}
+function tickActors(s: Snapshot, houseDelta: number): void {
+  for (const actor of s.actors!) {
+    if (actor.state === 'exploded') { actor.state = 'removed'; continue; }
+    if (actor.hp <= 0 || actor.state === 'held') continue;
+    if (actor.support?.space === 'house' && resolveBlock(s, actor.support)?.id === actor.support.blockId) actor.x += houseDelta;
+    if (!validActorSupport(s, actor)) actor.support = null;
+    if (actor.kind === 'mob') {
+      if (actor.state === 'armed') {
+        actor.vx = 0;
+      } else {
+        const targetY = s.player.y + rulesFor(s).playerHeight / 2, ay = actor.y + actorDimensions(actor).height / 2;
+        const visible = Math.hypot(s.player.x - actor.x, targetY - ay) <= R2_RULES.mobDetection && !s.blocks.some(block => { const p = worldPosition(s, block); return rayBox(actor.x, ay, s.player.x, targetY, p.x, p.y); });
+        if (visible) actor.state = 'chase';
+        if (actor.state === 'chase') actor.direction = s.player.x < actor.x ? -1 : 1;
+        else if (actor.x <= 52 || actor.x >= 58) actor.direction = actor.x <= 52 ? 1 : -1;
+        actor.vx = actor.direction * R2_RULES.mobSpeed;
+        if (actor.state === 'chase' && actor.support && s.player.y - actor.y > 1.2 && Math.abs(s.player.x - actor.x) < 4.5) { actor.vy = R2_RULES.mobJumpSpeed; actor.support = null; }
+      }
+    } else if (actor.support) actor.vx = 0;
+    if (!moveActorX(s, actor, actor.vx / R2_RULES.tickRate) && actor.kind === 'mob' && actor.state !== 'armed') actor.direction = actor.direction === 1 ? -1 : 1;
+    if (!validActorSupport(s, actor)) actor.support = null;
+    if (!actor.support) { actor.vy -= R2_RULES.gravity / R2_RULES.tickRate; moveActorY(s, actor, actor.vy / R2_RULES.tickRate); if (actor.kind !== 'mob' && !actor.support) actor.state = 'falling'; }
+    if (actor.y < -4) { destroyActor(s, actor); continue; }
+    if (actor.kind === 'mob' && actor.state !== 'armed' && Math.hypot(s.player.x - actor.x, s.player.y + R2_RULES.playerHeight / 2 - actor.y - .6) <= R2_RULES.mobArmDistance) { actor.state = 'armed'; actor.fuseTicks = R2_RULES.mobFuseTicks; actor.vx = 0; }
+    else if (actor.kind === 'mob' && actor.state === 'armed') { actor.fuseTicks--; if (actor.fuseTicks === 0) explode(s, actor); }
+  }
+  syncHeldActor(s);
+}
+function tickR2(s: Snapshot, houseDelta: number): {player?: string; core?: string} {
+  const beforePlayerHp = s.player.hp, beforeCoreHp = s.house.heartHp;
+  tickActors(s, houseDelta);
+  const reason: {player?: string; core?: string} = {};
+  if (beforePlayerHp > 0 && s.player.hp === 0) reason.player = 'Игрок погиб от взрыва';
+  if (beforeCoreHp > 0 && s.house.heartHp === 0) reason.core = 'Сердце дома разрушено взрывом';
+  const lava = s.lava!; lava.x += R2_RULES.lavaSpeed / R2_RULES.tickRate;
+  const playerContact = s.player.x - R2_RULES.playerWidth / 2 <= lava.x;
+  lava.playerDamageTicks = playerContact ? lava.playerDamageTicks + 1 : 0;
+  if (lava.playerDamageTicks >= R2_RULES.lavaIntervalTicks) { s.player.hp = Math.max(0, s.player.hp - 1); lava.playerDamageTicks = 0; if (s.player.hp === 0) reason.player = 'Игрок погиб в лаве'; }
+  const coreContact = s.house.x + 3 - .4 <= lava.x;
+  lava.coreDamageTicks = coreContact ? lava.coreDamageTicks + 1 : 0;
+  if (lava.coreDamageTicks >= R2_RULES.lavaIntervalTicks) { s.house.heartHp = Math.max(0, s.house.heartHp - 25); lava.coreDamageTicks = 0; if (s.house.heartHp === 0) reason.core = 'Лава разрушила сердце дома'; }
+  for (const actor of s.actors!) if (actor.hp > 0 && actor.x - actorDimensions(actor).width / 2 <= lava.x) destroyActor(s, actor);
+  for (const block of [...s.blocks]) {
+    if (block.material !== 'wood') continue;
+    if (block.burnTicks! > 0) { block.burnTicks!--; if (block.burnTicks === 0) destroyBlock(s, block); }
+    else if (worldPosition(s, block).x - .5 <= lava.x) block.burnTicks = R2_RULES.burnTicks;
+  }
+  return reason;
+}
+export function actorSaved(s: Snapshot, kind: 'cat' | 'chest'): boolean {
+  if (!isR2(s) || s.outcome !== 'won') return false;
+  const actor = s.actors!.find(item => item.kind === kind)!;
+  return actor.hp > 0 && (actor.support?.space === 'house' || actor.state === 'held' && s.player.heldActorKey === actor.actorKey && s.player.hp > 0 && s.player.support?.space === 'house');
+}
+
+function restoreR2(raw: unknown): Snapshot {
+  const r = object(raw, 'snapshot');
+  exactKeys(r, ['schemaVersion','contentVersion','rulesVersion','runId','tick','outcome','reason','house','player','inventory','blocks','nextBlockId','actors','lava','tutorialPlacements','destroyedMaterials'], 'snapshot');
+  if (r.schemaVersion !== 1 || r.contentVersion !== 'r2-map-1' || r.rulesVersion !== 'r2-rules-1') throw new Error('Unsupported R2 snapshot/content/rules version');
+  const rules = R2_RULES, baseline = baselines.get('r2-map-1')!;
+  string(r.runId, 'runId', 96); number(r.tick, 'tick', 0, 10_000_000, true);
+  enumValue(r.outcome, ['playing','won','lost'], 'outcome');
+  if (r.reason !== null) string(r.reason, 'reason', 300);
+  if ((r.outcome === 'playing') !== (r.reason === null)) throw new Error('Outcome reason does not match state');
+  const h = object(r.house, 'house'); exactKeys(h, ['x','y','heartHp','motion','supportTimer'], 'house');
+  number(h.x, 'house.x', 2, rules.portalX - 3 + EPS); if (h.y !== rules.houseY) throw new Error('house.y: incompatible map');
+  number(h.heartHp, 'heartHp', 0, 100, true); enumValue(h.motion, ['moving','gap','unsupported','portal'], 'motion'); number(h.supportTimer, 'supportTimer', 0, rules.supportGrace);
+  const p = object(r.player, 'player'); exactKeys(p, ['x','y','vx','vy','hp','support','jumpHeld','heldActorKey','actionCooldownTicks'], 'player');
+  number(p.x, 'player.x', -40, 180); number(p.y, 'player.y', -10, 30); number(p.vx, 'player.vx', -rules.moveSpeed - rules.houseSpeed - EPS, rules.moveSpeed + rules.houseSpeed + EPS); number(p.vy, 'player.vy', -80, rules.slimeBounceSpeed + EPS); number(p.hp, 'player.hp', 0, 3, true);
+  if (typeof p.jumpHeld !== 'boolean') throw new Error('jumpHeld: expected boolean');
+  if (p.heldActorKey !== null) string(p.heldActorKey, 'heldActorKey', 96);
+  number(p.actionCooldownTicks, 'actionCooldownTicks', 0, rules.actionDelayTicks, true);
+  const inv = object(r.inventory, 'inventory'), destroyed = object(r.destroyedMaterials, 'destroyedMaterials');
+  exactKeys(inv, ['wood','stone','slime'], 'inventory'); exactKeys(destroyed, ['wood','stone','slime'], 'destroyedMaterials');
+  for (const material of ['wood','stone','slime'] as const) { number(inv[material], `inventory.${material}`, 0, rules.inventoryCap, true); number(destroyed[material], `destroyedMaterials.${material}`, 0, baseline.originalCount, true); }
+  if (inventoryTotal(inv as unknown as Inventory) > rules.inventoryCap) throw new Error('Combined inventory capacity exceeded');
+  number(r.nextBlockId, 'nextBlockId', 1, 10_000_000, true); number(r.tutorialPlacements, 'tutorialPlacements', 0, 2, true);
+  if (!Array.isArray(r.blocks) || r.blocks.length > 650) throw new Error('blocks: invalid list');
+  const ids = new Set<string>(), cells = new Set<string>();
+  for (const [i, value] of r.blocks.entries()) {
+    const b = object(value, `blocks[${i}]`); exactKeys(b, ['space','x','y','id','material','originalId','portable','durability','burnTicks'], `blocks[${i}]`);
+    enumValue(b.space, ['house','world'], 'space'); number(b.x, 'block.x', -10, 140, true); number(b.y, 'block.y', 0, 12, true);
+    if (!validCell(b as unknown as Cell, r as unknown as Snapshot)) throw new Error('Block outside R2 map bounds');
+    const id = string(b.id, 'block.id', 96), material = enumValue(b.material, ['wood','stone','slime'], 'material');
+    if (typeof b.portable !== 'boolean') throw new Error('portable: expected boolean');
+    number(b.durability, 'durability', 1, MATERIALS[material].durability, true); number(b.burnTicks, 'burnTicks', 0, MATERIALS[material].burnTicks, true);
+    if (ids.has(id) || cells.has(key(b as unknown as Cell))) throw new Error('Duplicate block ID or cell');
+    ids.add(id); cells.add(key(b as unknown as Cell));
+    const original = baseline.byId.get(id);
+    if (original) {
+      for (const field of ['space','x','y','id','material','originalId','portable'] as const) if (b[field] !== original[field]) throw new Error('Base identity was modified');
+    } else if (!/^placed:[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id) || b.originalId !== null || b.portable !== true) throw new Error('Invalid placed block identity');
+    if (b.originalId !== null && (!original || b.originalId !== original.originalId)) throw new Error('Original identity cannot be reconstructed');
+  }
+  for (const material of ['wood','stone','slime'] as const) {
+    const budget = baseline.blocks.filter(block => block.portable && block.material === material).length;
+    const current = r.blocks.filter(value => (value as Block).portable && (value as Block).material === material).length;
+    if (current + (inv[material] as number) + (destroyed[material] as number) !== budget) throw new Error(`Material conservation failed: ${material}`);
+  }
+  const lava = object(r.lava, 'lava'); exactKeys(lava, ['x','playerDamageTicks','coreDamageTicks'], 'lava');
+  number(lava.x, 'lava.x', -17, 130000); number(lava.playerDamageTicks, 'playerDamageTicks', 0, 59, true); number(lava.coreDamageTicks, 'coreDamageTicks', 0, 59, true);
+  const expectedLava = -17 + (r.tick as number) * rules.lavaSpeed / rules.tickRate;
+  if (Math.abs((lava.x as number) - expectedLava) > 1e-5) throw new Error('Lava position does not match simulation tick');
+  if (!Array.isArray(r.actors) || r.actors.length !== 3) throw new Error('actors: the versioned actor set is required');
+  const actorKeys = new Set<string>(), actorBaseline = initialActors();
+  for (const [i, value] of r.actors.entries()) {
+    const actor = object(value, `actors[${i}]`); exactKeys(actor, ['actorKey','kind','x','y','vx','vy','hp','support','state','direction','fuseTicks','explosionApplied'], `actors[${i}]`);
+    const identity = actorBaseline.find(item => item.actorKey === actor.actorKey);
+    if (!identity || actor.kind !== identity.kind || actorKeys.has(identity.actorKey)) throw new Error('Actor identity is invalid or duplicated');
+    actorKeys.add(identity.actorKey);
+    number(actor.x, 'actor.x', -40, 180); number(actor.y, 'actor.y', -10, 30); number(actor.vx, 'actor.vx', -6, 6); number(actor.vy, 'actor.vy', -80, rules.mobJumpSpeed + EPS); number(actor.hp, 'actor.hp', 0, 1, true);
+    if (actor.direction !== -1 && actor.direction !== 1 || typeof actor.explosionApplied !== 'boolean') throw new Error('Actor direction/explosion flag invalid');
+    number(actor.fuseTicks, 'fuseTicks', 0, rules.mobFuseTicks, true);
+    if (actor.kind === 'mob') {
+      enumValue(actor.state, ['patrol','chase','armed','exploded','removed'], 'mob.state');
+      if (actor.state === 'armed' && ((actor.fuseTicks as number) < 1 || actor.explosionApplied || actor.hp !== 1)) throw new Error('Armed mob must have a live one-shot fuse');
+      if (['patrol','chase'].includes(actor.state as string) && (actor.fuseTicks !== 0 || actor.explosionApplied || actor.hp !== 1)) throw new Error('Unarmed mob has invalid fuse/state');
+      if (['exploded','removed'].includes(actor.state as string) && (actor.fuseTicks !== 0 || actor.hp !== 0 || actor.support !== null)) throw new Error('Removed mob has invalid state');
+      if (actor.state === 'exploded' && actor.explosionApplied !== true) throw new Error('Explosion application flag is required');
+    } else {
+      enumValue(actor.state, ['idle','falling','held','destroyed'], 'item.state');
+      if (actor.fuseTicks !== 0 || actor.explosionApplied !== false || (actor.state === 'destroyed') !== (actor.hp === 0)) throw new Error('Item state is invalid');
+      if ((actor.state === 'idle') !== (actor.support !== null)) throw new Error('Item support does not match state');
+    }
+  }
+  const s = structuredClone(raw) as Snapshot;
+  for (const block of s.blocks) { const p = worldPosition(s, block); if (overlapsChassis(s, p.x, p.y)) throw new Error('Block intersects reserved chassis'); }
+  if (!chassisClear(s, s.house.x)) throw new Error('Fixed world block intersects house');
+  const checkSupport = (value: unknown, path: string): void => {
+    if (value === null) return;
+    const support = object(value, path); exactKeys(support, ['space','x','y','blockId'], path);
+    enumValue(support.space, ['house','world'], `${path}.space`); number(support.x, `${path}.x`, -10, 140, true); number(support.y, `${path}.y`, 0, 12, true); string(support.blockId, `${path}.blockId`, 96);
+    if (resolveBlock(s, support as unknown as Cell)?.id !== support.blockId) throw new Error('Support refers to a missing/replaced block');
+  };
+  checkSupport(p.support, 'player.support');
+  if (p.support !== null && (!supportExists(s) || p.vy !== 0)) throw new Error('Player support/position invalid');
+  for (const actor of s.actors!) { checkSupport(actor.support, 'actor.support'); if (actor.support && (!validActorSupport(s, actor) || actor.vy !== 0)) throw new Error('Actor support/position invalid'); }
+  const held = s.actors!.filter(actor => actor.state === 'held');
+  if (held.length > 1 || (p.heldActorKey === null) !== (held.length === 0) || held.length === 1 && held[0].actorKey !== p.heldActorKey) throw new Error('Held actor reference does not match actor state');
+  if (held[0] && (held[0].kind === 'mob' || Math.abs(held[0].x - s.player.x) > EPS || Math.abs(held[0].y - s.player.y - .65) > EPS || held[0].vx !== s.player.vx || held[0].vy !== s.player.vy)) throw new Error('Held actor position is invalid');
+  if ((r.tutorialPlacements as number) < 2 && (r.tick !== 0 || h.x !== 2 || p.actionCooldownTicks !== 0)) throw new Error('Tutorial time must remain frozen');
+  if (s.outcome === 'won' && !(s.house.x + 3 >= rules.portalX - EPS && s.player.hp > 0 && s.house.heartHp > 0 && s.player.support?.space === 'house')) throw new Error('Victory predicate does not match snapshot');
   if (s.outcome === 'lost' && s.player.hp > 0 && s.house.heartHp > 0) throw new Error('Loss predicate does not match snapshot');
   if (s.outcome === 'playing' && (s.player.hp <= 0 || s.house.heartHp <= 0)) throw new Error('Dead run cannot remain playing');
   return s;

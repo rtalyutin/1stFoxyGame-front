@@ -9,3 +9,4 @@ build-manifest.json
 __pycache__/
 *.pyc
 *.zip
+test-evidence/

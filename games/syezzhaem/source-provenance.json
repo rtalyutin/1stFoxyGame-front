@@ -28,25 +28,42 @@
     "public/content/r1-wood-1.json": "ba7ffbece0303128c9cc59ae23203863ae5d7e0bb30eaec3372e59c811e86360"
   },
   "shared_files": {
-    "src/contracts.ts": "de88a821d075fb261335d90411333b7570fcce3da88903a17987b7e29d533e92",
-    "src/core.ts": "1d5431cea284328d8fe4ab3846c858eca06258b2327d9a44fdfb792ad93cb678",
-    "src/snapshot-v1.ts": "697e416d477945e390bb98059cc0cc139597d4fbab4d663b945cf5ee55230a1f",
-    "src/r1-contracts.ts": "666d63e22362c0dc43636ff91590f5b8df9e2dbfbf5cd08628ee90feab302dba",
+    "src/contracts.ts": "6683a34252b2f8a151c7607a54b395e450fbe9b318e2df390fc60576cdc63e22",
+    "src/core.ts": "1c5a9997030833d85439a87712388dd0824f59993804b2de6001262053bcbf34",
+    "src/snapshot-v1.ts": "ed7dafb716db4ac254cbdbc592434a100a3be5f66c2da1401f3b81df03f5a3e1",
+    "src/r1-contracts.ts": "ee0516032916e4597e13213e073bfbb963dae06c2332c2ba16365fdd48c12b8c",
     "public/content/r1-house-1.json": "0ae321054f7619da6a10ef288bb4b343adc9f7cb338e8b143fd347f4e3114e74",
-    "public/content/r1-map-1.json": "a3759042dedc8a5ba61f3012863c7f45d8be461fc662a8e4483936c9a3f122aa",
-    "public/content/r1-rules-1.json": "ba5d8218ac9ee5f19ce2e27b3c30d7e0834c6380e35e789d119fe34dd11d85b3",
-    "public/content/r1-wood-1.json": "ba7ffbece0303128c9cc59ae23203863ae5d7e0bb30eaec3372e59c811e86360",
     "public/content/r1-house-2.json": "95e72d81cb959fb06d2c084fff428d3eb688764ba193509d7625a10c3d327f3a",
+    "public/content/r1-map-1.json": "a3759042dedc8a5ba61f3012863c7f45d8be461fc662a8e4483936c9a3f122aa",
     "public/content/r1-map-2.json": "a87f9c95cdf6b5f44d9c944c4d80230604d2d1a5838f7fbad4979a9a79ac25a2",
-    "public/content/r1-rules-2.json": "deb29d11b7efb57f859ce32d4abe1dfa65a9602195f618d415ea926f7dab2b45"
+    "public/content/r1-rules-1.json": "ba5d8218ac9ee5f19ce2e27b3c30d7e0834c6380e35e789d119fe34dd11d85b3",
+    "public/content/r1-rules-2.json": "deb29d11b7efb57f859ce32d4abe1dfa65a9602195f618d415ea926f7dab2b45",
+    "public/content/r1-wood-1.json": "ba7ffbece0303128c9cc59ae23203863ae5d7e0bb30eaec3372e59c811e86360",
+    "public/content/r2-actors-1.json": "eee585bd728328008b4b52ff3bd8b5112c2b4dd8efa35f47307dac7871a23d50",
+    "public/content/r2-house-1.json": "3ff2f7e3292c9ecaf7206fff45d0afc8db37641ada4d9874e76f38afa03b3e37",
+    "public/content/r2-level-1.json": "39575f877c6e410a30faf64036c6d062061ffde80a65a6653440320db795e7f0",
+    "public/content/r2-map-1.json": "9d153a10f74bad58de8448968596015270407b5e85829918bb1577c128b08690",
+    "public/content/r2-materials-1.json": "616fa80da232ba7c6d09cdeb38bcf1235370c178fd1d73cf4d4b2a6c124d0460",
+    "public/content/r2-rules-1.json": "4bdd589aa589073cf888aabac7c6dd128b0b2fca263dc4b77eaa659d8dc9a262"
   },
   "current_change": {
-    "feature": "guided-first-bridge",
-    "contract_revision": 1,
-    "baseline_repo_commit": "78c2f3da79650fdc34e8adea110cb4fc75b1ee37",
-    "content_version": "r1-map-2",
-    "rules_version": "r1-rules-2",
-    "level_id": "house-bridge-portal-intro",
-    "build_id": "r1-intro-001"
-  }
+    "feature": "R2-full-route",
+    "contract_revision": 3,
+    "baseline_repo_commit": "44a5ce0d127e7b76d6e1883f4dea7e248b1b978e",
+    "content_version": "r2-map-1",
+    "rules_version": "r2-rules-1",
+    "level_id": "house-full-route",
+    "build_id": "r2-route-001"
+  },
+  "change_history": [
+    {
+      "feature": "guided-first-bridge",
+      "contract_revision": 1,
+      "baseline_repo_commit": "78c2f3da79650fdc34e8adea110cb4fc75b1ee37",
+      "content_version": "r1-map-2",
+      "rules_version": "r1-rules-2",
+      "level_id": "house-bridge-portal-intro",
+      "build_id": "r1-intro-001"
+    }
+  ]
 }

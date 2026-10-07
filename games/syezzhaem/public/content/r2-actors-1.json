@@ -1,0 +1,62 @@
+{
+  "version": "r2-actors-1",
+  "actors": [
+    {
+      "actorKey": "cat:companion",
+      "kind": "cat",
+      "x": 3,
+      "y": 3.5,
+      "vx": 0,
+      "vy": 0,
+      "hp": 1,
+      "support": {
+        "space": "house",
+        "x": 1,
+        "y": 0,
+        "blockId": "original:1:0"
+      },
+      "state": "idle",
+      "direction": 1,
+      "fuseTicks": 0,
+      "explosionApplied": false
+    },
+    {
+      "actorKey": "chest:supplies",
+      "kind": "chest",
+      "x": 5,
+      "y": 3.5,
+      "vx": 0,
+      "vy": 0,
+      "hp": 1,
+      "support": {
+        "space": "house",
+        "x": 3,
+        "y": 0,
+        "blockId": "original:3:0"
+      },
+      "state": "idle",
+      "direction": 1,
+      "fuseTicks": 0,
+      "explosionApplied": false
+    },
+    {
+      "actorKey": "mob:route",
+      "kind": "mob",
+      "x": 55,
+      "y": 0.5,
+      "vx": 0,
+      "vy": 0,
+      "hp": 1,
+      "support": {
+        "space": "world",
+        "x": 55,
+        "y": 0,
+        "blockId": "terrain:55"
+      },
+      "state": "patrol",
+      "direction": -1,
+      "fuseTicks": 0,
+      "explosionApplied": false
+    }
+  ]
+}

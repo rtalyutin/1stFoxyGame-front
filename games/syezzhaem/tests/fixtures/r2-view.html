@@ -1,0 +1,9 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><style>html,body{margin:0;background:#19303a}canvas{width:100vw;height:100vh;display:block}</style></head><body><canvas id="scene"></canvas><script type="module">
+import {GameView} from '/src/view.ts';
+import {createInitial,step,take,place,targetAt} from '/src/core.ts';
+const state=createInitial(crypto.randomUUID(),'r2-map-1'),view=new GameView(document.querySelector('canvas'));
+view.engine.setHardwareScalingLevel(1);
+let stopped=false;
+function frame(){view.render(state,null,'take');if(!stopped)requestAnimationFrame(frame);}frame();
+window.fixture={state:()=>structuredClone(state),view,render:()=>view.render(state,null,'take'),set:(value)=>Object.assign(state,value),projectActor:key=>{const a=state.actors.find(a=>a.actorKey===key);return view.projectPoint(a.x,a.y+.3)},pickItem:(x,y,touch=false)=>view.pickItem(x,y,state,touch),take:(x,y)=>take(state,targetAt(state,'house',x,y)),place:(x,y,mat)=>place(state,targetAt(state,'world',x,y),mat)};
+</script></body></html>

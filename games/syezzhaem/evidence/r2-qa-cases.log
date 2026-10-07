@@ -1,0 +1,120 @@
+CANDIDATE r2-route-001 MANIFEST 86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9 FINGERPRINT ca7afbd5711be06fb53def1e59761f457e2796c66799895353ef0b1ca618947d
+PASS Q201
+PASS Q202
+PASS Q203
+PASS Q206
+PASS Q207
+PASS Q208
+PASS Q209
+PASS Q210
+PASS Q211
+PASS Q212
+PASS Q213
+PASS Q214
+PASS Q215
+BLOCKED Q216
+PASS Q217
+PASS Q218
+PASS Q219
+PASS Q220
+PASS Q222
+{
+  "candidate": {
+    "manifest_version": 1,
+    "build_id": "r2-route-001",
+    "entry_url": "/games/syezzhaem/releases/r2-route-001/",
+    "api_version": "v1",
+    "content_version": "r2-map-1",
+    "rules_version": "r2-rules-1",
+    "snapshot_schema_version": 1,
+    "level_id": "house-full-route",
+    "manifest_sha256": "86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9"
+  },
+  "before": "ca7afbd5711be06fb53def1e59761f457e2796c66799895353ef0b1ca618947d",
+  "after": "ca7afbd5711be06fb53def1e59761f457e2796c66799895353ef0b1ca618947d",
+  "sourceStable": true,
+  "planned": 22,
+  "executed": 19,
+  "statuses": [
+    {
+      "id": "Q201",
+      "status": "PASS"
+    },
+    {
+      "id": "Q202",
+      "status": "PASS"
+    },
+    {
+      "id": "Q203",
+      "status": "PASS"
+    },
+    {
+      "id": "Q206",
+      "status": "PASS"
+    },
+    {
+      "id": "Q207",
+      "status": "PASS"
+    },
+    {
+      "id": "Q208",
+      "status": "PASS"
+    },
+    {
+      "id": "Q209",
+      "status": "PASS"
+    },
+    {
+      "id": "Q210",
+      "status": "PASS"
+    },
+    {
+      "id": "Q211",
+      "status": "PASS"
+    },
+    {
+      "id": "Q212",
+      "status": "PASS"
+    },
+    {
+      "id": "Q213",
+      "status": "PASS"
+    },
+    {
+      "id": "Q214",
+      "status": "PASS"
+    },
+    {
+      "id": "Q215",
+      "status": "PASS"
+    },
+    {
+      "id": "Q216",
+      "status": "BLOCKED",
+      "error": "Blocked: Headless tab switch did not emit real hidden/blur; use supported lifecycle channel before declaring product failure",
+      "classification": "Blocked"
+    },
+    {
+      "id": "Q217",
+      "status": "PASS"
+    },
+    {
+      "id": "Q218",
+      "status": "PASS"
+    },
+    {
+      "id": "Q219",
+      "status": "PASS"
+    },
+    {
+      "id": "Q220",
+      "status": "PASS"
+    },
+    {
+      "id": "Q222",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "gate_verdict": "BLOCKED"
+}

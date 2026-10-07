@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-07",
+  "build": {
+    "status": "PASS producer final build; exact manifest files verified by packer",
+    "files": 70,
+    "stdout_sha256": "da7853c27b3bd6a4221c9709a64fb971a146c76676f6bd1c0258b063829d3778",
+    "stdout_scope": "front/evidence/r2-front-final.log exact available excerpts + explicitly labeled producer summary; original stdout truncated"
+  },
+  "content": "r2-map-1",
+  "rules": "r2-rules-1",
+  "level": "house-full-route",
+  "manifest_sha256": "86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9",
+  "sourceDigest": "61288a4239821a0224f31b7b0937497e176a1db69ae37673f90cfd462d2751d0",
+  "status": "VERIFIED author checks; independent scoped acceptance21PASS/1backgroundBLOCKED; source publication permitted, full runtime gate incomplete",
+  "tests": {
+    "front": {
+      "command": "npm test",
+      "passed": 51,
+      "failed": 0,
+      "stdout_sha256": "16debec55dd15ed86aeb4ea5f7f80b3c75647341009d7991dbaa18a00db06462"
+    },
+    "back": {
+      "command": "R1_PG_UID_SHIM=<local fixture shim> npm test",
+      "passed": 83,
+      "failed": 0,
+      "stdout_sha256": "132828607ded48804ba80cebd7a8a68f217b666b260d314f4a8923fd8aa64d2a"
+    },
+    "note": "Shared core/snapshot cases overlap across front/back; counts are not additive unique tests",
+    "native_api_update": {
+      "command": "npm run test:api-update",
+      "passed": 1,
+      "failed": 0,
+      "stdout_sha256": "fa52d2c6c7568a649c22df43d8ca8ad83fbd9ec8448c309323900382390bee02",
+      "scope": "Two actual OS processes, native PostgreSQL, same supported R2 implementation, lost checkpoint/finish ACK; target nginx cutover not tested"
+    },
+    "release_fixtures": {
+      "command": "python3 tests/release_tests.py",
+      "passed": 9,
+      "failed": 0,
+      "stdout_sha256": "5522023ef5afcf1f5fc0af4f7fa8ec76a6a7601c4c1465095f464f47410b6d5a",
+      "scope": "Local Python HTTP/blue-green fixtures, not target nginx/VPS"
+    }
+  },
+  "compile": {
+    "front": "PASS via npm run build tsc --noEmit",
+    "back": "PASS npm run check"
+  },
+  "shared_files": 17,
+  "immutable_legacy_assets": 7,
+  "correction": {
+    "id": "QA-R2-01",
+    "status": "RESOLVED in independent exact-candidate retests",
+    "trigger": "Damage/burn/placement reorders block overrides on restore, then equal-height landing used array order",
+    "change": "R2 player and actor landing chooses by height/contact geometry/stable key; old R1 branch retained",
+    "author_regressions": 3,
+    "ui_fix": "QA-R2-02 objective pointer-events:none, trusted touch passes through informational overlay exactly once"
+  },
+  "limitations": [
+    "Emulated touch, not physical phone",
+    "Software WebGL2, no hardware FPS",
+    "Isolated mail sink, no production SMTP",
+    "Target VPS access unavailable; activation NOT_STARTED"
+  ]
+}

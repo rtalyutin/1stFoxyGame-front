@@ -1,0 +1,23 @@
+{
+  "version": "r2-materials-1",
+  "materials": [
+    {
+      "key": "wood",
+      "durability": 1,
+      "burn_ticks": 180,
+      "slime_bounce_speed": 0
+    },
+    {
+      "key": "stone",
+      "durability": 2,
+      "burn_ticks": 0,
+      "slime_bounce_speed": 0
+    },
+    {
+      "key": "slime",
+      "durability": 1,
+      "burn_ticks": 0,
+      "slime_bounce_speed": 11.5
+    }
+  ]
+}
