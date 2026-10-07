@@ -28,4 +28,8 @@ describe('safe workshop return address', () => {
     for (const phase of ['GALLERY','GAME_OVER','SHOP','WORKSHOP','PAUSED'] as const) expect(canSettleProduction(phase)).toBe(true);
     for (const phase of ['RUNNING','COUNTDOWN','BOOT','LOGIN'] as const) expect(canSettleProduction(phase)).toBe(false);
   });
+  it('spectator screens do not commit passive settlement revisions', () => {
+    for (const phase of ['GALLERY','GAME_OVER','SHOP','WORKSHOP','PAUSED'] as const) expect(canSettleProduction(phase,true)).toBe(false);
+    expect(canSettleProduction('PAUSED',false)).toBe(true);
+  });
 });

@@ -1,8 +1,8 @@
 export type WorkshopOrigin = 'GALLERY' | 'GAME_OVER' | 'SHOP';
 export type WorkshopPhase = WorkshopOrigin | 'BOOT' | 'LOGIN' | 'COUNTDOWN' | 'RUNNING' | 'PAUSED' | 'WORKSHOP';
 export interface WorkshopRunState { runId: string; phase: string; }
-export function canSettleProduction(phase: WorkshopPhase): boolean {
-  return ['GALLERY','GAME_OVER','SHOP','WORKSHOP','PAUSED'].includes(phase);
+export function canSettleProduction(phase: WorkshopPhase, readOnly = false): boolean {
+  return !readOnly && ['GALLERY','GAME_OVER','SHOP','WORKSHOP','PAUSED'].includes(phase);
 }
 
 /** Workshop never owns a battle transition: it remembers only a safe address. */

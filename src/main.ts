@@ -227,7 +227,7 @@ function recordWorkshopReceipt(): void {
   if (receipt.elapsedMs >= 60000 || receipt.discardedMs > 0) offlineReceipt = receipt;
 }
 async function workshopAction(type: Extract<Operation['type'], `forge_${string}`>, payload: Operation['payload']): Promise<void> {
-  if (blocked() || document.hidden || !session.profile || !canSettleProduction(phase) || phase === 'PAUSED' && type !== 'forge_settle') return;
+  if (blocked() || document.hidden || !session.profile || !canSettleProduction(phase,liveReadOnly()) || phase === 'PAUSED' && type !== 'forge_settle') return;
   busy = true; errorMessage = ''; updateScreen();
   if (type === 'forge_tap') { tapConfirmation = ''; get('workshop-tap-status').textContent = 'Подтверждаем удар…'; }
   try {
@@ -252,7 +252,7 @@ function openWorkshop(): void {
   tapConfirmation = ''; transition('WORKSHOP'); void workshopAction('forge_settle',{});
 }
 function settleVisibleWorkshop(): void {
-  if (document.hidden || blocked() || journal.length > 0 || pausePromise || connection?.state !== 'online' || !canSettleProduction(phase)) return;
+  if (document.hidden || blocked() || journal.length > 0 || pausePromise || connection?.state !== 'online' || !canSettleProduction(phase,liveReadOnly())) return;
   void workshopAction('forge_settle',{});
 }
 function renderWorkshop(): void {
@@ -506,7 +506,7 @@ async function restoreProfile(): Promise<void> {
     if (session.run?.control === 'owner' && session.run.snapshot?.state?.phase === 'running') { await session.operate('pause_run', ownedRun()); recordWorkshopReceipt(); applyRun(); }
     pauseReason = 'Забег восстановлен с подтверждённого серверного снимка. Нажми «Продолжить», затем дождись отсчёта.';
     if (!session.run && phase !== 'WORKSHOP') transition('GALLERY');
-    await session.operate('forge_settle',{}); recordWorkshopReceipt(); applyRun();
+    if (!liveReadOnly()) { await session.operate('forge_settle',{}); recordWorkshopReceipt(); applyRun(); }
   } catch (error) { handleError(error); }
   finally { busy = false; updateScreen(); }
 }
@@ -534,7 +534,7 @@ async function authenticate(event: SubmitEvent): Promise<void> {
     await session.load(); identityLoaded = true; journal.clear(); phase = 'PAUSED'; applyRun();
     if (session.run?.control === 'owner' && session.run.snapshot?.state?.phase === 'running') { await session.operate('pause_run', ownedRun()); recordWorkshopReceipt(); applyRun(); }
     if (!session.run) transition('GALLERY');
-    await session.operate('forge_settle',{}); recordWorkshopReceipt(); applyRun();
+    if (!liveReadOnly()) { await session.operate('forge_settle',{}); recordWorkshopReceipt(); applyRun(); }
     pauseReason = 'Подтверждённый забег восстановлен. Продолжи явно после отсчёта.';
   } catch (error) { password.value = ''; handleError(error); }
   finally { busy = false; updateScreen(); }
