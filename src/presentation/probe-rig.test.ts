@@ -1,4 +1,4 @@
-import {readFileSync,writeFileSync} from 'node:fs';
+import {mkdirSync,readFileSync,writeFileSync} from 'node:fs';
 import {it,expect} from 'vitest';
 import {NullEngine} from '@babylonjs/core/Engines/nullEngine';
 import {Scene} from '@babylonjs/core/scene';
@@ -37,6 +37,7 @@ it('imports the exported wearable rig, samples nine clips and keeps per-leg sock
  for(const a of PROBE_APPEARANCES)for(const p of a.parts){const part=wearing.find(m=>m.name==='probe:'+p)!;expect(part.isEnabled()).toBe(a.key.definitionId==='side_step_boots');}
  for(const mesh of meshes.filter(m=>m.name.startsWith('probe:wear_')))expect(mesh.isEnabled(),mesh.name).toBe(mesh.name.includes('wear_side_step_boots_'));
  const other=library.create('pudge','independent');other.pose('idle',0,false);const foot=other.socket('socket_foot_l');actor.pose('run',.4,false);expect(other.socket('socket_foot_l').subtract(foot).length()).toBe(0);
- writeFileSync(new URL('../../../../docs/probe-babylon-rig.json',import.meta.url),JSON.stringify({status:'BABYLON_IMPORT_SKIN_PASS',sampleHz:60,clips,perActorRig:true,wearParts:8,joints:46},null,2));
+ const reportDirectory=new URL('../../test-results/rig/',import.meta.url);mkdirSync(reportDirectory,{recursive:true});
+ writeFileSync(new URL('probe-babylon-rig.json',reportDirectory),JSON.stringify({status:'BABYLON_IMPORT_SKIN_PASS',sampleHz:60,clips,perActorRig:true,wearParts:8,joints:46},null,2));
  other.dispose();actor.dispose();library.dispose();scene.dispose();engine.dispose();
 },120000);

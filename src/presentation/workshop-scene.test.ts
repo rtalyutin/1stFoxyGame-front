@@ -1,4 +1,4 @@
-import {readFileSync,writeFileSync} from 'node:fs';
+import {mkdirSync,readFileSync,writeFileSync} from 'node:fs';
 import {it,expect} from 'vitest';
 import {NullEngine} from '@babylonjs/core/Engines/nullEngine';
 import {Scene} from '@babylonjs/core/scene';
@@ -23,6 +23,7 @@ it('imports native workshop clips, bounds devices for huge owned and deduplicate
   const fps=group.targetedAnimations[0].animation.framePerSecond;expect((group.to-group.from)/fps).toBeGreaterThan(0);
  }
  for(const node of actor.nodes.values()){const m=node.computeWorldMatrix(true).m;expect(Array.from(m).every(Number.isFinite),node.name).toBe(true);}
- writeFileSync(new URL('../../../../docs/workshop-babylon.json',import.meta.url),JSON.stringify({status:'WORKSHOP_IMPORT_PASS',clips:[...actor.groups.keys()],productionDevices:4,ownedFixture:1000000000,meshCount:count,meshCountAfter:scene.meshes.length,receiptReplayStrikes:actor.confirmedStrikes,upgradeStates:[0,1,2,3]},null,2)+'\n');
+ const reportDirectory=new URL('../../test-results/rig/',import.meta.url);mkdirSync(reportDirectory,{recursive:true});
+ writeFileSync(new URL('workshop-babylon.json',reportDirectory),JSON.stringify({status:'WORKSHOP_IMPORT_PASS',clips:[...actor.groups.keys()],productionDevices:4,ownedFixture:1000000000,meshCount:count,meshCountAfter:scene.meshes.length,receiptReplayStrikes:actor.confirmedStrikes,upgradeStates:[0,1,2,3]},null,2)+'\n');
  actor.dispose();container.dispose();scene.dispose();engine.dispose();
 });

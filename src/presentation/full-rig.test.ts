@@ -1,4 +1,4 @@
-import {readFileSync,writeFileSync} from 'node:fs';
+import {mkdirSync,readFileSync,writeFileSync} from 'node:fs';
 import {it,expect} from 'vitest';
 import {NullEngine} from '@babylonjs/core/Engines/nullEngine';
 import {Scene} from '@babylonjs/core/scene';
@@ -46,6 +46,7 @@ it('imports all 41 current-rig parts; switches all 16 states and unequip without
  actor.pose('run',.5);expect(other.socket('socket_foot_l').subtract(foot).length()).toBeLessThan(1e-6);
  expect(other.entries.skeletons[0]).not.toBe(actor.entries.skeletons[0]);
  applyAppearance(actor,{weapon:null,body:null,legs:null,talisman:null});expect(wearing.every(m=>!m.isEnabled())).toBe(true);
- writeFileSync(new URL('../../../../docs/full-babylon-rig.json',import.meta.url),JSON.stringify({status:'FULL_BABYLON_RIG_PASS',states:16,parts:41,joints:46,sampleHz:60,clips,independentActors:true},null,2)+'\n');
+ const reportDirectory=new URL('../../test-results/rig/',import.meta.url);mkdirSync(reportDirectory,{recursive:true});
+ writeFileSync(new URL('full-babylon-rig.json',reportDirectory),JSON.stringify({status:'FULL_BABYLON_RIG_PASS',states:16,parts:41,joints:46,sampleHz:60,clips,independentActors:true},null,2)+'\n');
  actor.dispose();other.dispose();library.dispose();scene.dispose();engine.dispose();
 },30000);
