@@ -43,7 +43,7 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
   const scene = new Scene(engine);
   scene.clearColor = new Color4(0.035, 0.067, 0.075, 1);
   scene.ambientColor = new Color3(0.12, 0.17, 0.17);
-  const camera = new FreeCamera('fixed-siege-view', new Vector3(-0.7, 22, -18), scene);
+  const camera = new FreeCamera('fixed-siege-view', new Vector3(-0.7, 14, -20), scene);
   camera.setTarget(new Vector3(0, 0, 0)); camera.mode = Camera.ORTHOGRAPHIC_CAMERA;
   camera.minZ = 0.1; camera.maxZ = 100;
   new HemisphericLight('sky', new Vector3(0.2, 1, 0.1), scene).intensity = 0.65;
@@ -564,9 +564,30 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
     if (cssWidth === lastWidth && cssHeight === lastHeight && pixelRatio === lastRatio) return;
     lastWidth = cssWidth; lastHeight = cssHeight;
     lastRatio = pixelRatio; engine.setHardwareScalingLevel(1 / pixelRatio); engine.resize();
-    const aspect = cssWidth / cssHeight, halfWidth = width * 0.55, halfHeight = depth * 0.47;
-    const viewHeight = Math.max(halfHeight, halfWidth / aspect);
-    camera.orthoTop = viewHeight; camera.orthoBottom = -viewHeight; camera.orthoLeft = -viewHeight * aspect; camera.orthoRight = viewHeight * aspect;
+    // Fit the playable volume, including unit heights, rather than the decorative
+    // island. A lower pitch keeps bodies readable; pixel margins keep the Ancient
+    // inside the right edge and reserve space for the existing map legend.
+    const view = camera.getViewMatrix(true), bounds = { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity };
+    const include = (point: Point, radius: number, height: number) => {
+      const p = unitPos(point);
+      for (const x of [-radius, radius]) for (const z of [-radius, radius]) for (const y of [0, height]) {
+        const projected = Vector3.TransformCoordinates(p.add(new Vector3(x, y, z)), view);
+        bounds.minX = Math.min(bounds.minX, projected.x); bounds.maxX = Math.max(bounds.maxX, projected.x);
+        bounds.minY = Math.min(bounds.minY, projected.y); bounds.maxY = Math.max(bounds.maxY, projected.y);
+      }
+    };
+    for (const point of [...content.map.paths.flat(), ...content.map.sidePath]) include(point, 0.65, 2.65);
+    for (const place of content.map.places) include(place, 0.70, 2.65);
+    for (const destination of content.expeditions) include(destination.position, 0.72, 1.65);
+    include(content.map.throne, 1.25, 2.75);
+    const margin = { left: 20, right: 34, top: 22, bottom: 42 };
+    const innerWidth = Math.max(1, cssWidth - margin.left - margin.right), innerHeight = Math.max(1, cssHeight - margin.top - margin.bottom);
+    const unitsPerPixel = Math.max((bounds.maxX - bounds.minX) / innerWidth, (bounds.maxY - bounds.minY) / innerHeight);
+    const midX = (bounds.minX + bounds.maxX) / 2, midY = (bounds.minY + bounds.maxY) / 2;
+    camera.orthoLeft = midX - innerWidth * unitsPerPixel / 2 - margin.left * unitsPerPixel;
+    camera.orthoRight = camera.orthoLeft + cssWidth * unitsPerPixel;
+    camera.orthoBottom = midY - innerHeight * unitsPerPixel / 2 - margin.bottom * unitsPerPixel;
+    camera.orthoTop = camera.orthoBottom + cssHeight * unitsPerPixel;
   }
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(canvas); window.addEventListener('resize', resize); resize();
   const lostObserver = engine.onContextLostObservable.add(() => { contextLost = true; onContextState({ state: 'lost', message: 'Графический контекст потерян. Партия приостановлена; ждём восстановления браузером.' }); });
@@ -589,10 +610,11 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
   const warm = new TransformNode('resource-warmup', scene); warm.position.y = -100;
   for (const kind of [...content.heroes.map(h => h.kind), ...content.buildings.map(b => b.kind), 'snake', 'tombstone', 'zombie', ...content.enemies.map(e => e.kind)]) makeModel(kind, warm);
   const readyPromise = scene.whenReadyAsync().then(() => { if (!disposed) warm.dispose(); });
+  function projectCss(point: Point, height = 0) { const p = Vector3.Project(unitPos(point, height), Matrix.Identity(), scene.getTransformMatrix(), camera.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight())); const factor = engine.getHardwareScalingLevel(); return { x: p.x * factor, y: p.y * factor }; }
   return {
     ready() { return readyPromise; },
     setQuality(value: 'low' | 'high') { quality = value; lastWidth = 0; resize(); },
-    project(point: Point, height = 0) { const p = Vector3.Project(unitPos(point, height), Matrix.Identity(), scene.getTransformMatrix(), camera.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight())); const factor = engine.getHardwareScalingLevel(); return { x: p.x * factor, y: p.y * factor }; },
+    project: projectCss,
     render(game: RendererGame, events: readonly RendererEvent[] = [], deltaSeconds = 0) {
       if (disposed || contextLost) return;
       resize(); clock += Math.max(0, Math.min(deltaSeconds, 0.1));
@@ -672,6 +694,11 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
       return { renderer: 'Babylon.js 9.29.0 / WebGL', coordinates: 'simulation X→+X; simulation Y→−Z; map.scale', webGLVersion: engine.webGLVersion, contextLost, disposed, quality, pixelRatioCap: quality === 'low' ? 1 : 1.5,
         cssWidth: lastWidth, cssHeight: lastHeight, drawingBufferWidth: gl?.drawingBufferWidth ?? engine.getRenderWidth(), drawingBufferHeight: gl?.drawingBufferHeight ?? engine.getRenderHeight(),
         meshes: scene.meshes.length, materials: scene.materials.length, actors: actors.size, effects: effects.length, seenEvents: seenEvents.size, limits, glInfo: engine.getGlInfo(), ready: scene.isReady(),
+        camera: { pitchDegrees: Math.atan2(camera.position.y, Math.hypot(camera.position.x, camera.position.z)) * 180 / Math.PI, orthoLeft: camera.orthoLeft, orthoRight: camera.orthoRight, orthoTop: camera.orthoTop, orthoBottom: camera.orthoBottom },
+        projectedPlaces: content.map.places.map(p => ({ id: p.id, kind: p.kind, ...projectCss(p, 0.14) })),
+        projectedGroundTargets: content.map.paths.map((path, lane) => ({ lane, point: { ...path[1]! }, height: -0.04, ...projectCss(path[1]!, -0.04) })),
+        projectedDestinations: content.expeditions.map(d => ({ kind: d.kind, ...projectCss(d.position, 0.16) })),
+        projectedAncientCorners: [-1.25, 1.25].flatMap(x => [-1.25, 1.25].flatMap(y => [0, 2.75].map(height => projectCss({ x: content.map.throne.x + x / scale, y: content.map.throne.y + y / scale }, height)))),
         actorKinds: Array.from(actors.values()).map(a => a.key), visualEventCounts: Object.fromEntries(visualEventCounts),
         destinations: Array.from(expeditionMeshes).map(([kind, mesh]) => ({ kind, x: mesh.position.x, z: mesh.position.z, selected: mesh.renderOutline })),
         absentHeroes: Array.from(absentGlyphs).map(([id, glyph]) => ({ id, kind: glyph.kind, progress: glyph.progress, completedSegments: glyph.segments.filter(m => m.visibility === 1).length, x: glyph.root.position.x, z: glyph.root.position.z })),
