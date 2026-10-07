@@ -20,18 +20,18 @@ import { CreatePolyhedron } from '@babylonjs/core/Meshes/Builders/polyhedronBuil
 import { CreatePlane } from '@babylonjs/core/Meshes/Builders/planeBuilder';
 import '@babylonjs/core/Rendering/outlineRenderer';
 import '@babylonjs/core/Culling/ray';
-import type { GameContent, Point, BuildingKind } from '../../core/content-r2';
+import type { GameContent, Point, BuildingKind } from '../../core/content-r3';
 const MeshBuilder = { CreateBox, CreateSphere, CreateCylinder, CreateTorus, CreateLines, CreateTube, CreatePolyhedron, CreatePlane };
 
 /** The renderer observes simulation; it never advances ticks or applies damage. */
-interface VisualUnit extends Point { id: string; kind?: string; hp: number; maxHp?: number; level?: number; constructionTicks?: number; readyTicks?: number; respawnTicks?: number; anchorId?: string; padId?: string; stolenSpell?: string | null; lastSpell?: string | null; shield?: { remainingTicks: number; absorption: number }; slow?: { remainingTicks: number; percent: number }; teleport?: { targetAnchorId?: string; remainingTicks: number; from: Point; to: Point } }
+interface VisualUnit extends Point { id: string; kind?: string; hp: number; maxHp?: number; level?: number; constructionTicks?: number; readyTicks?: number; respawnTicks?: number; anchorId?: string; padId?: string; stolenSpell?: string | null; lastSpell?: string | null; items?: [string | null, string | null]; expedition?: { kind: string; remainingTicks: number; totalTicks: number; rewardId: string } | null; aegisToken?: boolean; hidden?: boolean; visible?: boolean; shield?: { remainingTicks: number; absorption: number }; slow?: { remainingTicks: number; percent: number }; teleport?: { targetAnchorId?: string; remainingTicks: number; from: Point; to: Point } }
 export interface RendererGame { simTick: number; throneHp?: number; heroes: VisualUnit[]; buildings: VisualUnit[]; enemies: VisualUnit[]; summons: VisualUnit[] }
 export interface RendererEvent { eventId: string; tick: number; type: string; effectId?: string; sourceId?: string; targetId?: string; source?: Point; target?: Point; position?: Point; durationTicks?: number; amount?: number; kind?: string; spellId?: string; radius?: number }
-export type RendererPickKind = 'anchor' | 'pad' | 'hero' | 'building' | 'enemy' | 'ground';
+export type RendererPickKind = 'anchor' | 'pad' | 'hero' | 'building' | 'enemy' | 'expedition' | 'ground';
 export interface RendererPick extends Point { kind: RendererPickKind; id?: string }
 export interface RendererSelection { kind: RendererPickKind; id: string; previewKind?: BuildingKind; aim?: 'cast' | 'teleport' }
 export interface RendererContextState { state: 'lost' | 'restored' | 'error'; message?: string }
-interface Actor { root: TransformNode; model: TransformNode; hp: Mesh; hpBack: Mesh; key: string; flashUntil: number; born: number; riseAt?: number; shields?: Mesh[]; slowRing?: Mesh; cosmeticBuild?: { start: number; ttl: number }; pull?: { from: Point; to: Point; start: number; ttl: number }; baseline: Array<{ mesh: Mesh; position: Vector3 }> }
+interface Actor { root: TransformNode; model: TransformNode; hp: Mesh; hpBack: Mesh; key: string; flashUntil: number; born: number; riseAt?: number; shields?: Mesh[]; slowRing?: Mesh; itemMarkers?: Mesh[]; aegis?: Mesh; cosmeticBuild?: { start: number; ttl: number }; pull?: { from: Point; to: Point; start: number; ttl: number }; baseline: Array<{ mesh: Mesh; position: Vector3 }> }
 interface Effect { nodes: Array<Mesh | TransformNode>; start: number; ttl: number; critical: boolean; family?: string; sourceId?: string; update: (t: number, age: number) => void }
 
 export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
@@ -55,6 +55,8 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
   const materials = new Map<string, StandardMaterial>();
   const actors = new Map<string, Actor>();
   const placeMeshes = new Map<string, Mesh>();
+  const expeditionMeshes = new Map<string, Mesh>();
+  const absentGlyphs = new Map<string, { root: TransformNode; segments: Mesh[]; kind: string; progress: number }>();
   const effects: Effect[] = [];
   const visualEventCounts = new Map<string, number>();
   const seenEvents = new Set<string>(), eventOrder: string[] = [];
@@ -76,6 +78,8 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
   const red = material('enemy-red', '#ba554c'), flesh = material('pudge-skin', '#b6bc89');
   const dark = material('dark', '#182c30'), foliage = material('pine', '#286052');
   const rotten = material('rotting-skin', '#729b72'), violet = material('stolen-shield', '#b9b0ef', 0.8), heal = material('life-sigil', '#83e7af', 0.8), strike = material('strike-rune', '#eb9d68', 0.8);
+  const campAmber = material('camp-gold', '#e7bd64', 0.68), shopViolet = material('shop-violet', '#ba94f3', 0.72), roshanRed = material('roshan-sigil', '#df7162', 0.65);
+  const expeditionMaterial = (kind?: string) => kind === 'shop' ? shopViolet : kind === 'roshan' ? roshanRed : campAmber;
   const ghostMaterial = material('construction-ghost', '#96e7d2', 0.35, 0.3);
   const rangeMaterial = material('range', '#74e2b1', 0.24, 0.12);
   // Simulation Y grows toward the lower lane. World +Z projects upward in this
@@ -125,6 +129,13 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
     const p = unitPos(path[0]!, 0.03);
     const gate = ring(`enemy-gate-${lane}`, 1.05, 0.075, p, red); gate.rotation.x = Math.PI / 2; gate.position.y = 0.55;
   });
+  // A narrow stone trail describes the fixed flank; it never changes navigation.
+  for (let i = 1; i < content.map.sidePath.length; i++) {
+    const a = unitPos(content.map.sidePath[i - 1]!, 0.02), z = unitPos(content.map.sidePath[i]!, 0.02);
+    segment(`flank-trail-${i}`, a, z, 0.30, 0.025, slate);
+    const direction = z.subtract(a).normalize();
+    for (let k = 0.3; k < Vector3.Distance(a, z); k += 0.8) { const p = a.add(direction.scale(k)); box('flank-trail-stone', [0.12, 0.025, 0.10], [p.x, 0.04, p.z], stone); }
+  }
   for (const place of content.map.places) {
     const pick: RendererPick = { kind: place.kind === 'hero_anchor' ? 'anchor' : 'pad', id: place.id, x: place.x, y: place.y };
     const p = unitPos(place);
@@ -148,6 +159,7 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
   // Border scenery stays outside the paths and does not obscure tactical positions.
   for (let i = 0; i < 16; i++) {
     const x = -10.6 + i * 1.35, z = i % 2 ? 7.65 : -7.6;
+    if (content.expeditions.some(destination => Math.hypot(x - destination.position.x * scale, z - worldZ(destination.position.y)) < 1.15)) continue;
     const rock = sphere('edge-rock', 0.65 + (i % 3) * 0.18, [x, 0.10, z], stone); rock.scaling.y = 0.6;
     if (i % 3 === 0) {
       cylinder('tree-trunk', 0.17, 0.75, [x + 0.2, 0.3, z + 0.15], wood);
@@ -158,6 +170,31 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
     box('ruin-foot', [0.8, 0.22, 0.8], [x, 0.04, z], stone);
     const ruin = cylinder('broken-column', 0.42, 0.9, [x, 0.59, z], stone); ruin.rotation.z = 0.10;
     box('fallen-column', [1.1, 0.32, 0.35], [x + 0.6, 0.14, z + 0.4], slate).rotation.y = 0.55;
+  }
+  // Destination props are compact markers on the same battlefield, not forest combat scenes.
+  for (const destination of content.expeditions) {
+    const p = unitPos(destination.position), mat = expeditionMaterial(destination.kind);
+    const pick: RendererPick = { kind: 'expedition', id: destination.kind, ...destination.position };
+    const platform = MeshBuilder.CreateCylinder(`expedition-${destination.kind}`, { diameter: 1.28, height: 0.12, tessellation: 6 }, scene);
+    platform.position.copyFrom(p.add(new Vector3(0, 0.055, 0))); platform.material = slate; tag(platform, pick); expeditionMeshes.set(destination.kind, platform);
+    for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3, mark = box('expedition-sigil-mark', [0.22, 0.026, 0.045], [p.x + Math.cos(a) * 0.55, 0.13, p.z + Math.sin(a) * 0.55], mat, undefined, pick); mark.rotation.y = -a; }
+    const prop = new TransformNode(`destination-${destination.kind}`, scene); prop.position.copyFrom(p);
+    if (destination.kind === 'camp') {
+      box('camp-chest', [0.70, 0.38, 0.42], [0, 0.33, 0], wood, prop, pick);
+      box('camp-chest-lid', [0.76, 0.14, 0.46], [0, 0.60, 0.07], gold, prop, pick).rotation.x = -0.25;
+      for (const x of [-0.23, 0.23]) box('camp-chest-band', [0.045, 0.39, 0.45], [x, 0.35, 0], gold, prop, pick);
+      cylinder('camp-gold-pile', 0.23, 0.11, [0.33, 0.21, -0.18], campAmber, prop, pick);
+    } else if (destination.kind === 'shop') {
+      for (const x of [-0.42, 0.42]) cylinder('shop-pillar', 0.075, 0.95, [x, 0.56, 0.13], wood, prop, pick);
+      const canopy = box('shop-canopy', [1.06, 0.12, 0.70], [0, 1.04, 0.07], material('shop-cloth', '#56436c'), prop, pick); canopy.rotation.z = 0.06;
+      box('shop-counter', [0.9, 0.16, 0.35], [0, 0.43, -0.10], gold, prop, pick);
+      for (let i = 0; i < 3; i++) { const crystal = MeshBuilder.CreatePolyhedron('shop-crystal', { type: 1, size: 0.10 }, scene); crystal.parent = prop; crystal.position.set((i - 1) * 0.24, 0.63, -0.12); crystal.scaling.y = 1.5; crystal.material = shopViolet; tag(crystal, pick); }
+    } else {
+      for (const x of [-0.44, 0.44]) { box('roshan-cave-pillar', [0.27, 0.72, 0.34], [x, 0.47, 0.1], stone, prop, pick); cylinder('roshan-horn', 0.13, 0.45, [x, 1.01, 0.1], gold, prop, pick, 0.015); }
+      box('roshan-cave-lintel', [1.12, 0.20, 0.37], [0, 0.87, 0.10], stone, prop, pick);
+      const aegis = ring('roshan-aegis', 0.44, 0.075, new Vector3(0, 0.55, -0.12), campAmber, prop); aegis.rotation.x = Math.PI / 2; tag(aegis, pick);
+      box('roshan-aegis-core', [0.12, 0.25, 0.065], [0, 0.55, -0.12], roshanRed, prop, pick);
+    }
   }
   const throne = new TransformNode('ancient-throne', scene); throne.position.copyFrom(unitPos(content.map.throne));
   cylinder('ancient-plinth', 2.0, 0.35, [0, 0.12, 0], stone, throne);
@@ -265,6 +302,28 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
       const coil = MeshBuilder.CreateTube('serpent-body', { path: [new Vector3(-0.13, 0.22, 0), new Vector3(0.1, 0.45, 0), new Vector3(-0.05, 0.66, 0), new Vector3(0, 0.91, 0)], radius: 0.07, tessellation: 5 }, scene); coil.parent = model; coil.material = gold; coil.isPickable = false;
       const head = sphere('serpent-head', 0.28, [0, 0.98, 0], green, model); head.scaling.set(1.2, 0.8, 1);
       box('serpent-tongue', [0.03, 0.035, 0.16], [0, 0.96, -0.19], red, model);
+    } else if (kind === 'healer') {
+      cylinder('healer-robe', 0.40, 0.64, [0, 0.48, 0], material('healer-cloth', '#536f67'), model, pick, 0.26);
+      sphere('healer-hood', 0.31, [0, 0.94, 0], stone, model, pick);
+      cylinder('healer-staff', 0.052, 1.20, [0.33, 0.67, -0.03], wood, model, pick);
+      box('healer-cross-v', [0.055, 0.27, 0.055], [0.33, 1.32, -0.03], heal, model, pick);
+      box('healer-cross-h', [0.24, 0.055, 0.055], [0.33, 1.32, -0.03], heal, model, pick);
+      box('healer-satchel', [0.22, 0.25, 0.13], [-0.23, 0.58, 0.05], leather, model, pick);
+    } else if (kind === 'saboteur' || kind === 'bypass_commander') {
+      const commander = kind === 'bypass_commander';
+      cylinder('flanker-cloak', commander ? 0.65 : 0.38, commander ? 0.98 : 0.58, [0, commander ? 0.68 : 0.45, 0], dark, model, pick, 0.20);
+      sphere('flanker-hood', commander ? 0.37 : 0.25, [0, commander ? 1.30 : 0.84, 0], slate, model, pick);
+      box('flanker-mask', [commander ? 0.31 : 0.18, 0.06, 0.06], [0, commander ? 1.31 : 0.84, commander ? -0.18 : -0.12], red, model, pick);
+      for (const x of [-1, 1]) { const knife = box('flanker-dagger', [0.055, commander ? 0.52 : 0.32, 0.06], [x * (commander ? 0.37 : 0.23), commander ? 0.72 : 0.48, -0.14], metal, model, pick); knife.rotation.z = x * 0.40; }
+      if (commander) { box('flanker-mantle', [0.95, 0.15, 0.38], [0, 1.09, 0.08], red, model, pick); for (const x of [-0.3, 0.3]) cylinder('flanker-crown', 0.10, 0.28, [x, 1.47, 0], gold, model, pick, 0.015); }
+    } else if (kind === 'armored') {
+      box('elite-boots', [0.48, 0.19, 0.31], [0, 0.18, 0], leather, model, pick);
+      box('elite-plate', [0.57, 0.66, 0.38], [0, 0.61, 0], metal, model, pick);
+      sphere('elite-helm', 0.32, [0, 1.10, 0], metal, model, pick);
+      box('elite-visor', [0.27, 0.06, 0.035], [0, 1.13, -0.17], red, model, pick);
+      box('elite-shield', [0.42, 0.63, 0.12], [-0.35, 0.66, -0.11], slate, model, pick);
+      box('elite-shield-stripe', [0.055, 0.50, 0.025], [-0.35, 0.66, -0.19], gold, model, pick);
+      box('elite-sword', [0.085, 0.63, 0.055], [0.38, 0.79, -0.12], metal, model, pick);
     } else if (kind === 'arcane_commander' || kind.includes('mage') || kind.includes('caster')) {
       cylinder('commander-robe', 0.84, 1.2, [0, 0.79, 0], red, model, pick, 0.48);
       box('commander-armor', [1.05, 0.22, 0.42], [0, 1.32, 0], metal, model, pick);
@@ -272,7 +331,8 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
       for (const x of [-0.16, 0.16]) cylinder('commander-horn', 0.12, 0.45, [x, 1.96, 0], gold, model, pick, 0.02);
       cylinder('commander-staff', 0.09, 1.85, [0.60, 0.95, -0.08], metal, model, pick);
       sphere('commander-focus', 0.21, [0.60, 1.9, -0.08], strike, model, pick);
-    } else if (kind === 'siege' || kind.includes('commander')) {
+      for (let i = 0; i < 3; i++) { const orbit = ring('enhancement-crown', 0.50 + i * 0.2, 0.028, new Vector3(0, 1.88 + i * 0.14, 0), violet, model); orbit.rotation.z = i * 0.40; }
+    } else if (kind === 'siege' || kind === 'siege_machine' || kind.includes('commander')) {
       box('siege-frame', [1.12, 0.48, 0.68], [0, 0.49, 0], leather, model, pick);
       box('siege-armor', [0.9, 0.24, 0.76], [0, 0.84, 0], red, model, pick);
       cylinder('siege-mast', 0.07, 1.7, [0.25, 1.07, 0], metal, model, pick);
@@ -280,6 +340,7 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
       for (const x of [-0.42, 0.42]) for (const z of [-0.43, 0.43]) {
         const wheel = cylinder('siege-wheel', 0.55, 0.15, [x, 0.37, z], metal, model, pick); wheel.rotation.x = Math.PI / 2;
       }
+      if (kind === 'siege_machine') { box('catapult-arm', [1.28, 0.12, 0.12], [0, 0.97, -0.06], wood, model, pick).rotation.z = -0.45; sphere('catapult-payload', 0.27, [-0.53, 1.20, -0.06], stone, model, pick); }
     } else {
       cylinder('creep-body', 0.32, 0.5, [0, 0.48, 0], red, model, pick, 0.21);
       sphere('creep-head', 0.25, [0, 0.86, 0], kind === 'ranged' ? gold : metal, model, pick);
@@ -295,7 +356,7 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
   function createActor(unit: VisualUnit, role: RendererPickKind): Actor {
     const root = new TransformNode(unit.id, scene), pick: RendererPick = { kind: role, id: unit.id, x: unit.x, y: unit.y };
     const model = makeModel(unit.kind ?? (role === 'ground' ? 'snake' : 'melee'), root, role === 'ground' ? undefined : pick);
-    const hpBack = MeshBuilder.CreatePlane('hp-background', { width: 0.80, height: 0.065 }, scene); hpBack.parent = root; hpBack.position.y = role === 'hero' ? 2.2 : role === 'building' ? 1.92 : 1.32; hpBack.material = dark; hpBack.billboardMode = Mesh.BILLBOARDMODE_ALL; hpBack.isPickable = false;
+    const hpBack = MeshBuilder.CreatePlane('hp-background', { width: 0.80, height: 0.065 }, scene); hpBack.parent = root; hpBack.position.y = role === 'hero' ? 2.2 : role === 'building' ? 1.92 : unit.kind?.includes('commander') ? 2.45 : 1.32; hpBack.material = dark; hpBack.billboardMode = Mesh.BILLBOARDMODE_ALL; hpBack.isPickable = false;
     const hp = MeshBuilder.CreatePlane('hp', { width: 0.74, height: 0.038 }, scene); hp.parent = hpBack; hp.position.z = -0.006; hp.material = role === 'enemy' ? red : green; hp.isPickable = false;
     const result: Actor = { root, model, hp, hpBack, key: `${role}:${unit.kind ?? ''}:${unit.level ?? 1}`, born: clock, flashUntil: 0,
       baseline: model.getChildMeshes().filter((x): x is Mesh => x instanceof Mesh).map(mesh => ({ mesh, position: mesh.position.clone() })) };
@@ -306,6 +367,26 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
   }
   function allUnits(): VisualUnit[] { return current ? [...current.heroes, ...current.buildings, ...current.enemies, ...current.summons] : []; }
   const getUnit = (id?: string) => id ? allUnits().find(x => x.id === id) : undefined;
+  function updateExpeditionGlyphs(heroes: VisualUnit[]) {
+    const absent = new Set<string>();
+    for (const hero of heroes) if (hero.expedition) {
+      absent.add(hero.id); const expedition = hero.expedition;
+      let glyph = absentGlyphs.get(hero.id);
+      if (glyph && glyph.kind !== expedition.kind) { glyph.root.dispose(); absentGlyphs.delete(hero.id); glyph = undefined; }
+      if (!glyph) {
+        const root = new TransformNode(`reserved-expedition-${hero.id}`, scene), segments: Mesh[] = [], mat = expeditionMaterial(expedition.kind);
+        const p = content.map.places.find(p => p.id === hero.anchorId) ?? hero; root.position.copyFrom(unitPos(p, 0.10));
+        ring('reserved-expedition-outline', 0.88, 0.030, new Vector3(0, 0.015, 0), mat, root);
+        for (let i = 0; i < 12; i++) { const a = -Math.PI / 2 + i * Math.PI / 6, segment = box('expedition-progress-segment', [0.15, 0.028, 0.055], [Math.cos(a) * 0.40, 0.035, Math.sin(a) * 0.40], mat, root); segment.rotation.y = -a; segments.push(segment); }
+        cylinder('expedition-hourglass-upper', 0.22, 0.21, [0, 0.30, 0], mat, root, undefined, 0.025);
+        cylinder('expedition-hourglass-lower', 0.025, 0.21, [0, 0.51, 0], mat, root, undefined, 0.22);
+        glyph = { root, segments, kind: expedition.kind, progress: 0 }; absentGlyphs.set(hero.id, glyph);
+      }
+      glyph.progress = Math.max(0, Math.min(1, 1 - expedition.remainingTicks / Math.max(1, expedition.totalTicks)));
+      glyph.segments.forEach((segment, i) => { segment.visibility = i < Math.floor(glyph!.progress * 12) ? 1 : 0.18; });
+    }
+    for (const [id, glyph] of absentGlyphs) if (!absent.has(id)) { glyph.root.dispose(); absentGlyphs.delete(id); }
+  }
   function addEffect(effect: Effect) {
     // Bound transient graphics. Critical ability telegraphs displace secondary bolts first.
     if (effects.length >= 100) {
@@ -322,10 +403,38 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
   function animateEvent(event: RendererEvent) {
     const type = event.effectId ?? event.type, from = event.source ?? getUnit(event.sourceId) ?? event.position ?? content.map.throne;
     if (event.effectId) visualEventCounts.set(type, (visualEventCounts.get(type) ?? 0) + 1);
+    // Hidden enemies have no model, health bar, trace or targeting affordance.
+    if (type !== 'detection_reveal' && [getUnit(event.sourceId), getUnit(event.targetId)].some(u => u?.hidden && u.visible === false)) return;
     const to = event.target ?? getUnit(event.targetId) ?? event.position ?? from;
     const target = actors.get(event.targetId ?? ''); if (target) target.flashUntil = clock + 0.16;
     if (event.type === 'projectile_hit') { burst(to, type === 'snake_bolt' ? green : type.includes('pudge') || type === 'hook_pull' ? amber : blue, 0.22, 0.2); return; }
-    if (type === 'rubick_steal') {
+    if (type === 'expedition_depart' || type === 'expedition_return') {
+      const mat = expeditionMaterial(event.kind), a = unitPos(from, 0.35), z = unitPos(to, 0.35);
+      const at = (t: number) => Vector3.Lerp(a, z, t).add(new Vector3(0, Math.sin(t * Math.PI) * 1.5, 0));
+      const path = line('expedition-route', Array.from({ length: 16 }, (_, i) => at(i / 15)), mat.diffuseColor);
+      const departure = ring('expedition-source-rune', 0.88, 0.035, unitPos(from, 0.14), mat), arrival = ring('expedition-target-rune', 0.88, 0.045, unitPos(to, 0.14), mat);
+      const parcel = MeshBuilder.CreatePolyhedron('expedition-travelling-sigil', { type: 1, size: 0.16 }, scene); parcel.material = mat; parcel.isPickable = false;
+      addEffect({ nodes: [path, departure, arrival, parcel], start: clock, ttl: type === 'expedition_return' ? 1.15 : 0.95, critical: true, family: type, sourceId: event.sourceId, update(t) { parcel.position.copyFrom(at(Math.min(1, t * 1.15))); parcel.rotation.y = t * 7; parcel.visibility = t < 0.90 ? 1 : (1 - t) * 10; departure.scaling.setAll(1 - t * 0.5); arrival.scaling.setAll(0.6 + t * 0.8); path.visibility = departure.visibility = arrival.visibility = 1 - t * 0.8; } });
+    } else if (type === 'aegis_revive') {
+      const p = event.position ?? to, lower = ring('aegis-rebirth-lower', 1.0, 0.065, unitPos(p, 0.12), campAmber), upper = ring('aegis-rebirth-crown', 0.7, 0.045, unitPos(p, 1.3), campAmber);
+      const wings: Mesh[] = [];
+      for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3, m = box('aegis-rebirth-wing', [0.075, 1.3, 0.055], [p.x * scale + Math.cos(a) * 0.5, 0.85, worldZ(p.y) + Math.sin(a) * 0.5], i % 2 ? campAmber : heal); m.rotation.z = Math.cos(a) * 0.25; wings.push(m); }
+      addEffect({ nodes: [lower, upper, ...wings], start: clock, ttl: 1.2, critical: true, family: type, update(t) { lower.scaling.setAll(0.6 + t * 1.7); upper.position.y = 0.45 + Math.min(1, t * 2) * 1.65; upper.rotation.y = t * 3; lower.visibility = upper.visibility = 1 - Math.max(0, t - 0.55) / 0.45; wings.forEach((m, i) => { m.position.y = 0.3 + t * 1.8; m.visibility = 1 - t; m.scaling.y = 0.3 + Math.sin(t * Math.PI) * 0.7; }); } });
+    } else if (type === 'item_equipped' || type === 'reward_pending' || type === 'expedition_reward') {
+      const p = event.position ?? to, mat = type === 'item_equipped' ? shopViolet : campAmber;
+      const halo = ring('reward-seal', 0.8, 0.04, unitPos(p, 0.18), mat);
+      const gems = Array.from({ length: 3 }, (_, i) => { const m = MeshBuilder.CreatePolyhedron('reward-rising-token', { type: 1, size: 0.11 }, scene); m.material = mat; m.isPickable = false; m.position.copyFrom(unitPos(p, 0.5)); return m; });
+      addEffect({ nodes: [halo, ...gems], start: clock, ttl: 1.0, critical: true, family: type, update(t) { halo.scaling.setAll(0.7 + t * 0.65); halo.visibility = 1 - t; gems.forEach((m, i) => { const a = i * Math.PI * 2 / 3 + t; m.position.set(p.x * scale + Math.cos(a) * 0.35, 0.4 + t * 1.7, worldZ(p.y) + Math.sin(a) * 0.35); m.rotation.y = t * 6; m.visibility = 1 - t; }); } });
+    } else if (type === 'healing_aura' || type === 'enemy_heal') {
+      const source = unitPos(from, 0.6), targetPos = unitPos(to, 0.6), trace = line('healing-link', [source, Vector3.Center(source, targetPos).add(new Vector3(0, 0.6, 0)), targetPos], heal.diffuseColor);
+      const glyphs = [box('aura-cross-v', [0.055, 0.34, 0.055], [targetPos.x, 0.4, targetPos.z], heal), box('aura-cross-h', [0.28, 0.055, 0.055], [targetPos.x, 0.4, targetPos.z], heal)];
+      const halo = ring('healing-target', 0.65, 0.032, unitPos(to, 0.11), type === 'enemy_heal' ? amber : heal);
+      addEffect({ nodes: [trace, halo, ...glyphs], start: clock, ttl: 0.65, critical: true, family: type, update(t) { trace.visibility = 1 - t; halo.scaling.setAll(0.6 + t); halo.visibility = 1 - t; glyphs.forEach(m => { m.position.y = 0.4 + t; m.visibility = 1 - t; }); } });
+    } else if (type === 'detection_reveal') {
+      const p = event.position ?? to, halo = ring('detection-reveal-circle', 0.7, 0.045, unitPos(p, 0.11), blue);
+      const brackets = [-1, 1].map(side => box('detection-bracket', [0.045, 0.6, 0.05], [p.x * scale + side * 0.36, 0.7, worldZ(p.y)], blue));
+      addEffect({ nodes: [halo, ...brackets], start: clock, ttl: 0.65, critical: true, family: type, update(t) { halo.scaling.setAll(1 + t * 0.5); halo.visibility = 1 - t; brackets.forEach((m, i) => { m.position.x = p.x * scale + (i ? 1 : -1) * (0.55 - t * 0.20); m.visibility = 1 - t; }); } });
+    } else if (type === 'rubick_steal') {
       const a = unitPos(from, 1.5), z = unitPos(to, 1.9).add(new Vector3(0.48, 0, -0.08)), control = Vector3.Center(a, z).add(new Vector3(0, 1.7, 0));
       const at = (t: number) => a.scale((1 - t) ** 2).add(control.scale(2 * t * (1 - t))).add(z.scale(t * t));
       const arc = line('spell-theft-arc', Array.from({ length: 13 }, (_, i) => at(i / 12)), green.diffuseColor);
@@ -425,10 +534,12 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
   }
   function updateSelection() {
     const unit = getUnit(selection?.id), place = content.map.places.find(p => p.id === selection?.id);
-    const p = unit ?? place;
+    const destination = selection?.kind === 'expedition' ? content.expeditions.find(e => e.kind === selection?.id) : undefined;
+    const p = unit ?? place ?? destination?.position;
     if (range) { range.dispose(); range = undefined; }
     for (const [id, mesh] of placeMeshes) { mesh.renderOutline = id === selection?.id; mesh.outlineColor = selection?.kind === 'pad' ? amber.diffuseColor : green.diffuseColor; mesh.outlineWidth = 0.04; }
-    if (p && selection && selection.aim !== 'teleport' && (selection.kind !== 'pad' || selection.previewKind)) {
+    for (const [kind, mesh] of expeditionMeshes) { mesh.renderOutline = selection?.kind === 'expedition' && selection.id === kind; mesh.outlineColor = expeditionMaterial(kind).diffuseColor; mesh.outlineWidth = 0.05; }
+    if (p && selection && selection.kind !== 'expedition' && !unit?.expedition && !unit?.hidden && selection.aim !== 'teleport' && (selection.kind !== 'pad' || selection.previewKind)) {
       let radius = 0.75;
       if (selection.kind === 'hero') { const definition = content.heroes.find(h => h.kind === unit?.kind); radius = (selection.aim === 'cast' ? definition?.abilityRange ?? 100 : (definition?.range ?? 100) + ((unit?.level ?? 1) - 1) * 25) * scale; }
       if (selection.kind === 'building') radius = ((content.buildings.find(h => h.kind === unit?.kind)?.range ?? 100) + ((unit?.level ?? 1) - 1) * 20) * scale;
@@ -473,7 +584,7 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
   canvas.addEventListener('pointerdown', pointer);
   const gl = canvas.getContext(engine.webGLVersion === 2 ? 'webgl2' : 'webgl') as WebGLRenderingContext | WebGL2RenderingContext | null;
   const limits = gl ? { maxTextureSize: gl.getParameter(gl.MAX_TEXTURE_SIZE), maxRenderbufferSize: gl.getParameter(gl.MAX_RENDERBUFFER_SIZE), maxViewportDimensions: Array.from(gl.getParameter(gl.MAX_VIEWPORT_DIMS) as Int32Array) } : null;
-  // Compile every R2 model family before the caller starts its simulation. Warm-up
+  // Compile every R3 model family before the caller starts its simulation. Warm-up
   // meshes are never gameplay entities and are released after shader readiness.
   const warm = new TransformNode('resource-warmup', scene); warm.position.y = -100;
   for (const kind of [...content.heroes.map(h => h.kind), ...content.buildings.map(b => b.kind), 'snake', 'tombstone', 'zombie', ...content.enemies.map(e => e.kind)]) makeModel(kind, warm);
@@ -485,12 +596,13 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
     render(game: RendererGame, events: readonly RendererEvent[] = [], deltaSeconds = 0) {
       if (disposed || contextLost) return;
       resize(); clock += Math.max(0, Math.min(deltaSeconds, 0.1));
-      if (lastTick > game.simTick) { for (const actor of actors.values()) actor.root.dispose(); actors.clear(); effects.splice(0).forEach(e => e.nodes.forEach(n => n.dispose())); seenEvents.clear(); eventOrder.length = 0; visualEventCounts.clear(); }
+      if (lastTick > game.simTick) { for (const actor of actors.values()) actor.root.dispose(); actors.clear(); for (const glyph of absentGlyphs.values()) glyph.root.dispose(); absentGlyphs.clear(); effects.splice(0).forEach(e => e.nodes.forEach(n => n.dispose())); seenEvents.clear(); eventOrder.length = 0; visualEventCounts.clear(); }
       lastTick = game.simTick; current = game;
+      updateExpeditionGlyphs(game.heroes);
       const live = new Set<string>();
       const groups: Array<[RendererPickKind, VisualUnit[]]> = [['hero', game.heroes], ['building', game.buildings], ['enemy', game.enemies], ['ground', game.summons]];
       for (const [role, units] of groups) for (const unit of units) {
-        if (unit.hp <= 0) continue;
+        if (unit.hp <= 0 || role === 'hero' && unit.expedition || role === 'enemy' && unit.hidden && unit.visible === false) continue;
         live.add(unit.id); const key = `${role}:${unit.kind ?? ''}:${unit.level ?? 1}`;
         let actor = actors.get(unit.id);
         if (actor && actor.key !== key) { actor.root.dispose(); actors.delete(unit.id); actor = undefined; }
@@ -516,6 +628,13 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
           if (unit.kind === 'rubick' && item.mesh.name === 'rubick-floating-fragment') { item.mesh.position.x = Math.cos(clock * 0.85 + i) * 0.48; item.mesh.position.z = Math.sin(clock * 0.85 + i) * 0.34; item.mesh.rotation.y = clock * 1.2; }
           if (unit.kind === 'rubick' && item.mesh.name === 'rubick-carried-spell') { item.mesh.setEnabled(!!unit.stolenSpell); item.mesh.material = spellMaterial(unit.stolenSpell); item.mesh.scaling.setAll(0.9 + Math.sin(clock * 3) * 0.15); }
           if (item.mesh.name === 'commander-focus') item.mesh.material = spellMaterial(unit.lastSpell);
+          if (item.mesh.name === 'enhancement-crown') item.mesh.rotation.y = clock * 0.8 + i;
+        }
+        if (role === 'hero') {
+          if (!actor.itemMarkers) actor.itemMarkers = [0, 1].map(i => { const m = MeshBuilder.CreatePolyhedron(`hero-item-${i}`, { type: 1, size: 0.095 }, scene); m.parent = actor!.root; m.position.set(i ? 0.38 : -0.38, 0.85, 0.30); m.isPickable = false; return m; });
+          actor.itemMarkers.forEach((marker, i) => { const itemId = unit.items?.[i], item = content.items.find(item => item.id === itemId); marker.setEnabled(!!item); marker.material = item?.behaviorId === 'healing_aura' ? heal : item?.behaviorId === 'detection' ? blue : item?.behaviorId === 'cooldown_reduction' ? shopViolet : campAmber; marker.rotation.y = clock * 0.4; });
+          if (unit.aegisToken) { actor.aegis ??= ring('hero-aegis-token', 0.29, 0.047, new Vector3(0.50, 1.12, 0.18), campAmber, actor.root); actor.aegis.rotation.x = Math.PI / 2; actor.aegis.scaling.setAll(1 + Math.sin(clock * 2) * 0.08); }
+          else if (actor.aegis) { actor.aegis.dispose(); actor.aegis = undefined; }
         }
         if (unit.shield && unit.shield.remainingTicks > 0 && unit.shield.absorption > 0) {
           if (!actor.shields) { actor.shields = [ring('active-shield-lower', 1.0, 0.035, new Vector3(0, 0.32, 0), violet, actor.root), ring('active-shield-upper', 0.9, 0.035, new Vector3(0, 1.5, 0), violet, actor.root)]; for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2; const panel = box('active-shield-panel', [0.10, 0.46, 0.055], [Math.cos(a) * 0.48, 0.9, Math.sin(a) * 0.48], violet, actor.root); panel.rotation.y = -a; actor.shields.push(panel); } }
@@ -534,14 +653,14 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
       for (const [id, actor] of actors) if (!live.has(id)) {
         // A lethal hook still carries its visible victim down the actual chain.
         // This short cosmetic death tail cannot become a simulation target.
-        if (actor.pull && clock < actor.pull.start + actor.pull.ttl) { const t = (clock - actor.pull.start) / actor.pull.ttl; actor.root.position.copyFrom(Vector3.Lerp(unitPos(actor.pull.from), unitPos(actor.pull.to), t * t * (3 - 2 * t))); actor.hpBack.setEnabled(false); actor.model.getChildMeshes().forEach(m => m.isPickable = false); }
+        if (actor.pull && !getUnit(id)?.expedition && !(getUnit(id)?.hidden && getUnit(id)?.visible === false) && clock < actor.pull.start + actor.pull.ttl) { const t = (clock - actor.pull.start) / actor.pull.ttl; actor.root.position.copyFrom(Vector3.Lerp(unitPos(actor.pull.from), unitPos(actor.pull.to), t * t * (3 - 2 * t))); actor.hpBack.setEnabled(false); actor.model.getChildMeshes().forEach(m => m.isPickable = false); }
         else { actor.root.dispose(); actors.delete(id); }
       }
       for (let i = effects.length - 1; i >= 0; i--) { const e = effects[i]!, age = clock - e.start; if (age < 0) continue; if (age >= e.ttl) { e.nodes.forEach(n => n.dispose()); effects.splice(i, 1); } else e.update(age / e.ttl, age); }
       for (const place of content.map.places) if (place.kind === 'hero_anchor') { const mesh = placeMeshes.get(place.id)!; const occupied = game.heroes.some(h => h.anchorId === place.id || h.teleport?.targetAnchorId === place.id); mesh.material = selection?.aim === 'teleport' && !occupied ? material('eligible-anchor', '#458565', 0.3) : slate; }
       const nextGhostKey = selection?.kind === 'pad' && selection.previewKind && !game.buildings.some(x => x.padId === selection?.id) ? `${selection.id}:${selection.previewKind}` : '';
       if (nextGhostKey !== ghostKey) updateSelection();
-      if (range && selection?.kind === 'hero') { const unit = getUnit(selection.id); if (unit) range.position.copyFrom(unitPos(unit, 0.16)); }
+      if (range && selection?.kind === 'hero') { const unit = getUnit(selection.id); if (unit?.expedition) { range.dispose(); range = undefined; } else if (unit) range.position.copyFrom(unitPos(unit, 0.16)); }
       throneCrystal.rotation.y = clock * 0.26; throneRing.rotation.z = Math.sin(clock * 0.7) * 0.14;
       throneCrystal.scaling.set(0.65, 1.5 + Math.sin(clock * 2.1) * 0.055, 0.65);
       if ((game.throneHp ?? 1) <= 0) throneCrystal.scaling.y = 0.08;
@@ -554,6 +673,9 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
         cssWidth: lastWidth, cssHeight: lastHeight, drawingBufferWidth: gl?.drawingBufferWidth ?? engine.getRenderWidth(), drawingBufferHeight: gl?.drawingBufferHeight ?? engine.getRenderHeight(),
         meshes: scene.meshes.length, materials: scene.materials.length, actors: actors.size, effects: effects.length, seenEvents: seenEvents.size, limits, glInfo: engine.getGlInfo(), ready: scene.isReady(),
         actorKinds: Array.from(actors.values()).map(a => a.key), visualEventCounts: Object.fromEntries(visualEventCounts),
+        destinations: Array.from(expeditionMeshes).map(([kind, mesh]) => ({ kind, x: mesh.position.x, z: mesh.position.z, selected: mesh.renderOutline })),
+        absentHeroes: Array.from(absentGlyphs).map(([id, glyph]) => ({ id, kind: glyph.kind, progress: glyph.progress, completedSegments: glyph.segments.filter(m => m.visibility === 1).length, x: glyph.root.position.x, z: glyph.root.position.z })),
+        itemMarkers: Array.from(actors).filter(([, a]) => a.itemMarkers).map(([id, a]) => ({ id, enabled: a.itemMarkers!.map(m => m.isEnabled()), aegis: !!a.aegis })),
         actorPositions: Array.from(actors).map(([id, a]) => ({ id, x: a.root.position.x, z: a.root.position.z, modelScaleY: a.model.scaling.y })),
         shieldActors: Array.from(actors).filter(([, a]) => a.shields).map(([id]) => id), slowActors: Array.from(actors).filter(([, a]) => a.slowRing).map(([id]) => id),
         carriedSpells: allUnits().filter(u => u.kind === 'rubick' && !!u.stolenSpell).map(u => ({ id: u.id, spellId: u.stolenSpell, enabled: actors.get(u.id)?.model.getChildMeshes().some(m => m.name === 'rubick-carried-spell' && m.isEnabled()) ?? false })),
@@ -562,7 +684,7 @@ export function createRenderer(canvas: HTMLCanvasElement, content: GameContent,
     },
     dispose() {
       if (disposed) return; disposed = true; resizeObserver.disconnect(); window.removeEventListener('resize', resize); canvas.removeEventListener('pointerdown', pointer);
-      engine.onContextLostObservable.remove(lostObserver); engine.onContextRestoredObservable.remove(restoredObserver); scene.dispose(); engine.dispose(); actors.clear(); effects.length = 0; seenEvents.clear(); eventOrder.length = 0;
+      engine.onContextLostObservable.remove(lostObserver); engine.onContextRestoredObservable.remove(restoredObserver); scene.dispose(); engine.dispose(); actors.clear(); absentGlyphs.clear(); expeditionMeshes.clear(); effects.length = 0; seenEvents.clear(); eventOrder.length = 0;
     }
   };
 }

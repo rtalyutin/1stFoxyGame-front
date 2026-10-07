@@ -10,25 +10,25 @@ import { catalogSource } from '../scripts/catalog-source.mjs';
 const hash = value => createHash('sha256').update(value).digest('hex');
 const original = JSON.parse(await readFile(new URL('../games.json', import.meta.url), 'utf8'));
 function fixture(change = {}, {recomputeETag = false} = {}) {
-  const versions = { frontend:'r2-web-test', backend:'r2-api-test', core:'r2-core-1', content:'r2-content-1', metadataSchema:'r2-meta-1', saveFormat:3, api:1 };
+  const versions = { frontend:'r3-web-test', backend:'r3-api-test', core:'r3-core-1', content:'r3-content-1', metadataSchema:'r3-meta-1', saveFormat:4, api:1 };
   const page = '<script src="./assets/game.js"></script>', script = 'console.log("play")';
-  const manifest = { releaseId:'r2-001', sourceHash:'source', clientEntry:'web/index.html', versions,
+  const manifest = { releaseId:'r3-001', sourceHash:'source', clientEntry:'web/index.html', versions,
     files:{ 'web/index.html':hash(page), 'web/assets/game.js':hash(script) } };
   const bytes = JSON.stringify(manifest);
-  const content = {contentVersion:'r2-content-1',metadataSchemaVersion:'r2-meta-1'};
+  const content = {contentVersion:'r3-content-1',metadataSchemaVersion:'r3-meta-1'};
   const body = {
     '/td/':'fetch("/td/current.json")',
-    '/td/current.json':{ releaseId:'r2-001',clientEntry:'web/index.html',manifestUrl:'/td/releases/r2-001/manifest.json',versions },
-    '/td/releases/r2-001/manifest.json':bytes,
-    '/td/api/v1/ready':{ ready:true,releaseId:'r2-001' },
-    '/td/api/v1/bootstrap?clientReleaseId=r2-001':{clientReleaseId:'r2-001',apiReleaseId:'r2-001',versions,
-      capabilities:{battle:true,profiles:true,cloudSaves:true},contentUrl:'/td/api/v1/content?clientReleaseId=r2-001'},
-    '/td/api/v1/content?clientReleaseId=r2-001':content,
-    '/td/releases/r2-001/web/index.html':page, '/td/releases/r2-001/web/assets/game.js':script,
+    '/td/current.json':{ releaseId:'r3-001',clientEntry:'web/index.html',manifestUrl:'/td/releases/r3-001/manifest.json',versions },
+    '/td/releases/r3-001/manifest.json':bytes,
+    '/td/api/v1/ready':{ ready:true,releaseId:'r3-001' },
+    '/td/api/v1/bootstrap?clientReleaseId=r3-001':{clientReleaseId:'r3-001',apiReleaseId:'r3-001',versions,
+      capabilities:{battle:true,profiles:true,cloudSaves:true},contentUrl:'/td/api/v1/content?clientReleaseId=r3-001'},
+    '/td/api/v1/content?clientReleaseId=r3-001':content,
+    '/td/releases/r3-001/web/index.html':page, '/td/releases/r3-001/web/assets/game.js':script,
   };
   Object.assign(body, change);
   const requests=[];
-  return { expected:{releaseId:'r2-001',sourceHash:'source',manifestSha256:hash(bytes),projectionHash:hash(JSON.stringify(content))}, requests,
+  return { expected:{releaseId:'r3-001',sourceHash:'source',manifestSha256:hash(bytes),projectionHash:hash(JSON.stringify(content))}, requests,
     fetchImpl:async (url, options) => {
       assert.equal(options.redirect,'error'); assert.equal(options.cache,'no-store'); assert.ok(options.signal);
       const u = new URL(url); assert.equal(u.origin,'https://games.test'); const path = u.pathname + u.search; requests.push(path);
@@ -40,7 +40,7 @@ function fixture(change = {}, {recomputeETag = false} = {}) {
 }
 test('ready deployment checks launcher, API, content and every client byte',async()=>{
   const f=fixture(), result=await probeDeployment('https://games.test',f.expected,f.fetchImpl);
-  assert.equal(result.filesChecked,2); assert.ok(f.requests.includes('/td/releases/r2-001/web/assets/game.js'));
+  assert.equal(result.filesChecked,2); assert.ok(f.requests.includes('/td/releases/r3-001/web/assets/game.js'));
 });
 test('requires an explicit HTTPS origin and rejects credentials and unrelated paths',()=>{
   for(const origin of ['http://games.test','https://user:secret@games.test','https://games.test/hub/','https://games.test/?x=1']) assert.throws(()=>httpsOrigin(origin));
@@ -50,32 +50,32 @@ test('rejects a launcher selecting the old client',async()=>{
   await assert.rejects(probeDeployment('https://games.test',f.expected,f.fetchImpl),/select/);
 });
 test('rejects a modified release manifest',async()=>{
-  const f=fixture({'/td/releases/r2-001/manifest.json':'{}'});
+  const f=fixture({'/td/releases/r3-001/manifest.json':'{}'});
   await assert.rejects(probeDeployment('https://games.test',f.expected,f.fetchImpl),/manifest hash/);
 });
 test('rejects unready API',async()=>{
-  const f=fixture({'/td/api/v1/ready':{ready:false,releaseId:'r2-001'}});
+  const f=fixture({'/td/api/v1/ready':{ready:false,releaseId:'r3-001'}});
   await assert.rejects(probeDeployment('https://games.test',f.expected,f.fetchImpl),/not ready/);
 });
 test('rejects incompatible API and absent gameplay capabilities',async()=>{
   for (const value of [
-    {clientReleaseId:'r2-001',apiReleaseId:'r1-002'},
-    {clientReleaseId:'r2-001',apiReleaseId:'r2-001',versions:{},capabilities:{battle:false}},
+    {clientReleaseId:'r3-001',apiReleaseId:'r1-002'},
+    {clientReleaseId:'r3-001',apiReleaseId:'r3-001',versions:{},capabilities:{battle:false}},
   ]) {
-    const f=fixture({'/td/api/v1/bootstrap?clientReleaseId=r2-001':value});
+    const f=fixture({'/td/api/v1/bootstrap?clientReleaseId=r3-001':value});
     await assert.rejects(probeDeployment('https://games.test',f.expected,f.fetchImpl));
   }
 });
 test('rejects content that disagrees with its ETag',async()=>{
-  const f=fixture({'/td/api/v1/content?clientReleaseId=r2-001':{contentVersion:'r2-content-1',metadataSchemaVersion:'r2-meta-1',tampered:true}});
+  const f=fixture({'/td/api/v1/content?clientReleaseId=r3-001':{contentVersion:'r3-content-1',metadataSchemaVersion:'r3-meta-1',tampered:true}});
   await assert.rejects(probeDeployment('https://games.test',f.expected,f.fetchImpl),/Content identity/);
 });
-test('rejects modified R2 content even if the API recomputes a matching ETag',async()=>{
-  const f=fixture({'/td/api/v1/content?clientReleaseId=r2-001':{contentVersion:'r2-content-1',metadataSchemaVersion:'r2-meta-1',tampered:true}},{recomputeETag:true});
+test('rejects modified R3 content even if the API recomputes a matching ETag',async()=>{
+  const f=fixture({'/td/api/v1/content?clientReleaseId=r3-001':{contentVersion:'r3-content-1',metadataSchemaVersion:'r3-meta-1',tampered:true}},{recomputeETag:true});
   await assert.rejects(probeDeployment('https://games.test',f.expected,f.fetchImpl),/projection hash/);
 });
 test('rejects a missing or altered immutable client chunk',async()=>{
-  const f=fixture({'/td/releases/r2-001/web/assets/game.js':'tampered'});
+  const f=fixture({'/td/releases/r3-001/web/assets/game.js':'tampered'});
   await assert.rejects(probeDeployment('https://games.test',f.expected,f.fetchImpl),/Client hash/);
 });
 test('rejects redirects and oversized responses',async()=>{
