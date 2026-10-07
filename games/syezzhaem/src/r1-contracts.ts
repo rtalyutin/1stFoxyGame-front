@@ -3,7 +3,7 @@ export type { SnapshotV1, BuildContext, CellOverride } from './snapshot-v1.js';
 export type RunLifecycle = 'active' | 'won' | 'lost' | 'abandoned';
 export interface ResultDto {
   outcome: 'playing' | 'won' | 'lost'; score: number; elapsed_seconds: number;
-  retained_fraction: number; distance: number; cat_saved: false; chest_saved: false;
+  retained_fraction: number; distance: number; cat_saved: boolean; chest_saved: boolean;
 }
 export interface RunDto {
   run_id: string; revision: number; lifecycle: RunLifecycle; checkpoint: SnapshotV1;

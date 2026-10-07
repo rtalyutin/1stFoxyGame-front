@@ -1,0 +1,54 @@
+CANDIDATE r2-route-001 MANIFEST 86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9 FINGERPRINT ca7afbd5711be06fb53def1e59761f457e2796c66799895353ef0b1ca618947d
+ROUTE desktop x=19.70 tick=1634 lava=3.42 hp=3 core=100
+ROUTE touch x=18.16 tick=1492 lava=1.65 hp=3 core=100
+ROUTE desktop x=34.66 tick=3015 lava=20.69 hp=3 core=100
+ROUTE touch x=31.76 tick=2747 lava=17.34 hp=3 core=100
+ROUTE desktop x=47.39 tick=4190 lava=35.37 hp=3 core=70
+ROUTE touch x=42.69 tick=3756 lava=29.95 hp=3 core=100
+ROUTE desktop x=60.20 tick=5372 lava=50.15 hp=3 core=70
+ROUTE touch x=54.11 tick=4810 lava=43.13 hp=3 core=70
+ROUTE desktop x=75.42 tick=6777 lava=67.71 hp=3 core=70
+ROUTE touch x=67.88 tick=6081 lava=59.01 hp=3 core=70
+ROUTE desktop x=88.74 tick=8007 lava=83.09 hp=3 core=70
+ROUTE touch x=79.62 tick=7165 lava=72.56 hp=3 core=70
+ROUTE desktop x=104.99 tick=9507 lava=101.84 hp=3 core=70
+ROUTE touch x=94.89 tick=8574 lava=90.18 hp=3 core=70
+ROUTE desktop x=120.54 tick=10942 lava=119.78 hp=3 core=70
+ROUTE touch x=109.26 tick=9901 lava=106.76 hp=3 core=70
+PASS Q204
+PASS Q205
+PASS Q221
+{
+  "candidate": {
+    "manifest_version": 1,
+    "build_id": "r2-route-001",
+    "entry_url": "/games/syezzhaem/releases/r2-route-001/",
+    "api_version": "v1",
+    "content_version": "r2-map-1",
+    "rules_version": "r2-rules-1",
+    "snapshot_schema_version": 1,
+    "level_id": "house-full-route",
+    "manifest_sha256": "86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9"
+  },
+  "before": "ca7afbd5711be06fb53def1e59761f457e2796c66799895353ef0b1ca618947d",
+  "after": "ca7afbd5711be06fb53def1e59761f457e2796c66799895353ef0b1ca618947d",
+  "sourceStable": true,
+  "planned": 22,
+  "executed": 3,
+  "statuses": [
+    {
+      "id": "Q204",
+      "status": "PASS"
+    },
+    {
+      "id": "Q205",
+      "status": "PASS"
+    },
+    {
+      "id": "Q221",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "gate_verdict": "BLOCKED"
+}

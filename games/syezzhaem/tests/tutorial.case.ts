@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createInitial,step,snapshot,restore,targetAt} from '../src/core';
 import {tutorialGuide,tutorialAction} from '../src/tutorial';
-import {toSnapshotV1,fromSnapshotV1,CURRENT_BUILD_CONTEXT,BUILD_CONTEXT,validateSnapshotV1} from '../src/snapshot-v1';
+import {toSnapshotV1,fromSnapshotV1,INTRO_BUILD_CONTEXT,BUILD_CONTEXT,validateSnapshotV1} from '../src/snapshot-v1';
 import {rulesFor} from '../src/contracts';
 
 test('first real wall-to-bridge transfer is untimed, safe, and survives a fresh snapshot load',()=>{
@@ -16,7 +16,7 @@ test('first real wall-to-bridge transfer is untimed, safe, and survives a fresh 
   assert.equal(g.target?.blockId,'original:7:1');
   assert.equal(tutorialAction(s,'take',g.target!).ok,true);
   assert.equal(s.player.support?.blockId,'original:4:0');
-  s=fromSnapshotV1(toSnapshotV1(s,CURRENT_BUILD_CONTEXT));
+  s=fromSnapshotV1(toSnapshotV1(s,INTRO_BUILD_CONTEXT));
   assert.equal(tutorialGuide(s)?.phase,'place');
   for(let i=0;i<600;i++)step(s);
   assert.equal(s.tick,0);
@@ -35,7 +35,7 @@ test('two guided blocks form a fixed bridge and carry the idle novice safely to 
     if(guide.phase==='take'||guide.phase==='place'){
       assert.equal(tutorialAction(s,guide.action,guide.target!).ok,true);
       commands++;
-      s=fromSnapshotV1(toSnapshotV1(s,CURRENT_BUILD_CONTEXT));
+      s=fromSnapshotV1(toSnapshotV1(s,INTRO_BUILD_CONTEXT));
     }else if(guide.phase==='wait')waited=true;
     step(s);restore(s);
   }
@@ -51,8 +51,8 @@ test('legacy content keeps its movement and 90-tick timer; mixed versions and re
   assert.equal(rulesFor(old).supportGrace,1.5);
   assert.equal(rulesFor(current).supportGrace,4);
   assert.deepEqual(fromSnapshotV1(toSnapshotV1(old,BUILD_CONTEXT)),old);
-  assert.throws(()=>toSnapshotV1(old,CURRENT_BUILD_CONTEXT),/mismatch/);
-  const encoded=toSnapshotV1(current,CURRENT_BUILD_CONTEXT);
+  assert.throws(()=>toSnapshotV1(old,INTRO_BUILD_CONTEXT),/mismatch/);
+  const encoded=toSnapshotV1(current,INTRO_BUILD_CONTEXT);
   assert.throws(()=>fromSnapshotV1({...encoded,rules_version:'r1-rules-1'}),/incompatible/);
   assert.throws(()=>validateSnapshotV1(encoded,BUILD_CONTEXT),/pinned/);
 });

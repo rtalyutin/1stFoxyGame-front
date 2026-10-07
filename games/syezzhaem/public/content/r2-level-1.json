@@ -1,0 +1,10 @@
+{
+  "version": "r2-level-1",
+  "level_id": "house-full-route",
+  "content_version": "r2-map-1",
+  "rules_version": "r2-rules-1",
+  "map": "r2-map-1.json",
+  "house": "r2-house-1.json",
+  "actors": "r2-actors-1.json",
+  "materials": "r2-materials-1.json"
+}

@@ -1,0 +1,28 @@
+CANDIDATE r2-route-001 MANIFEST 86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9 FINGERPRINT ca7afbd5711be06fb53def1e59761f457e2796c66799895353ef0b1ca618947d
+PASS Q201-legacy-intro
+{
+  "candidate": {
+    "manifest_version": 1,
+    "build_id": "r2-route-001",
+    "entry_url": "/games/syezzhaem/releases/r2-route-001/",
+    "api_version": "v1",
+    "content_version": "r2-map-1",
+    "rules_version": "r2-rules-1",
+    "snapshot_schema_version": 1,
+    "level_id": "house-full-route",
+    "manifest_sha256": "86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9"
+  },
+  "before": "ca7afbd5711be06fb53def1e59761f457e2796c66799895353ef0b1ca618947d",
+  "after": "ca7afbd5711be06fb53def1e59761f457e2796c66799895353ef0b1ca618947d",
+  "sourceStable": true,
+  "planned": 22,
+  "executed": 1,
+  "statuses": [
+    {
+      "id": "Q201-legacy-intro",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "gate_verdict": "BLOCKED"
+}

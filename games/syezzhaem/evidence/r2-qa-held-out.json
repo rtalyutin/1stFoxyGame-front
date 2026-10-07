@@ -1,0 +1,15 @@
+{
+ "status":"PREPARED; independent from implementation author tests, exact fixture bindings wait for candidate schema",
+ "visibility":"Not sent to implementation authors; shared filesystem is not a cryptographic isolation boundary",
+ "seed":731071,
+ "pairs":[
+  {"id":"H-range","reach":[5.999,6,6.001],"occlusion":["none","thin intersecting block","decorative cutaway only"]},
+  {"id":"H-inventory","materials":[[4,4,4],[5,4,3],[4,5,3]],"invalid_targets":["occupied stone cell","actor collider","chassis middle","player feet"]},
+  {"id":"H-support","same_cell":["old support ID","replacement placed UUID","missing support"],"actor":["chest","cat"]},
+  {"id":"H-burn","remaining_ticks":[127,61,1],"pause_wall_ms":1370,"pair":"uninterrupted vs native roundtrip then equal fixed-tick continuation"},
+  {"id":"H-fuse","remaining_ticks":[79,23,1],"move_away_after_arm":true,"blast_distance":[2.499,2.5,2.501],"durability":[1,2]},
+  {"id":"H-lava","contact_counter":[59,60,61],"grace_ticks":[89,90,91]},
+  {"id":"H-bonus","cat":["live shore","house original support","house placed support","falling","destroyed"],"chest":["held on house","held while airborne","world support","house support"],"loss_priority":"real final fuse tick with heart30 at portal boundary"},
+  {"id":"H-retry","lost_ack_at":["checkpoint commit","finish commit"],"reopen_at":["inflight+latest pending","terminal durable before ACK"],"stale_actor_tail":true}
+ ]
+}

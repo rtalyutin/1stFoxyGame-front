@@ -1,0 +1,53 @@
+Evidence prepared UTC: 2026-10-07T05:39:38.161013+00:00
+
+R2 frontend final author verification — captured excerpts and producer summary
+Provenance: /root/r1_front completed tool results; self-reported producer evidence, not independent QA.
+Full final stdout was not persisted; tool output was truncated. This file is NOT a complete raw stdout transcript.
+No commands were re-executed and no runtime source/dist files were changed to prepare this evidence.
+
+Latest completed command:
+  npm run check && npm test && npm run build
+Working directory: /workspace/scratch/102b8cada1c3/release-r2/front
+Unified exec session: 92824
+Final chunk: 43587d
+Combined exit_code: 0. Because the steps were chained with &&, all three commands completed with exit 0.
+
+Captured check stdout excerpt (chunk d20d54):
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> syezzhaem-r1-front@1.0.0 check
+> tsc --noEmit
+
+Captured test stdout excerpts (chunk 43587d; full output truncated):
+> syezzhaem-r1-front@1.0.0 test
+> node --import tsx --test tests/*.case.ts
+
+✔ AT-16: stone/slime seam landing is unchanged after sorted snapshot overrides (91.259966ms)
+
+Test summary: PASS, 51 tests. The complete summary block is absent from the truncated tool capture; the count 51 is the coordinator's latest reported count, not a reconstructed raw stdout line.
+
+Captured build stdout excerpts (chunk 43587d; full output truncated):
+dist/assets/index-Dm0oyAc0.js                         1,110.83 kB │ gzip: 268.84 kB
+
+✓ built in 580ms
+Release r2-route-001: 70 verified files
+
+Artifact identity, read-only confirmed again when preparing this evidence:
+  build_id: r2-route-001
+  sourceDigest: 61288a4239821a0224f31b7b0937497e176a1db69ae37673f90cfd462d2751d0
+  releaseManifestSha256: 86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9
+  actual SHA-256 of dist/release-manifest.json: 86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9
+The older evidence/r2-build.log is a previous candidate and is not the final build log.
+
+Latest completed optional browser command:
+  R2_PLAYWRIGHT_MODULE=/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs R2_CHROMIUM_PATH=/tmp/chromium LD_LIBRARY_PATH=/tmp node --import tsx tests/front-r2-ui.mjs
+Unified exec session: 12091
+Final chunk: dadc09
+exit_code: 0
+Browser: Chromium 153.0.8010.0, software WebGL2; actual main/IndexedDB with HTTP session/RPC fixtures.
+Touch regression uses Playwright touchscreen.tap browser-native input, not a DOM dispatchEvent. The test did not separately record the per-event isTrusted flag.
+The fixture moves only the informational banner over a reachable real wall cell point outside the interactive guide marker; core state is not altered for this regression.
+The banner contains the point; elementFromPoint returns scene; one tap increases command count exactly once and wood inventory from 0 to 1. The remaining three guide actions complete the two-cell intro.
+
+Exact final JSON stdout line from browser runner:
+{"browser":"153.0.8010.0","commands":8,"objectiveTouch":{"point":{"x":584.3358459472656,"y":355.9842320537567},"banner":{"left":434.328125,"top":339.96875,"right":734.328125,"bottom":375.96875},"hit":"scene","markerPointer":"auto","itemStatusPointer":"none","commandDelta":1},"audio":{"status":"running","played":5,"contextState":"running"},"requests":22,"errors":[],"scope":"author main/IDB/WebGL2/PC + trusted touch through objective/cancel + landscape/portrait; HTTP fixtures, software GPU, no physical phone/Auth/API evidence"}

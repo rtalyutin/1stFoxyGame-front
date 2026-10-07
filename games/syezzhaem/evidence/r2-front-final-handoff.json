@@ -1,0 +1,41 @@
+{
+  "handoff_schema": "FEATURE_HANDOFF/1",
+  "handoff_digest": "880ed9d2dc0004f39250f4a5c3739840cc1f9c4b37edf78b652dc787f5aa44e4",
+  "feature_id": "syezzhaem-r2",
+  "contract_revision": "R2-implementation-contract.md / accepted R2 scope; targeted objective touch interception fix",
+  "producer": "/root/r1_front",
+  "consumer": "/root + independent merged QA",
+  "artifact_revision": {
+    "build_id": "r2-route-001",
+    "sourceDigest": "61288a4239821a0224f31b7b0937497e176a1db69ae37673f90cfd462d2751d0",
+    "releaseManifestSha256": "86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9",
+    "verified_files": 70
+  },
+  "scope": "Frontend producer checks only: objective pointer-events fix, actual main/IDB/WebGL2 with fixture HTTP, browser-native emulated touch, retained interactive guide marker. No gameplay source changes in targeted fix.",
+  "evidence_status": "VERIFIED",
+  "gate_verdict": "PASS",
+  "action_decision": "CONTINUE",
+  "hypothesis_assessment": "NOT_ASSESSED",
+  "evidence": [
+    {
+      "path": "evidence/r2-front-final.log",
+      "provenance": "self-reported producer result from completed tool calls; captured stdout excerpts only, not complete raw log",
+      "combined_check_test_build_exit": 0,
+      "test_count": 51,
+      "test_count_provenance": "coordinator report; final tool capture omitted summary block",
+      "browser_exit": 0,
+      "browser_version": "153.0.8010.0",
+      "prepared_at": "2026-10-07T05:39:38.161013+00:00"
+    }
+  ],
+  "limitations": [
+    "HTTP session/RPC were author fixtures; no independent Auth/API certification",
+    "Software GPU, touch emulation; no hardware FPS or physical phone evidence",
+    "Per-event isTrusted not separately recorded",
+    "Latest build stdout capture was truncated; only available excerpts preserved"
+  ],
+  "next_action": "Independent QA on the exact 86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9 release manifest candidate",
+  "return_to": "/root/r1_front only for scoped frontend QA defects",
+  "operation_status": "NOT_STARTED",
+  "authorization_ref": "Parent requested evidence-only persistence; no source/build/runtime mutations"
+}

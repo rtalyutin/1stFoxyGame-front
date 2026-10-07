@@ -1,0 +1,64 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> syezzhaem-r1-front@1.0.0 test
+> node --import tsx --test tests/*.case.ts
+
+✔ initial snapshot round-trips and original blocks have stable unique identity (16.775238ms)
+✔ AT-01: a moving house block is transferred once and placed bridge stays in world space (54.061669ms)
+✔ AT-02: full inventory and invalid placement preserve all state (1.8719ms)
+✔ AT-03 partial: house stops before unsupported gap then whole R1 route is playable (87.19726ms)
+✔ AT-04 partial: removed chassis support has a recoverable countdown, distinct from floor removal (34.918325ms)
+✔ AT-16 movement partial: airborne velocity, platform carry and support countdown restore exactly (84.942067ms)
+✔ AT-26: repairing same floor cell preserves new ID and support, never original score (0.999245ms)
+✔ AT-28: bound target follows house-local cell and safely fails after deletion/replacement (0.835899ms)
+✔ snapshot validation rejects type, identity, reference, cell and conservation violations atomically (33.414676ms)
+✔ G-09: interaction ray cannot pass through the supporting floor (1.006185ms)
+✔ G-07/AT-02: placement cannot enter chassis, but removed house floor can be repaired (11.215984ms)
+✔ G-03: fixed obstacle blocks moving house, including a floating block above chassis (36.95936ms)
+✔ valid flight off the fixed map still saves and restores terminal position (7.998768ms)
+✔ fixed tick does not simulate wall-clock suspension and terminal outcome stays fixed (0.400343ms)
+✔ unknown checkpoint ACK survives reconstruction and retains immutable body/key before newer pending (14.290225ms)
+✔ terminal finish replaces pending checkpoint, survives dropped ACK and cannot be overwritten by autosave (21.545082ms)
+✔ promotion failure never sends; retry resumes the unchanged pending snapshot (10.78862ms)
+✔ ACK local transaction failure keeps immutable inflight even though server committed (6.318668ms)
+✔ conflict stops automatic sends; explicitly chosen local copy uses fresh CAS/key (6.454823ms)
+✔ holding an owner queue prevents requests; another owner cannot capture its record (5.002935ms)
+✔ two same-origin outboxes cannot promote two different requests for one durable pending (0.77649ms)
+✔ R2 intro freezes all simulation hazards until two actual reachable transfers; legacy is not relabeled (51.076694ms)
+✔ three materials transfer exact type, total cap applies, repair never restores original identity (18.786337ms)
+✔ AT-03: lava continues while house stops at a later gap, then resumes after bridge (478.98418ms)
+✔ AT-04: removing item floor clears exact support and starts falling, independent from house chassis timer (24.189135ms)
+✔ G-10: carry exactly one item, forbid block placement, require free actor destination (17.137323ms)
+✔ slime bounce uses data configuration and flight remains restorable (25.112545ms)
+✔ AT-05/16: saved armed fuse applies one explosion to each object, even after reload (34.034554ms)
+✔ AT-16: burning wood saves remaining ticks; stone never ignites and destruction preserves material budget (359.899486ms)
+✔ AT-06/27: lost cat does not lose run; portal player predicate and held-chest bonus are derived (3.781897ms)
+✔ AT-29: same-tick portal entry and fatal blast resolves only to loss and stays terminal (5.32435ms)
+✔ R2 validation rejects missing timer, resurrected identity, forged actor/reference and slot overfill (10.3901ms)
+✔ full 120-cell R2 route is completed with physical carry, bridge placement and live hazards, then restores score (1011.411078ms)
+✔ AT-04/16: R2 chassis warning uses saved ticks, restoration and repair before deadline save house (301.473112ms)
+✔ lava interval counters restore without duplicated HP tick and accurate terminal cause (396.781439ms)
+✔ AT-16: stone/slime seam landing is unchanged after sorted snapshot overrides (195.512239ms)
+✔ AT-16: damaged same-base override cannot reorder player or item support choice at a seam (138.637171ms)
+✔ explicit server B selection ignores local pending A and preserves A body/build (15.438143ms)
+✔ explicit local A selection retains its pending request although server active B differs (12.817346ms)
+✔ selected own terminal run is loaded explicitly rather than active other run (3.491419ms)
+✔ unavailable requested run never falls back to a different active or foreign local copy (7.818035ms)
+✔ initial transport has no overrides, immutable content reconstructed and input cleared (24.0931ms)
+✔ removed wall persists as tombstone; rebuilt cell gets UUID without original identity (8.708036ms)
+✔ flight preserves velocities and support-loss ticks; restored simulation stays deterministic (16.601817ms)
+✔ reject malformed overrides, unsupported features, minted material and wrong pinned build (17.314679ms)
+✔ terminal score is derived from surviving original IDs and ticks; loss score zero (2.637222ms)
+✔ R2 guided start uses two real safe wall-to-world transfers while timers wait (14.345297ms)
+✔ disabling hints releases only the UI guard and never fabricates completed tutorial cells (2.847099ms)
+✔ first real wall-to-bridge transfer is untimed, safe, and survives a fresh snapshot load (24.206982ms)
+✔ two guided blocks form a fixed bridge and carry the idle novice safely to the portal (1210.664708ms)
+✔ legacy content keeps its movement and 90-tick timer; mixed versions and relabeling are rejected (3.212028ms)
+ℹ tests 51
+ℹ suites 0
+ℹ pass 51
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3381.833074

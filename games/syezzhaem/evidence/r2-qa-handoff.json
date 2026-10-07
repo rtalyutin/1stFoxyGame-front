@@ -1,0 +1,330 @@
+{
+  "handoff_schema": "FEATURE_HANDOFF/1",
+  "handoff_digest": "880ed9d2dc0004f39250f4a5c3739840cc1f9c4b37edf78b652dc787f5aa44e4",
+  "feature_id": "syezzhaem-R2",
+  "contract_revision": 3,
+  "producer": "/root/onboarding_qa",
+  "consumer": "/root",
+  "artifact_revision": {
+    "build": "r2-route-001",
+    "manifest_sha256": "86e8c6a6885c4237a9d45109369041dd98a42c661251c678c824ebfd8d8a1db9",
+    "sourceDigest_supplied_by_producer": "61288a4239821a0224f31b7b0937497e176a1db69ae37673f90cfd462d2751d0",
+    "own_before": "ca7afbd5711be06fb53def1e59761f457e2796c66799895353ef0b1ca618947d",
+    "own_after": "ca7afbd5711be06fb53def1e59761f457e2796c66799895353ef0b1ca618947d",
+    "sourceStable": true
+  },
+  "inputs": {
+    "requirements": "/workspace/scratch/102b8cada1c3/r2-source-tz.md §§1,3.3,7,8.1",
+    "runtime_contract": "/workspace/scratch/102b8cada1c3/release-r2/R2-implementation-contract.md",
+    "producer_handoff": "/workspace/scratch/102b8cada1c3/release-r2/evidence/producer-to-qa.json"
+  },
+  "scope": {
+    "mode": "PARTIAL technical acceptance",
+    "planned": 22,
+    "actual": 22,
+    "reported": 22,
+    "counts": {
+      "PASS": 21,
+      "FAIL": 0,
+      "BLOCKED": 1
+    },
+    "supplemental": {
+      "actual": 5,
+      "PASS": 5
+    },
+    "ordinary_full_routes": "PC + emulated horizontal touch, no injected state/outcome/position or accelerated simulation clock",
+    "synthetic_edges": "Validated playing fixtures for timer/bonus/collider/seam/lifecycle boundaries; not full-route evidence"
+  },
+  "evidence_status": "VERIFIED within executed scope; background NOT_VERIFIED",
+  "gate_verdict": "BLOCKED",
+  "scope_gate_verdict": "PASS for observed technical scenarios excluding native background",
+  "action_decision": "CONTINUE",
+  "hypothesis_assessment": "NOT_ASSESSED",
+  "operation_status": "SUCCEEDED for scoped local QA; no deployment/publication operation",
+  "evidence": {
+    "cases": [
+      {
+        "id": "Q201",
+        "status": "PASS",
+        "observed": "Pinned R1-map1 native save/resume +6 immutable files; supplemental pinned R1-map2 native resume, actors[]/lava null legacy shape.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q202",
+        "status": "PASS",
+        "observed": "Populated original metadata unchanged; optional R2 typed EAV; held chest reference and 3 actors survived real SQL/API roundtrip.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q203",
+        "status": "PASS",
+        "observed": "Desktop/touch two real guided transfers; reload after take restored place step; tick/lava/mob held; cancel/pause caused no transfer.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q204",
+        "status": "PASS",
+        "observed": "Desktop genuine new server run reached distance120 with ordinary UI and ticks11077; player3/core70; native finish replay exactly once.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-full-routes"
+      },
+      {
+        "id": "Q205",
+        "status": "PASS",
+        "observed": "Touch genuine new server run reached distance120 with trusted native touches and ticks11077; player3/core70; native finish and independent score match.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-full-routes"
+      },
+      {
+        "id": "Q206",
+        "status": "PASS",
+        "observed": "Wood/stone/slime normal take/slot/place; cap12 and invalid occupied/player/chassis/remote cells preserve resources.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q207",
+        "status": "PASS",
+        "observed": "Original rebuild creates placed UUID/originalId null; stale support rejected; reach5.999/6/6.001 partitions confirmed.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q208",
+        "status": "PASS",
+        "observed": "One held actor; chest native pick/put/reload/UI pick; carry blocks place; actors never materials; heart unavailable.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q209",
+        "status": "PASS",
+        "observed": "Chest floor loss made chest land independently while house moved; current road loss used89/90-tick grace; repair prevented heart loss.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q210",
+        "status": "PASS",
+        "observed": "House waited at gap while lava advanced0.75 in60 ticks; full UI routes filled all gaps and resumed movement.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q211",
+        "status": "PASS",
+        "observed": "Wood180-tick removal, stone2-hit durability+181 contact-tick immunity, slime landing vy11.5; no external fire spread in partial-timer pairs.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q212",
+        "status": "PASS",
+        "observed": "Armed84 remains armed after escape; radius2.499/2.5/2.501; one effect; visible countdown and running WebAudio context with played cues.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q213",
+        "status": "PASS",
+        "observed": "Focused normal Space produced observed flight; pause/save/native readback/reload preserved position/velocity; clear keys; equal90-tick continuation.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q214",
+        "status": "PASS",
+        "observed": "Native burn remaining127/61/1 roundtrip and uninterrupted/reloaded continuation equal by keyed state.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q215",
+        "status": "PASS",
+        "observed": "Native fuse79/23/1 plus post-blast readback/retry; HP/damage/timer equal, no repeated blast; extra4 seam regressions PASS.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q216",
+        "status": "BLOCKED",
+        "observed": "PARTIAL: real touch portrait/landscape change during actual jump with armed mob paused fuse72/tick/input for1370ms and required resume. BLOCKED: headless native background/blur not observable.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q217",
+        "status": "PASS",
+        "observed": "Server score agreed with independent G14/G15 oracle for cat/chest ×house original/placed/held, shore, falling, destroyed; airborne portal player did not win.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q218",
+        "status": "PASS",
+        "observed": "Actual fuse1+heart30 at portal resolved lost first; native repeated finish score0/no bonuses.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q219",
+        "status": "PASS",
+        "observed": "8 malformed actor/cell/timer/held/material inputs rejected by ok:false VALIDATION_FAILED; revision/readback unchanged; other owner NOT_FOUND. API errors correctly use HTTP200 envelopes.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q220",
+        "status": "PASS",
+        "observed": "Two verified contexts same revision: one complete actor/material winner atN+1, one REVISION_CONFLICT; no mixed checkpoint.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      },
+      {
+        "id": "Q221",
+        "status": "PASS",
+        "observed": "Verified native checkpoint commit then lost ACK; immutable inflight key/body with newer actor/material pending, dedup row1. Actual route terminal offline→finish commit lost ACK→reopen exact retry, history row1.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-full-routes"
+      },
+      {
+        "id": "Q222",
+        "status": "PASS",
+        "observed": "Actual WebGL2 resources/limits/buffer; material words and markers visible at1280×800/844×390,DPR1; exact center under objective yielded trusted scene pointer and exactly1 command on both profiles.",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases"
+      }
+    ],
+    "supplemental": [
+      {
+        "id": "QA-R2-01-damaged-stone",
+        "status": "PASS",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-seams"
+      },
+      {
+        "id": "QA-R2-01-slime-stone-seam",
+        "status": "PASS",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-seams"
+      },
+      {
+        "id": "QA-R2-01-actor-damaged-stone",
+        "status": "PASS",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-seams"
+      },
+      {
+        "id": "QA-R2-01-actor-slime-stone-seam",
+        "status": "PASS",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-seams"
+      },
+      {
+        "id": "Q201-legacy-intro",
+        "status": "PASS",
+        "rawDirectory": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-legacy-intro"
+      }
+    ],
+    "profiles": [
+      {
+        "kind": "desktop",
+        "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+        "viewport": {
+          "w": 1280,
+          "h": 800
+        },
+        "dpr": 1,
+        "canvas": {
+          "cssW": 1280,
+          "cssH": 800,
+          "bufferW": 1280,
+          "bufferH": 800
+        },
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "limits": {
+          "texture": 8192,
+          "renderbuffer": 8192,
+          "viewport": [
+            8192,
+            8192
+          ]
+        }
+      },
+      {
+        "kind": "touch",
+        "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36",
+        "viewport": {
+          "w": 844,
+          "h": 390
+        },
+        "dpr": 1,
+        "canvas": {
+          "cssW": 844,
+          "cssH": 390,
+          "bufferW": 844,
+          "bufferH": 390
+        },
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "limits": {
+          "texture": 8192,
+          "renderbuffer": 8192,
+          "viewport": [
+            8192,
+            8192
+          ]
+        }
+      }
+    ],
+    "node": "v24.19.0",
+    "postgres_native": "18.4",
+    "chromium": "153.0.8010.0",
+    "renderer": "ANGLE/Vulkan SwiftShader; software",
+    "unexpected_browser_errors": 0,
+    "files_sha256": {
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases/results.json": "fec779717dbecba1aa114eadcc33125966077675e67f3c9ac5aaddefd48b359c",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases/summary.json": "7b2d84220649135fbedfde72ccb5ae97d3da6eb1fede26f78db791701454bc87",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases/fingerprint-before.json": "237463bc50e24c6a26842f63ae506d7942f7d346add7fc2de89e3c090e7020f4",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases/fingerprint-after.json": "e8ebc5ae110476bb60ff515f401730f54ab82bf7cb4a97987e7960c37d8cdbae",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases.log": "f392cbf020413c3cf0bc23e68de6d63a09b8e28e7a827ce73041ace330c91c4d",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-full-routes/results.json": "05c3aa5a672ff092ffcdc33113d897b9715422b5f12e72122721348a273793b1",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-full-routes/summary.json": "34b4724ed0538480219d493d8e242b27bfd6251806c582bdf10b1207ecde0ba9",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-full-routes/fingerprint-before.json": "237463bc50e24c6a26842f63ae506d7942f7d346add7fc2de89e3c090e7020f4",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-full-routes/fingerprint-after.json": "e8ebc5ae110476bb60ff515f401730f54ab82bf7cb4a97987e7960c37d8cdbae",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-full-routes.log": "d3540c210180ea9d48b4bc3f6597b7a10ee06a71879c697a35a28b587e052686",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-seams/results.json": "e99eb43f215627345b49ee376c29d63bc2a6b936086176dfab3a01a2368a1b73",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-seams/summary.json": "a60b2c796cb483e564ae73aa0566ac3cce917dd836b91f1c8a18232157199ea7",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-seams/fingerprint-before.json": "e8ebc5ae110476bb60ff515f401730f54ab82bf7cb4a97987e7960c37d8cdbae",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-seams/fingerprint-after.json": "e8ebc5ae110476bb60ff515f401730f54ab82bf7cb4a97987e7960c37d8cdbae",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-seams.log": "9d7a70f32a94094728d0dcbbcd3f871b353bce4d79ecb4166dd9f581bc5ed246",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-legacy-intro/results.json": "e3dda5524dba5b5658b4f1fbe4ce3dc8ed7dbce7d28c5af7fbbb2feb92a8353c",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-legacy-intro/summary.json": "db1fa2c5ea8e18a3b7c702d6e346f17047e0c9a919bfc87acdd0633fdcad703f",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-legacy-intro/fingerprint-before.json": "e8ebc5ae110476bb60ff515f401730f54ab82bf7cb4a97987e7960c37d8cdbae",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-legacy-intro/fingerprint-after.json": "e8ebc5ae110476bb60ff515f401730f54ab82bf7cb4a97987e7960c37d8cdbae",
+      "/workspace/scratch/102b8cada1c3/r2-qa/accepted-legacy-intro.log": "90ed0a5cc54245dcb0efd113f402b59603df1a99d67aab5c455b45b42b2df0ea",
+      "/workspace/scratch/102b8cada1c3/r2-qa/acceptance-cases.json": "4e0cf757a0fd11ee8659da1034cde937e7cb41111bf398ad923d6fbc3b3bf316",
+      "/workspace/scratch/102b8cada1c3/r2-qa/held-out.json": "f3ccbde4373f7198e13fbea5f752155696e42ef7c6c5b6ae6b1e598d67035f89",
+      "/workspace/scratch/102b8cada1c3/r2-qa/runtime.mjs": "e37c874b363deefaf9daa231666c715db6bac27df22900c3db6f73177f05d3a0",
+      "/workspace/scratch/102b8cada1c3/r2-qa/suite.mjs": "71fefb88443ddf567c05e8aec5e97170f3d080fd3dc8c6998a0688b2aa23cb83",
+      "/workspace/scratch/102b8cada1c3/r2-qa/route.mjs": "e0005d75c8e62bb782d0c760d4cb0780ca5e0321f6ee7a054cf77877d2d83781",
+      "/workspace/scratch/102b8cada1c3/r2-qa/browser-actions.mjs": "e12d6916c27c62a713fb71b9ad51337876d848a535bc063f38843d19b090a03c",
+      "/workspace/scratch/102b8cada1c3/r2-qa/oracles.mjs": "776d0d2923995d43dcff51652e1d3bb8eeb915994bc0b892bdd240128eea21a3",
+      "/workspace/scratch/102b8cada1c3/r2-qa/native.mjs": "8d0abf574b713da5895e3c08ad08fe95142cc25e36f19ad34d857a1881c6e844",
+      "/workspace/scratch/102b8cada1c3/r2-qa/checkpoint-fault.mjs": "03ee778113d518b0af0eaf8eaf222d46779dc7f4b3307a8661817fa327ef6033",
+      "/workspace/scratch/102b8cada1c3/r2-qa/orientation.mjs": "92ee6d7e0de45ef1f2e8436d8cd2f497c61d6586a5179815346c9ab951cd174a",
+      "/workspace/scratch/102b8cada1c3/r2-qa/run-r2.mjs": "048a2a60c031c762628f57b40ff5092879feb18f40b2a8ab9333bc8e2c698665",
+      "/workspace/scratch/102b8cada1c3/r2-qa/final-seams.mjs": "9d1d67851ab7570b44dcde33c3fb6916967e0a1aa220b86b9d5e4daacf790a0f",
+      "/workspace/scratch/102b8cada1c3/r2-qa/seam-recipes.mjs": "e6e414f93680ee0d2681faa108c7b7819a59174b60832d0121f073be9b7dd833",
+      "/workspace/scratch/102b8cada1c3/r2-qa/legacy-intro.mjs": "cd5d4f5c8ad0f03cdb845258cd8fb14c9bfd9acf7e9cbca4d5a11223e22fe264"
+    }
+  },
+  "defects": [
+    {
+      "id": "QA-R2-01",
+      "status": "RESOLVED",
+      "initial_manifest": "abace44656eb1584837a81df833c55747596f9d0abd57e2fd8ef9d8a7c74b286",
+      "initial_evidence": "/workspace/scratch/102b8cada1c3/r2-qa/candidate-native-seam/results.json",
+      "trigger": "Damaged same-base overrides reorder blocks after snapshot; seam landing changed support or slime bounce",
+      "before": "Slime seam uninterrupted vy11.5, native-restored vy0/support4",
+      "after": "All4 player+actor seam native save/readback continuations equal25 ticks",
+      "final_evidence": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-seams/results.json"
+    },
+    {
+      "id": "QA-R2-02",
+      "status": "RESOLVED",
+      "initial_evidence": "/workspace/scratch/102b8cada1c3/r2-qa/candidate-full-route/touch-route-stalled-input.png",
+      "trigger": "Noninteractive objective intercepted center touch on a visible slime block",
+      "before": "0 commands; objective over canvas at center",
+      "after": "PC/touch center hit scene with trusted pointer, exactly1 command, slime inventory+1",
+      "final_evidence": "/workspace/scratch/102b8cada1c3/r2-qa/accepted-cases/results.json"
+    }
+  ],
+  "exceptions": {
+    "Q216": "BLOCKED real native background/blur: tab activation, window minimize and lifecycle freeze/active + disabled focus emulation emitted no native hidden/blur in available headless channel; lifecycle-probe.json. Actual orientation+cleared inputs/frozen fuse verified.",
+    "physical_phone": "NOT_TESTED; touch is emulation",
+    "hardware_FPS_GPU_memory": "NOT_TESTED; no invented performance threshold",
+    "SMTP_delivery": "NOT_TESTED; actual Auth uses isolated verification-mail sink",
+    "VPS": "NOT_TESTED / not activated",
+    "user_subjective_reaction": "NOT_ASSESSED; no user/production outcome inferred"
+  },
+  "authorization_ref": "Delegated independent feature-delivery QA by /root, local disposable native PG/Auth/browser fixtures; writes only r2-qa; no release authorization from QA",
+  "next_action": "Coordinator review of scoped evidence and explicit Q216 background limitation; complete real background gate in a suitable channel before claiming full acceptance.",
+  "return_to": "/root"
+}
