@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#101919" />
     <meta name="description" content="Бесконечный путь. Пудж, ручной хук, стрелки и боссы с тремя метками." />
-    <title>Бесконечный путь · R3/R4</title>
+    <title>Бесконечный путь · R5</title>
   </head>
   <body>
     <main id="app">
       <canvas id="world" aria-label="Игровое поле. Движение A и D или стрелками, прицел мышью, хук левой кнопкой." tabindex="0"></canvas>
+      <canvas id="shop-world" aria-label="Предметная витрина. Выбери вещь касанием; осмотр вращается перетаскиванием. Кнопки выбора доступны ниже." tabindex="0" hidden></canvas>
+      <canvas id="workshop-world" aria-label="3D-мастерская. Касание производства выбирает его; касание наковальни подтверждает один ручной удар через сервер. Кнопки доступны ниже." tabindex="0" hidden></canvas>
       <header class="topbar">
-        <div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><span>БЕСКОНЕЧНЫЙ<br><strong>ПУТЬ</strong></span><span class="build-tag">R3/R4</span></div>
+        <div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><span>БЕСКОНЕЧНЫЙ<br><strong>ПУТЬ</strong></span><span class="build-tag">R5</span></div>
         <div class="connection" id="connection" role="status"><i></i><span>Подключение…</span></div>
         <button id="logout" class="secondary account-button" hidden>Выйти</button><button id="pause" class="icon-button" aria-label="Пауза" hidden>Ⅱ</button>
       </header>
@@ -33,8 +35,10 @@
           <h1 id="screen-title">ПУДЖ<span>Путь без права на промах</span></h1>
           <p id="screen-description">Не пропускай врагов и уклоняйся от пуль. Стрелку нужен один хук, боссу — три.</p>
           <div id="instructions" class="instructions"><div><b>01</b><span>Двигайся влево и вправо</span></div><div><b>02</b><span>Наведи крюк и атакуй вручную</span></div><div><b>03</b><span>Попадание пули, касание или пропуск — конец</span></div></div>
+          <div id="gallery-controls" class="shop-tabs" hidden><button id="gallery-left" class="secondary" aria-label="Повернуть героя влево">↶</button><button id="gallery-right" class="secondary" aria-label="Повернуть героя вправо">↷</button></div>
           <p id="account-status" class="account-status" role="status" hidden></p>
           <p id="error-message" class="error-message" role="alert" hidden></p>
+          <p id="offline-income" class="income-receipt" role="status" aria-live="polite" hidden></p>
           <form id="login-form" class="login-form" hidden>
             <label>Логин<input id="login" name="login" autocomplete="username" required maxlength="120"></label>
             <label>Пароль<input id="password" name="password" type="password" autocomplete="current-password" required maxlength="256"></label>
@@ -43,8 +47,25 @@
           </form>
           <section id="profile-panel" class="profile-panel" hidden>
             <h2>Постоянный запас</h2><p id="wallet"></p><p id="profile-stats" class="control-hint"></p>
+            <section id="shop-3d-controls" aria-label="Выбор, примерка и действия с вещью" hidden></section>
             <details id="equipment-panel"><summary>Экипировка и быстрые слоты</summary><div id="loadout"></div><div id="inventory"></div><p class="control-hint">Предметы меняют правила следующего каста. Внешность моделей сохранена.</p></details>
             <details id="craft-panel"><summary>Рецепты магазина</summary><div id="recipes"></div></details>
+          </section>
+          <button id="open-workshop" class="secondary" hidden>В мастерскую →</button>
+          <section id="workshop-panel" class="workshop-panel" aria-label="Мастерская" hidden>
+            <div class="workshop-totals"><div><span>ОБЩИЙ КОШЕЛЁК</span><strong id="workshop-wallet">—</strong></div><div><span>ПРОИЗВОДСТВО</span><strong id="workshop-rate">—</strong></div></div>
+            <p id="workshop-loading" class="control-hint" role="status" aria-live="polite">Загружаем серверную мастерскую…</p>
+            <div id="workshop-controls" hidden>
+              <button id="workshop-tap" class="primary workshop-tap" type="button">Удар по наковальне</button>
+              <p id="workshop-tap-status" class="control-hint" role="status" aria-live="polite"></p>
+              <h2>Производства</h2><p class="control-hint">Постоянные постройки работают в забеге и пока тебя нет.</p>
+              <div id="workshop-productions"></div>
+              <h2>Улучшения мастерской</h2><div id="workshop-upgrades"></div>
+              <p id="workshop-settlement" class="income-receipt" role="status" aria-live="polite" hidden></p>
+              <p id="workshop-policy" class="control-hint"></p>
+            </div>
+            <button id="workshop-refresh" class="secondary" type="button">Начислить доход и обновить</button>
+            <button id="workshop-return" class="secondary" type="button">Вернуться</button>
           </section>
           <p id="balance-preview-status" class="control-hint" role="status" aria-live="polite" hidden></p>
           <button id="reload-balance-preview" class="secondary" hidden>Обновить предпросмотр баланса</button>
@@ -56,7 +77,7 @@
           <button id="secondary" class="secondary" hidden>К началу</button>
           <p id="control-hint" class="control-hint desktop-only">A / D — движение · мышь — прицел · ЛКМ — хук · Esc — пауза · E — магазин · 1 / 2 — расходник</p>
           <p class="control-hint touch-only">Левая рука — движение. Правая — прицел.<br>Отпусти правый палец, чтобы бросить хук.</p>
-          <p class="slice-note" id="slice-note">R3/R4 · профиль хранится на сервере · нужен интернет</p>
+          <p class="slice-note" id="slice-note">R5 · профиль и мастерская хранятся на сервере · нужен интернет</p>
         </section>
       </div>
       <div id="countdown" class="countdown" role="status" aria-live="assertive" hidden></div>

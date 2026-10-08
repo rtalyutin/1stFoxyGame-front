@@ -6,6 +6,8 @@ public/models/r2/*.glb -text
 docs/models/r2/preview.png -text
 
 # Preserve exact R3/R4 delivery bytes.
+# Preserve bounded Runner 3D probe bytes when exported locally.
+public/models/runner-3d/*.glb -text
 assets/graphics/r3/** -text
 assets/graphics/r4/** -text
 assets/graphics/r3/ASSETS.csv whitespace=cr-at-eol
